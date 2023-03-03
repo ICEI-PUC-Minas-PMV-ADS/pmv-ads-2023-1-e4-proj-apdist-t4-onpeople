@@ -1,3 +1,7 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
+using OnPeople.API.Data;
+
 namespace OnPeople.API
 {
     public class Startup
@@ -12,11 +16,13 @@ namespace OnPeople.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddDbContext<DataContext>(
+                context => context.UseSqlite(Configuration.GetConnectionString("Default"))
+            );
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "OnPeople.API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "OnPeople.API", Version = "v1" });
             });
         }
 
@@ -35,6 +41,9 @@ namespace OnPeople.API
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseCors(x => x.AllowAnyHeader()
+                              .AllowAnyMethod()
+                              .AllowAnyOrigin());
 
             app.UseEndpoints(endpoints =>
             {
