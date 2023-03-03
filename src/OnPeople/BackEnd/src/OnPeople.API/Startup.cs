@@ -1,3 +1,5 @@
+using Microsoft.OpenApi.Models;
+
 namespace OnPeople.API
 {
     public class Startup
@@ -16,7 +18,7 @@ namespace OnPeople.API
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "OnPeople.API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "OnPeople.API", Version = "v1" });
             });
         }
 

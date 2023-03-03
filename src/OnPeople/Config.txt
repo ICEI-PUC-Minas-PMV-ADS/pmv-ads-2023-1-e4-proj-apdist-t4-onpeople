@@ -1,0 +1,5 @@
+.Net 6
+NODE 18.14.2
+NPM 9.5.0
+Visual Studio 2022
+Insomnia/Postman
