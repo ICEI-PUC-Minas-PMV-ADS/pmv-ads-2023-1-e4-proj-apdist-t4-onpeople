@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "QMGoDEtm62t0O9e4aTDkZDpsvpts2umm06DVcfpIEwado/crN7xzdIUyO+T5EZp4YNEKtxQfrlj379aDycTMSw==",
+  "dgSpecHash": "I3N4xcel68m/W9Ee24n3CscAcjGqRvmXTbUkD74Th9cpsNAjEguWPCGqrHnTrxmCXfGCJ9wLQ7zmdCmBmhzW5A==",
   "success": true,
-  "projectFilePath": "C:\\Users\\108093631\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\backend\\src\\onpeople.api\\OnPeople.API.csproj",
+  "projectFilePath": "C:\\Users\\108093631\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.API\\OnPeople.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\108093631\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\108093631\\.nuget\\packages\\microsoft.data.sqlite.core\\7.0.3\\microsoft.data.sqlite.core.7.0.3.nupkg.sha512",
