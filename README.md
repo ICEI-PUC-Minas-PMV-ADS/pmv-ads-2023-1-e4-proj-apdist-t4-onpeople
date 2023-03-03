@@ -2,9 +2,9 @@
 
 `CURSO: Analise e Desevolvimento Sistemas`
 
-`Eixo 4 - Projeto: Desenvolvimento de uma Aplicação Distribuída`
+`Projeto: Desenvolvimento de uma Aplicação Distribuída`
 
-`SEMESTRE`
+`Eixo 4 `
 
 O objetivo é desenvolver um sistema que auxilie diversas empresas na análise de crescimento e desenvolvimento de cada colaborador, criando metas e relatórios trimestrais com o intuito de trazer agilidade e simplicidade de informações, e assim, gerar um crescimento contínuo entre ambos.
 
