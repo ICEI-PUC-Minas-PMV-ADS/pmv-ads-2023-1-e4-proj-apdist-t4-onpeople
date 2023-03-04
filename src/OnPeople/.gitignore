@@ -197,6 +197,8 @@ PublishScripts/
 
 # NuGet Packages
 *.nupkg
+# font Packages
+*.pack
 # NuGet Symbol Packages
 *.snupkg
 # The packages folder can be ignored because of Package Restore
@@ -468,7 +470,6 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # Compiled output
@@ -501,7 +502,7 @@ yarn-error.log
 *.code-workspace
 
 # Miscellaneous
-/.angular/cache
+*.angular
 .sass-cache/
 /connect.lock
 /coverage
@@ -512,3 +513,4 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+*.db

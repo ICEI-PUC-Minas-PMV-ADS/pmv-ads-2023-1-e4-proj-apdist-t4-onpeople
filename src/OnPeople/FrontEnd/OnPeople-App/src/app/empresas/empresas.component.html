@@ -1,9 +1,50 @@
-<h2>Componentes Empresa</h2>
-
-<div *ngFor="let empresa of empresas">
-  <p>Nome Empresa ....: {{empresa.nomeEmpresa}}</p>
-  <p>Nome Fantasia ...: {{empresa.nomeFantasia}}</p>
-  <p>Sigla Empresa ...: {{empresa.siglaEmpresa}}</p>
-  <hr>
+<h1>Empresas</h1>
+<hr>
+<div class="form-group">
+  <div class="input-group mb-3">
+    <label class="input-group-text bg-primary">Filtro: </label>
+    <input
+      type="text"
+      class="form-control mr-2"
+      placeholder="buscar"
+      [(ngModel)]="filtroEmpresa">
+  </div>
 </div>
-
+<table class="table table-striped table-hover">
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nome Empresa</th>
+      <th scope="col">Nome Fantasia</th>
+      <th scope="col">Sigla</th>
+      <th scope="col">Ativa</th>
+      <th scope="col">Filial</th>
+      <th scope="col">Matriz</th>
+      <th scope="col">Opções</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="empresas && empresas.length">
+    <tr *ngFor="let empresa of empresasFiltradas">
+      <td>{{empresa.empresaId}}</td>
+      <td>{{empresa.nomeEmpresa}}</td>
+      <td>{{empresa.nomeFantasia}}</td>
+      <td>{{empresa.siglaEmpresa}}</td>
+      <td>{{empresa.ativa}}</td>
+      <td>{{empresa.filial}}</td>
+      <td>{{empresa.matrizId}}</td>
+      <td>
+        <button type="button" class="btn btn-outline-primary" tooltip="Editar">
+          <fa-icon [icon]="pencilIcon"></fa-icon>
+        </button>
+        <button type="button" class="btn btn-outline-danger" tooltip="Excluir">
+          <fa-icon [icon]="trashIcon"></fa-icon>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <td *ngIf="!empresas.length" colspan="8" class="text-center">
+      <h4>Nenhuma empresa encontrada!</h4>
+    </td>
+  </tfoot>
+</table>
