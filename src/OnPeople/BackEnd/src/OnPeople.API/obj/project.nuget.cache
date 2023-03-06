@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "V2AMZJGsS+nxQh493Cf+l1ASFnfk5jgbEAhnzT1s8dIh8PENlYJSZZxTaIKow1ATCD7PmNpCXSsUFW4wHRilJA==",
+  "dgSpecHash": "+c8GIcPJ773OVLZBc+B7saTVHdBlyxtSmnHnhv8MApUeAAseMpiPAXM8gpyMyX8vmlm7y3cwmMMlzmxZoYlKjQ==",
   "success": true,
-  "projectFilePath": "c:\\Users\\108093631\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.API\\OnPeople.API.csproj",
+  "projectFilePath": "C:\\Users\\108093631\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.API\\OnPeople.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\108093631\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\108093631\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
