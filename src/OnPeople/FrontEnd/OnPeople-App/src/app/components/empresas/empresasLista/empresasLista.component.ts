@@ -1,6 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Router } from '@angular/router';
 
-import { faTrash, faPencil } from '@fortawesome/free-solid-svg-icons'
+import { faTrash, faPlusSquare } from '@fortawesome/free-solid-svg-icons'
 
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
@@ -20,8 +21,8 @@ import { EmpresasService } from 'src/app/services/empresas/Empresas.service';
 export class EmpresasListaComponent implements OnInit {
   public modalRef?: BsModalRef;
 
-  public trashIcon = faTrash;
-  public pencilIcon = faPencil
+  public excluirIcon = faTrash;
+  public novoIcon = faPlusSquare
 
   public empresas: Empresa[] = [];
   public empresasFiltradas: Empresa[] = []
@@ -46,7 +47,9 @@ export class EmpresasListaComponent implements OnInit {
     )
   }
 
-  constructor(private empresasService: EmpresasService,
+  constructor(
+    private router: Router,
+    private empresasService: EmpresasService,
     private modalService: BsModalService,
     public toastrService: ToastrService,
     private spinner: NgxSpinnerService) { }
@@ -81,4 +84,7 @@ export class EmpresasListaComponent implements OnInit {
     this.modalRef?.hide();
   }
 
+  public detalheEmpresa(id: number): void {
+    this.router.navigate([`empresas/detalhe/${id}`])
+  }
 }

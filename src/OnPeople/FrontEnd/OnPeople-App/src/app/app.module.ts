@@ -8,7 +8,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgbTooltipModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltipModule} from '@ng-bootstrap/ng-bootstrap';
+
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 import { ModalModule } from 'ngx-bootstrap/modal';
 
@@ -20,21 +22,33 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { CabecalhoTelaComponent } from './components/shared/cabecalhoTela/cabecalhoTela.component';
+import { ContaCadastroComponent } from './components/contas/contaCadastro/contaCadastro.component';
+import { ContaLoginComponent } from './components/contas/contaLogin/contaLogin.component';
 import { ContasComponent } from './components/contas/contas.component';
+import { DateTimeFormatPipe } from './helpers/DateTimeFormat/DateTimeFormat.pipe';
+import { EmpresasComponent } from './components/empresas/empresas.component';
+import { EmpresasDetalheComponent } from './components/empresas/empresasDetalhe/empresasDetalhe.component';
+import { EmpresasListaComponent } from './components/empresas/empresasLista/empresasLista.component';
 import { EmpresasService } from './services/empresas/Empresas.service';
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
-import { EmpresasListaComponent } from './components/empresas/empresasLista/empresasLista.component';
-import { EmpresasComponent } from './components/empresas/empresas.component';
-import { DateTimeFormatPipe } from './helpers/DateTimeFormat/DateTimeFormat.pipe';
+import { ContaPerfilComponent } from './components/contas/contaPerfil/contaPerfil.component';
+import { ContaPerfilDetalheComponent } from './components/contas/contaPerfil/contaPerfilDetalhe/contaPerfilDetalhe.component';
+import { ContaPerfilSenhaComponent } from './components/contas/contaPerfil/contaPerfilSenha/contaPerfilSenha.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     CabecalhoTelaComponent,
+    ContaCadastroComponent,
+    ContaLoginComponent,
+    ContaPerfilComponent,
+    ContaPerfilDetalheComponent,
+    ContaPerfilSenhaComponent,
     ContasComponent,
     DateTimeFormatPipe,
     EmpresasComponent,
+    EmpresasDetalheComponent,
     EmpresasListaComponent,
     NavbarComponent,
    ],
@@ -49,7 +63,7 @@ import { DateTimeFormatPipe } from './helpers/DateTimeFormat/DateTimeFormat.pipe
     HttpClientModule,
     ModalModule.forRoot(),
     NgbTooltipModule,
-    NgbModule,
+    TabsModule.forRoot(),
     NgxSpinnerModule,
     ToastrModule.forRoot({
       timeOut: 3000,

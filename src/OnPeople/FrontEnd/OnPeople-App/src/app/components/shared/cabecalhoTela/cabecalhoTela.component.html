@@ -1,4 +1,4 @@
-<div class="d-flex p-2 mt-1 text-white bg-primary rounded shdow-sw">
+<div class="d-flex p-2 mt-1 text-white bg-primary rounded shdow-sw" *ngIf="showCabecalho()">
   <div class="d-flex align-items-center">
     <fa-icon [icon]="iconCabecalho">iconCabecalho</fa-icon>
     <div class="lh-1">
@@ -15,7 +15,7 @@
       </div>
     </ng-container>
   </div>
-  <div  class="p-2 ms-auto mt-1">
+  <div  class="p-2 ms-auto mt-1" *ngIf="botaoListar">
     <button class="btn btn-outline-light" (click)="listar()">Listar {{titulo}}</button>
   </div>
 </div>
