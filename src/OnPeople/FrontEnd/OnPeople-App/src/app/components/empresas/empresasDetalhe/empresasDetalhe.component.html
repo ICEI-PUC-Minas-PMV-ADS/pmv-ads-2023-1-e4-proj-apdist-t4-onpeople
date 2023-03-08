@@ -1,1 +1,94 @@
-<p>empresa-detalhe works!</p>
+<div class="card rounded shadow-sm p-1 bg-light">
+  <div class="card-header text-center text-white bg-info">
+    <div class="h3">Formulário de Empresas</div>
+  </div>
+  <div class="card-body bg-white">
+    <form class="row" [formGroup]="form">
+<!--
+      <p>Form Value: {{form.value | json}}</p>
+      <p>Form Status: {{form.status | json}}</p>
+-->
+      <div class="h4 border-bottom" >Dados Empresa: </div>
+      <div class="form-row d-md-flex">
+        <div class="form-group col-md-6 p-1">
+          <label>Empresa</label>
+          <input type="text" class="form-control" placeholder="Nome da Empresa" formControlName="nomeEmpresa" [ngClass]="validarCampo(f.nomeEmpresa)">
+          <div class="invalid-feedback">{{retornarValidacao(f.nomeEmpresa, "")}}</div>
+        </div>
+        <div class="form-group col-md-6 p-1">
+          <label>Nome Fantasia</label>
+          <input type="text" class="form-control" placeholder="Nome Fantasia da Empresa" formControlName="nomeFantasia" [ngClass]="validarCampo(f.nomeEmpresa)">
+          <div class="invalid-feedback">{{retornarValidacao(f.nomeFantasia, "")}}</div>
+        </div>
+      </div>
+      <div class="form-row d-md-flex">
+        <div class="form-group col-md-3 p-1">
+          <label>Sigla</label>
+          <input type="text" class="form-control" placeholder="Sigla da Empresa" formControlName="sigla" [ngClass]="validarCampo(f.sigla)">
+          <div class="invalid-feedback">{{retornarValidacao(f.sigla, "")}}</div>
+        </div>
+        <div class="form-group col-md-3 p-1">
+          <label>Ativa</label>
+          <select class="form-select form-control" fomrControlName="ativa" [ngClass]="validarCampo(f.ativa)">
+            <option value=1>Sim</option>
+            <option value=2>Não</option>
+          </select>
+          <div class="invalid-feedback">{{retornarValidacao(f.ativa, "")}}</div>
+        </div>
+        <div class="form-group col-md-3 p-1">
+          <label>Data Cadastro</label>
+          <input type="text" class="form-control" placeholder="Data de cadastro" formControlName="dataCadastro" [ngClass]="validarCampo(f.dataCadastro)">
+          <div class="invalid-feedback">{{retornarValidacao(f.dataCadastro, "")}}</div>
+        </div>
+        <div class="form-group col-md-3 p-1">
+          <label>Data Desativação</label>
+          <input type="text" class="form-control" placeholder="Data desativação" formControlName="dataDesativacao" [ngClass]="validarCampo(f.dataDesativacao)">
+          <div class="invalid-feedback">{{retornarValidacao(f.dataDesativacao, "")}}</div>
+        </div>
+      </div>
+      <div class="form-row d-md-flex">
+        <div class="form-group col-md-3 p-1">
+          <label>Possui Filial?</label>
+          <select class="form-select form-control" fomrControlName="filial" [ngClass]="validarCampo(f.filial)">
+            <option value=1>Sim</option>
+            <option value=2>Não</option>
+          </select>
+          <div class="invalid-feedback">{{retornarValidacao(f.filial, "")}}</div>
+        </div>
+        <div class="form-group col-md-5 p-1">
+          <label>Matriz</label>
+          <select class="form-select form-control" fomrControlName="matriz" [ngClass]="validarCampo(f.matriz)">
+            <option value=1>Xing Ling International Corporation</option>
+          </select>
+          <div class="invalid-feedback">{{retornarValidacao(f.matriz, "")}}</div>
+        </div>
+        <div class="form-group col-md-4 p-1">
+          <label>Presidente</label>
+          <select class="form-select form-control" fomrControlName="presidente" [ngClass]="validarCampo(f.presidente)">
+            <option value=1>Bella Damião</option>
+          </select>
+          <div class="invalid-feedback">{{retornarValidacao(f.presidente, "")}}</div>
+        </div>
+      </div>
+      <div class="card-footer bg-white  ">
+        <div class="d-flex ">
+          <button class="btn btn-danger ms-auto mx-1" (click)="limparFormulario()">
+            Cancelar
+          </button>
+          <button class="btn btn-info mx-1 px-4" [disabled]="!form.valid" (click)="salvarAlteracao()">
+            Salvar
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<ngx-spinner type="ball-scale-multiple"
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="blue"
+  >
+<p style="font-size:20px; color: white;">Carregando...</p>
+</ngx-spinner>
+

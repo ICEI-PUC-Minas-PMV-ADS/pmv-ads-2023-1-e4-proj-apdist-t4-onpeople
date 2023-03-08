@@ -12,4 +12,7 @@ export class ContaLoginComponent implements OnInit {
   ngOnInit() {
   }
 
+  public login(): void {
+
+  }
 }

@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { faBuilding, faBinoculars, faUsersViewfinder } from '@fortawesome/free-solid-svg-icons'
+
+import { faBuilding, faUsersViewfinder } from '@fortawesome/free-solid-svg-icons'
 @Component({
   selector: 'app-cabecalhoTela',
   templateUrl: './cabecalhoTela.component.html',

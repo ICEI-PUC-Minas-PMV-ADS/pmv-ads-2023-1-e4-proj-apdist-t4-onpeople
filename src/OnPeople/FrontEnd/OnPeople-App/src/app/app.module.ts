@@ -1,6 +1,6 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 
@@ -24,16 +24,16 @@ import { AppComponent } from './app.component';
 import { CabecalhoTelaComponent } from './components/shared/cabecalhoTela/cabecalhoTela.component';
 import { ContaCadastroComponent } from './components/contas/contaCadastro/contaCadastro.component';
 import { ContaLoginComponent } from './components/contas/contaLogin/contaLogin.component';
+import { ContaPerfilComponent } from './components/contas/contaPerfil/contaPerfil.component';
+import { ContaPerfilDetalheComponent } from './components/contas/contaPerfil/contaPerfilDetalhe/contaPerfilDetalhe.component';
+import { ContaPerfilSenhaComponent } from './components/contas/contaPerfil/contaPerfilSenha/contaPerfilSenha.component';
 import { ContasComponent } from './components/contas/contas.component';
-import { DateTimeFormatPipe } from './helpers/DateTimeFormat/DateTimeFormat.pipe';
+import { DateTimeFormatPipe } from './helpers/pipe/DateTimeFormat/DateTimeFormat.pipe';
 import { EmpresasComponent } from './components/empresas/empresas.component';
 import { EmpresasDetalheComponent } from './components/empresas/empresasDetalhe/empresasDetalhe.component';
 import { EmpresasListaComponent } from './components/empresas/empresasLista/empresasLista.component';
 import { EmpresasService } from './services/empresas/Empresas.service';
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
-import { ContaPerfilComponent } from './components/contas/contaPerfil/contaPerfil.component';
-import { ContaPerfilDetalheComponent } from './components/contas/contaPerfil/contaPerfilDetalhe/contaPerfilDetalhe.component';
-import { ContaPerfilSenhaComponent } from './components/contas/contaPerfil/contaPerfilSenha/contaPerfilSenha.component';
 
 
 @NgModule({
@@ -63,8 +63,9 @@ import { ContaPerfilSenhaComponent } from './components/contas/contaPerfil/conta
     HttpClientModule,
     ModalModule.forRoot(),
     NgbTooltipModule,
-    TabsModule.forRoot(),
     NgxSpinnerModule,
+    ReactiveFormsModule,
+    TabsModule.forRoot(),
     ToastrModule.forRoot({
       timeOut: 3000,
       positionClass: 'toast-bottom-right',
