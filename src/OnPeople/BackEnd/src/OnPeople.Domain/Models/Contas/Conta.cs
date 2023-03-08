@@ -12,6 +12,7 @@ namespace OnPeople.Domain.Models.Contas
         public DateTime? DataEncerramento { get; set; }
         public Boolean Ativa { get; set; }
         IEnumerable<ContaFuncao> ContasFuncoes {get; set;}
-        IEnumerable<Empresa> Empresas {get; set;}
+        public int EmpresaId { get; set; }
+        public Empresa Empresas {get; set;}
     }
 }

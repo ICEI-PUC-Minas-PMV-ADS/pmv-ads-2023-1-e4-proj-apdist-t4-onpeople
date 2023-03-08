@@ -1,8 +1,8 @@
 
 
 using Microsoft.AspNetCore.Mvc;
+using OnPeople.Application.Dtos.Empresas;
 using OnPeople.Application.Services.Contracts.Empresas;
-using OnPeople.Domain.Models.Empresas;
 
 namespace OnPeople.API.Controllers.Empresas;
 
@@ -24,7 +24,7 @@ public class EmpresasController : ControllerBase
         {
             var empresas = await _empresasServices.GetAllEmpresasAsync();
 
-            if (empresas == null) return NotFound("Nenhuma empresa encontrada.");
+            if (empresas == null) return NoContent();
 
             return Ok(empresas);
         }
@@ -42,7 +42,7 @@ public class EmpresasController : ControllerBase
         {
             var empresa = await _empresasServices.GetEmpresaByIdAsync(id);
 
-            if (empresa == null) return NotFound("Empresa por Id não encontrada.");
+            if (empresa == null) return NoContent();
 
             return Ok(empresa);
         }
@@ -60,7 +60,7 @@ public class EmpresasController : ControllerBase
         {
             var empresas = await _empresasServices.GetAllEmpreasByArgumentoAsync(argumento);
 
-            if (empresas == null) return NotFound("Empresas por argumento não encontrada.");
+            if (empresas == null) return NoContent();
 
             return Ok(empresas);
         }
@@ -78,7 +78,7 @@ public class EmpresasController : ControllerBase
         {
             var empresas = await _empresasServices.GetAllEmpresasAtivasAsync();
 
-            if (empresas == null) return NotFound("Empresas ativas não encontrada.");
+            if (empresas == null) return NoContent();
 
             return Ok(empresas);
         }
@@ -96,7 +96,7 @@ public class EmpresasController : ControllerBase
         {
             var empresas = await _empresasServices.GetAllEmpresasFiliaisAsync();
 
-            if (empresas == null) return NotFound("Empresas filiais não encontrada.");
+            if (empresas == null) return NoContent();
 
             return Ok(empresas);
         }
@@ -108,15 +108,15 @@ public class EmpresasController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateEmpresa(Empresa empresa)
+    public async Task<IActionResult> CreateEmpresa(EmpresaDto empresaDto)
     {
         try
         {
-            var createdEmpresa = await _empresasServices.CreateEmpresas(empresa);
+            var createdEmpresa = await _empresasServices.CreateEmpresas(empresaDto);
 
             if (createdEmpresa != null) return Ok(createdEmpresa);
 
-            return BadRequest("Empresa não casdastrada, tente novamente.");
+            return NoContent();
         }
         catch (Exception e)
         {
@@ -125,13 +125,13 @@ public class EmpresasController : ControllerBase
     }    
     
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateEmpresa(int id, Empresa model)
+    public async Task<IActionResult> UpdateEmpresa(int id, EmpresaDto empresaDto)
     {
         try
         {
-            var empresa  = await _empresasServices.UpdateEmpresas(id, model);
+            var empresa  = await _empresasServices.UpdateEmpresas(id, empresaDto);
 
-            if (empresa == null) return BadRequest("Erro ao atualizar empresa.");
+            if (empresa == null) return NoContent();
 
             return Ok(empresa);
         }

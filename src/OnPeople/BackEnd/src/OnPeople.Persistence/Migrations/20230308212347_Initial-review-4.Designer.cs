@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnPeople.Persistence.Interfaces.Contexts;
 
@@ -10,9 +11,11 @@ using OnPeople.Persistence.Interfaces.Contexts;
 namespace OnPeople.Persistence.Migrations
 {
     [DbContext(typeof(OnPeopleContext))]
-    partial class OnPeopleContextModelSnapshot : ModelSnapshot
+    [Migration("20230308212347_Initial-review-4")]
+    partial class Initialreview4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.3");

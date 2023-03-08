@@ -17,7 +17,7 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Empresas
         public async Task<IEnumerable<Empresa>> GetAllEmpresasAsync()
         {
             IQueryable<Empresa> query = _context.Empresas
-                .Include(e => e.EmpresasContas)
+                .Include(e => e.Contas)
                 .Include(e => e.Departamentos);
 
             query = query
@@ -30,7 +30,7 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Empresas
         public async Task<IEnumerable<Empresa>> GetAllEmpresasAtivasAsync()
         {
             IQueryable<Empresa> query = _context.Empresas 
-                .Include(e => e.EmpresasContas)
+                .Include(e => e.Contas)
                 .Include(e => e.Departamentos);
 
             query = query
@@ -44,7 +44,7 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Empresas
         public async Task<IEnumerable<Empresa>> GetAllEmpresasFiliaisAsync()
         {
             IQueryable<Empresa> query = _context.Empresas
-                .Include(e => e.EmpresasContas)
+                .Include(e => e.Contas)
                 .Include(e => e.Departamentos);
 
             query = query
@@ -58,7 +58,7 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Empresas
         public async Task<IEnumerable<Empresa>> GetAllEmpresasByArgumentoAsync(string argumento)
         {
             IQueryable<Empresa> query = _context.Empresas                
-                .Include(e => e.EmpresasContas)
+                .Include(e => e.Contas)
                 .Include(e => e.Departamentos);
 
             query = query
@@ -75,7 +75,7 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Empresas
         public async Task<Empresa> GetEmpresaByIdAsync(int id)
         {
             IQueryable<Empresa> query = _context.Empresas
-                .Include(e => e.EmpresasContas)
+                .Include(e => e.Contas)
                 .Include(e => e.Departamentos);
 
             query = query

@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+
 using OnPeople.Application.Services.Contracts.Empresas;
 using OnPeople.Application.Services.Implementations.Empresas;
 using OnPeople.Persistence.Interfaces.Contexts;
@@ -31,6 +32,9 @@ namespace OnPeople.API
                     // Eliminar loop infinito da estrutura
                     .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = 
                         Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
+            //InjeÇão do mapeamento automático de canpos (DTO)
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             //InjeÇão dos serviços de persistencias
             services.AddScoped<IEmpresasServices, EmpresasServices>();

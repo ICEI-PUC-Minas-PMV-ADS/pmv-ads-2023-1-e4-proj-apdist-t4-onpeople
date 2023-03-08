@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnPeople.Persistence.Interfaces.Contexts;
 
@@ -10,9 +11,11 @@ using OnPeople.Persistence.Interfaces.Contexts;
 namespace OnPeople.Persistence.Migrations
 {
     [DbContext(typeof(OnPeopleContext))]
-    partial class OnPeopleContextModelSnapshot : ModelSnapshot
+    [Migration("20230308193248_Initial-review-3")]
+    partial class Initialreview3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.3");
@@ -57,9 +60,6 @@ namespace OnPeople.Persistence.Migrations
                     b.Property<DateTime?>("DataEncerramento")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("EmpresaId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Foto")
                         .HasColumnType("TEXT");
 
@@ -70,8 +70,6 @@ namespace OnPeople.Persistence.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("EmpresaId");
 
                     b.ToTable("Contas");
                 });
@@ -461,17 +459,6 @@ namespace OnPeople.Persistence.Migrations
                     b.Navigation("Departamento");
                 });
 
-            modelBuilder.Entity("OnPeople.Domain.Models.Contas.Conta", b =>
-                {
-                    b.HasOne("OnPeople.Domain.Models.Empresas.Empresa", "Empresas")
-                        .WithMany("Contas")
-                        .HasForeignKey("EmpresaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Empresas");
-                });
-
             modelBuilder.Entity("OnPeople.Domain.Models.Contas.ContaFuncao", b =>
                 {
                     b.HasOne("OnPeople.Domain.Models.Contas.Conta", "Conta")
@@ -511,7 +498,7 @@ namespace OnPeople.Persistence.Migrations
                         .IsRequired();
 
                     b.HasOne("OnPeople.Domain.Models.Empresas.Empresa", "Empresas")
-                        .WithMany()
+                        .WithMany("EmpresasContas")
                         .HasForeignKey("EmpresaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -626,9 +613,9 @@ namespace OnPeople.Persistence.Migrations
 
             modelBuilder.Entity("OnPeople.Domain.Models.Empresas.Empresa", b =>
                 {
-                    b.Navigation("Contas");
-
                     b.Navigation("Departamentos");
+
+                    b.Navigation("EmpresasContas");
                 });
 
             modelBuilder.Entity("OnPeople.Domain.Models.Funcionarios.Funcionario", b =>

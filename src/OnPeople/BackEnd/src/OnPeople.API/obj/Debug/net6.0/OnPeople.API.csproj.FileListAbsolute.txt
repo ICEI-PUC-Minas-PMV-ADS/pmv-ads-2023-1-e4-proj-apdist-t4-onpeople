@@ -123,3 +123,5 @@ C:\Users\108093631\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\sr
 C:\Users\108093631\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\onpeople.api\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\108093631\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\onpeople.api\bin\Debug\net6.0\Newtonsoft.Json.dll
 C:\Users\108093631\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\onpeople.api\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
+C:\Users\108093631\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.API\bin\Debug\net6.0\AutoMapper.dll
+C:\Users\108093631\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.API\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

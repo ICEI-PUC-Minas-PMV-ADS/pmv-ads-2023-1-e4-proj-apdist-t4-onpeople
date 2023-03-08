@@ -1,16 +1,16 @@
-using OnPeople.Domain.Models.Empresas;
+using OnPeople.Application.Dtos.Empresas;
 
 namespace OnPeople.Application.Services.Contracts.Empresas
 {
     public interface IEmpresasServices
     {
-        Task<Empresa> CreateEmpresas(Empresa model);
-        Task<Empresa> UpdateEmpresas(int id, Empresa model);
+        Task<EmpresaDto> CreateEmpresas(EmpresaDto empresaDto);
+        Task<EmpresaDto> UpdateEmpresas(int id, EmpresaDto empresaDto);
         Task<bool> DeleteEmpresas(int id);
-        Task<Empresa> GetEmpresaByIdAsync(int id);
-        Task<IEnumerable<Empresa>> GetAllEmpresasAsync();
-        Task<IEnumerable<Empresa>> GetAllEmpreasByArgumentoAsync(string argumento);
-        Task<IEnumerable<Empresa>> GetAllEmpresasAtivasAsync();
-        Task<IEnumerable<Empresa>> GetAllEmpresasFiliaisAsync();
+        Task<EmpresaDto> GetEmpresaByIdAsync(int id);
+        Task<IEnumerable<EmpresaDto>> GetAllEmpresasAsync();
+        Task<IEnumerable<EmpresaDto>> GetAllEmpreasByArgumentoAsync(string argumento);
+        Task<IEnumerable<EmpresaDto>> GetAllEmpresasAtivasAsync();
+        Task<IEnumerable<EmpresaDto>> GetAllEmpresasFiliaisAsync();
     }
 }

@@ -1,3 +1,5 @@
+using AutoMapper;
+using OnPeople.Application.Dtos.Contas;
 using OnPeople.Application.Services.Contracts.Contas;
 using OnPeople.Domain.Models.Contas;
 using OnPeople.Persistence.Interfaces.Contracts.Contas;
@@ -9,22 +11,29 @@ namespace OnPeople.Application.Services.Implementations.Contas
     {
         private readonly ISharedPersistence _sharedPersistence;
         private readonly IContasPersistence _contasPersistence;
+        private readonly IMapper _mapper;
         public ContasServices(
             ISharedPersistence sharedPersistence,
-            IContasPersistence contasPersistence)
+            IContasPersistence contasPersistence
+,            IMapper mapper)
         {
             _contasPersistence = contasPersistence;
             _sharedPersistence = sharedPersistence;
+            _mapper = mapper;
         }        
-        public async Task<Conta> CreateContas(Conta model)
+        public async Task<ContaDto> CreateContas(ContaDto contaDto)
         {
             try
             {
-                _sharedPersistence.Create<Conta>(model);
+                var contaMapper = _mapper.Map<Conta>(contaDto);
+
+                _sharedPersistence.Create<Conta>(contaMapper);
 
                 if (await _contasPersistence.SaveChangesAsync())
                 {
-                    return await _contasPersistence.GetContaByIdAsync(model.Id);
+                    var contaRetorno = await _contasPersistence.GetContaByIdAsync(contaMapper.Id);
+                    
+                    return _mapper.Map<ContaDto>(contaRetorno);
                 }
 
                 return null;
@@ -54,7 +63,7 @@ namespace OnPeople.Application.Services.Implementations.Contas
                 throw new Exception(e.Message);
             }
         }
-         public async Task<IEnumerable<Conta>> GetAllContasAtivasAsync()
+         public async Task<IEnumerable<ContaDto>> GetAllContasAtivasAsync()
         {
             try
             {
@@ -62,7 +71,7 @@ namespace OnPeople.Application.Services.Implementations.Contas
 
                 if (contas == null) return null;
 
-                return contas;
+                return _mapper.Map<ContaDto[]>(contas);
             }
             catch (Exception e)
             {
@@ -71,7 +80,7 @@ namespace OnPeople.Application.Services.Implementations.Contas
             }
         }
 
-        public async Task<IEnumerable<Conta>> GetAllContasByArgumentoAsync(string argumento)
+        public async Task<IEnumerable<ContaDto>> GetAllContasByArgumentoAsync(string argumento)
         {
             try
             {
@@ -79,7 +88,7 @@ namespace OnPeople.Application.Services.Implementations.Contas
 
                 if (contas == null) return null;
 
-                return contas;
+                return _mapper.Map<ContaDto[]>(contas);
             }
             catch (Exception e)
             {
@@ -88,24 +97,7 @@ namespace OnPeople.Application.Services.Implementations.Contas
             }
         }
 
-        public async Task<Conta> GetContaByIdAsync(int id)
-        {
-            try
-            {
-                var contas = await _contasPersistence.GetContaByIdAsync(id);
-
-                if (contas == null) return null;
-
-                return contas;
-            }
-            catch (Exception e)
-            {
-                
-                throw new Exception(e.Message);
-            }
-        }
-
-        public async Task<Conta> UpdateContas(int id, Conta model)
+        public async Task<ContaDto> GetContaByIdAsync(int id)
         {
             try
             {
@@ -113,13 +105,32 @@ namespace OnPeople.Application.Services.Implementations.Contas
 
                 if (conta == null) return null;
 
-                model.Id = conta.Id;
+                return _mapper.Map<ContaDto>(conta);
+            }
+            catch (Exception e)
+            {
+                
+                throw new Exception(e.Message);
+            }
+        }
 
-                _contasPersistence.Update(model);
+        public async Task<ContaDto> UpdateContas(int id, ContaDto contaDto)
+        {
+            try
+            {
+                var conta = await _contasPersistence.GetContaByIdAsync(id);
+
+                if (conta == null) return null;
+
+                var contaUpdate = _mapper.Map<Conta>(contaDto);
+
+                _contasPersistence.Update(contaUpdate);
 
                 if (await _sharedPersistence.SaveChangesAsync())
                 {
-                    return await _contasPersistence.GetContaByIdAsync(model.Id);
+                    var contaRetorno = await _contasPersistence.GetContaByIdAsync(contaUpdate.Id);
+
+                    return _mapper.Map<ContaDto>(contaRetorno);
                 }
 
                 return null;
