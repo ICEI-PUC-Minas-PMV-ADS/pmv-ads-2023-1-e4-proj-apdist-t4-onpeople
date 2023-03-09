@@ -11,8 +11,8 @@ using OnPeople.Persistence.Interfaces.Contexts;
 namespace OnPeople.Persistence.Migrations
 {
     [DbContext(typeof(OnPeopleContext))]
-    [Migration("20230308212347_Initial-review-4")]
-    partial class Initialreview4
+    [Migration("20230309092114_Initial-review-1")]
+    partial class Initialreview1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -170,18 +170,25 @@ namespace OnPeople.Persistence.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("NomeEmpresa")
+                        .IsRequired()
+                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("NomeFantasia")
+                        .IsRequired()
+                        .HasMaxLength(20)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PadraoEmail")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("PresidenteId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Sigla")
+                        .IsRequired()
+                        .HasMaxLength(7)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");

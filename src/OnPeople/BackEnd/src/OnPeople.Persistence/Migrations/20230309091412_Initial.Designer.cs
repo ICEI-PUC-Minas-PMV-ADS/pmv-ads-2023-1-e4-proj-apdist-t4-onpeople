@@ -11,8 +11,8 @@ using OnPeople.Persistence.Interfaces.Contexts;
 namespace OnPeople.Persistence.Migrations
 {
     [DbContext(typeof(OnPeopleContext))]
-    [Migration("20230308193248_Initial-review-3")]
-    partial class Initialreview3
+    [Migration("20230309091412_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -60,6 +60,9 @@ namespace OnPeople.Persistence.Migrations
                     b.Property<DateTime?>("DataEncerramento")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Foto")
                         .HasColumnType("TEXT");
 
@@ -70,6 +73,8 @@ namespace OnPeople.Persistence.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EmpresaId");
 
                     b.ToTable("Contas");
                 });
@@ -165,18 +170,25 @@ namespace OnPeople.Persistence.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("NomeEmpresa")
+                        .IsRequired()
+                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("NomeFantasia")
+                        .IsRequired()
+                        .HasMaxLength(20)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PadraoEmail")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("PresidenteId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Sigla")
+                        .IsRequired()
+                        .HasMaxLength(7)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -459,6 +471,17 @@ namespace OnPeople.Persistence.Migrations
                     b.Navigation("Departamento");
                 });
 
+            modelBuilder.Entity("OnPeople.Domain.Models.Contas.Conta", b =>
+                {
+                    b.HasOne("OnPeople.Domain.Models.Empresas.Empresa", "Empresas")
+                        .WithMany("Contas")
+                        .HasForeignKey("EmpresaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Empresas");
+                });
+
             modelBuilder.Entity("OnPeople.Domain.Models.Contas.ContaFuncao", b =>
                 {
                     b.HasOne("OnPeople.Domain.Models.Contas.Conta", "Conta")
@@ -498,7 +521,7 @@ namespace OnPeople.Persistence.Migrations
                         .IsRequired();
 
                     b.HasOne("OnPeople.Domain.Models.Empresas.Empresa", "Empresas")
-                        .WithMany("EmpresasContas")
+                        .WithMany()
                         .HasForeignKey("EmpresaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -613,9 +636,9 @@ namespace OnPeople.Persistence.Migrations
 
             modelBuilder.Entity("OnPeople.Domain.Models.Empresas.Empresa", b =>
                 {
-                    b.Navigation("Departamentos");
+                    b.Navigation("Contas");
 
-                    b.Navigation("EmpresasContas");
+                    b.Navigation("Departamentos");
                 });
 
             modelBuilder.Entity("OnPeople.Domain.Models.Funcionarios.Funcionario", b =>

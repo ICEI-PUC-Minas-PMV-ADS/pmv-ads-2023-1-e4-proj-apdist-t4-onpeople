@@ -12,24 +12,6 @@ namespace OnPeople.Persistence.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Contas",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    NomeCompleto = table.Column<string>(type: "TEXT", nullable: true),
-                    Visao = table.Column<string>(type: "TEXT", nullable: true),
-                    Foto = table.Column<string>(type: "TEXT", nullable: true),
-                    DataCadastro = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    DataEncerramento = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    Ativa = table.Column<bool>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Contas", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "DadosPessoais",
                 columns: table => new
                 {
@@ -57,15 +39,16 @@ namespace OnPeople.Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    NomeEmpresa = table.Column<string>(type: "TEXT", nullable: true),
-                    NomeFantasia = table.Column<string>(type: "TEXT", nullable: true),
-                    Sigla = table.Column<string>(type: "TEXT", nullable: true),
+                    NomeEmpresa = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    NomeFantasia = table.Column<string>(type: "TEXT", maxLength: 20, nullable: false),
+                    Sigla = table.Column<string>(type: "TEXT", maxLength: 7, nullable: false),
                     Ativa = table.Column<bool>(type: "INTEGER", nullable: false),
                     DataCadastro = table.Column<DateTime>(type: "TEXT", nullable: false),
                     DataDesativacao = table.Column<DateTime>(type: "TEXT", nullable: true),
                     Filial = table.Column<bool>(type: "INTEGER", nullable: false),
                     MatrizId = table.Column<int>(type: "INTEGER", nullable: true),
-                    PresidenteId = table.Column<int>(type: "INTEGER", nullable: true)
+                    PresidenteId = table.Column<int>(type: "INTEGER", nullable: true),
+                    PadraoEmail = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -108,6 +91,31 @@ namespace OnPeople.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Contas",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    NomeCompleto = table.Column<string>(type: "TEXT", nullable: true),
+                    Visao = table.Column<string>(type: "TEXT", nullable: true),
+                    Foto = table.Column<string>(type: "TEXT", nullable: true),
+                    DataCadastro = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    DataEncerramento = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    Ativa = table.Column<bool>(type: "INTEGER", nullable: false),
+                    EmpresaId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Contas", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Contas_Empresas_EmpresaId",
+                        column: x => x.EmpresaId,
+                        principalTable: "Empresas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Departamentos",
                 columns: table => new
                 {
@@ -135,30 +143,6 @@ namespace OnPeople.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "EmpresasContas",
-                columns: table => new
-                {
-                    EmpresaId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ContaId = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_EmpresasContas", x => new { x.EmpresaId, x.ContaId });
-                    table.ForeignKey(
-                        name: "FK_EmpresasContas_Contas_ContaId",
-                        column: x => x.ContaId,
-                        principalTable: "Contas",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_EmpresasContas_Empresas_EmpresaId",
-                        column: x => x.EmpresaId,
-                        principalTable: "Empresas",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ContasFuncoes",
                 columns: table => new
                 {
@@ -178,6 +162,30 @@ namespace OnPeople.Persistence.Migrations
                         name: "FK_ContasFuncoes_Funcoes_FuncaoId",
                         column: x => x.FuncaoId,
                         principalTable: "Funcoes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EmpresasContas",
+                columns: table => new
+                {
+                    EmpresaId = table.Column<int>(type: "INTEGER", nullable: false),
+                    ContaId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EmpresasContas", x => new { x.EmpresaId, x.ContaId });
+                    table.ForeignKey(
+                        name: "FK_EmpresasContas_Contas_ContaId",
+                        column: x => x.ContaId,
+                        principalTable: "Contas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_EmpresasContas_Empresas_EmpresaId",
+                        column: x => x.EmpresaId,
+                        principalTable: "Empresas",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -358,6 +366,11 @@ namespace OnPeople.Persistence.Migrations
                 name: "IX_Cargos_DepartamentoId",
                 table: "Cargos",
                 column: "DepartamentoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Contas_EmpresaId",
+                table: "Contas",
+                column: "EmpresaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ContasFuncoes_FuncaoId",

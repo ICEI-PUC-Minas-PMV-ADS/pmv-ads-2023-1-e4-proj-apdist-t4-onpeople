@@ -167,18 +167,25 @@ namespace OnPeople.Persistence.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("NomeEmpresa")
+                        .IsRequired()
+                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("NomeFantasia")
+                        .IsRequired()
+                        .HasMaxLength(20)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PadraoEmail")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("PresidenteId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Sigla")
+                        .IsRequired()
+                        .HasMaxLength(7)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");

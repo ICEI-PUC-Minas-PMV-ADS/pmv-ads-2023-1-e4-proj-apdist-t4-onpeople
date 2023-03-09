@@ -25,15 +25,17 @@ namespace OnPeople.Application.Services.Implementations.Empresas
         {
         try
             {
-                var empresaMapper = _mapper.Map<Empresa>(empresaDto);
+                Console.WriteLine("empresa dto", empresaDto);
 
-                _sharedPersistence.Create<Empresa>(empresaMapper);
+                var empresa = _mapper.Map<Empresa>(empresaDto);
+
+                _sharedPersistence.Create<Empresa>(empresa);
 
                 if (await _empresasPersistence.SaveChangesAsync())
                 {
-                    var empresa = await _empresasPersistence.GetEmpresaByIdAsync(empresaMapper.Id);
+                    var empresaRetorno = await _empresasPersistence.GetEmpresaByIdAsync(empresa.Id);
 
-                    return _mapper.Map<EmpresaDto>(empresa);
+                    return _mapper.Map<EmpresaDto>(empresaRetorno);
                 }
 
                 return null;
