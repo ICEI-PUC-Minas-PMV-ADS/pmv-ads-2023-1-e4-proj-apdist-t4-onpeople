@@ -1,46 +1,30 @@
 # Introdução
 
-Texto descritivo com a visão geral do projeto abordado. Inclui o contexto, o problema, os objetivos, a justificativa e o público-alvo do projeto.
+A consolidação da legislação trabalhista então existente no país inseriu de forma definitiva os direitos trabalhistas na legislação brasileira. O objetivo principal é regulamentar as relações individuais e coletivas do trabalho, nela previstas. Ela surgiu como uma necessidade constitucional, após a criação da Justiça do Trabalho.
+Em meados dos anos 1990, a área de RH começou a receber novos nomes, como: Gestão de Pessoas ou Gestão de Recursos Humanos, isso porque as novas tecnologias já começavam a impactar a forma de administrar pessoas. Essa inovação de modelo foi responsável pelo alinhamento entre as políticas de RH e missão institucional. Atualmente visa funções de recrutamento, seleção, treinamento, direcionar, instituir metas, acompanhar os resultados, remuneração e benefícios aos designados colaboradores. 
+Essas novas tecnologias cada vez mais alteram para melhor o setor, tornando o processo de contratação mais eficaz, auxiliando no treinamento de trabalho e simplificando tarefas de rotina com auxílio da automatização.
+Conduzir uma gestão moderna, integrar equipes e construir bases sólidas para a obtenção de resultados com o investimento em tecnologia de gestão fica mais simples. Este tornou-se um grande aliado das empresas, sistemas automatizados tornam a condução de processos fundamentais ao seu departamento de RH mais eficiente, sem significar um aumento de custos. Pelo contrário: essas ferramentas contribuem para redução de gastos, possibilitando a obtenção de resultados de qualidade com muito menos esforço. Além de significar menos horas de trabalho para seus colaboradores, na seleção manual de currículos ao longo de um processo seletivo, por exemplo, a automatização deixa essa responsabilidade por conta do software. 
+Outros tantos processos são facilitados com um sistema informatizado, como o controle de necessidades de treinamento e capacitações realizadas, gerenciamento de avaliações de desempenho, controle e gestão de EPI’s, entre outros. É possível notar menor incidência de erros logo no início da implementação de soluções como essas.
+
+
 
 ## Problema
-Nesse momento você deve apresentar o problema que a sua aplicação deve  resolver. No entanto, não é a hora de comentar sobre a aplicação.
 
-Descreva também o contexto em que essa aplicação será usada, se  houver: empresa, tecnologias, etc. Novamente, descreva apenas o que de  fato existir, pois ainda não é a hora de apresentar requisitos  detalhados ou projetos.
+Com o avanço e crescimento no setor de RH, existe a necessidade de organização e automação das diferentes funções de forma ágil, como por exemplo: a verificação cadastral de funcionários, análise de metas e desempenho deles. Muitas empresas enfrentam problemas no que diz respeito à análise de desempenho de cada funcionário. Tal dificuldade de verificar e analisar o crescimento ao longo dos meses, torna muito despercebido e pouco notado, além de se formarem inúmeros gargalos, impossibilitando agilidade e criando um grande desafio de análise; dessa forma, enxerga-se a necessidade de criação de um sistema automatizado para que este desenvolvimento seja visto, gerando ânimo e consequentemente um reconhecimento a longo prazo.
 
-Nesse momento, o grupo pode optar por fazer uso  de ferramentas como Design Thinking, que permite um olhar de ponta a ponta para o problema.
-
-> **Links Úteis**:
-> - [Objetivos, Problema de pesquisa e Justificativa](https://medium.com/@versioparole/objetivos-problema-de-pesquisa-e-justificativa-c98c8233b9c3)
-> - [Matriz Certezas, Suposições e Dúvidas](https://medium.com/educa%C3%A7%C3%A3o-fora-da-caixa/matriz-certezas-suposi%C3%A7%C3%B5es-e-d%C3%BAvidas-fa2263633655)
-> - [Brainstorming](https://www.euax.com.br/2018/09/brainstorming/)
 
 ## Objetivos
 
-Aqui você deve descrever os objetivos do trabalho indicando que o objetivo geral é desenvolver um software para solucionar o problema apresentado acima. 
-
-Apresente também alguns (pelo menos 2) objetivos específicos dependendo de onde você vai querer concentrar a sua prática investigativa, ou como você vai aprofundar no seu trabalho.
- 
-> **Links Úteis**:
-> - [Objetivo geral e objetivo específico: como fazer e quais verbos utilizar](https://blog.mettzer.com/diferenca-entre-objetivo-geral-e-objetivo-especifico/)
+O objetivo é desenvolver um sistema que auxilie no gerenciamento do crescimento e desenvolvimento de cada colaborador, com cadastro de funcionários, metas, cargos e salários. Com o intuito de trazer agilidade e simplicidade de informações, e assim, trazendo um crescimento contínuo entre empresas e colaboradores ou vice-versa.
+Tem como objetivo específicos:
+• Cadastro de funcionários;
+• Análise de metas/desempenhos dos funcionários
 
 ## Justificativa
 
-Descreva a importância ou a motivação para trabalhar com esta aplicação que você escolheu. Indique as razões pelas quais você escolheu seus objetivos específicos ou as razões para aprofundar em certos aspectos do software.
+O departamento de recursos humanos lida diariamente com uma grande quantidade de informações, necessidades da empresa, ainda são responsáveis por toda a gestão de pessoas internamente. É quase impossível dispor de tempo hábil para verificar e acompanhar o crescimento individual de cada colaborador. Com a chegada de softwares que auxiliam na organização e monitoramento das atividades realizadas pelo RH, além de gerar muito mais precisão nas atividades.  Os sistemas se baseiam em análises de dados, por isso, podem trazer uma visão não enviesada, o que ajuda a deixar as decisões do RH menos subjetivas e mais embasadas.
 
-O grupo de trabalho pode fazer uso de questionários, entrevistas e dados estatísticos, que podem ser apresentados, com o objetivo de esclarecer detalhes do problema que será abordado pelo grupo.
-
-> **Links Úteis**:
-> - [Como montar a justificativa](https://guiadamonografia.com.br/como-montar-justificativa-do-tcc/)
 
 ## Público-Alvo
 
-Descreva quem serão as pessoas que usarão a sua aplicação indicando os diferentes perfis. O objetivo aqui não é definir quem serão os clientes ou quais serão os papéis dos usuários na aplicação. A ideia é, dentro do possível, conhecer um pouco mais sobre o perfil dos usuários: conhecimentos prévios, relação com a tecnologia, relações
-hierárquicas, etc.
-
-Adicione informações sobre o público-alvo por meio de uma descrição textual, diagramas de personas e mapa de stakeholders.
-
-> **Links Úteis**:
-> - [Público-alvo](https://blog.hotmart.com/pt-br/publico-alvo/)
-> - [Como definir o público alvo](https://exame.com/pme/5-dicas-essenciais-para-definir-o-publico-alvo-do-seu-negocio/)
-> - [Público-alvo: o que é, tipos, como definir seu público e exemplos](https://klickpages.com.br/blog/publico-alvo-o-que-e/)
-> - [Qual a diferença entre público-alvo e persona?](https://rockcontent.com/blog/diferenca-publico-alvo-e-persona/)
+O desenvolvimento do sistema tem em foco o setor RH (Gestão de pessoas) de empresas sejam elas de pequeno, médio ou grande porte. Buscando auxiliar no acompanhamento de resultados, avaliações de metas e um melhor desempenho profissional de cada colaborador.
