@@ -146,12 +146,9 @@ public class EmpresasController : ControllerBase
     {
         try
         {
-            if (await _empresasServices.DeleteEmpresas(id))
-            {
-                return Ok("Empresa excluída!");
-            } else {
-                return BadRequest("Empresa não excluída.");
-            }
+            return await _empresasServices.DeleteEmpresas(id)
+                ? Ok( new { message = "OK"})
+                : BadRequest("Empresa não excluída.");
         }
         catch (Exception e)
         {

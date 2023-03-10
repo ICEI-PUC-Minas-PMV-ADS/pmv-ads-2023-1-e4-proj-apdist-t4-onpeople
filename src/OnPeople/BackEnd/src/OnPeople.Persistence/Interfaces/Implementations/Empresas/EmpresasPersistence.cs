@@ -55,6 +55,20 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Empresas
             return await query.ToListAsync();
         }
 
+        public async Task<IEnumerable<Empresa>> GetAllEmpresasMatrizesAsync()
+        {
+            IQueryable<Empresa> query = _context.Empresas
+                .Include(e => e.Contas)
+                .Include(e => e.Departamentos);
+
+            query = query
+                .AsNoTracking()
+                .Where(e => e.Filial == true)
+                .OrderBy(e => e.Id);
+
+            return await query.ToListAsync();
+        }
+
         public async Task<IEnumerable<Empresa>> GetAllEmpresasByArgumentoAsync(string argumento)
         {
             IQueryable<Empresa> query = _context.Empresas                

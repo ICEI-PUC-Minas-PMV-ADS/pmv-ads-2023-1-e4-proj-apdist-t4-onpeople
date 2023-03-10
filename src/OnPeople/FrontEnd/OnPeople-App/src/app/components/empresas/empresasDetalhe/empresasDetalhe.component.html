@@ -4,86 +4,102 @@
   </div>
   <div class="card-body bg-white">
     <form class="row" [formGroup]="form">
-<!--
+
       <p>Form Value: {{form.value | json}}</p>
       <p>Form Status: {{form.status | json}}</p>
--->
+
       <div class="h4 border-bottom" >Dados Empresa: </div>
       <div class="form-row d-md-flex">
-        <div class="form-group col-md-6 p-1">
+        <div class="form-group col-md-4 p-1">
           <label>Empresa</label>
-          <input type="text" class="form-control" placeholder="Nome da Empresa" formControlName="nomeEmpresa" [ngClass]="validarCampo(f.nomeEmpresa)">
-          <div class="invalid-feedback">{{retornarValidacao(f.nomeEmpresa, "")}}</div>
+          <input type="text" class="form-control" placeholder="Nome da Empresa" formControlName="nomeEmpresa" [ngClass]="validarCampo(fmC.nomeEmpresa)">
+          <div class="invalid-feedback">{{retornarValidacao(fmC.nomeEmpresa, "")}}</div>
         </div>
-        <div class="form-group col-md-6 p-1">
-          <label>Nome Fantasia</label>
-          <input type="text" class="form-control" placeholder="Nome Fantasia da Empresa" formControlName="nomeFantasia" [ngClass]="validarCampo(f.nomeEmpresa)">
-          <div class="invalid-feedback">{{retornarValidacao(f.nomeFantasia, "")}}</div>
-        </div>
-      </div>
-      <div class="form-row d-md-flex">
         <div class="form-group col-md-3 p-1">
+          <label>Nome Fantasia</label>
+          <input type="text" class="form-control" placeholder="Nome Fantasia da Empresa" formControlName="nomeFantasia" [ngClass]="validarCampo(fmC.nomeFantasia)">
+          <div class="invalid-feedback">{{retornarValidacao(fmC.nomeFantasia, "")}}</div>
+        </div>
+        <div class="form-group col-md-2 p-1">
           <label>Sigla</label>
-          <input type="text" class="form-control" placeholder="Sigla da Empresa" formControlName="sigla" [ngClass]="validarCampo(f.sigla)">
-          <div class="invalid-feedback">{{retornarValidacao(f.sigla, "")}}</div>
+          <input type="text" class="form-control" placeholder="Sigla da Empresa" formControlName="sigla" [ngClass]="validarCampo(fmC.sigla)">
+          <div class="invalid-feedback">{{retornarValidacao(fmC.sigla, "")}}</div>
         </div>
         <div class="form-group col-md-3 p-1">
           <label>Ativa</label>
-          <select class="form-select form-control" fomrControlName="ativa" [ngClass]="validarCampo(f.ativa)">
-            <option value=1>Sim</option>
-            <option value=2>Não</option>
+          <select class="form-select form-control" formControlName="ativa" [ngClass]="validarCampo(fmC.ativa)">
+            <option Value="false">Não</option>
+            <option Value="true">Sim</option>
           </select>
-          <div class="invalid-feedback">{{retornarValidacao(f.ativa, "")}}</div>
-        </div>
-        <div class="form-group col-md-3 p-1">
-          <label>Data Cadastro</label>
-          <input type="text" class="form-control" placeholder="Data de cadastro" formControlName="dataCadastro" [ngClass]="validarCampo(f.dataCadastro)">
-          <div class="invalid-feedback">{{retornarValidacao(f.dataCadastro, "")}}</div>
-        </div>
-        <div class="form-group col-md-3 p-1">
-          <label>Data Desativação</label>
-          <input type="text" class="form-control" placeholder="Data desativação" formControlName="dataDesativacao" [ngClass]="validarCampo(f.dataDesativacao)">
-          <div class="invalid-feedback">{{retornarValidacao(f.dataDesativacao, "")}}</div>
+          <div class="invalid-feedback">{{retornarValidacao(fmC.ativa, "")}}</div>
         </div>
       </div>
       <div class="form-row d-md-flex">
         <div class="form-group col-md-3 p-1">
-          <label>Possui Filial?</label>
-          <select class="form-select form-control" fomrControlName="filial" [ngClass]="validarCampo(f.filial)">
-            <option value=1>Sim</option>
-            <option value=2>Não</option>
-          </select>
-          <div class="invalid-feedback">{{retornarValidacao(f.filial, "")}}</div>
+          <label>Data Cadastro</label>
+          <div class="form-group">
+            <div class="input-group">
+              <label class="input-group-text bg-info text-white">
+                <fa-icon [icon]="calendarIcon" class="calendarIcon"></fa-icon>
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Data de cadastro"
+                formControlName="dataCadastro"
+                bsDatepicker
+                [bsConfig]="bsConfig"
+                [ngClass]="validarCampo(fmC.dataCadastro)">
+              <div class="invalid-feedback">{{retornarValidacao(fmC.dataCadastro, "")}}</div>
+            </div>
+          </div>
         </div>
-        <div class="form-group col-md-5 p-1">
-          <label>Matriz</label>
-          <select class="form-select form-control" fomrControlName="matriz" [ngClass]="validarCampo(f.matriz)">
-            <option value=1>Xing Ling International Corporation</option>
-          </select>
-          <div class="invalid-feedback">{{retornarValidacao(f.matriz, "")}}</div>
+        <div class="form-group col-md-3 p-1">
+          <label>Data Desativação</label>
+          <div class="form-group">
+            <div class="input-group">
+              <label class="input-group-text bg-info text-white">
+                <fa-icon [icon]="calendarIcon" class="calendarIcon"></fa-icon>
+              </label>
+              <input
+                type="datetime"
+                class="form-control"
+                placeholder="Data desativação"
+                formControlName="dataDesativacao"
+                bsDatepicker
+                [bsConfig]="bsConfig"
+                [ngClass]="validarCampo(fmC.dataDesativacao)">
+                <div class="invalid-feedback">{{retornarValidacao(fmC.dataDesativacao, "")}}</div>
+            </div>
+          </div>
         </div>
-        <div class="form-group col-md-4 p-1">
-          <label>Presidente</label>
-          <select class="form-select form-control" fomrControlName="presidente" [ngClass]="validarCampo(f.presidente)">
-            <option value=1>Bella Damião</option>
+        <div class="form-group col-md-3 p-1">
+          <label>É uma Filial?</label>
+          <select class="form-select form-control" formControlName="filial" [ngClass]="validarCampo(fmC.filial)">
+            <option value="false">Não</option>
+            <option value="true">Sim</option>
           </select>
-          <div class="invalid-feedback">{{retornarValidacao(f.presidente, "")}}</div>
+          <div class="invalid-feedback">{{retornarValidacao(fmC.filial, "")}}</div>
         </div>
-      </div>
-      <div class="card-footer bg-white  ">
-        <div class="d-flex ">
-          <button class="btn btn-danger ms-auto mx-1" (click)="limparFormulario()">
-            Cancelar
-          </button>
-          <button class="btn btn-info mx-1 px-4" [disabled]="!form.valid" (click)="salvarAlteracao()">
-            Salvar
-          </button>
+        <div class="form-group col-md-3 p-1">
+          <label>Padrão de email</label>
+          <input class="form-control" placeholder="@xx.xxxxx.xxx" formControlName="padraoEmail" [ngClass]="validarCampo(fmC.padraoEmail)">
+          <div class="invalid-feedback">{{retornarValidacao(fmC.padraoEmail, "")}}</div>
         </div>
       </div>
     </form>
   </div>
+  <div class="card-footer bg-info  ">
+    <div class="d-flex ">
+      <button class="btn btn-danger ms-auto mx-1" (click)="limparFormulario()">
+        Cancelar
+      </button>
+      <button class="btn btn-primary mx-1 px-4" [disabled]="!form.valid" (click)="salvarAlteracao()">
+        {{estadoBotao}}
+      </button>
+    </div>
+  </div>
 </div>
-
 <ngx-spinner type="ball-scale-multiple"
   bdColor="rgba(51,51,51,0.8)"
   size="medium"

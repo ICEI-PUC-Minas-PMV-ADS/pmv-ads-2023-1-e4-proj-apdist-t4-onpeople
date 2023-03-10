@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { ValidadorFormularios } from 'src/app/helpers/class/ValidadorFormularios';
+import { ValidadorFormularios } from 'src/app/helpers/class/ValidadorFormularios/ValidadorFormularios';
 
 @Component({
   selector: 'app-contaCadastro',
@@ -20,7 +20,7 @@ export class ContaCadastroComponent implements OnInit {
 
   ngOnInit() {
     this.validarFormulario();
-   
+
   }
 
   public validarFormulario(): void {

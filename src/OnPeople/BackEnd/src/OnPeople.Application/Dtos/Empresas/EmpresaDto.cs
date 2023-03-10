@@ -29,10 +29,6 @@ namespace OnPeople.Application.Dtos.Empresas
         
         public Boolean  Filial { get; set; }
         
-        public int MatrizId { get; set; }
-        
-        public int PresidenteId {get; set;}
-        
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public string PadraoEmail { get; set; }
         

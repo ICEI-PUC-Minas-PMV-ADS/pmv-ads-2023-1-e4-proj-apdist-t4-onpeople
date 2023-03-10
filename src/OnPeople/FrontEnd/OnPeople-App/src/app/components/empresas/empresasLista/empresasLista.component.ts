@@ -26,6 +26,10 @@ export class EmpresasListaComponent implements OnInit {
 
   public empresas: Empresa[] = [];
   public empresasFiltradas: Empresa[] = []
+
+  public empresaId = 0;
+  public nomeEmpresa = "";
+
   private _filtroEmpresa: string = '';
 
   public get filtroEmpresa() {
@@ -56,10 +60,10 @@ export class EmpresasListaComponent implements OnInit {
 
   ngOnInit() {
     this.spinner.show();
-    this.getEmpresas();
+    this.carregarEmpresas();
   }
 
-  public getEmpresas(): void {
+  public carregarEmpresas(): void {
     this.empresasService.getEmpresas()
       .subscribe(
         (empresas: Empresa[]) => {
@@ -70,17 +74,35 @@ export class EmpresasListaComponent implements OnInit {
       ).add(() => this.spinner.hide())
   }
 
- public  openModal(template: TemplateRef<any>): void {
+ public  openModal(event: any, template: TemplateRef<any>, empresaId: number, nomeEmpresa:string): void {
+    event.stopPropagation();
+    this.empresaId = empresaId;
+    this.nomeEmpresa = nomeEmpresa;
     this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
   }
 
-  public confirm(): void {
+  public confirmarExclusao(): void {
     this.modalRef?.hide();
-    this.toastrService.success('Empresa excluída com sucesso', 'Excluído!');
+    this.spinner.show();
+
+    this.empresasService
+        .exluirEmpresa(this.empresaId)
+        .subscribe(
+          (resultado: any ) => {
+            if (resultado.message == 'OK') {
+              this.toastrService.success('Empresa excluída com sucesso', 'Excluído!');
+              this.carregarEmpresas();
+            }
+          },
+          (error: any) => {
+            this.toastrService.error('Falha a excluir a empresa.', "Erro!");
+            console.error(error);
+          }
+        )
+        .add(() => this.spinner.hide());
   }
 
-  public decline(): void {
-    alert('Declined!');
+  public desistir(): void {
     this.modalRef?.hide();
   }
 

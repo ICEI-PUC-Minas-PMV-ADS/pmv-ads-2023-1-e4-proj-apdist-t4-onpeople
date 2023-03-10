@@ -28,7 +28,7 @@
         <th scope="col">Ativa</th>
         <th class="d-none d-md-table-cell" scope="col">Data Ativação</th>
         <th class="d-none d-md-table-cell" scope="col">Filial</th>
-        <th class="d-none d-md-table-cell" scope="col">Matriz</th>
+        <th class="d-none d-md-table-cell" scope="col">Padrão de e-mail</th>
         <th scope="col">Opções</th>
       </tr>
     </thead>
@@ -41,10 +41,10 @@
         <td>{{empresa.ativa}}</td>
         <td class="d-none d-md-table-cell" >{{empresa.dataCadastro | DateTimeFormatPipe }} </td>
         <td class="d-none d-md-table-cell" >{{empresa.filial}}</td>
-        <td class="d-none d-md-table-cell" >{{empresa.matrizId}}</td>
+        <td class="d-none d-md-table-cell" >{{empresa.padraoEmail}}</td>
         <td>
           <div class="btn-group">
-            <button type="button" class="btn btn-outline-danger btn-lg" ngbTooltip="Excluir" (click)="openModal(template)">
+            <button type="button" class="btn btn-outline-danger btn-lg" ngbTooltip="Excluir" (click)="openModal($event, template, empresa.id, empresa.nomeEmpresa)">
               <fa-icon [icon]="excluirIcon"></fa-icon>
             </button>
           </div>
@@ -63,9 +63,18 @@
 
   <ng-template #template>
     <div class="modal-body text-center">
-      <p>Tem certeza que deseja excluir a empresa?</p>
-      <button type="button" class="btn btn-default" (click)="confirm()" >Sim</button>
-      <button type="button" class="btn btn-primary" (click)="decline()" >Não</button>
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <p>Exclusão de dados de empresa, confirma?</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>#{{empresaId}} - {{nomeEmpresa}}?</p>
+      </div>
+      <div class="card-foorter ms-auto">
+      </div>
+      <button type="button" class="btn btn-danger" (click)="desistir()" >Não</button>
+      <button type="button" class="btn btn-info" (click)="confirmarExclusao()" >Sim</button>
     </div>
 </ng-template>
 

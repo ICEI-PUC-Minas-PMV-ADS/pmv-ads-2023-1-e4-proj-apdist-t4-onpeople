@@ -6,16 +6,16 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
-import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbAlertModule, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbTooltipModule} from '@ng-bootstrap/ng-bootstrap';
 
-import { TabsModule } from 'ngx-bootstrap/tabs';
-
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { defineLocale } from 'ngx-bootstrap/chronos';
+import { ptBrLocale } from 'ngx-bootstrap/locale';
 import { ModalModule } from 'ngx-bootstrap/modal';
-
 import { NgxSpinnerModule } from "ngx-spinner";
-
+import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ToastrModule } from 'ngx-toastr';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -35,6 +35,7 @@ import { EmpresasListaComponent } from './components/empresas/empresasLista/empr
 import { EmpresasService } from './services/empresas/Empresas.service';
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
 
+defineLocale('pt-br', ptBrLocale);
 
 @NgModule({
   declarations: [
@@ -56,12 +57,14 @@ import { NavbarComponent } from './components/shared/navbar/navbar.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
-    NgbDropdownModule,
-    NgbCollapseModule,
+    BsDatepickerModule.forRoot(),
     FontAwesomeModule,
     FormsModule,
     HttpClientModule,
     ModalModule.forRoot(),
+    NgbAlertModule,
+    NgbDropdownModule,
+    NgbCollapseModule,
     NgbTooltipModule,
     NgxSpinnerModule,
     ReactiveFormsModule,

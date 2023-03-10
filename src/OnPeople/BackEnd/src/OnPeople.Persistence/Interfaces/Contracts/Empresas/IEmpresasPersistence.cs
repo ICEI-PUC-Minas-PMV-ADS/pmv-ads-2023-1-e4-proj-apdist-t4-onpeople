@@ -10,5 +10,6 @@ namespace OnPeople.Persistence.Interfaces.Contracts.Empresas
         Task<IEnumerable<Empresa>> GetAllEmpresasByArgumentoAsync(string argumento);
         Task<IEnumerable<Empresa>> GetAllEmpresasAtivasAsync();
         Task<IEnumerable<Empresa>> GetAllEmpresasFiliaisAsync();
+        Task<IEnumerable<Empresa>> GetAllEmpresasMatrizesAsync();
     }
 }

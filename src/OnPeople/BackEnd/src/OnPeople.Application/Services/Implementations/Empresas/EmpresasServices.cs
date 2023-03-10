@@ -25,8 +25,6 @@ namespace OnPeople.Application.Services.Implementations.Empresas
         {
         try
             {
-                Console.WriteLine("empresa dto", empresaDto);
-
                 var empresa = _mapper.Map<Empresa>(empresaDto);
 
                 _sharedPersistence.Create<Empresa>(empresa);
@@ -167,7 +165,7 @@ namespace OnPeople.Application.Services.Implementations.Empresas
 
                 if (empresa == null) return null;
 
-                var empresaUpdate = _mapper.Map<Empresa>(empresaDto);
+                var empresaUpdate = _mapper.Map(empresaDto, empresa);
 
                 _sharedPersistence.Update<Empresa>(empresaUpdate);
 
