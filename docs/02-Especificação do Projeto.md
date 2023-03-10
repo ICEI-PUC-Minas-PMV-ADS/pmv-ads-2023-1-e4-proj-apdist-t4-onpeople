@@ -24,7 +24,7 @@ Com base na análise das personas forma identificadas as seguintes histórias de
 |--------------------|------------------------------------|----------------------------------------|
 | Lucas	| Receber dados estatísticos de funcionários(metas atingidas, não atingidas e em atraso) | Analisar tendências, cumprimento das metas e atendimento aos objetivos.|
 | Lucia | Estabelecer metas para cumprimento em curto, médio e longo prazo para departamento, individuais e RH | Melhoria contínua no desenvolvimento pessoal e profissional.|
-| Melissa | Gostaria de controlar os funcionários da empresa | Ter uma maior agilidade na gestão de pessoas.|
+| Melissa |Gostaria de fazer a gestão dos funcionários permitndo que eles tenham uma conta própria no sistema para entrar, sair e manter estes dados. | Ter uma maior agilidade na gestão de pessoas.|
 | Lucas |	Realizar cadastros de metas	| Controle de metas.|
 | Lucia	| Gostaria de controlar as empresas com seus departamentos e cargos | Ter uma maior agilidade de gestão administrativa. |
 | Lucia |	Acompanhar objetivos individuais | Garantir o aperfeicoamento profissional de cada membro da equipe.|
