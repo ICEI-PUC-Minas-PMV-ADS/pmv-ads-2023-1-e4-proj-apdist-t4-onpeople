@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.OpenApi.Models;
-
+using OnPeople.API.Controllers.Uploads;
 using OnPeople.Application.Services.Contracts.Empresas;
 using OnPeople.Application.Services.Implementations.Empresas;
 using OnPeople.Persistence.Interfaces.Contexts;
@@ -40,6 +41,7 @@ namespace OnPeople.API
             services.AddScoped<IEmpresasServices, EmpresasServices>();
             services.AddScoped<ISharedPersistence, SharedPersistence>();
             services.AddScoped<IEmpresasPersistence, EmpresasPersistence>();
+            services.AddScoped<IUploads, Uploads>();
 
             services.AddCors();
 
@@ -64,9 +66,17 @@ namespace OnPeople.API
             app.UseRouting();
 
             app.UseAuthorization();
+
+            //Injeção cors ...
             app.UseCors(x => x.AllowAnyHeader()
                               .AllowAnyMethod()
                               .AllowAnyOrigin());
+
+            //Injeção de diretivas para utilização de diretórios
+            app.UseStaticFiles(new StaticFileOptions() {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Resources")),
+                RequestPath = new PathString("/Resources")
+            });
 
             app.UseEndpoints(endpoints =>
             {

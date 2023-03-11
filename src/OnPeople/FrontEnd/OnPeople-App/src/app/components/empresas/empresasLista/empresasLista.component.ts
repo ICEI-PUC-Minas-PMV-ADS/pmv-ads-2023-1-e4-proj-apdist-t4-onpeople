@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 
 import { Empresa } from 'src/app/models/empresas/Empresa';
 import { EmpresasService } from 'src/app/services/empresas/Empresas.service';
+import { environment } from 'src/assets/environments/environments';
 
 
 @Component({
@@ -26,7 +27,8 @@ export class EmpresasListaComponent implements OnInit {
   public visualizarIcon: IconDefinition = faEye;
   public fecharIcon: IconDefinition = faEyeSlash;
 
-  public alternarImagem : boolean = true
+  public alternarImagem : boolean = true;
+  public logotipoURL: string = "../../../../assets/img/Image_not_available.png";
 
   public empresas: Empresa[] = [];
   public empresasFiltradas: Empresa[] = []
@@ -165,5 +167,11 @@ export class EmpresasListaComponent implements OnInit {
 
   public detalheEmpresa(id: number): void {
     this.router.navigate([`empresas/detalhe/${id}`])
+  }
+
+  public mostrarLogotipo(logotipoURL: string): string {
+    return (logotipoURL !== 'Image_not_available.png')
+      ? `${environment.resourcesLogosURL}${logotipoURL}`
+      : `../../../../assets/img/${logotipoURL}`;
   }
 }

@@ -1,6 +1,7 @@
 
 
 using Microsoft.AspNetCore.Mvc;
+using OnPeople.API.Controllers.Uploads;
 using OnPeople.Application.Dtos.Empresas;
 using OnPeople.Application.Services.Contracts.Empresas;
 
@@ -11,9 +12,13 @@ namespace OnPeople.API.Controllers.Empresas;
 public class EmpresasController : ControllerBase
 {
     private readonly IEmpresasServices _empresasServices;
-    public EmpresasController(IEmpresasServices empresasServices)
+    private readonly IUploads _uploads;
+
+    public EmpresasController(IEmpresasServices empresasServices,
+                            IUploads uploads)
     {
         _empresasServices = empresasServices;
+        _uploads = uploads;
     }
 
 
@@ -146,9 +151,16 @@ public class EmpresasController : ControllerBase
     {
         try
         {
-            return await _empresasServices.DeleteEmpresas(id)
-                ? Ok( new { message = "OK"})
-                : BadRequest("Empresa não excluída.");
+            var empresa = await _empresasServices.GetEmpresaByIdAsync(id);
+
+            if (empresa == null) return NoContent();
+
+            if (await _empresasServices.DeleteEmpresas(id)){
+                _uploads.DeleteImageUpload(empresa.Logotipo, "Logos");
+                return Ok( new { message = "OK"});
+            } else {
+                return BadRequest("Empresa não excluída.");
+            }
         }
         catch (Exception e)
         {

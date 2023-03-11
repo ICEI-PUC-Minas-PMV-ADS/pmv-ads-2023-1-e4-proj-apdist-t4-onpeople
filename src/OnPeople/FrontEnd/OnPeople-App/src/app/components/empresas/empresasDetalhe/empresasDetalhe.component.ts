@@ -1,16 +1,18 @@
-import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { BsDatepickerDirective, BsLocaleService } from 'ngx-bootstrap/datepicker';
+import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 
-import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
+import { faCalendarAlt, IconDefinition } from '@fortawesome/free-solid-svg-icons'
 
 import { ValidadorFormularios } from 'src/app/helpers/class/ValidadorFormularios/ValidadorFormularios';
 import { Empresa } from 'src/app/models/empresas/Empresa';
 import { EmpresasService } from 'src/app/services/empresas/Empresas.service';
+import { UploadsService } from 'src/app/services/uploads/uploads.service';
+import { environment } from 'src/assets/environments/environments';
 
 @Component({
   selector: 'app-empresasDetalhe',
@@ -19,15 +21,15 @@ import { EmpresasService } from 'src/app/services/empresas/Empresas.service';
 })
 export class EmpresasDetalheComponent implements OnInit {
 
-  @ViewChild(BsDatepickerDirective, { static: false }) datepicker: BsDatepickerDirective;
-  @HostListener('window:scroll')
-
   public form: FormGroup;
 
   public estadoSalvar: string = 'post';
-  public estadoBotao: string = 'Criar'
+  public modoEditar: Boolean = false;
 
-  public calendarIcon = faCalendarAlt;
+  public calendarIcon: IconDefinition = faCalendarAlt;
+
+  public logotipoURL: string = "../../../../assets/img/upload1-325x300-1.jpg";
+  public file: File[];
 
   public empresa: Empresa;
   public empresaFilter: Empresa[] = [];
@@ -53,9 +55,10 @@ export class EmpresasDetalheComponent implements OnInit {
     private empresaService: EmpresasService,
     private formBuilder: FormBuilder,
     private localService: BsLocaleService,
+    private router: Router,
     private spinner: NgxSpinnerService,
     private toastrService: ToastrService,
-    private router: Router
+    private uploadsService: UploadsService,
     )
   {
     this.localService.use('pt-br')
@@ -109,7 +112,7 @@ export class EmpresasDetalheComponent implements OnInit {
 
     if (empresaIdparam !== null) {
       this.estadoSalvar = 'put'
-      this.estadoBotao = 'Salvar'
+      this.modoEditar = true;
 
       this.empresaService
           .getEmpresaById(+empresaIdparam)
@@ -117,6 +120,10 @@ export class EmpresasDetalheComponent implements OnInit {
             (empresa: Empresa) => {
               this.empresa = { ...empresa};
               this.form.patchValue(this.empresa);
+              this.logotipoURL = (this.empresa.logotipo !== 'Image_not_available.png')
+                ? `${environment.resourcesLogosURL}${this.empresa.logotipo}`
+                : `../../../../assets/img/${this.logotipoURL}`;
+              console.log('logos', this.logotipoURL, ' - ', this.empresa.logotipo)
             },
             (error: any) => {
               this.toastrService.error("Não foi possível carrgar os dados da empresa.", 'Erro!');
@@ -137,11 +144,10 @@ export class EmpresasDetalheComponent implements OnInit {
           if (empresas) {
             this.empresaFilter = empresas.filter((e) => e.filial == false);
           }
-          console.log("Empresa Filter", this.empresaFilter, this.estadoBotao)
           if (this.empresaFilter.length > 0) {
             this.empresaMatrizId = this.empresaFilter[0].id
             this.nomeMatriz = this.empresaFilter[0].nomeEmpresa
-            if (this.estadoBotao !== 'Salvar') {
+            if (!this.modoEditar) {
               this.empresaMatriz = false;
             }else {
               this.empresaMatriz = (empresaIdparam == this.empresaFilter[0].id) ? true : false;
@@ -199,5 +205,37 @@ export class EmpresasDetalheComponent implements OnInit {
         .add(() => this.spinner.hide())
       }
       this.router.navigate(['empresas/lista'])
+  }
+
+  public alterarImagem(ev: any): void {
+    const reader = new FileReader();
+
+    reader.onload = (event: any) => this.logotipoURL = event.target.result;
+
+    this.file = ev.target.files;
+
+    reader.readAsDataURL(this.file[0]);
+
+    this.uplodaImagem();
+  }
+
+  public uplodaImagem(): void {
+    this.spinner.show();
+
+    const empresaIdparam: number = Number(this.activevateRouter.snapshot.paramMap.get('id'));
+
+    this.uploadsService
+      .salvarLogoEmpresa(empresaIdparam, this.file)
+      .subscribe(
+        () => {
+          this.toastrService.success("Logo atualizada!", "Sucesso!"),
+          this.consultarEmpresa();
+        },
+        (error: any) => {
+          this.toastrService.error("Falha ao realizar upload da logo da empresa.", "Erro!" )
+          console.error(error);
+        }
+      )
+      .add(() => this.spinner.hide());
   }
 }

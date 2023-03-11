@@ -24,16 +24,14 @@
         <th class="d-none d-md-table-cell">
             <button class="btn btn-outline-light btn-sm" (click)="alternarEstadoImagem()">
               <fa-icon [icon]="alternarImagem ? fecharIcon : visualizarIcon" class="mr-2"></fa-icon>
-              {{alternarImagem ? "Ocultar" : ""}}
+              {{alternarImagem ? "Ocultar" : "Mostrar"}}
             </button>
         </th>
         <th >#</th>
-        <th class="d-none d-md-table-cell" >Nome Empresa</th>
-        <th >Nome Fantasia</th>
+        <th >Nome Empresa</th>
+        <th class="d-none d-md-table-cell" >Nome Fantasia</th>
         <th >Sigla</th>
-        <th >Ativa</th>
         <th class="d-none d-md-table-cell" >Data Ativação</th>
-        <th class="d-none d-md-table-cell" >Filial</th>
         <th class="d-none d-md-table-cell" >Padrão de e-mail</th>
         <th >Opções</th>
       </tr>
@@ -41,15 +39,13 @@
     <tbody *ngIf="empresas && empresas.length">
       <tr *ngFor="let empresa of empresasFiltradas" (click)="detalheEmpresa(empresa.id)" >
         <td class="d-none d-md-table-cell">
-          <img src="../../../../assets/{{empresa.logotipo}}" alt="" [(ngbCollapse)]="!alternarImagem">
+          <img [src]="mostrarLogotipo(empresa.logotipo)" alt="" [(ngbCollapse)]="!alternarImagem">
         </td>
         <td>{{empresa.id}}</td>
-        <td class="d-none d-md-table-cell">{{empresa.nomeEmpresa}}</td>
-        <td>{{empresa.nomeFantasia}}</td>
+        <td>{{empresa.nomeEmpresa}}</td>
+        <td class="d-none d-md-table-cell">{{empresa.nomeFantasia}}</td>
         <td>{{empresa.sigla}}</td>
-        <td>{{empresa.ativa}}</td>
         <td class="d-none d-md-table-cell" >{{empresa.dataCadastro | DateTimeFormatPipe }} </td>
-        <td class="d-none d-md-table-cell" >{{empresa.filial}}</td>
         <td class="d-none d-md-table-cell" >{{empresa.padraoEmail}}</td>
         <td>
           <div class="btn-group">
