@@ -23,15 +23,20 @@ namespace OnPeople.Application.Dtos.Empresas
         public Boolean Ativa { get; set; }
                 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
-        public string DataCadastro { get; set; }
+        public DateTime DataCadastro { get; set; }
         
-        public string DataDesativacao { get; set; }
+        public DateTime? DataDesativacao { get; set; }
         
         public Boolean  Filial { get; set; }
         
-        [Required(ErrorMessage = "O campo {0} é obrigatório")]
+        [Required(ErrorMessage = "O campo {0} é obrigatório"),
+        StringLength(25, MinimumLength = 5, ErrorMessage = "O campo {0} deve possuir um intervalo de 5 a 25 caracteres")]
         public string PadraoEmail { get; set; }
         
+        public int? MatrizId { get; set; }
+
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
+        public string Logotipo { get; set; }
         public IEnumerable<ContaDto> Contas { get; set; }
         
         public IEnumerable<DepartamentoDto> Departamentos { get; set; }

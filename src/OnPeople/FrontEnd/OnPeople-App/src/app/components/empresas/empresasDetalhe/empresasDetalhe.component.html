@@ -8,14 +8,14 @@
       <p>Form Value: {{form.value | json}}</p>
       <p>Form Status: {{form.status | json}}</p>
 
-      <div class="h4 border-bottom" >Dados Empresa: </div>
+      <div class="h4 border-bottom" >Dados da Empresa: </div>
       <div class="form-row d-md-flex">
-        <div class="form-group col-md-4 p-1">
+        <div class="form-group col-md-6 p-1">
           <label>Empresa</label>
           <input type="text" class="form-control" placeholder="Nome da Empresa" formControlName="nomeEmpresa" [ngClass]="validarCampo(fmC.nomeEmpresa)">
           <div class="invalid-feedback">{{retornarValidacao(fmC.nomeEmpresa, "")}}</div>
         </div>
-        <div class="form-group col-md-3 p-1">
+        <div class="form-group col-md-4 p-1">
           <label>Nome Fantasia</label>
           <input type="text" class="form-control" placeholder="Nome Fantasia da Empresa" formControlName="nomeFantasia" [ngClass]="validarCampo(fmC.nomeFantasia)">
           <div class="invalid-feedback">{{retornarValidacao(fmC.nomeFantasia, "")}}</div>
@@ -25,6 +25,8 @@
           <input type="text" class="form-control" placeholder="Sigla da Empresa" formControlName="sigla" [ngClass]="validarCampo(fmC.sigla)">
           <div class="invalid-feedback">{{retornarValidacao(fmC.sigla, "")}}</div>
         </div>
+      </div>
+      <div class="form-row d-md-flex">
         <div class="form-group col-md-3 p-1">
           <label>Ativa</label>
           <select class="form-select form-control" formControlName="ativa" [ngClass]="validarCampo(fmC.ativa)">
@@ -33,8 +35,6 @@
           </select>
           <div class="invalid-feedback">{{retornarValidacao(fmC.ativa, "")}}</div>
         </div>
-      </div>
-      <div class="form-row d-md-flex">
         <div class="form-group col-md-3 p-1">
           <label>Data Cadastro</label>
           <div class="form-group">
@@ -47,6 +47,7 @@
                 class="form-control"
                 placeholder="Data de cadastro"
                 formControlName="dataCadastro"
+                value="{{empresa.dataCadastro | DateTimeFormatPipe}}"
                 bsDatepicker
                 [bsConfig]="bsConfig"
                 [ngClass]="validarCampo(fmC.dataCadastro)">
@@ -66,6 +67,7 @@
                 class="form-control"
                 placeholder="Data desativação"
                 formControlName="dataDesativacao"
+                value="{{empresa.dataDesativacao | DateTimeFormatPipe}}"
                 bsDatepicker
                 [bsConfig]="bsConfig"
                 [ngClass]="validarCampo(fmC.dataDesativacao)">
@@ -75,16 +77,22 @@
         </div>
         <div class="form-group col-md-3 p-1">
           <label>É uma Filial?</label>
-          <select class="form-select form-control" formControlName="filial" [ngClass]="validarCampo(fmC.filial)">
-            <option value="false">Não</option>
-            <option value="true">Sim</option>
-          </select>
-          <div class="invalid-feedback">{{retornarValidacao(fmC.filial, "")}}</div>
+          <span class="form-control">
+             {{empresaMatriz ? "Não" : "Sim"}}
+          </span>
         </div>
-        <div class="form-group col-md-3 p-1">
+      </div>
+      <div class="form-row d-md-flex">
+        <div class="form-group col-md-6 p-1">
           <label>Padrão de email</label>
-          <input class="form-control" placeholder="@xx.xxxxx.xxx" formControlName="padraoEmail" [ngClass]="validarCampo(fmC.padraoEmail)">
+          <input class="form-control" placeholder="@xx.xxxxx.xxx" formControlName="padraoEmail" [ngClass]="validarCampo(fmC.padraoEmail)" >
           <div class="invalid-feedback">{{retornarValidacao(fmC.padraoEmail, "")}}</div>
+        </div>
+        <div class="form-group col-md-6 p-1" *ngIf="!this.empresaMatriz">
+          <label>Empresa Matriz</label>
+          <span class="form-control">
+            {{nomeMatriz}}
+         </span>
         </div>
       </div>
     </form>

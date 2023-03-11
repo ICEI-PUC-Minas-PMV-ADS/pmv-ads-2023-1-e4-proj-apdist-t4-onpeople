@@ -12,6 +12,8 @@ export interface Empresa {
   dataDesativacao?: Date;
   filial: Boolean;
   padraoEmail: string;
+  logotipo: string;
+  matrizId?: number
   empresasContas: EmpresaConta[];
   departamentos: Departamento[];
 }

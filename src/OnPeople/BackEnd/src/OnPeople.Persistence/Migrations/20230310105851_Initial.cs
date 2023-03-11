@@ -39,16 +39,17 @@ namespace OnPeople.Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    NomeEmpresa = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
-                    NomeFantasia = table.Column<string>(type: "TEXT", maxLength: 20, nullable: false),
-                    Sigla = table.Column<string>(type: "TEXT", maxLength: 7, nullable: false),
+                    NomeEmpresa = table.Column<string>(type: "TEXT", nullable: true),
+                    NomeFantasia = table.Column<string>(type: "TEXT", nullable: true),
+                    Sigla = table.Column<string>(type: "TEXT", nullable: true),
                     Ativa = table.Column<bool>(type: "INTEGER", nullable: false),
                     DataCadastro = table.Column<DateTime>(type: "TEXT", nullable: false),
                     DataDesativacao = table.Column<DateTime>(type: "TEXT", nullable: true),
                     Filial = table.Column<bool>(type: "INTEGER", nullable: false),
                     MatrizId = table.Column<int>(type: "INTEGER", nullable: true),
                     PresidenteId = table.Column<int>(type: "INTEGER", nullable: true),
-                    PadraoEmail = table.Column<string>(type: "TEXT", nullable: false)
+                    PadraoEmail = table.Column<string>(type: "TEXT", nullable: true),
+                    Logotipo = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {

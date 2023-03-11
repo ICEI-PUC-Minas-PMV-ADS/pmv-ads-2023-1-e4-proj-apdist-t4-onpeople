@@ -1,4 +1,4 @@
-<div class="card rounded shadow-sm p-2 mt-1 bg-light">
+<div class="card rounded shadow-sm p-2 mt-1 bg-white">
   <div class="d-flex">
     <div class="flex-fill pr-3">
       <div class="input-group mb-1">
@@ -21,19 +21,28 @@
   <table class="table table-striped table-hover">
     <thead class="table-info">
       <tr>
-        <th scope="col">#</th>
-        <th class="d-none d-md-table-cell" scope="col">Nome Empresa</th>
-        <th scope="col">Nome Fantasia</th>
-        <th scope="col">Sigla</th>
-        <th scope="col">Ativa</th>
-        <th class="d-none d-md-table-cell" scope="col">Data Ativação</th>
-        <th class="d-none d-md-table-cell" scope="col">Filial</th>
-        <th class="d-none d-md-table-cell" scope="col">Padrão de e-mail</th>
-        <th scope="col">Opções</th>
+        <th class="d-none d-md-table-cell">
+            <button class="btn btn-outline-light btn-sm" (click)="alternarEstadoImagem()">
+              <fa-icon [icon]="alternarImagem ? fecharIcon : visualizarIcon" class="mr-2"></fa-icon>
+              {{alternarImagem ? "Ocultar" : ""}}
+            </button>
+        </th>
+        <th >#</th>
+        <th class="d-none d-md-table-cell" >Nome Empresa</th>
+        <th >Nome Fantasia</th>
+        <th >Sigla</th>
+        <th >Ativa</th>
+        <th class="d-none d-md-table-cell" >Data Ativação</th>
+        <th class="d-none d-md-table-cell" >Filial</th>
+        <th class="d-none d-md-table-cell" >Padrão de e-mail</th>
+        <th >Opções</th>
       </tr>
     </thead>
     <tbody *ngIf="empresas && empresas.length">
       <tr *ngFor="let empresa of empresasFiltradas" (click)="detalheEmpresa(empresa.id)" >
+        <td class="d-none d-md-table-cell">
+          <img src="../../../../assets/{{empresa.logotipo}}" alt="" [(ngbCollapse)]="!alternarImagem">
+        </td>
         <td>{{empresa.id}}</td>
         <td class="d-none d-md-table-cell">{{empresa.nomeEmpresa}}</td>
         <td>{{empresa.nomeFantasia}}</td>
@@ -59,7 +68,7 @@
   </table>
   </div>
 
-  {{ empresas | json }}
+<!--  {{ empresas | json }} -->
 
   <ng-template #template>
     <div class="modal-body text-center">
@@ -78,10 +87,6 @@
     </div>
 </ng-template>
 
-<ngx-spinner type="ball-scale-multiple"
-  bdColor="rgba(51,51,51,0.8)"
-  size="medium"
-  color="blue"
-  >
-<p style="font-size:20px; color: white;">Carregando...</p>
+<ngx-spinner type="ball-scale-multiple" bdColor="rgba(51,51,51,0.8)" size="medium" color="blue">
+  <p style="font-size:20px; color: white;">Carregando...</p>
 </ngx-spinner>

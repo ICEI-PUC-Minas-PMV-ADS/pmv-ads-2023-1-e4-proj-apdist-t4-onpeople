@@ -46,7 +46,7 @@ export class EmpresasService {
     .pipe(take(3));
   }
 
-  public exluirEmpresa(id:number): Observable<any> {
+  public excluirEmpresa(id:number): Observable<any> {
     return this.http.delete(`${this.baseURL}/${id}`)
     .pipe(take(3));
   }
