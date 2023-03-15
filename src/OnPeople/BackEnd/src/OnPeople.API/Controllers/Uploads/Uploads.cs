@@ -9,7 +9,7 @@ namespace OnPeople.API.Controllers.Uploads
         {
             _hostEnvironment = hostEnvironment;
         }
-        public void DeleteImageUpload(string imageName, string destiny)
+        public void DeleteImageUpload(int contaId, Boolean Master, string imageName, string destiny)
         {
             if (!string.IsNullOrEmpty(imageName)) {
                 var pathImage = Path.Combine(_hostEnvironment.ContentRootPath, @$"Resources/{destiny}", imageName);
@@ -20,7 +20,7 @@ namespace OnPeople.API.Controllers.Uploads
             };
         }
 
-        public async Task<string> SaveImageUpload(IFormFile imageNameUser, string destiny)
+        public async Task<string> SaveImageUpload(int contaId, Boolean Master, IFormFile imageNameUser, string destiny)
         {
             string imageNameNew = new String(Path
             .GetFileNameWithoutExtension(imageNameUser.FileName)

@@ -1,10 +1,10 @@
 using AutoMapper;
-using OnPeople.Application.Dtos.Contas;
 using OnPeople.Application.Dtos.Departamentos;
 using OnPeople.Application.Dtos.Empresas;
-using OnPeople.Domain.Models.Contas;
+using OnPeople.Application.Dtos.Users;
 using OnPeople.Domain.Models.Departamentos;
 using OnPeople.Domain.Models.Empresas;
+using OnPeople.Domain.Models.Users;
 
 namespace OnPeople.Application.Configuration.AutoMapperProfile
 {
@@ -13,9 +13,9 @@ namespace OnPeople.Application.Configuration.AutoMapperProfile
         public OnPeopleAutoMapperProfile() {
             CreateMap<Empresa, EmpresaDto>().ReverseMap();
 
-            CreateMap<Conta, ContaDto>().ReverseMap();
-            CreateMap<ContaFuncao, ContaFuncaoDto>().ReverseMap();
-            CreateMap<Funcao, FuncaoDto>().ReverseMap();
+            CreateMap<User, UserDto>().ReverseMap();
+            CreateMap<User, UserUpdateDto>().ReverseMap();
+            CreateMap<User, UserVisaoDto>().ReverseMap();
 
             CreateMap<Departamento, DepartamentoDto>().ReverseMap();
             

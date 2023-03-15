@@ -1,5 +1,5 @@
-using OnPeople.Domain.Models.Contas;
 using OnPeople.Domain.Models.Departamentos;
+using OnPeople.Domain.Models.Users;
 
 namespace OnPeople.Domain.Models.Empresas
 {
@@ -17,8 +17,7 @@ namespace OnPeople.Domain.Models.Empresas
         public int? MatrizId { get; set; }
         public int? PresidenteId {get; set;}
         public string Logotipo { get; set; }
-        public IEnumerable<Conta> Contas { get; set; }
+        public IEnumerable<User> Users { get; set; }
         public IEnumerable<Departamento> Departamentos { get; set; }
-
     }
 }

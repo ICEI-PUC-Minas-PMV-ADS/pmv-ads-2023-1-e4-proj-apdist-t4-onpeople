@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
-using OnPeople.Application.Dtos.Contas;
 using OnPeople.Application.Dtos.Departamentos;
+using OnPeople.Domain.Models.Users;
 
 namespace OnPeople.Application.Dtos.Empresas
 {
@@ -37,8 +37,8 @@ namespace OnPeople.Application.Dtos.Empresas
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public string Logotipo { get; set; }
-        public IEnumerable<ContaDto> Contas { get; set; }
         
         public IEnumerable<DepartamentoDto> Departamentos { get; set; }
+        public IEnumerable<User> Users { get; set; }
     }
 }
