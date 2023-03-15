@@ -62,51 +62,45 @@ Obs.: todas as informações para gerar os indicadores devem estar no diagrama d
 
 ## Requisitos
 
-As tabelas que se seguem apresentam os requisitos funcionais e não funcionais que detalham o escopo do projeto. Para determinar a prioridade de requisitos, aplicar uma técnica de priorização de requisitos e detalhar como a técnica foi aplicada.
-
 ### Requisitos Funcionais
 
 |ID    | Descrição do Requisito  | Prioridade |
 |------|-----------------------------------------|----|
-|RF-001| Permitir que o usuário cadastre tarefas | ALTA | 
-|RF-002| Emitir um relatório de tarefas no mês   | MÉDIA |
+|RF-001| O sistema deverá permitir o login de funcionários da empresa | ALTA | 
+|RF-002| O sistema deverá permitir o recuperação de senha   | MÉDIA |
+|RF-003| O sistema deverá permitir o gerenciamento de usuários (CRUD) | ALTA | 
+|RF-004| O sistema deverá permitir o gerenciamento de empresas (CRUD)   | ALTA |
+|RF-005| O sistema deverá permitir o gerenciamento de funcionários (CRUD) | ALTA | 
+|RF-006| O sistema deverá permitir o gerenciamento de departamentos   | ALTA |
+|RF-007| O sistema deverá permitir o gerenciamento de salários e aumentos | ALTA | 
+|RF-008| O sistema deverá permitir o cadastro de novas metas   | ALTA |
+|RF-009| O sistema deverá permitir a associação de metas a funcionarios | ALTA | 
+|RF-010| O sistema deve apresentar um filtro para pesquisa de funcionários   | ALTA |
+|RF-011| O sistema deverá permitir que o Usuário Comum visualize dados referentes a si (CRUD) | ALTA | 
+|RF-012| O sistema deverá permitir que o Usuário Comum altere dados cadastrais não críticos (CRUD)   | BAIXA |
+|RF-013| O sistema deverá permitir que o Usuário Comum cadastre metas pessoais de auto aprimoramento (CRUD) | MÉDIA | 
+
 
 ### Requisitos não Funcionais
 
 |ID     | Descrição do Requisito  |Prioridade |
 |-------|-------------------------|----|
-|RNF-001| O sistema deve ser responsivo para rodar em um dispositivos móvel | MÉDIA | 
-|RNF-002| Deve processar requisições do usuário em no máximo 3s |  BAIXA | 
+|RNF-001| O sistema de ser feito usando práticas de UX e IxD | ALTA | 
+|RNF-002| O sistema deve ser disponibilizado publicamente no GitHub |  ALTA | 
+|RNF-003| O sistema deve apresentar baixo tempo de resposta nas requisições (não superior a 3 segundos) | MÉDIA | 
+|RNF-004| O sistema deve ser implementado em C# e Angular |  ALTA | 
+|RNF-005| O sistema deve ser responsivo e compatível com os principais navegadores | MÉDIA | 
+|RNF-006| O sistema deve possuir uma versão mobile |  ALTA | 
 
-Com base nas Histórias de Usuário, enumere os requisitos da sua solução. Classifique esses requisitos em dois grupos:
-
-- [Requisitos Funcionais
- (RF)](https://pt.wikipedia.org/wiki/Requisito_funcional):
- correspondem a uma funcionalidade que deve estar presente na
-  plataforma (ex: cadastro de usuário).
-- [Requisitos Não Funcionais
-  (RNF)](https://pt.wikipedia.org/wiki/Requisito_n%C3%A3o_funcional):
-  correspondem a uma característica técnica, seja de usabilidade,
-  desempenho, confiabilidade, segurança ou outro (ex: suporte a
-  dispositivos iOS e Android).
-Lembre-se que cada requisito deve corresponder à uma e somente uma
-característica alvo da sua solução. Além disso, certifique-se de que
-todos os aspectos capturados nas Histórias de Usuário foram cobertos.
 
 ## Restrições
 
-O projeto está restrito pelos itens apresentados na tabela a seguir.
 
 |ID| Restrição                                             |
 |--|-------------------------------------------------------|
-|01| O projeto deverá ser entregue até o final do semestre |
-|02| Não pode ser desenvolvido um módulo de backend        |
+|01| O projeto deverá ser entregue até o final do EIXO-4 (01/2023) |
+|02| Deve ser desenvolvido um módulo de backend em C#      |
 
-Enumere as restrições à sua solução. Lembre-se de que as restrições geralmente limitam a solução candidata.
-
-> **Links Úteis**:
-> - [O que são Requisitos Funcionais e Requisitos Não Funcionais?](https://codificar.com.br/requisitos-funcionais-nao-funcionais/)
-> - [O que são requisitos funcionais e requisitos não funcionais?](https://analisederequisitos.com.br/requisitos-funcionais-e-requisitos-nao-funcionais-o-que-sao/)
 
 ## Diagrama de Casos de Uso
 
