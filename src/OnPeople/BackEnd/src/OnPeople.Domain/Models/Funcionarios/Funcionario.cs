@@ -11,7 +11,7 @@ namespace OnPeople.Domain.Models.Funcionarios
         public DateTime DataAdmissao { get; set; }
         public DateTime DataDemissao { get; set; }
         public Boolean Ativo { get; set; }
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
         public User Users { get; set; }
         public int DepartamentoId { get; set; }
         public Departamento Departamentos { get; set; }
@@ -19,7 +19,6 @@ namespace OnPeople.Domain.Models.Funcionarios
         public Cargo Cargos { get; set; }
         public int EmpresaId { get; set; }
         public Empresa Empresas { get; set; }
-        public int FuncaoId { get; set; }
         public int Funcao { get; set; }
         public IEnumerable<DadoPessoal> DadosPessoais { get; set; }
         public IEnumerable<Endereco> Enderecos { get; set; }

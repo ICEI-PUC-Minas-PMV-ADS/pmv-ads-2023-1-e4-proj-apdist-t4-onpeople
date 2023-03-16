@@ -3,22 +3,18 @@ using OnPeople.Application.Dtos.Empresas;
 using OnPeople.Application.Services.Contracts.Empresas;
 using OnPeople.Domain.Models.Empresas;
 using OnPeople.Persistence.Interfaces.Contracts.Empresas;
-using OnPeople.Persistence.Interfaces.Contracts.Shared;
 
 namespace OnPeople.Application.Services.Implementations.Empresas
 {
     public class EmpresasServices : IEmpresasServices
     {
-        private readonly ISharedPersistence _sharedPersistence;
         private readonly IEmpresasPersistence _empresasPersistence;
         private readonly IMapper _mapper;
         public EmpresasServices(
-            ISharedPersistence sharedPersistence,
             IEmpresasPersistence empresasPersistence,
             IMapper mapper)
         {
             _empresasPersistence = empresasPersistence;
-            _sharedPersistence = sharedPersistence;
             _mapper = mapper;
         }
         public async Task<EmpresaDto> CreateEmpresas(int empresaId, Boolean Master, EmpresaDto empresaDto)
@@ -27,11 +23,11 @@ namespace OnPeople.Application.Services.Implementations.Empresas
             {
                 var empresa = _mapper.Map<Empresa>(empresaDto);
 
-                _sharedPersistence.Create<Empresa>(empresa);
+                _empresasPersistence.Create<Empresa>(empresa);
 
                 if (await _empresasPersistence.SaveChangesAsync())
                 {
-                    var empresaRetorno = await _empresasPersistence.GetEmpresaByIdAsync(empresaId, Master, empresa.Id);
+                    var empresaRetorno = await _empresasPersistence.GetEmpresaByIdAsync(empresa.Id);
 
                     return _mapper.Map<EmpresaDto>(empresaRetorno);
                 }
@@ -45,17 +41,18 @@ namespace OnPeople.Application.Services.Implementations.Empresas
             }
         }
 
-        public async Task<bool> DeleteEmpresas(int empresaId, Boolean Master, int id)
+        public async Task<bool> DeleteEmpresas(int empresaId)
         {
             try
             {
-                var empresa = await _empresasPersistence.GetEmpresaByIdAsync(empresaId, Master,id);
+                var empresa = await _empresasPersistence.GetEmpresaByIdAsync(empresaId);
 
-                if (empresa == null) throw new Exception("Empresa para deleção náo foi encontrada!");
+                if (empresa == null) 
+                    throw new Exception("Empresa para deleção náo foi encontrada!"); 
 
-                  _empresasPersistence.Delete<Empresa>(empresa);
+                _empresasPersistence.Delete<Empresa>(empresa);
 
-                return await _sharedPersistence.SaveChangesAsync();
+                return await _empresasPersistence.SaveChangesAsync();
             }
             catch (Exception e)
             {
@@ -138,18 +135,17 @@ namespace OnPeople.Application.Services.Implementations.Empresas
             }
         }
 
-        public async Task<EmpresaDto> GetEmpresaByIdAsync(int empresaId, Boolean Master, int id)
+        public async Task<IEnumerable<EmpresaDto>> GetAllEmpresasMatrizesAsync(int empresaId, Boolean Master)
         {
             try
             {
+                var empresas = await _empresasPersistence.GetAllEmpresasMatrizesAsync(empresaId, Master);
 
-                var empresa = await _empresasPersistence.GetEmpresaByIdAsync(empresaId, Master, id);
+                if (empresas == null) return null;
 
-                if (empresa == null) return null;
+                var empresasMapper = _mapper.Map<EmpresaDto[]>(empresas);
 
-                var empresaMapper = _mapper.Map<EmpresaDto>(empresa);
-
-                return empresaMapper;
+                return empresasMapper;
             }
             catch (Exception e)
             {
@@ -158,21 +154,39 @@ namespace OnPeople.Application.Services.Implementations.Empresas
             }
         }
 
-        public async Task<EmpresaDto> UpdateEmpresas(int empresaId, Boolean Master, int id, EmpresaDto empresaDto)
+        public async Task<EmpresaDto> GetEmpresaByIdAsync(int empresaId)
         {
             try
             {
-                var empresa = await _empresasPersistence.GetEmpresaByIdAsync(empresaId, Master, id);
+                var empresa = await _empresasPersistence.GetEmpresaByIdAsync(empresaId);
+
+                if (empresa == null) return null;
+
+                var empresaMapper = _mapper.Map<EmpresaDto>(empresa);
+
+                return empresaMapper;
+            }
+            catch (Exception e)
+            { 
+                throw new Exception(e.Message);
+            }
+        }
+
+        public async Task<EmpresaDto> UpdateEmpresa(int empresaId, EmpresaDto empresaDto)
+        {
+            try
+            {
+                var empresa = await _empresasPersistence.GetEmpresaByIdAsync(empresaId);
 
                 if (empresa == null) return null;
 
                 var empresaUpdate = _mapper.Map(empresaDto, empresa);
 
-                _sharedPersistence.Update<Empresa>(empresaUpdate);
+                _empresasPersistence.Update<Empresa>(empresaUpdate);
 
-                if (await _sharedPersistence.SaveChangesAsync())
+                if (await _empresasPersistence.SaveChangesAsync())
                 {
-                    var empresaMapper =  await _empresasPersistence.GetEmpresaByIdAsync(empresaId, Master, empresaUpdate.Id);
+                    var empresaMapper =  await _empresasPersistence.GetEmpresaByIdAsync(empresaUpdate.Id);
                     return _mapper.Map<EmpresaDto>(empresaMapper);
                 }
 

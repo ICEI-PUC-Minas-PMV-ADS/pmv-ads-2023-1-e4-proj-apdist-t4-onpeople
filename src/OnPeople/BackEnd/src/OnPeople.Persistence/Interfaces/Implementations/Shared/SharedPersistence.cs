@@ -33,6 +33,7 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Shared
 
         public void Update<T>(T entity) where T : class
         {
+            _context.Add(entity);
             _context.Update(entity);
         }
     }

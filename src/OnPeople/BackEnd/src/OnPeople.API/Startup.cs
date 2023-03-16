@@ -39,7 +39,7 @@ namespace OnPeople.API
             // Injeção do DBCONTEXT no projeto
             services
                 .AddDbContext<OnPeopleContext>(
-                    context => context.UseSqlite(Configuration.GetConnectionString("Default")));
+                    context => context.UseMySql(Configuration.GetConnectionString("DefaultConnection"), ServerVersion.AutoDetect(Configuration.GetConnectionString("DefaultConnection"))));
 
             // Injeção Identity
             services

@@ -5,7 +5,7 @@ namespace OnPeople.Persistence.Interfaces.Contracts.Empresas
 {
     public interface IEmpresasPersistence: ISharedPersistence
     {
-        Task<Empresa> GetEmpresaByIdAsync(int empresaId, Boolean Master, int id);
+        Task<Empresa> GetEmpresaByIdAsync(int empresaId);
         Task<IEnumerable<Empresa>> GetAllEmpresasAsync(int empresaId, Boolean Master);
         Task<IEnumerable<Empresa>> GetAllEmpresasByArgumentoAsync(int empresaId, Boolean Master, string argumento);
         Task<IEnumerable<Empresa>> GetAllEmpresasAtivasAsync(int empresaId, Boolean Master );
