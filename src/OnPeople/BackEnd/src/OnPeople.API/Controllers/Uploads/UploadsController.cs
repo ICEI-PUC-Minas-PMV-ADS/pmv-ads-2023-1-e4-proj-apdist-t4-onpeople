@@ -31,7 +31,7 @@ namespace OnPeople.API.Controllers.Uploads
             {
                 var user = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());
 
-                var empresa = await _empresasServices.GetEmpresaByIdAsync(user.Id, user.Master, empresaId);
+                var empresa = await _empresasServices.GetEmpresaByIdAsync(empresaId);
 
                 if (empresa == null) return NoContent();
 
@@ -42,7 +42,7 @@ namespace OnPeople.API.Controllers.Uploads
                     empresa.Logotipo = await _uploads.SaveImageUpload(user.Id, user.Master, file, _destino);
                 }
 
-                return Ok(await _empresasServices.UpdateEmpresas(user.Id, user.Master, empresaId, empresa));
+                return Ok(await _empresasServices.UpdateEmpresa(empresaId, empresa));
             }
             catch (Exception e)
             {

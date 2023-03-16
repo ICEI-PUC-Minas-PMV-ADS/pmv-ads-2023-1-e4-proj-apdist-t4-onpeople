@@ -20,11 +20,11 @@ public class EmpresasController : ControllerBase
     public EmpresasController(
         IEmpresasServices empresasServices,
         IUploads uploads,
-        IUsersServices contasServices)
+        IUsersServices usersServices)
     {
         _empresasServices = empresasServices;
         _uploads = uploads;
-        _usersServices = contasServices;
+        _usersServices = usersServices;
     }
 
 
@@ -33,11 +33,12 @@ public class EmpresasController : ControllerBase
     {
         try
         {
-            var userId = User.GetUserIdClaim();
-            Console.WriteLine("=-=-=-=-=-= " + userId);
-            var conta = await _usersServices.GetUserByIdAsync(userId);
+            var claimUser = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());
+
+            if (claimUser == null) 
+                return Unauthorized();
             
-            var empresas = await _empresasServices.GetAllEmpresasAsync(conta.Id, conta.Master);
+            var empresas = await _empresasServices.GetAllEmpresasAsync(claimUser.CodEmpresa, claimUser.Master);
 
             if (empresas == null) return NoContent();
 
@@ -55,9 +56,16 @@ public class EmpresasController : ControllerBase
     {
         try
         {
-            var conta = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());
+            var claimUser = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());
 
-            var empresa = await _empresasServices.GetEmpresaByIdAsync(conta.Id, conta.Master, id);
+            if (claimUser == null) 
+                return Unauthorized();
+                
+            if (!claimUser.Master)
+                if (claimUser.CodEmpresa != id)
+                    return Unauthorized();
+                    
+            var empresa = await _empresasServices.GetEmpresaByIdAsync(id);
 
             if (empresa == null) return NoContent();
 
@@ -75,9 +83,12 @@ public class EmpresasController : ControllerBase
     {
         try
         {
-            var conta = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());
+            var claimUser = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());   
 
-            var empresas = await _empresasServices.GetAllEmpreasByArgumentoAsync(conta.Id, conta.Master, argumento);
+            if (claimUser == null) 
+                return Unauthorized();
+                
+            var empresas = await _empresasServices.GetAllEmpreasByArgumentoAsync(claimUser.CodEmpresa, claimUser.Master, argumento);
 
             if (empresas == null) return NoContent();
 
@@ -95,9 +106,12 @@ public class EmpresasController : ControllerBase
     {
         try
         {
-            var conta = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());
+            var claimUser = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());   
 
-            var empresas = await _empresasServices.GetAllEmpresasAtivasAsync(conta.Id, conta.Master);
+            if (claimUser == null) 
+                return Unauthorized();
+                
+            var empresas = await _empresasServices.GetAllEmpresasAtivasAsync(claimUser.CodEmpresa, claimUser.Master);
 
             if (empresas == null) return NoContent();
 
@@ -115,9 +129,12 @@ public class EmpresasController : ControllerBase
     {
         try
         {
-            var conta = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());
+            var claimUser = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());   
 
-            var empresas = await _empresasServices.GetAllEmpresasFiliaisAsync(conta.Id, conta.Master);
+            if (claimUser == null) 
+                return Unauthorized();
+
+            var empresas = await _empresasServices.GetAllEmpresasFiliaisAsync(claimUser.CodEmpresa, claimUser.Master);
 
             if (empresas == null) return NoContent();
 
@@ -125,7 +142,28 @@ public class EmpresasController : ControllerBase
         }
         catch (Exception e)
         {
-            
+            return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao recuperar empresa filiais. Erro: {e.Message}");
+        }
+    }
+
+    [HttpGet("Matrizes")]
+    public async Task<IActionResult> GetEmpresasMatrizes()
+    {
+        try
+        {
+            var claimUser = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());   
+
+            if (claimUser == null) 
+                return Unauthorized();
+
+            var empresas = await _empresasServices.GetAllEmpresasMatrizesAsync(claimUser.CodEmpresa, claimUser.Master);
+
+            if (empresas == null) return NoContent();
+
+            return Ok(empresas);
+        }
+        catch (Exception e)
+        {
             return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao recuperar empresa filiais. Erro: {e.Message}");
         }
     }
@@ -135,9 +173,15 @@ public class EmpresasController : ControllerBase
     {
         try
         {
-            var conta = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());
+            var claimUser = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());   
 
-            var createdEmpresa = await _empresasServices.CreateEmpresas(conta.Id, conta.Master, empresaDto);
+            if (claimUser == null) 
+                return Unauthorized();
+
+            if (!claimUser.Master)
+                return Unauthorized();
+            
+            var createdEmpresa = await _empresasServices.CreateEmpresas(claimUser.CodEmpresa, claimUser.Master, empresaDto);
 
             if (createdEmpresa != null) return Ok(createdEmpresa);
 
@@ -154,9 +198,18 @@ public class EmpresasController : ControllerBase
     {
         try
         {
-            var conta = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());
+            var claimUser = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());   
 
-            var empresa  = await _empresasServices.UpdateEmpresas(conta.Id, conta.Master, id, empresaDto);
+            if (claimUser == null) 
+                return Unauthorized();
+
+            if (!claimUser.Master)
+                return Unauthorized();
+
+            if (empresaDto.Id != id)
+                return Unauthorized();
+
+            var empresa  = await _empresasServices.UpdateEmpresa(id, empresaDto);
 
             if (empresa == null) return NoContent();
 
@@ -169,18 +222,25 @@ public class EmpresasController : ControllerBase
     }      
     
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteEmpresa(int id)
+    public async Task<IActionResult> DeleteEmpresa(int empresaId)
     {
         try
         {
-            var conta = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());
+            var claimUser = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());   
 
-            var empresa = await _empresasServices.GetEmpresaByIdAsync(conta.Id, conta.Master, id);
+            if (claimUser == null) 
+                return Unauthorized();
 
-            if (empresa == null) return NoContent();
+            if (!claimUser.Master)
+                return Unauthorized();
 
-            if (await _empresasServices.DeleteEmpresas(conta.Id, conta.Master, id)){
-                _uploads.DeleteImageUpload(conta.Id, conta.Master, empresa.Logotipo, "Logos");
+            var empresa = await _empresasServices.GetEmpresaByIdAsync(empresaId);
+
+            if (empresa == null) 
+                return NoContent();
+
+            if (await _empresasServices.DeleteEmpresas(empresaId)){
+                _uploads.DeleteImageUpload(claimUser.Id, claimUser.Master, empresa.Logotipo, "Logos");
                 return Ok( new { message = "OK"});
             } else {
                 return BadRequest("Empresa não excluída.");

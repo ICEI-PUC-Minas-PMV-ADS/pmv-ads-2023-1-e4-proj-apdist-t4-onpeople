@@ -14,7 +14,7 @@ namespace OnPeople.Domain.Models.Cargos
         public int DepartamentoId { get; set; }
         public Departamento Departamentos { get; set; }
         public int EmpresaId { get; set; }
-        public Empresa  Empresas { get; set; }
+        public Empresa Empresas { get; set; }
         public IEnumerable<Funcionario> Funcionarios { get; set; }
     }
 }

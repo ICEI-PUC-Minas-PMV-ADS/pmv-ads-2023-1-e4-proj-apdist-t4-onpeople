@@ -85,12 +85,12 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Empresas
             if (Master) {
                 query = query
                     .AsNoTracking()
-                    .Where(e => e.Filial == true)
+                    .Where(e => e.Filial == false)
                     .OrderBy(e => e.Id);
             } else {
                 query = query
                     .AsNoTracking()
-                    .Where(e => e.Filial == true && e.Id == empresaId)
+                    .Where(e => e.Filial == false && e.Id == empresaId)
                     .OrderBy(e => e.Id);
             }
 
@@ -100,7 +100,7 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Empresas
         public async Task<IEnumerable<Empresa>> GetAllEmpresasByArgumentoAsync(int empresaId, Boolean Master, string argumento)
         {
             IQueryable<Empresa> query = _context.Empresas                
-                 .Include(e => e.Users)
+                .Include(e => e.Users)
                 .Include(e => e.Departamentos);
 
             if (Master) {
@@ -113,7 +113,7 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Empresas
                         e.Sigla.ToLower().Contains(argumento.ToLower()) 
                     );
             } else {
-                                query = query
+                query = query
                     .AsNoTracking()
                     .OrderBy(e => e.Id)
                     .Where(e => e.Id == empresaId && (
@@ -126,21 +126,15 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Empresas
             return await query.ToListAsync();
         }
         
-        public async Task<Empresa> GetEmpresaByIdAsync(int empresaId, Boolean Master, int id)
+        public async Task<Empresa> GetEmpresaByIdAsync(int empresaId)
         {
             IQueryable<Empresa> query = _context.Empresas
                 .Include(e => e.Users)
                 .Include(e => e.Departamentos);
 
-            if (Master) {
-                query = query
-                    .AsNoTracking()
-                    .Where(e => e.Id == id);
-            } else {
-                query = query
-                    .AsNoTracking()
-                    .Where(e => e.Id == id && e.Id == empresaId);
-            }
+            query = query
+                .AsNoTracking()
+                .Where(e => e.Id == empresaId);
 
             return await query.FirstOrDefaultAsync();
         }

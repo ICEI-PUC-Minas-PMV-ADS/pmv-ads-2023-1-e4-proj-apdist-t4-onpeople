@@ -1,3 +1,5 @@
+using OnPeople.Domain.Models.Cargos;
+using OnPeople.Domain.Models.Departamentos;
 using OnPeople.Domain.Models.Empresas;
 
 namespace OnPeople.Application.Dtos.Users
@@ -16,8 +18,13 @@ namespace OnPeople.Application.Dtos.Users
         public DateTime DataCadastro { get; set; }
         public DateTime? DataEncerramento { get; set; }
         public Boolean Master { get; set; }
+        public Boolean Gold { get; set; }
+        public Boolean Bronze { get; set; }
         public Boolean Ativa { get; set; }
-        public int? EmpresaId { get; set; }
-        public Empresa Empresa { get; set; }
+        public int CodEmpresa { get; set; }    
+        public int CodCargo { get; set; }
+        public int CodDepartamento { get; set; }
+        public int CodFuniconario { get; set; }
+        public int CodCodMeta { get; set; }
     }
 }

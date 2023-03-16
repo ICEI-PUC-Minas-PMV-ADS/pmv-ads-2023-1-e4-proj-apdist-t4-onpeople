@@ -52,6 +52,10 @@ namespace OnPeople.Application.Services.Implementations.Users
             {
                 var user = _mapper.Map<User>(userDto);
 
+                user.Master = (user.Visao.ToLower() == "master");
+                user.Gold = (user.Visao.ToLower() == "gold");
+                user.Bronze = (user.Visao.ToLower() != "master" && user.Visao.ToLower() != "gold");
+
                 var userCreated = await _userManager.CreateAsync(user, userDto.Password);
 
                 if (userCreated.Succeeded) {
@@ -108,11 +112,16 @@ namespace OnPeople.Application.Services.Implementations.Users
 
                 if (user == null) return null;
 
+                userUpdateDto.Id = user.Id;
+
                 _mapper.Map(userUpdateDto, user);
+
+                user.Master = (user.Visao.ToLower() == "master");
+                user.Gold = (user.Visao.ToLower() == "gold");
+                user.Bronze = (user.Visao.ToLower() != "master" && user.Visao.ToLower() != "gold");
 
                 var token = await _userManager.GeneratePasswordResetTokenAsync(user);
 
-                Console.WriteLine("=-=-=-=-=-=-=-=-=-Update Reset Token " + user.UserName + " =-= " + token + " =-= " + userUpdateDto.Password );
                 await _userManager.ResetPasswordAsync(user, token, userUpdateDto.Password);
 
                 _usersPersistence.Update<User>(user);
@@ -139,13 +148,17 @@ namespace OnPeople.Application.Services.Implementations.Users
 
                 if (user == null) return null;
 
-                _mapper.Map(userVisaoDto, user);
+                userVisaoDto.Id = user.Id;
 
-                var change = await _usersPersistence.SaveChangesAsync();
+                var userMapper = _mapper.Map(userVisaoDto, user);
 
-                Console.WriteLine("=-=-=-=-=-=-=-=-=-UpdateUserVisaoAsync " + userVisaoDto.UserName + " =-= " + user.UserName +  " =-= " + change );
-                if (change) {
+                userMapper.Master = (user.Visao.ToLower() == "master");
+                userMapper.Gold = (user.Visao.ToLower() == "gold");
+                userMapper.Bronze = (user.Visao.ToLower() != "master" && user.Visao.ToLower() != "gold");
 
+                _usersPersistence.Update<User>(userMapper);
+
+                if (await _usersPersistence.SaveChangesAsync()) {
                     var userRetorno = await _usersPersistence.GetUserByIdAsync(user.Id);
                     return _mapper.Map<UserVisaoDto>(userRetorno);
                 }
@@ -155,7 +168,7 @@ namespace OnPeople.Application.Services.Implementations.Users
             catch (Exception e)
             {
                 
-                throw new Exception($"Falha ao recuperar Contas ativas. Erro: {e.Message}");
+                throw new Exception($"Falha ao alterar conta visao. Erro: {e.Message}");
             }
         }
 
@@ -173,5 +186,6 @@ namespace OnPeople.Application.Services.Implementations.Users
                 throw new Exception($"Falha ao verificar se a conta existe. Erro: {e.Message}");
             }
         }
+
     }
 }

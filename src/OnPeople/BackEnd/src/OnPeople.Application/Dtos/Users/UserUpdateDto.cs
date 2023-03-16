@@ -15,6 +15,13 @@ namespace OnPeople.Application.Dtos.Users
         public DateTime? DataEncerramento { get; set; }
         public Boolean Ativa { get; set; }
         public Boolean Master { get; set; }
+        public Boolean Gold { get; set; }
+        public Boolean Bronze { get; set; }
+        public int CodEmpresa { get; set; }    
+        public int CodCargo { get; set; }
+        public int CodDepartamento { get; set; }
+        public int CodFuniconario { get; set; }
+        public int CodCodMeta { get; set; }
 
     }
 }

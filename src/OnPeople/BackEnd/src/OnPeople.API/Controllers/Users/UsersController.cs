@@ -28,14 +28,16 @@ public class UsersController : ControllerBase
     {
         try
         {
-            Console.WriteLine(User.GetUserIdClaim());
-            var userName = User.GetUserNameClaim();
+            var claimUserName = User.GetUserNameClaim();
+            
+           if (claimUserName == null)
+                return Unauthorized();
 
-            var users = await _usersServices.GetUserByUserNameAsync(userName);
+            var user = await _usersServices.GetUserByUserNameAsync(claimUserName);
 
-            if (users == null) return NoContent();
+            if (user == null) return NoContent();
 
-            return Ok(users);
+            return Ok(user);
         }
         catch (Exception e)
         {
@@ -109,15 +111,26 @@ public class UsersController : ControllerBase
     {
         try
         {
+            var claimUser = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());
+
+            if (claimUser == null) 
+                return Unauthorized();
+
+            if (!claimUser.Master && !claimUser.Gold)
+                return Unauthorized();
+
             var user = await _usersServices.GetUserByIdAsync(id);
+
+            if (!claimUser.Master && !claimUser.Gold)
+                if (user == null || claimUser.Id != user.Id)
+                    return Unauthorized();
 
             if (user == null) return NoContent();
 
             return Ok(user);
         }
         catch (Exception e)
-        {
-            
+        {      
             return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao recuperar conta por Id. Erro: {e.Message}");
         }
     }
@@ -127,22 +140,22 @@ public class UsersController : ControllerBase
     {
         try
         {
-            var userNameClaim = User.GetUserNameClaim();
+            var claimUser = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());
 
-            if (userUpdateDto.UserName != userNameClaim) {
+            if (claimUser == null) 
+                return Unauthorized();
+
+            if (userUpdateDto.UserName != claimUser.UserName) {
                 return Unauthorized("Conta inválida para atualização.");
             } 
                 
-            var user = await _usersServices.GetUserByUserNameAsync(userNameClaim);
+            var user = await _usersServices.GetUserByUserNameAsync(claimUser.UserName);
 
             if (user == null || (userUpdateDto.Id != user.Id))
-            {
-                return Unauthorized("Conta inválida.");
-            } 
+                return Unauthorized("Conta inválida para atualização.");
 
             var userChanged = await _usersServices.UpdateUserTokenAsync(userUpdateDto);
 
-            Console.WriteLine("=-=-=-=-=-=-=-=-=-Changed " + userChanged.UserName + " =-= " + (userChanged == null) );
             if (userChanged == null) {
                 return NoContent();
             }
@@ -167,22 +180,21 @@ public class UsersController : ControllerBase
     {
         try
         {
-            var userNameClaim = User.GetUserNameClaim();
+            var claimUser = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());
 
+            if (claimUser == null) 
+                return Unauthorized();
 
-            if (userVisaoDto.UserName != userNameClaim) {
+            if (!claimUser.Master && !claimUser.Gold)
+                return Unauthorized();
+
+            if (userVisaoDto.UserName != claimUser.UserName) 
                 return Unauthorized("Conta inválida para atualização.");
-            } 
-                
-            var user = await _usersServices.GetUserByUserNameAsync(userNameClaim);
 
-            if (user == null || userVisaoDto.Id != user.Id) 
-            {
-                return Unauthorized("Conta inválida.");
-            } 
+            if (userVisaoDto.Id != claimUser.Id)
+                return Unauthorized("Conta inválida para atualização.");
 
             var userChanged = await _usersServices.UpdateUserVisaoAsync(userVisaoDto);
-            Console.WriteLine("=-=-=-=-=-=-=-=-=-VISAO " + userVisaoDto.Id + " =-= " +user.Id );
 
             if (userChanged == null) {
                 return NoContent();
@@ -194,5 +206,5 @@ public class UsersController : ControllerBase
         {
             return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao atualizar a conta. Erro: {e.Message}");
         }
-    }   
+    }      
 }

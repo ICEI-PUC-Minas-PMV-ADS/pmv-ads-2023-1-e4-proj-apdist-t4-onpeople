@@ -17,16 +17,14 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Users
         public async Task<IEnumerable<User>> GetAllUsersAsync()
         {
             IQueryable<User> query = _context.Users
-                .AsNoTracking()
-                .Include(c => c.Empresa);;
+                .AsNoTracking();
 
             return await query.ToListAsync();
         }
 
         public async Task<IEnumerable<User>> GetAllUsersAtivasAsync()
         {
-            IQueryable<User> query = _context.Users
-                .Include(c => c.Empresa);
+            IQueryable<User> query = _context.Users;
 
             query = query
                 .AsNoTracking()
@@ -42,7 +40,6 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Users
 
             query = query
                 .AsNoTracking()
-                .Include(c => c.Empresa)
                 .Where(c => c.Id == id);
 
             return await query.FirstOrDefaultAsync();
@@ -54,7 +51,6 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Users
                 
             query = query
                 .AsNoTracking()
-                .Include(c => c.Empresa)
                 .Where(c => c.UserName.ToLower() == userName.ToLower());
 
             return await query.SingleOrDefaultAsync();
