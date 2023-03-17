@@ -16,7 +16,7 @@ O diagrama de classes ilustra graficamente como será a estrutura do software, e
 
 </br>
 <p align="center">
-<img src=https://raw.githubusercontent.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e4-proj-apdist-t4-onpeople/main/docs/img/DiagramaDeClassesOnPeople.png>
+<img src=https://raw.githubusercontent.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e4-proj-apdist-t4-onpeople/main/docs/img/Diagrama%20de%20Classes%20-%20OnPeople.png>
 </p>
 <p align="center"> Diagrama de Classes </p>
 </br>
@@ -32,7 +32,7 @@ O Modelo ER representa através de um diagrama como as entidades (coisas, objeto
 
 </br>
 <p align="center">
-<img src=https://raw.githubusercontent.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e4-proj-apdist-t4-onpeople/main/docs/img/Diagrama%20de%20Entidade%20Relacionamento.png>
+<img src=https://raw.githubusercontent.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e4-proj-apdist-t4-onpeople/main/docs/img/EntityRelationshipDiagram.png>
 </p>
 <p align="center"> Diagrama Entidade-Relacionamento </p>
 </br>
@@ -50,7 +50,7 @@ Entregar um arquivo banco.sql contendo os scripts de criação das tabelas do ba
 
 * **Tecnologias front-end:** HTML, CSS, JavaScript, Angular e Bootstrap
 * **Tecnologias back-end:** C# e SQL
-* **Sistema Gerenciador de Banco de Dados:** MySQL
+* **Sistema Gerenciador de Banco de Dados:** SQLServer
 * **Editor de código:** Visual Studio Code
 
 ## Hospedagem
