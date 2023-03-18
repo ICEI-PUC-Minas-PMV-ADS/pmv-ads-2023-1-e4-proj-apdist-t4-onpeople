@@ -1,3 +1,4 @@
+using OnPeople.Domain.Models.Empresas;
 using OnPeople.Domain.Models.Funcionarios;
 
 namespace OnPeople.Domain.Models.Metas
@@ -15,6 +16,9 @@ namespace OnPeople.Domain.Models.Metas
         public int DiasPlanejado { get; set; }
         public DateTime InicioOficial { get; set; }
         public DateTime FimOficial { get; set; }
-        public IEnumerable<Funcionario> Funcionarios { get; set; }
+        public int EmpresaId { get; set; }
+        public Empresa Empresas { get; set; }
+        public IEnumerable<FuncionarioMeta> FuncionariosMetas { get; set; }
+
     }
 }

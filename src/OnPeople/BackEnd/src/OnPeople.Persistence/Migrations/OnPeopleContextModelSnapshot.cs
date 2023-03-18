@@ -15,127 +15,173 @@ namespace OnPeople.Persistence.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "7.0.3");
+            modelBuilder
+                .HasAnnotation("ProductVersion", "6.0.14")
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens", (string)null);
+                });
 
             modelBuilder.Entity("OnPeople.Domain.Models.Cargos.Cargo", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<DateTime>("DataCriacao")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<DateTime>("DataEncerramento")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("DepartamentoId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
 
                     b.Property<string>("NomeCargo")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Ativo");
 
                     b.HasIndex("DepartamentoId");
 
+                    b.HasIndex("EmpresaId");
+
                     b.ToTable("Cargos");
-                });
-
-            modelBuilder.Entity("OnPeople.Domain.Models.Contas.Conta", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("Ativa")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("DataCadastro")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime?>("DataEncerramento")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Foto")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("NomeCompleto")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Visao")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Contas");
-                });
-
-            modelBuilder.Entity("OnPeople.Domain.Models.Contas.ContaFuncao", b =>
-                {
-                    b.Property<int>("ContaId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("FuncaoId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("ContaId", "FuncaoId");
-
-                    b.HasIndex("FuncaoId");
-
-                    b.ToTable("ContasFuncoes");
-                });
-
-            modelBuilder.Entity("OnPeople.Domain.Models.Contas.Funcao", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("NomeFuncao")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Funcoes");
                 });
 
             modelBuilder.Entity("OnPeople.Domain.Models.Departamentos.Departamento", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<bool>("Ativo")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<DateTime>("DataCriacao")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime(6)");
 
-                    b.Property<DateTime>("DataEncerramento")
-                        .HasColumnType("TEXT");
+                    b.Property<DateTime?>("DataEncerramento")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("DiretorId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("EmpresaId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("GerenteId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("NomeDepartamento")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Sigla")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<int>("SupervisorId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Ativo");
+
+                    b.HasIndex("DiretorId");
+
                     b.HasIndex("EmpresaId");
+
+                    b.HasIndex("GerenteId");
+
+                    b.HasIndex("SupervisorId");
 
                     b.ToTable("Departamentos");
                 });
@@ -144,107 +190,96 @@ namespace OnPeople.Persistence.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<bool>("Ativa")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<DateTime>("DataCadastro")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<DateTime?>("DataDesativacao")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<bool>("Filial")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Logotipo")
+                        .HasColumnType("longtext");
 
                     b.Property<int?>("MatrizId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("NomeEmpresa")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("NomeFantasia")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("PadraoEmail")
+                        .HasColumnType("longtext");
 
                     b.Property<int?>("PresidenteId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("Sigla")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Ativa");
+
+                    b.HasIndex("Filial");
+
+                    b.HasIndex("MatrizId");
+
+                    b.HasIndex("PresidenteId");
+
                     b.ToTable("Empresas");
-                });
-
-            modelBuilder.Entity("OnPeople.Domain.Models.Empresas.EmpresaConta", b =>
-                {
-                    b.Property<int>("EmpresaId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("ContaId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("EmpresaId", "ContaId");
-
-                    b.HasIndex("ContaId");
-
-                    b.ToTable("EmpresasContas");
-                });
-
-            modelBuilder.Entity("OnPeople.Domain.Models.Empresas.EmpresaDepartamento", b =>
-                {
-                    b.Property<int>("EmpresaId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("DepartamentoId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("EmpresaId", "DepartamentoId");
-
-                    b.HasIndex("DepartamentoId");
-
-                    b.ToTable("EmpresasDepartamentos");
                 });
 
             modelBuilder.Entity("OnPeople.Domain.Models.Funcionarios.DadoPessoal", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("CPF")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("CarteiraTrabalho")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("DataExpedicao")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<DateTime>("DataExpedicaoCarteiraTrabalho")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("EstadoCivil")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("FuncionarioId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Identidade")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<bool>("ImpedimentoEleitora")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("PisPasep")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("TituloEleitor")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("UfEmissao")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("FuncionarioId");
 
                     b.ToTable("DadosPessoais");
                 });
@@ -253,49 +288,49 @@ namespace OnPeople.Persistence.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("Bairro")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("CaixaPostal")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Cep")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Cidade")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Complemento")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("ComplementoEndereco")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("DataCriação")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<DateTime>("DataUltimaAtualizacao")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime(6)");
 
-                    b.Property<int?>("FuncionarioId")
-                        .HasColumnType("INTEGER");
+                    b.Property<int>("FuncionarioId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Logradouro")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Numero")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Pais")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("TipoEndereco")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("UF")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
@@ -308,56 +343,43 @@ namespace OnPeople.Persistence.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<bool>("Ativo")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<int>("CargoId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("ContaId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Cpf")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("DadoPessoalId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("DataAdmissao")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<DateTime>("DataDemissao")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("DepartamentoId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("EmpresaId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
-                    b.Property<int>("FuncaoId")
-                        .HasColumnType("INTEGER");
+                    b.Property<int>("Funcao")
+                        .HasColumnType("int");
 
-                    b.Property<int?>("MetaId")
-                        .HasColumnType("INTEGER");
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Ativo");
+
                     b.HasIndex("CargoId");
-
-                    b.HasIndex("ContaId");
-
-                    b.HasIndex("DadoPessoalId");
 
                     b.HasIndex("DepartamentoId");
 
                     b.HasIndex("EmpresaId");
 
-                    b.HasIndex("FuncaoId");
-
-                    b.HasIndex("MetaId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Funcionarios");
                 });
@@ -365,34 +387,34 @@ namespace OnPeople.Persistence.Migrations
             modelBuilder.Entity("OnPeople.Domain.Models.Funcionarios.FuncionarioMeta", b =>
                 {
                     b.Property<int>("FuncionarioId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("MetaId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("DiasAcordado")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("DiasEfetivo")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("FimAcordado")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<DateTime>("FimEfetivo")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("Id")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("InicioAcordado")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<DateTime>("InicioEfetivo")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<bool>("MetaCumprida")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("tinyint(1)");
 
                     b.HasKey("FuncionarioId", "MetaId");
 
@@ -405,192 +427,340 @@ namespace OnPeople.Persistence.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("DiasPlanejado")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("FimOficial")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<DateTime>("FumPlanejado")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<DateTime>("InicioOficial")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<DateTime>("InicioPlanejado")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<bool>("MetaAprovada")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<bool>("MetaCumprida")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("NomeMeta")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("TipoMeta")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("descricao")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EmpresaId");
+
+                    b.HasIndex("MetaAprovada");
+
+                    b.HasIndex("MetaCumprida");
 
                     b.ToTable("Metas");
                 });
 
+            modelBuilder.Entity("OnPeople.Domain.Models.Users.Role", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256)");
+
+                    b.Property<string>("NomeFuncao")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex");
+
+                    b.ToTable("AspNetRoles", (string)null);
+                });
+
+            modelBuilder.Entity("OnPeople.Domain.Models.Users.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Ativa")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("Bronze")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int>("CodCargo")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CodDepartamento")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CodEmpresa")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CodFunionarioId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CodMeta")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("DataCadastro")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("DataEncerramento")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int?>("EmpresaId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Foto")
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("Gold")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("Master")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("NomeCompleto")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256)");
+
+                    b.Property<string>("Visao")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmpresaId");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex");
+
+                    b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("OnPeople.Domain.Models.Users.UserRole", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
+                {
+                    b.HasOne("OnPeople.Domain.Models.Users.Role", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
+                {
+                    b.HasOne("OnPeople.Domain.Models.Users.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
+                {
+                    b.HasOne("OnPeople.Domain.Models.Users.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
+                {
+                    b.HasOne("OnPeople.Domain.Models.Users.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("OnPeople.Domain.Models.Cargos.Cargo", b =>
                 {
-                    b.HasOne("OnPeople.Domain.Models.Departamentos.Departamento", "Departamento")
-                        .WithMany()
+                    b.HasOne("OnPeople.Domain.Models.Departamentos.Departamento", "Departamentos")
+                        .WithMany("Cargos")
                         .HasForeignKey("DepartamentoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Departamento");
-                });
-
-            modelBuilder.Entity("OnPeople.Domain.Models.Contas.ContaFuncao", b =>
-                {
-                    b.HasOne("OnPeople.Domain.Models.Contas.Conta", "Conta")
+                    b.HasOne("OnPeople.Domain.Models.Empresas.Empresa", "Empresas")
                         .WithMany()
-                        .HasForeignKey("ContaId")
+                        .HasForeignKey("EmpresaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("OnPeople.Domain.Models.Contas.Funcao", "Funcao")
-                        .WithMany("ContasFuncoes")
-                        .HasForeignKey("FuncaoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Departamentos");
 
-                    b.Navigation("Conta");
-
-                    b.Navigation("Funcao");
+                    b.Navigation("Empresas");
                 });
 
             modelBuilder.Entity("OnPeople.Domain.Models.Departamentos.Departamento", b =>
                 {
-                    b.HasOne("OnPeople.Domain.Models.Empresas.Empresa", "Empresa")
+                    b.HasOne("OnPeople.Domain.Models.Empresas.Empresa", "Empresas")
                         .WithMany("Departamentos")
                         .HasForeignKey("EmpresaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Empresa");
-                });
-
-            modelBuilder.Entity("OnPeople.Domain.Models.Empresas.EmpresaConta", b =>
-                {
-                    b.HasOne("OnPeople.Domain.Models.Contas.Conta", "Contas")
-                        .WithMany()
-                        .HasForeignKey("ContaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("OnPeople.Domain.Models.Empresas.Empresa", "Empresas")
-                        .WithMany("EmpresasContas")
-                        .HasForeignKey("EmpresaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Contas");
-
                     b.Navigation("Empresas");
                 });
 
-            modelBuilder.Entity("OnPeople.Domain.Models.Empresas.EmpresaDepartamento", b =>
+            modelBuilder.Entity("OnPeople.Domain.Models.Funcionarios.DadoPessoal", b =>
                 {
-                    b.HasOne("OnPeople.Domain.Models.Departamentos.Departamento", "Departamento")
-                        .WithMany()
-                        .HasForeignKey("DepartamentoId")
+                    b.HasOne("OnPeople.Domain.Models.Funcionarios.Funcionario", "Funcionarios")
+                        .WithMany("DadosPessoais")
+                        .HasForeignKey("FuncionarioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("OnPeople.Domain.Models.Empresas.Empresa", "Empresa")
-                        .WithMany()
-                        .HasForeignKey("EmpresaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Departamento");
-
-                    b.Navigation("Empresa");
+                    b.Navigation("Funcionarios");
                 });
 
             modelBuilder.Entity("OnPeople.Domain.Models.Funcionarios.Endereco", b =>
                 {
-                    b.HasOne("OnPeople.Domain.Models.Funcionarios.Funcionario", null)
+                    b.HasOne("OnPeople.Domain.Models.Funcionarios.Funcionario", "Funcionarios")
                         .WithMany("Enderecos")
-                        .HasForeignKey("FuncionarioId");
+                        .HasForeignKey("FuncionarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Funcionarios");
                 });
 
             modelBuilder.Entity("OnPeople.Domain.Models.Funcionarios.Funcionario", b =>
                 {
-                    b.HasOne("OnPeople.Domain.Models.Cargos.Cargo", "Cargo")
-                        .WithMany()
+                    b.HasOne("OnPeople.Domain.Models.Cargos.Cargo", "Cargos")
+                        .WithMany("Funcionarios")
                         .HasForeignKey("CargoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("OnPeople.Domain.Models.Contas.Conta", "Conta")
-                        .WithMany()
-                        .HasForeignKey("ContaId");
-
-                    b.HasOne("OnPeople.Domain.Models.Funcionarios.DadoPessoal", "DadosPessoais")
-                        .WithMany()
-                        .HasForeignKey("DadoPessoalId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("OnPeople.Domain.Models.Departamentos.Departamento", "Departameto")
+                    b.HasOne("OnPeople.Domain.Models.Departamentos.Departamento", "Departamentos")
                         .WithMany()
                         .HasForeignKey("DepartamentoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("OnPeople.Domain.Models.Empresas.Empresa", "Empresa")
+                    b.HasOne("OnPeople.Domain.Models.Empresas.Empresa", "Empresas")
                         .WithMany()
                         .HasForeignKey("EmpresaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("OnPeople.Domain.Models.Contas.Funcao", "Funcao")
+                    b.HasOne("OnPeople.Domain.Models.Users.User", "Users")
                         .WithMany()
-                        .HasForeignKey("FuncaoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
-                    b.HasOne("OnPeople.Domain.Models.Metas.Meta", null)
-                        .WithMany("Funcionarios")
-                        .HasForeignKey("MetaId");
+                    b.Navigation("Cargos");
 
-                    b.Navigation("Cargo");
+                    b.Navigation("Departamentos");
 
-                    b.Navigation("Conta");
+                    b.Navigation("Empresas");
 
-                    b.Navigation("DadosPessoais");
-
-                    b.Navigation("Departameto");
-
-                    b.Navigation("Empresa");
-
-                    b.Navigation("Funcao");
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("OnPeople.Domain.Models.Funcionarios.FuncionarioMeta", b =>
                 {
                     b.HasOne("OnPeople.Domain.Models.Funcionarios.Funcionario", "Funcionario")
-                        .WithMany("FuncionarioMetas")
+                        .WithMany("FuncionariosMetas")
                         .HasForeignKey("FuncionarioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("OnPeople.Domain.Models.Metas.Meta", "Meta")
-                        .WithMany()
+                        .WithMany("FuncionariosMetas")
                         .HasForeignKey("MetaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -600,28 +770,82 @@ namespace OnPeople.Persistence.Migrations
                     b.Navigation("Meta");
                 });
 
-            modelBuilder.Entity("OnPeople.Domain.Models.Contas.Funcao", b =>
+            modelBuilder.Entity("OnPeople.Domain.Models.Metas.Meta", b =>
                 {
-                    b.Navigation("ContasFuncoes");
+                    b.HasOne("OnPeople.Domain.Models.Empresas.Empresa", "Empresas")
+                        .WithMany()
+                        .HasForeignKey("EmpresaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Empresas");
+                });
+
+            modelBuilder.Entity("OnPeople.Domain.Models.Users.User", b =>
+                {
+                    b.HasOne("OnPeople.Domain.Models.Empresas.Empresa", null)
+                        .WithMany("Users")
+                        .HasForeignKey("EmpresaId");
+                });
+
+            modelBuilder.Entity("OnPeople.Domain.Models.Users.UserRole", b =>
+                {
+                    b.HasOne("OnPeople.Domain.Models.Users.Role", "Role")
+                        .WithMany("UsersRoles")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("OnPeople.Domain.Models.Users.User", "User")
+                        .WithMany("UsersRoles")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("OnPeople.Domain.Models.Cargos.Cargo", b =>
+                {
+                    b.Navigation("Funcionarios");
+                });
+
+            modelBuilder.Entity("OnPeople.Domain.Models.Departamentos.Departamento", b =>
+                {
+                    b.Navigation("Cargos");
                 });
 
             modelBuilder.Entity("OnPeople.Domain.Models.Empresas.Empresa", b =>
                 {
                     b.Navigation("Departamentos");
 
-                    b.Navigation("EmpresasContas");
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("OnPeople.Domain.Models.Funcionarios.Funcionario", b =>
                 {
+                    b.Navigation("DadosPessoais");
+
                     b.Navigation("Enderecos");
 
-                    b.Navigation("FuncionarioMetas");
+                    b.Navigation("FuncionariosMetas");
                 });
 
             modelBuilder.Entity("OnPeople.Domain.Models.Metas.Meta", b =>
                 {
-                    b.Navigation("Funcionarios");
+                    b.Navigation("FuncionariosMetas");
+                });
+
+            modelBuilder.Entity("OnPeople.Domain.Models.Users.Role", b =>
+                {
+                    b.Navigation("UsersRoles");
+                });
+
+            modelBuilder.Entity("OnPeople.Domain.Models.Users.User", b =>
+                {
+                    b.Navigation("UsersRoles");
                 });
 #pragma warning restore 612, 618
         }

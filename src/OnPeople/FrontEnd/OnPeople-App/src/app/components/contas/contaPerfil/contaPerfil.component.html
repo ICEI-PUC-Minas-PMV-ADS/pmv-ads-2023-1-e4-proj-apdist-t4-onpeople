@@ -1,0 +1,64 @@
+<div class="card rounded shadow-sm p-1 m-0">
+  <div class="card-header bg-info shadow-sm text-center text-white ">
+    <div class="h3">Formulário de Perfil</div>
+  </div>
+  <div class="card-body bg-light m-0 p-0">
+    <div  class="row g-0">
+      <div class="col-sm-12 col-md-3 p-1">
+        <div class="card m-0 p-0">
+          <div class="card-header bg-primary">
+            <input type="file" style="display: none">
+            <div class="align-self-center text-center pt-1">
+              <img class="rounded-circle" src="../../../../assets/img/BadgeRegistration.png">
+              <div class="h4 text-center text-white">
+                fulano.junior@br.xlb.com
+              </div>
+            </div>
+          </div>
+
+          <div class="card-body bg-light">
+            <div class="h7 text-bold pb-1">
+              Nome: Fulano de Tal da Silva Junior
+            </div>
+            <div class="h7 text-bold pb-1">
+              e-mail: fulano.junior@br.xlb.com
+            </div>
+            <div class="h7 text-bold pb-1">
+              Telefone: (31)-9999-9999
+            </div>
+            <div class="h7 text-bold pb-1">
+              Descrição: adkd fodahf sdjfhdsjh sfhjfs
+            </div>
+          </div>
+        </div>
+      </div>
+    <div class="col-md-9 m-0 p-1">
+      <div class="form-row d-md-flex">
+        <div class="form-group col-12">
+          <tabset  #staticTabs>
+            <tab >
+              <ng-template tabHeading>
+                <fa-icon [icon]="iconTab1"></fa-icon>
+                <span class="m-1">Perfil</span>
+              </ng-template>
+              <app-contaPerfilDetalhe></app-contaPerfilDetalhe>
+            </tab>
+            <tab >
+              <ng-template tabHeading>
+                <fa-icon [icon]="iconTab2"></fa-icon>
+                <span>Senha</span>
+              </ng-template>
+              <app-contaPerfilSenha></app-contaPerfilSenha>
+            </tab>
+          </tabset>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+

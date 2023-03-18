@@ -1,4 +1,5 @@
 using OnPeople.Domain.Models.Departamentos;
+using OnPeople.Domain.Models.Users;
 
 namespace OnPeople.Domain.Models.Empresas
 {
@@ -12,10 +13,11 @@ namespace OnPeople.Domain.Models.Empresas
         public DateTime DataCadastro { get; set; }
         public DateTime? DataDesativacao { get; set; }
         public Boolean  Filial { get; set; }
+        public string PadraoEmail { get; set; }
         public int? MatrizId { get; set; }
         public int? PresidenteId {get; set;}
-        public IEnumerable<EmpresaConta> EmpresasContas { get; set; }
+        public string Logotipo { get; set; }
+        public IEnumerable<User> Users { get; set; }
         public IEnumerable<Departamento> Departamentos { get; set; }
-
     }
 }
