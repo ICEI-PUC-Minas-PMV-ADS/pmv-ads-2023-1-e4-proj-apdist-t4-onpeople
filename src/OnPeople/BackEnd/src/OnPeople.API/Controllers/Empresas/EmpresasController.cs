@@ -57,7 +57,7 @@ public class EmpresasController : ControllerBase
         try
         {
             var claimUser = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());
-            Console.WriteLine("===================================" + claimUser.UserName);
+            
             if (claimUser == null) 
                 return Unauthorized();
                 
