@@ -516,3 +516,6 @@ testem.log
 .DS_Store
 Thumbs.db
 *.db
+
+bin/*
+obj/*
