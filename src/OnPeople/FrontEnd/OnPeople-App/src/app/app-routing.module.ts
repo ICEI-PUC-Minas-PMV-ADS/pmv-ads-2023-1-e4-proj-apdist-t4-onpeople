@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ContaCadastroComponent } from './components/contas/contaCadastro/contaCadastro.component';
-import { ContaLoginComponent } from './components/contas/contaLogin/contaLogin.component';
 import { ContaPerfilComponent } from './components/contas/contaPerfil/contaPerfil.component';
 import { ContasComponent } from './components/contas/contas.component';
 import { EmpresasComponent } from './components/empresas/empresas.component';
 import { EmpresasDetalheComponent } from './components/empresas/empresasDetalhe/empresasDetalhe.component';
 import { EmpresasListaComponent } from './components/empresas/empresasLista/empresasLista.component';
+import { UserLoginComponent } from './components/users/userLogin/userLogin.component';
+import { UserRegisterComponent } from './components/users/userRegister/userRegister.component';
 
 const routes: Routes = [
 
-  { path: 'contas', redirectTo: 'constas/perfil', pathMatch: 'full' },
+  { path: 'users', redirectTo: 'users/profile', pathMatch: 'full' },
 
   { path: 'empresas', redirectTo: 'empresas/lista', pathMatch: 'full' },
   { path: 'empresas', component: EmpresasComponent,
@@ -20,14 +20,14 @@ const routes: Routes = [
       { path: 'lista', component: EmpresasListaComponent },
     ] },
 
-  { path: 'contas', component: ContasComponent,
+  { path: 'users', component: ContasComponent,
     children: [
-      { path: 'login', component: ContaLoginComponent },
-      { path: 'cadastro', component: ContaCadastroComponent},
+      { path: 'login', component: UserLoginComponent },
+      { path: 'register', component: UserRegisterComponent},
       { path: 'perfil', component: ContaPerfilComponent},
     ] },
 
-  { path: '**', redirectTo: 'contas/cadastro', pathMatch: 'full'}
+  { path: '**', redirectTo: 'users/register', pathMatch: 'full'}
 ];
 
 @NgModule({

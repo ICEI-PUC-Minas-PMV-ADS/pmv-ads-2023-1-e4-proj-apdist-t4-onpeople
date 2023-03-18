@@ -21,8 +21,9 @@ namespace OnPeople.Domain.Models.Users
         public int CodEmpresa { get; set; }
         public int CodCargo { get; set; }
         public int CodDepartamento { get; set; }
-        public int CodFunionarioId { get; set; }
+        public int CodFuncionario { get; set; }
         public int CodMeta { get; set; }
         public IEnumerable<UserRole> UsersRoles {get; set;}
+        public int Token { get; set; }
     }
 }

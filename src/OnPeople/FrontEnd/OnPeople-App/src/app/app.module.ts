@@ -22,8 +22,6 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { CabecalhoTelaComponent } from './components/shared/cabecalhoTela/cabecalhoTela.component';
-import { ContaCadastroComponent } from './components/contas/contaCadastro/contaCadastro.component';
-import { ContaLoginComponent } from './components/contas/contaLogin/contaLogin.component';
 import { ContaPerfilComponent } from './components/contas/contaPerfil/contaPerfil.component';
 import { ContaPerfilDetalheComponent } from './components/contas/contaPerfil/contaPerfilDetalhe/contaPerfilDetalhe.component';
 import { ContaPerfilSenhaComponent } from './components/contas/contaPerfil/contaPerfilSenha/contaPerfilSenha.component';
@@ -35,14 +33,18 @@ import { EmpresasListaComponent } from './components/empresas/empresasLista/empr
 import { EmpresasService } from './services/empresas/Empresas.service';
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
 
+import { UserLoginComponent } from './components/users/userLogin/userLogin.component';
+import { UserRegisterComponent } from './components/users/userRegister/userRegister.component';
+import { LoginLogoutService } from './services/users/login/loginLogout.service';
+import { UserService } from './services/users/user/user.service';
+
 defineLocale('pt-br', ptBrLocale);
 
 @NgModule({
   declarations: [
     AppComponent,
     CabecalhoTelaComponent,
-    ContaCadastroComponent,
-    ContaLoginComponent,
+    UserRegisterComponent,
     ContaPerfilComponent,
     ContaPerfilDetalheComponent,
     ContaPerfilSenhaComponent,
@@ -52,6 +54,8 @@ defineLocale('pt-br', ptBrLocale);
     EmpresasDetalheComponent,
     EmpresasListaComponent,
     NavbarComponent,
+    UserLoginComponent,
+    UserRegisterComponent,
    ],
   imports: [
     AppRoutingModule,
@@ -76,7 +80,11 @@ defineLocale('pt-br', ptBrLocale);
       progressBar: true
     }),
   ],
-  providers: [EmpresasService],
+  providers: [
+    EmpresasService,
+    LoginLogoutService,
+    UserService
+  ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

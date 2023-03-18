@@ -1,7 +1,3 @@
-using OnPeople.Domain.Models.Cargos;
-using OnPeople.Domain.Models.Departamentos;
-using OnPeople.Domain.Models.Empresas;
-
 namespace OnPeople.Application.Dtos.Users
 {
     public class UserDto
@@ -24,7 +20,7 @@ namespace OnPeople.Application.Dtos.Users
         public int CodEmpresa { get; set; }    
         public int CodCargo { get; set; }
         public int CodDepartamento { get; set; }
-        public int CodFuniconario { get; set; }
-        public int CodCodMeta { get; set; }
+        public int CodFuncionario { get; set; }
+        public int CodMeta { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, take } from 'rxjs';
 
@@ -9,6 +9,9 @@ import { environment } from 'src/assets/environments/environments';
 @Injectable()
 export class EmpresasService {
   baseURL = environment.apiURL + 'empresas/'
+  tokenHeader = new HttpHeaders({
+    'Authorization': 'Bearer '
+  });
 
   constructor(private http: HttpClient) { }
 
