@@ -1,23 +1,25 @@
-# TÍTULO DO PROJETO1
+# OnPeople
 
-`CURSO`
+`CURSO: Analise e Desevolvimento Sistemas`
 
-`DISCIPLINA`
+`Projeto: Desenvolvimento de uma Aplicação Distribuída`
 
-`SEMESTRE`
+`Eixo 4 `
 
-Descrever resumidamente, em um ou dois parágrafos, o projeto que está sendo desenvolvido.
+O objetivo é desenvolver um sistema que auxilie diversas empresas na análise de crescimento e desenvolvimento de cada colaborador, criando metas e relatórios trimestrais com o intuito de trazer agilidade e simplicidade de informações, e assim, gerar um crescimento contínuo entre ambos.
 
 ## Integrantes
 
-* Nome completo do aluno 1
-* Nome completo do aluno 2
-* Nome completo do aluno 3
-* Nome completo do aluno 4
+* Alex de Souza Galdino
+* Ciro Hideki Artiga Watanabe
+* Isabella Carolina de Almeida Siqueira Damião
+* Pedro Luiz Braga Andrade Leite
+* Rafaela Cristina Souza de Oliveira
+* Vitória Gabriella Maffei Corrêa Rocha
 
 ## Orientador
 
-* Nome completo do professor 1
+* Pedro Alves de Oliveira
 
 ## Instruções de utilização
 

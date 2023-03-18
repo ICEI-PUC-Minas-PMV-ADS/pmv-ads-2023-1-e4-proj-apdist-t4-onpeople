@@ -8,19 +8,13 @@ Apresente uma visão geral do que será abordado nesta parte do documento, enume
 
 ## Personas
 
-Pedro Paulo tem 26 anos, é arquiteto recém-formado e autônomo. Pensa em se desenvolver profissionalmente através de um mestrado fora do país, pois adora viajar, é solteiro e sempre quis fazer um intercâmbio. Está buscando uma agência que o ajude a encontrar universidades na Europa que aceitem alunos estrangeiros.
-
-Enumere e detalhe as personas da sua solução. Para tanto, baseie-se tanto nos documentos disponibilizados na disciplina e/ou nos seguintes links:
-
-> **Links Úteis**:
-> - [Rock Content](https://rockcontent.com/blog/personas/)
-> - [Hotmart](https://blog.hotmart.com/pt-br/como-criar-persona-negocio/)
-> - [O que é persona?](https://resultadosdigitais.com.br/blog/persona-o-que-e/)
-> - [Persona x Público-alvo](https://flammo.com.br/blog/persona-e-publico-alvo-qual-a-diferenca/)
-> - [Mapa de Empatia](https://resultadosdigitais.com.br/blog/mapa-da-empatia/)
-> - [Mapa de Stalkeholders](https://www.racecomunicacao.com.br/blog/como-fazer-o-mapeamento-de-stakeholders/)
->
-Lembre-se que você deve ser enumerar e descrever precisamente e personalizada todos os clientes ideais que sua solução almeja.
+| Lucas De Oliveira Santos | Melissa Fernandes Santos | Lúcia De Medeiros Silva |
+| ---        |    ----   |          --- |
+| <img src="/docs/img/photo-lucas.jpg " alt="Lucas De Oliveira Santos"/>| <img src="/docs/img/photo-melissa.jpeg" alt="Melissa Fernandes Santos"/>| <img src="/docs/img/photo-lucia.png" alt="Lúcia De Medeiros Silva" /> |
+| Idade: 32 anos <br>Ocupação: foi promovido a Gerente do setor de RH há aproximadamente 2 anos, trabalha na empresa Neskal do Brasil, uma multinacional de grande porte.| Idade: 22 anos <br>Ocupação: Estagiária do setor de RH na empresa Neskal do Brasil. Faz faculdade de Ciências Contábeis e obteve uma oportunidade de expressar seus conhecimentos contábeis junto ao setor de RH.| Idade: 42 anos <br>Ocupação: Gestora de RH na empresa Neskal do Brasil. Faz o gerenciamento do time e atividades de RH.|
+|Hobbies, História:<br>Lucas sonha em revolucionar as relação funcionário x empregador e, para isso, dedica parte de seu tempo em estudo, pesquisas e treinamentos em inovações de RH.|Hobbies, História:<br>Além de ser uma jogador de vôlei e estudante, Melissa dedica uma fração do tempo em pesquisa e desenvolvimento interpessoal.|Hobbies, História:<br>Lucia realiza um sonho de estudar e conhecer belas artes.|
+|Motivações: <br>Lucas tem ótimas ideias de gerenciamento e controle da produção, bem como, a gestão de expectativas de carreira e motivacional.|Motivações: <br>Melissa está conhecendo o mercado de trabalho e viu a oportunidade de trabalhar na empresa de Lucas desafiadora pois conciliar contabilidade com RH será um desafio inovador para sua carreira.|Motivações: <br>Lúcia está na empresa a 10 anos e foi recentemente promovida à Gestora de RH. Está motivada com as ideias e metodologias de Lucas e está empenhada em fazer acontecer a inovação na empresa.|
+|Frustrações: <br>Atualmente Lucas tem dificuldades de acompanhar/avaliar as metas e os objetivos profissionais de cada funcionário, pois não possui uma ferramenta sistematizada que fornece dados estatísticos dos funcionários.|Frustrações: <br>Não domina a maratona de atividades do RH e precisa se orientar dentro da empresa através de uma ferramenta de suporte e capacitação.|Frustrações:  <br>A ausência de ferramentas sistematizadas de gestão de RH, onera seu tempo de pensamento inovador com funções operacionais de preenchimento de formulários de cadastros, envio e recebimento de malotes, dentre outras necessidades do setor.|
 
 ## Histórias de Usuários
 
@@ -28,17 +22,12 @@ Com base na análise das personas forma identificadas as seguintes histórias de
 
 |EU COMO... `PERSONA`| QUERO/PRECISO ... `FUNCIONALIDADE` |PARA ... `MOTIVO/VALOR`                 |
 |--------------------|------------------------------------|----------------------------------------|
-|Usuário do sistema  | Registrar minhas tarefas           | Não esquecer de fazê-las               |
-|Administrador       | Alterar permissões                 | Permitir que possam administrar contas |
-
-Apresente aqui as histórias de usuário que são relevantes para o projeto de sua solução. As Histórias de Usuário consistem em uma ferramenta poderosa para a compreensão e elicitação dos requisitos funcionais e não funcionais da sua aplicação. Se possível, agrupe as histórias de usuário por contexto, para facilitar consultas recorrentes à essa parte do documento.
-
-> **Links Úteis**:
-> - [Histórias de usuários com exemplos e template](https://www.atlassian.com/br/agile/project-management/user-stories)
-> - [Como escrever boas histórias de usuário (User Stories)](https://medium.com/vertice/como-escrever-boas-users-stories-hist%C3%B3rias-de-usu%C3%A1rios-b29c75043fac)
-> - [User Stories: requisitos que humanos entendem](https://www.luiztools.com.br/post/user-stories-descricao-de-requisitos-que-humanos-entendem/)
-> - [Histórias de Usuários: mais exemplos](https://www.reqview.com/doc/user-stories-example.html)
-> - [9 Common User Story Mistakes](https://airfocus.com/blog/user-story-mistakes/)
+| Lucas	| Receber dados estatísticos de funcionários(metas atingidas, não atingidas e em atraso) | Analisar tendências, cumprimento das metas e atendimento aos objetivos.|
+| Lucia | Estabelecer metas para cumprimento em curto, médio e longo prazo para departamento, individuais e RH | Melhoria contínua no desenvolvimento pessoal e profissional.|
+| Melissa |Gostaria de fazer a gestão dos funcionários permitndo que eles tenham uma conta própria no sistema para entrar, sair e manter estes dados. | Ter uma maior agilidade na gestão de pessoas.|
+| Lucas |	Realizar cadastros de metas	| Controle de metas.|
+| Lucia	| Gostaria de controlar as empresas com seus departamentos e cargos | Ter uma maior agilidade de gestão administrativa. |
+| Lucia |	Acompanhar objetivos individuais | Garantir o aperfeicoamento profissional de cada membro da equipe.|
 
 ## Modelagem do Processo de Negócio 
 
@@ -73,51 +62,45 @@ Obs.: todas as informações para gerar os indicadores devem estar no diagrama d
 
 ## Requisitos
 
-As tabelas que se seguem apresentam os requisitos funcionais e não funcionais que detalham o escopo do projeto. Para determinar a prioridade de requisitos, aplicar uma técnica de priorização de requisitos e detalhar como a técnica foi aplicada.
-
 ### Requisitos Funcionais
 
 |ID    | Descrição do Requisito  | Prioridade |
 |------|-----------------------------------------|----|
-|RF-001| Permitir que o usuário cadastre tarefas | ALTA | 
-|RF-002| Emitir um relatório de tarefas no mês   | MÉDIA |
+|RF-001| O sistema deverá permitir o login de funcionários da empresa | ALTA | 
+|RF-002| O sistema deverá permitir o recuperação de senha   | MÉDIA |
+|RF-003| O sistema deverá permitir o gerenciamento de usuários (CRUD) | ALTA | 
+|RF-004| O sistema deverá permitir o gerenciamento de empresas (CRUD)   | ALTA |
+|RF-005| O sistema deverá permitir o gerenciamento de funcionários (CRUD) | ALTA | 
+|RF-006| O sistema deverá permitir o gerenciamento de departamentos   | ALTA |
+|RF-007| O sistema deverá permitir o gerenciamento de salários e aumentos | ALTA | 
+|RF-008| O sistema deverá permitir o cadastro de novas metas   | ALTA |
+|RF-009| O sistema deverá permitir a associação de metas a funcionarios | ALTA | 
+|RF-010| O sistema deve apresentar um filtro para pesquisa de funcionários   | ALTA |
+|RF-011| O sistema deverá permitir que o Usuário Comum visualize dados referentes a si (CRUD) | ALTA | 
+|RF-012| O sistema deverá permitir que o Usuário Comum altere dados cadastrais não críticos (CRUD)   | BAIXA |
+|RF-013| O sistema deverá permitir que o Usuário Comum cadastre metas pessoais de auto aprimoramento (CRUD) | MÉDIA | 
+
 
 ### Requisitos não Funcionais
 
 |ID     | Descrição do Requisito  |Prioridade |
 |-------|-------------------------|----|
-|RNF-001| O sistema deve ser responsivo para rodar em um dispositivos móvel | MÉDIA | 
-|RNF-002| Deve processar requisições do usuário em no máximo 3s |  BAIXA | 
+|RNF-001| O sistema de ser feito usando práticas de UX e IxD | ALTA | 
+|RNF-002| O sistema deve ser disponibilizado publicamente no GitHub |  ALTA | 
+|RNF-003| O sistema deve apresentar baixo tempo de resposta nas requisições (não superior a 3 segundos) | MÉDIA | 
+|RNF-004| O sistema deve ser implementado em C# e Angular |  ALTA | 
+|RNF-005| O sistema deve ser responsivo e compatível com os principais navegadores | MÉDIA | 
+|RNF-006| O sistema deve possuir uma versão mobile |  ALTA | 
 
-Com base nas Histórias de Usuário, enumere os requisitos da sua solução. Classifique esses requisitos em dois grupos:
-
-- [Requisitos Funcionais
- (RF)](https://pt.wikipedia.org/wiki/Requisito_funcional):
- correspondem a uma funcionalidade que deve estar presente na
-  plataforma (ex: cadastro de usuário).
-- [Requisitos Não Funcionais
-  (RNF)](https://pt.wikipedia.org/wiki/Requisito_n%C3%A3o_funcional):
-  correspondem a uma característica técnica, seja de usabilidade,
-  desempenho, confiabilidade, segurança ou outro (ex: suporte a
-  dispositivos iOS e Android).
-Lembre-se que cada requisito deve corresponder à uma e somente uma
-característica alvo da sua solução. Além disso, certifique-se de que
-todos os aspectos capturados nas Histórias de Usuário foram cobertos.
 
 ## Restrições
 
-O projeto está restrito pelos itens apresentados na tabela a seguir.
 
 |ID| Restrição                                             |
 |--|-------------------------------------------------------|
-|01| O projeto deverá ser entregue até o final do semestre |
-|02| Não pode ser desenvolvido um módulo de backend        |
+|01| O projeto deverá ser entregue até o final do EIXO-4 (01/2023) |
+|02| Deve ser desenvolvido um módulo de backend em C#      |
 
-Enumere as restrições à sua solução. Lembre-se de que as restrições geralmente limitam a solução candidata.
-
-> **Links Úteis**:
-> - [O que são Requisitos Funcionais e Requisitos Não Funcionais?](https://codificar.com.br/requisitos-funcionais-nao-funcionais/)
-> - [O que são requisitos funcionais e requisitos não funcionais?](https://analisederequisitos.com.br/requisitos-funcionais-e-requisitos-nao-funcionais-o-que-sao/)
 
 ## Diagrama de Casos de Uso
 
@@ -158,7 +141,7 @@ Com diagramas bem organizados que permitem gerenciar o tempo nos projetos, o ger
 
 O gráfico de Gantt ou diagrama de Gantt também é uma ferramenta visual utilizada para controlar e gerenciar o cronograma de atividades de um projeto. Com ele, é possível listar tudo que precisa ser feito para colocar o projeto em prática, dividir em atividades e estimar o tempo necessário para executá-las.
 
-![Gráfico de Gantt](img/02-grafico-gantt.png)
+![Gráfico de Gantt](img/gerenciamento_tempo.png)
 
 ## Gerenciamento de Equipe
 
