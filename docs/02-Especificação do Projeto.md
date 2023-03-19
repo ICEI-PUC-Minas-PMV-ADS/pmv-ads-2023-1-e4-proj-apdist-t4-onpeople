@@ -66,13 +66,13 @@ Obs.: todas as informações para gerar os indicadores devem estar no diagrama d
 
 |ID    | Descrição do Requisito  | Prioridade |
 |------|-----------------------------------------|----|
-|RF-001| O sistema deverá permitir o login de funcionários da empresa | ALTA | 
+|RF-001| O sistema deverá permitir o Login de funcionários da empresa | ALTA | 
 |RF-002| O sistema deverá permitir o recuperação de senha   | MÉDIA |
 |RF-003| O sistema deverá permitir o gerenciamento de usuários (CRUD) | ALTA | 
 |RF-004| O sistema deverá permitir o gerenciamento de empresas (CRUD)   | ALTA |
 |RF-005| O sistema deverá permitir o gerenciamento de funcionários (CRUD) | ALTA | 
 |RF-006| O sistema deverá permitir o gerenciamento de departamentos   | ALTA |
-|RF-007| O sistema deverá permitir o gerenciamento de salários e aumentos | ALTA | 
+|RF-007| O sistema deverá permitir o gerenciamento de salários e atualizações do mesmo | ALTA | 
 |RF-008| O sistema deverá permitir o cadastro de novas metas   | ALTA |
 |RF-009| O sistema deverá permitir a associação de metas a funcionarios | ALTA | 
 |RF-010| O sistema deve apresentar um filtro para pesquisa de funcionários   | ALTA |
