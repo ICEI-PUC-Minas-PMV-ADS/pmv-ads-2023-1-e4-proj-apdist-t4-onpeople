@@ -104,16 +104,33 @@ Obs.: todas as informações para gerar os indicadores devem estar no diagrama d
 
 ## Diagrama de Casos de Uso
 
-O diagrama de casos de uso é o próximo passo após a elicitação de requisitos, que utiliza um modelo gráfico e uma tabela com as descrições sucintas dos casos de uso e dos atores. Ele contempla a fronteira do sistema e o detalhamento dos requisitos funcionais com a indicação dos atores, casos de uso e seus relacionamentos. 
 
-As referências abaixo irão auxiliá-lo na geração do artefato “Diagrama de Casos de Uso”.
+|ATOR|	DESCRIÇÃO|
+|----|-----------|
+| Usuário Comum | Ator que faz login, visualiza o cadastro feito pelo RH, atualiza dados cadastrais, visualiza metas definidas pelo RH e cadastra metas pessoais e realiza consultas.|
+| Operacional RH | Ator que cadastra funcionários, associa e cadastra novas metas, atualiza o cadastro (departamento e cargos), não faz cadastros administrativos, mas faz cadastro de usuários e criação de conta.|
+| Gestão RH | Ator com o papel master. Cria departamentos, cria metas, cria cargos e salários, realiza cadastros administrativos ("faz tudo").|
 
-> **Links Úteis**:
-> - [Criando Casos de Uso](https://www.ibm.com/docs/pt-br/elm/6.0?topic=requirements-creating-use-cases)
-> - [Como Criar Diagrama de Caso de Uso: Tutorial Passo a Passo](https://gitmind.com/pt/fazer-diagrama-de-caso-uso.html/)
-> - [Lucidchart](https://www.lucidchart.com/)
-> - [Astah](https://astah.net/)
-> - [Diagrams](https://app.diagrams.net/)
+|CASO DE USO|	DESCRIÇÃO|	RF|
+|-|-|-|
+|Realizar Login no Sistema| O Usuário Comum deve conseguir realizar login com suas credenciais no sistema.| RF01/RF02|
+|Gerenciar Perfil| O Usuário Comum deve conseguir gerenciar o seu perfil (atualizar dados não críticos e alterar senha) (CRUD) |RF11/RF12|
+|Gerenciar Metas| O Usuário Comum deve conseguir cadastrar e visualizar metas de auto aprimoramento| RF08/RF13|
+|Realizar pesquisa de funcionários | O Operacional RH deve conseguir realizar consultas no sistema| RF10|
+|Gerenciar Usuário Comum| O Usuário Operacional RH deve conseguir gerenciar Usuários Comuns (CRUD)| RF03|
+|Gerenciar Departamentos e Cargos| O Usuário Operacional RH deve conseguir atualizar o cadastro de departamentos e cargos | RF06 |
+|Associar Metas| O Usuário Operacional RH deve conseguir associar novas metas | RF09 |
+|Cadastrar Funcionários| O Usuário Operacional RH deve conseguir cadastrar funcionários  | RF05 |
+|Gerenciar empresas| O Usuário Gestão RH deve conseguir gerenciar empresas (CRUD)| RF04|
+|Gerenciar Funcionários| O Usuário Gestão RH deve conseguir gerenciar  funcionários (CRUD) | RF05 |
+|Gerenciar salários |O Usuário Gestão RH deve conseguir gerenciar salários |RF07 |
+|Cadastrar Metas| O Usuário Gestão RH deve conseguir cadastrar metas | RF08 |
+
+
+## Representação Visual
+ Diagrama de Caso de Uso
+ ![Diagrama de casos de uso]()
+
 
 # Matriz de Rastreabilidade
 
