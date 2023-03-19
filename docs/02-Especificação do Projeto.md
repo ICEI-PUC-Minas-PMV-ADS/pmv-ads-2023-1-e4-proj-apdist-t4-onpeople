@@ -114,9 +114,9 @@ Obs.: todas as informações para gerar os indicadores devem estar no diagrama d
 |CASO DE USO|	DESCRIÇÃO|	RF|
 |-|-|-|
 |Realizar Login no Sistema| O Usuário Comum deve conseguir realizar login com suas credenciais no sistema.| RF01/RF02|
-|Gerenciar Perfil| O Usuário Comum deve conseguir gerenciar o seu perfil (atualizar dados não críticos e alterar senha) (CRUD) |RF11/RF12|
-|Gerenciar Metas| O Usuário Comum deve conseguir cadastrar e visualizar metas de auto aprimoramento| RF08/RF13|
-|Realizar pesquisa de funcionários | O Operacional RH deve conseguir realizar consultas no sistema| RF10|
+|Gerenciar Perfil| O Usuário Comum deve conseguir gerenciar o seu perfil (atualizar dados não críticos e alterar senha) (CRUD) |RF01/RF02/RF03|
+|Gerenciar Metas| O Usuário Comum deve conseguir cadastrar e visualizar metas de auto aprimoramento| RF08|
+|Realizar pesquisa de funcionários | O Operacional RH deve conseguir realizar consultas no sistema| RF05|
 |Gerenciar Usuário Comum| O Usuário Operacional RH deve conseguir gerenciar Usuários Comuns (CRUD)| RF03|
 |Gerenciar Departamentos e Cargos| O Usuário Operacional RH deve conseguir atualizar o cadastro de departamentos e cargos | RF06 |
 |Associar Metas| O Usuário Operacional RH deve conseguir associar novas metas | RF09 |
