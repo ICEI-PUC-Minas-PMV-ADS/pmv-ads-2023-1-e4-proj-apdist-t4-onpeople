@@ -139,6 +139,13 @@ A matriz deve contemplar todos os elementos relevantes que fazem parte do sistem
 
 ![Matriz de Rastreabilidade](img/Rastreabilidade-OnPeople.png)
 
+</br>
+<p align="center">
+<img src=https://raw.githubusercontent.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e4-proj-apdist-t4-onpeople/main/docs/img/Rastreabilidade%20OnPeople.png>
+</p>
+<p align="center"> Matriz de rastreabilidade </p>
+</br>
+
 > **Links Úteis**:
 > - [Artigo Engenharia de Software 13 - Rastreabilidade](https://www.devmedia.com.br/artigo-engenharia-de-software-13-rastreabilidade/12822/)
 > - [Verificação da rastreabilidade de requisitos usando a integração do IBM Rational RequisitePro e do IBM ClearQuest Test Manager](https://developer.ibm.com/br/tutorials/requirementstraceabilityverificationusingrrpandcctm/)
