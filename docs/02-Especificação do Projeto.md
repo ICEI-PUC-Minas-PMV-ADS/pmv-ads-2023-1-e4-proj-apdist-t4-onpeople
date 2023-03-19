@@ -133,8 +133,6 @@ A matriz de rastreabilidade é uma ferramenta usada para facilitar a visualizaç
 
 A matriz deve contemplar todos os elementos relevantes que fazem parte do sistema, conforme a figura meramente ilustrativa apresentada a seguir.
 
-![Matriz de Rastreabilidade](img/Rastreabilidade-OnPeople.png)
-
 </br>
 <p align="center">
 <img src=https://raw.githubusercontent.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e4-proj-apdist-t4-onpeople/main/docs/img/Rastreabilidade%20OnPeople.png>
