@@ -67,7 +67,7 @@ Obs.: todas as informações para gerar os indicadores devem estar no diagrama d
 |ID    | Descrição do Requisito  | Prioridade |
 |------|-----------------------------------------|----|
 |RF-001| O sistema deverá permitir o Login de funcionários da empresa | ALTA | 
-|RF-002| O sistema deverá permitir o recuperação de senha   | MÉDIA |
+|RF-002| O sistema deverá permitir o recuperação de senha   | BAIXA |
 |RF-003| O sistema deverá permitir o gerenciamento de usuários (CRUD) | ALTA | 
 |RF-004| O sistema deverá permitir o gerenciamento de empresas (CRUD)   | ALTA |
 |RF-005| O sistema deverá permitir o gerenciamento de funcionários (CRUD) | ALTA | 
@@ -75,10 +75,6 @@ Obs.: todas as informações para gerar os indicadores devem estar no diagrama d
 |RF-007| O sistema deverá permitir o gerenciamento de salários e atualizações do mesmo | ALTA | 
 |RF-008| O sistema deverá permitir o cadastro de novas metas   | ALTA |
 |RF-009| O sistema deverá permitir a associação de metas a funcionarios | ALTA | 
-|RF-010| O sistema deve apresentar um filtro para pesquisa de funcionários   | ALTA |
-|RF-011| O sistema deverá permitir que o Usuário Comum visualize dados referentes a si (CRUD) | ALTA | 
-|RF-012| O sistema deverá permitir que o Usuário Comum altere dados cadastrais não críticos (CRUD)   | BAIXA |
-|RF-013| O sistema deverá permitir que o Usuário Comum cadastre metas pessoais de auto aprimoramento (CRUD) | MÉDIA | 
 
 
 ### Requisitos não Funcionais
@@ -138,13 +134,6 @@ A matriz de rastreabilidade é uma ferramenta usada para facilitar a visualizaç
 A matriz deve contemplar todos os elementos relevantes que fazem parte do sistema, conforme a figura meramente ilustrativa apresentada a seguir.
 
 ![Matriz de Rastreabilidade](img/Rastreabilidade-OnPeople.png)
-
-</br>
-<p align="center">
-<img src=https://raw.githubusercontent.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e4-proj-apdist-t4-onpeople/main/docs/img/Rastreabilidade%20OnPeople.png>
-</p>
-<p align="center"> Matriz de rastreabilidade </p>
-</br>
 
 > **Links Úteis**:
 > - [Artigo Engenharia de Software 13 - Rastreabilidade](https://www.devmedia.com.br/artigo-engenharia-de-software-13-rastreabilidade/12822/)
