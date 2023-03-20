@@ -14,6 +14,7 @@ export interface Users {
   gold: Boolean;
   bronze: Boolean;
   codEmpresa: number;
+  nomeEmpresa: string;
   codDepartamento: number;
   codFuncionario: number;
   codCargo: number;

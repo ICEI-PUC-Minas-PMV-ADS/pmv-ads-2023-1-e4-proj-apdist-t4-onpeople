@@ -32,7 +32,7 @@ export class UserLoginComponent implements OnInit {
     private loginLogoutService: LoginLogoutService,
     private router: Router,
     private spinner: NgxSpinnerService,
-    private toaster: ToastrService,
+    private toastrService: ToastrService,
   ) { }
 
   ngOnInit() {
@@ -65,16 +65,14 @@ export class UserLoginComponent implements OnInit {
       .subscribe(
         () => {
           location.reload;
-          this.router.navigateByUrl('/home');
+          this.router.navigateByUrl('users/profile');
         },
         (error: any) => {
-          if (error.status = 401)
-            this.toaster.error("Conta ou senha inválidos.", "Erro!");
-          else {
-            this.toaster.error('Falha ao realizar login.', "Erro!");
-            console.error(error);
-          }
+          this.toastrService.error(error.error, `Erro! Status ${error.status}`);
+          console.error(error);
+
         }
-      ).add(() => this.spinner.hide())
+      )
+      .add(() => this.spinner.hide())
   }
 }

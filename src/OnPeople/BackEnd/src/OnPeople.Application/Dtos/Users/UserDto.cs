@@ -18,6 +18,7 @@ namespace OnPeople.Application.Dtos.Users
         public Boolean Bronze { get; set; }
         public Boolean Ativa { get; set; }
         public int CodEmpresa { get; set; }    
+        public string NomeEmpresa { get; set; }
         public int CodCargo { get; set; }
         public int CodDepartamento { get; set; }
         public int CodFuncionario { get; set; }

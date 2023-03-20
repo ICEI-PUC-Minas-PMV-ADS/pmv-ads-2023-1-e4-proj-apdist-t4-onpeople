@@ -69,12 +69,11 @@ export class EmpresasListaComponent implements OnInit {
     private empresasService: EmpresasService,
     private modalService: BsModalService,
     public toastrService: ToastrService,
-    private spinner: NgxSpinnerService) { }
+    private spinnerService: NgxSpinnerService) { }
 
   ngOnInit() {
-    this.spinner.show();
+    this.spinnerService.show();
     this.carregarEmpresas();
-
   }
 
   public carregarEmpresas(): void {
@@ -85,7 +84,8 @@ export class EmpresasListaComponent implements OnInit {
           this.empresasFiltradas = this.empresas;
         },
         (error: any) => this.toastrService.error('Falha ao carregra empresas', 'Atenção: Erro!'),
-      ).add(() => this.spinner.hide())
+      )
+      .add(() => this.spinnerService.hide())
   }
 
  public  openModal(event: any, template: TemplateRef<any>, empresaId: number, nomeEmpresa:string): void {
@@ -96,70 +96,29 @@ export class EmpresasListaComponent implements OnInit {
   }
 
   public confirmarExclusao(): void {
+    this.spinnerService.show();
+
     this.modalRef?.hide();
-    this.spinner.show();
-
-    this.verificarFiliais();
-
-  }
-
-  public verificarFiliais(): void {
+    console.log("EmpresaId ", this.empresaId)
     this.empresasService
-      .getEmpresasFiliais()
+      .excluirEmpresa(this.empresaId)
       .subscribe(
-        (filiais: Empresa[]) => {
-          (filiais.length > 0)
-            ? this.temFiliais = true
-            : this.temFiliais = false;
-            this.verificarEmpresaMatriz();
+        (resultado: any ) => {
+          console.log(resultado);
+          if (resultado == null)
+            this.toastrService.error('Empresa não pode se excluída.', "Erro!");
+
+          if (resultado.message == 'OK') {
+            this.toastrService.success('Empresa excluída com sucesso', 'Excluído!');
+            this.carregarEmpresas();
+          }
         },
-        (error: any) => {
-          this.toastrService.error("Falha ao verificar empresas filiais", "Erro!")
-          console.error(error)
-        }
-      )
-  }
-
-  public verificarEmpresaMatriz(): void {
-    this.empresasService
-      .getEmpresas()
-      .subscribe(
-        (empresas: Empresa[]) => {
-          var empresaFilter = empresas.filter((e) => e.filial == false);
-          (this.empresaId === empresaFilter[0].id)
-            ? this.empresaMatriz = true
-            : this.empresaMatriz = false;
-
-            this.excluirEmpresa();
-        },
-        (error: any) => {
-          this.toastrService.error("Falha ao verificar se empresa é matriz", "Erro!")
-          console.error(error)
-        }
-      )
-  }
-
-  public excluirEmpresa(): void {
-    if (this.empresaMatriz) {
-      this.toastrService.warning("Esta empresa possui filiais! Não pode ser excluída!", "Atenção!");
-      this.spinner.hide();
-    } else {
-      this.empresasService
-        .excluirEmpresa(this.empresaId)
-        .subscribe(
-          (resultado: any ) => {
-            if (resultado.message == 'OK') {
-              this.toastrService.success('Empresa excluída com sucesso', 'Excluído!');
-              this.carregarEmpresas();
-            }
-          },
           (error: any) => {
-            this.toastrService.error('Falha a excluir a empresa.', "Erro!");
+            this.toastrService.error(error.error, `Erro! Status ${error.status}`);
             console.error(error);
           }
         )
-        .add(() => this.spinner.hide());
-    }
+      .add(() => this.spinnerService.hide());
   }
   public desistir(): void {
     this.modalRef?.hide();

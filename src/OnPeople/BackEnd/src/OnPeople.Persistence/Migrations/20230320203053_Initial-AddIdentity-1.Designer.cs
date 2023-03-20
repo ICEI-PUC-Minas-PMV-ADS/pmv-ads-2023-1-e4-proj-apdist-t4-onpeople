@@ -11,7 +11,7 @@ using OnPeople.Persistence.Interfaces.Contexts;
 namespace OnPeople.Persistence.Migrations
 {
     [DbContext(typeof(OnPeopleContext))]
-    [Migration("20230316124627_Initial-AddIdentity-1")]
+    [Migration("20230320203053_Initial-AddIdentity-1")]
     partial class InitialAddIdentity1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -529,7 +529,7 @@ namespace OnPeople.Persistence.Migrations
                     b.Property<int>("CodEmpresa")
                         .HasColumnType("int");
 
-                    b.Property<int>("CodFunionarioId")
+                    b.Property<int>("CodFuncionario")
                         .HasColumnType("int");
 
                     b.Property<int>("CodMeta")
@@ -571,6 +571,9 @@ namespace OnPeople.Persistence.Migrations
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("NomeCompleto")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("NomeEmpresa")
                         .HasColumnType("longtext");
 
                     b.Property<string>("NormalizedEmail")

@@ -40,6 +40,11 @@ export class EmpresasService {
     .pipe(take(3));
   }
 
+  public getEmpresaMatriz(): Observable<Empresa> {
+    return this.http.get<Empresa>(`${this.baseURL}matriz`)
+    .pipe(take(3));
+  }
+
   public createEmpresa(empresa: Empresa): Observable<Empresa> {
     return this.http.post<Empresa>(this.baseURL, empresa)
     .pipe(take(3));
@@ -51,7 +56,8 @@ export class EmpresasService {
   }
 
   public excluirEmpresa(id:number): Observable<any> {
-    return this.http.delete(`${this.baseURL}${id}`)
+    console.log(`${this.baseURL}${id}?empresaId=${id}`)
+    return this.http.delete(`${this.baseURL}${id}?empresaId=${id}`)
     .pipe(take(3));
   }
 }

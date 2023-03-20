@@ -12,6 +12,6 @@ namespace OnPeople.Application.Services.Contracts.Empresas
         Task<IEnumerable<EmpresaDto>> GetAllEmpreasByArgumentoAsync(int empresaId, Boolean Master, string argumento);
         Task<IEnumerable<EmpresaDto>> GetAllEmpresasAtivasAsync(int empresaId, Boolean Master);
         Task<IEnumerable<EmpresaDto>> GetAllEmpresasFiliaisAsync(int empresaId, Boolean Master);
-        Task<IEnumerable<EmpresaDto>> GetAllEmpresasMatrizesAsync(int empresaId, Boolean Master);
+        Task<EmpresaDto> GetEmpresaMatrizAsync();
     }
 }
