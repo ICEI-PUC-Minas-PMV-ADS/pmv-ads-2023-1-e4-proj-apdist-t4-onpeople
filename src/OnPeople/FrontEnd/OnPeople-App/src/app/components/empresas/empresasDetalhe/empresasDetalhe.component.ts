@@ -28,6 +28,7 @@ export class EmpresasDetalheComponent implements OnInit {
 
   public calendarIcon: IconDefinition = faCalendarAlt;
 
+  public logotipoUpload: string = 'Image_not_available.png';
   public logotipoURL: string = "../../../../assets/img/upload1-325x300-1.jpg";
   public file: File[];
 
@@ -35,7 +36,8 @@ export class EmpresasDetalheComponent implements OnInit {
   public empresaFilter: Empresa[] = [];
   public empresaMatriz: Boolean = false;
   public empresaMatrizId: number = 0;
-  public nomeMatriz: string = ""
+  public nomeMatriz: string = "";
+  public empresaAtiva: Boolean = false;
 
   public get bsConfig(): any {
     return {
@@ -56,7 +58,7 @@ export class EmpresasDetalheComponent implements OnInit {
     private formBuilder: FormBuilder,
     private localService: BsLocaleService,
     private router: Router,
-    private spinner: NgxSpinnerService,
+    private spinnerService: NgxSpinnerService,
     private toastrService: ToastrService,
     private uploadsService: UploadsService,
     )
@@ -65,27 +67,22 @@ export class EmpresasDetalheComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.spinner.show();
+    this.spinnerService.show();
 
     this.validarFormulario();
     this.consultarEmpresa();
 
-    this.spinner.hide();
+    this.spinnerService.hide();
   }
 
   public validarFormulario(): void {
     this.form = this.formBuilder.group({
-      nomeEmpresa: ['', [
-        Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
-      nomeFantasia: ['', [
-        Validators.required, Validators.minLength(4), Validators.maxLength(20)]],
-      sigla: ['', [
-        Validators.required, Validators.minLength(3), Validators.maxLength(7)]],
-      ativa: ['', [ Validators.required]],
+      nomeEmpresa: ['', [ Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
+      nomeFantasia: ['', [ Validators.required, Validators.minLength(4), Validators.maxLength(20)]],
+      sigla: ['', [ Validators.required, Validators.minLength(3), Validators.maxLength(7)]],
       dataCadastro: ['', [ Validators.required]],
       dataDesativacao: [''],
-      padraoEmail: ['',  [
-        Validators.required, , Validators.minLength(5), Validators.maxLength(25)]]
+      padraoEmail: ['',  [ Validators.required, , Validators.minLength(5), Validators.maxLength(25)]]
     });
   }
 
@@ -101,10 +98,8 @@ export class EmpresasDetalheComponent implements OnInit {
     this.form.reset();
   }
 
-
-
   public consultarEmpresa(): void {
-    this.spinner.show();
+    this.spinnerService.show();
 
     const empresaIdparam = this.activevateRouter.snapshot.paramMap.get('id');
 
@@ -120,50 +115,49 @@ export class EmpresasDetalheComponent implements OnInit {
             (empresa: Empresa) => {
               this.empresa = { ...empresa};
               this.form.patchValue(this.empresa);
+              this.empresa.logotipo = empresa.logotipo;
+              this.empresaAtiva = empresa.ativa
               this.logotipoURL = (this.empresa.logotipo !== 'Image_not_available.png')
                 ? `${environment.resourcesLogosURL}${this.empresa.logotipo}`
-                : `../../../../assets/img/${this.logotipoURL}`;
-              console.log('logos', this.logotipoURL, ' - ', this.empresa.logotipo)
+                : `../../../../assets/img/${this.empresa.logotipo }`;
             },
             (error: any) => {
-              this.toastrService.error("Não foi possível carrgar os dados da empresa.", 'Erro!');
+              this.toastrService.error(error.error, `Erro! Status ${error.status}`);
               console.error(error);
             }
           )
-          .add(() => this.spinner.hide());
+          .add(() => this.spinnerService.hide());
     }
   }
 
   public verificarEmpresaMatriz(): void {
-    const empresaIdparam: number = Number(this.activevateRouter.snapshot.paramMap.get('id'));
+    this.spinnerService.show();
 
-        this.empresaService
-      .getEmpresas()
+    this.empresaService
+      .getEmpresaMatriz()
       .subscribe(
-        (empresas: Empresa[]) => {
-          if (empresas) {
-            this.empresaFilter = empresas.filter((e) => e.filial == false);
-          }
-          if (this.empresaFilter.length > 0) {
-            this.empresaMatrizId = this.empresaFilter[0].id
-            this.nomeMatriz = this.empresaFilter[0].nomeEmpresa
-            if (!this.modoEditar) {
-              this.empresaMatriz = false;
-            }else {
-              this.empresaMatriz = (empresaIdparam == this.empresaFilter[0].id) ? true : false;
-              console.log("Empresa Matriz?", this.empresaMatriz, this.empresaMatrizId, this.nomeMatriz, empresaIdparam)
-            }
+        (empresa: Empresa) => {
+          if (empresa == null) {
+            this.empresaMatriz = true;
+          } else {
+            console.log("Filial ", empresa.filial)
+            this.empresaMatriz = false;
+            this.nomeMatriz = empresa.nomeEmpresa
           }
         },
         (error: any) => {
-          this.toastrService.error("Falha ao verificar se empresa é matriz", "Erro!")
+          this.toastrService.error(error.error, `Erro! Status ${error.status}`);
           console.error(error)
         }
       )
+      .add(() => this.spinnerService.hide())
   }
 
   public salvarAlteracao(): void {
-    this.spinner.show();
+    this.spinnerService.show();
+
+    if (this.empresa)
+      this.logotipoUpload = this.empresa.logotipo;
 
     if(this.form.valid) {
       this.empresa = (this.estadoSalvar == 'post')
@@ -171,24 +165,29 @@ export class EmpresasDetalheComponent implements OnInit {
       : {id: this.empresa.id, ...this.form.value };
     }
 
-    this.empresa.logotipo = 'Image_not_available.png';
+    this.empresa.logotipo = this.logotipoUpload;
     this.empresa.filial = !this.empresaMatriz;
     this.empresa.matrizId = this.empresaMatrizId
-    console.log("Criar empresa", this.empresa)
+    this.empresa.ativa = this.empresaAtiva;
 
     if(this.estadoSalvar == 'post') {
+      this.empresa.logotipo = 'Image_not_available.png';
+
       this.empresaService
           .createEmpresa(this.empresa)
           .subscribe(
             (empresa: Empresa) => {
               this.toastrService.success('Empresa criada!', 'Sucesso!');
+              window.location.reload;
+              this.router.navigateByUrl(`/empresas/detalhe/${empresa.id}`);
+              this.estadoSalvar = 'put';
             },
             (error: any) => {
-              this.toastrService.error("Erro ao criar a empresa.", "Eror!");
+              this.toastrService.error(error.error, `Erro! Status ${error.status}`);
               console.error(error);
             }
           )
-          .add(() => this.spinner.hide())
+          .add(() => this.spinnerService.hide())
     } else {
       console.log("salvar empresa", this.empresa)
       this.empresaService
@@ -198,19 +197,18 @@ export class EmpresasDetalheComponent implements OnInit {
           this.toastrService.success('Empresa salva!', 'Sucesso!');
         },
         (error: any) => {
-          this.toastrService.error("Erro ao salvar a empresa.", "Eror!");
+          this.toastrService.error(error.error, `Erro! Status ${error.status}`);
           console.error(error);
         }
-        )
-        .add(() => this.spinner.hide())
-      }
-      this.router.navigate(['empresas/lista'])
+      )
+      .add(() => this.spinnerService.hide())
+    }
   }
 
   public alterarImagem(ev: any): void {
     const reader = new FileReader();
 
-    reader.onload = (event: any) => this.logotipoURL = event.target.result;
+    reader.onload = (event: any) => this.logotipoUpload = event.target.result;
 
     this.file = ev.target.files;
 
@@ -220,7 +218,7 @@ export class EmpresasDetalheComponent implements OnInit {
   }
 
   public uplodaImagem(): void {
-    this.spinner.show();
+    this.spinnerService.show();
 
     const empresaIdparam: number = Number(this.activevateRouter.snapshot.paramMap.get('id'));
 
@@ -232,10 +230,10 @@ export class EmpresasDetalheComponent implements OnInit {
           this.consultarEmpresa();
         },
         (error: any) => {
-          this.toastrService.error("Falha ao realizar upload da logo da empresa.", "Erro!" )
+          this.toastrService.error(error.error, `Erro! Status ${error.status}`);
           console.error(error);
         }
       )
-      .add(() => this.spinner.hide());
+      .add(() => this.spinnerService.hide());
   }
 }

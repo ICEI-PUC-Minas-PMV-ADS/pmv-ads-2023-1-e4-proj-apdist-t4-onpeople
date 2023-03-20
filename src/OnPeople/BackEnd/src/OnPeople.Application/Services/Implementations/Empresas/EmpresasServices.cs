@@ -135,15 +135,15 @@ namespace OnPeople.Application.Services.Implementations.Empresas
             }
         }
 
-        public async Task<IEnumerable<EmpresaDto>> GetAllEmpresasMatrizesAsync(int empresaId, Boolean Master)
+        public async Task<EmpresaDto> GetEmpresaMatrizAsync()
         {
             try
             {
-                var empresas = await _empresasPersistence.GetAllEmpresasMatrizesAsync(empresaId, Master);
+                var empresa = await _empresasPersistence.GetEmpresaMatrizAsync();
 
-                if (empresas == null) return null;
+                if (empresa == null) return null;
 
-                var empresasMapper = _mapper.Map<EmpresaDto[]>(empresas);
+                var empresasMapper = _mapper.Map<EmpresaDto>(empresa);
 
                 return empresasMapper;
             }

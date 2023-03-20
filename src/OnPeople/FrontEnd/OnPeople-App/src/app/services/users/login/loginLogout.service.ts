@@ -1,33 +1,37 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
 import { map, Observable, ReplaySubject, take } from 'rxjs';
-import { UserLoged } from 'src/app/models/users/UserLoged';
+import { Constants } from 'src/app/helpers/util/constants';
+
+import { Users } from 'src/app/models/users/Users';
+
 import { environment } from 'src/assets/environments/environments';
 
 @Injectable()
 
 export class LoginLogoutService {
 
-  public baseUrl = environment.apiURL + "Users/";
+  public baseURL = environment.apiURL + "Users/";
 
-  public userNull = {} as UserLoged
+  public userNull = {} as Users
 
-  private rootCurrentUser = new ReplaySubject<UserLoged>(1);
+  private rootCurrentUser = new ReplaySubject<Users>(1);
   public currentUser$ = this.rootCurrentUser.asObservable();
 
   constructor(private http: HttpClient) { }
 
   public logout(): void {
-    localStorage.removeItem('userLoged');
+    localStorage.removeItem(Constants.LOCAL_STORAGE_NAME);
     this.rootCurrentUser.next(this.userNull);
     this.rootCurrentUser.complete();
   }
 
   public login(login: any): Observable<void> {
     return this.http
-      .post<UserLoged>(this.baseUrl + "Login", login)
+      .post<Users>(this.baseURL + "Login", login)
       .pipe(take(1),
-        map((userLoged: UserLoged) => {
+        map((userLoged: Users) => {
         const user = userLoged;
         if (user)
           this.setCurrentUser(user);
@@ -35,8 +39,8 @@ export class LoginLogoutService {
     );
   }
 
-  public setCurrentUser(user: UserLoged): void {
-    localStorage.setItem("userLoged", JSON.stringify(user));
+  public setCurrentUser(user: Users): void {
+    localStorage.setItem(Constants.LOCAL_STORAGE_NAME, JSON.stringify(user));
     this.rootCurrentUser.next(user);
   }
 }

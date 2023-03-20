@@ -103,10 +103,12 @@ namespace OnPeople.Persistence.Migrations
                     DataEncerramento = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     Ativa = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     Master = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    Gold = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    Bronze = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     CodEmpresa = table.Column<int>(type: "int", nullable: false),
                     CodCargo = table.Column<int>(type: "int", nullable: false),
                     CodDepartamento = table.Column<int>(type: "int", nullable: false),
-                    CodFunionarioId = table.Column<int>(type: "int", nullable: false),
+                    CodFuncionario = table.Column<int>(type: "int", nullable: false),
                     CodMeta = table.Column<int>(type: "int", nullable: false),
                     EmpresaId = table.Column<int>(type: "int", nullable: true),
                     UserName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true)

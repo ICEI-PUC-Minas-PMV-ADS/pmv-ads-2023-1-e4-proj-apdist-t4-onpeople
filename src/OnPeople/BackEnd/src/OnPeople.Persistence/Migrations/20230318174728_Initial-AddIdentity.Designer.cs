@@ -11,7 +11,7 @@ using OnPeople.Persistence.Interfaces.Contexts;
 namespace OnPeople.Persistence.Migrations
 {
     [DbContext(typeof(OnPeopleContext))]
-    [Migration("20230315232351_Initial-AddIdentity")]
+    [Migration("20230318174728_Initial-AddIdentity")]
     partial class InitialAddIdentity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -517,6 +517,9 @@ namespace OnPeople.Persistence.Migrations
                     b.Property<bool>("Ativa")
                         .HasColumnType("tinyint(1)");
 
+                    b.Property<bool>("Bronze")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<int>("CodCargo")
                         .HasColumnType("int");
 
@@ -526,7 +529,7 @@ namespace OnPeople.Persistence.Migrations
                     b.Property<int>("CodEmpresa")
                         .HasColumnType("int");
 
-                    b.Property<int>("CodFunionarioId")
+                    b.Property<int>("CodFuncionario")
                         .HasColumnType("int");
 
                     b.Property<int>("CodMeta")
@@ -554,6 +557,9 @@ namespace OnPeople.Persistence.Migrations
 
                     b.Property<string>("Foto")
                         .HasColumnType("longtext");
+
+                    b.Property<bool>("Gold")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("tinyint(1)");

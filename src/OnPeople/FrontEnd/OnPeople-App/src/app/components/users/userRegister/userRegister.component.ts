@@ -40,8 +40,8 @@ export class UserRegisterComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private spinner: NgxSpinnerService,
-    private toastr: ToastrService,
+    private spinnerService: NgxSpinnerService,
+    private toastrService: ToastrService,
     private userService: UserService,
     private router: Router,
     ) { }
@@ -82,7 +82,7 @@ export class UserRegisterComponent implements OnInit {
   }
 
   public createUser(): void {
-    this.spinner.show();
+    this.spinnerService.show();
 
     this.newUser = { ...this.form.value};
 
@@ -105,14 +105,14 @@ export class UserRegisterComponent implements OnInit {
       .createUser(this.newUser)
       .subscribe(
         () => {
-          this.toastr.success("Conta cadastrada!", "Sucesso!");
+          this.toastrService.success("Conta cadastrada!", "Sucesso!");
           window.location.reload;
-          this.router.navigateByUrl('/home');
+          this.router.navigateByUrl('users/profile');
         },
         (error: any) => {
-          this.toastr.error(error.error, "Erro!");
+          this.toastrService.error(error.error, `Erro! Status ${error.status}`);
           console.error(error);
         }
-      ).add(() => this.spinner.hide());
+      ).add(() => this.spinnerService.hide());
   }
 }

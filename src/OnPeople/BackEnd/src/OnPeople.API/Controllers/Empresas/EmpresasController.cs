@@ -146,21 +146,22 @@ public class EmpresasController : ControllerBase
         }
     }
 
-    [HttpGet("Matrizes")]
-    public async Task<IActionResult> GetEmpresasMatrizes()
+    [HttpGet("Matriz")]
+    public async Task<IActionResult> GetEmpresaMatriz()
     {
         try
         {
+            Console.WriteLine("==============================================");
             var claimUser = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());   
 
             if (claimUser == null) 
                 return Unauthorized();
 
-            var empresas = await _empresasServices.GetAllEmpresasMatrizesAsync(claimUser.CodEmpresa, claimUser.Master);
+            var empresa = await _empresasServices.GetEmpresaMatrizAsync();
 
-            if (empresas == null) return NoContent();
+            if (empresa == null) return NoContent();
 
-            return Ok(empresas);
+            return Ok(empresa);
         }
         catch (Exception e)
         {
@@ -180,7 +181,12 @@ public class EmpresasController : ControllerBase
 
             if (!claimUser.Master)
                 return Unauthorized();
-            
+
+            var empresaMatriz = await _empresasServices.GetEmpresaMatrizAsync();
+
+            if (empresaMatriz != null && !empresaMatriz.Ativa)
+                return BadRequest("Não foi encontrada uma empresa matriz ativa para criação da nova empresa.");
+
             var createdEmpresa = await _empresasServices.CreateEmpresas(claimUser.CodEmpresa, claimUser.Master, empresaDto);
 
             if (createdEmpresa != null) return Ok(createdEmpresa);
@@ -226,6 +232,7 @@ public class EmpresasController : ControllerBase
     {
         try
         {
+            Console.Write("------------------------------- Delete " + empresaId);
             var claimUser = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());   
 
             if (claimUser == null) 
@@ -239,11 +246,14 @@ public class EmpresasController : ControllerBase
             if (empresa == null) 
                 return NoContent();
 
+            if (empresa.Ativa)
+                return BadRequest("Esta empresa está ativa no sistema e não pode ser excluída");
+ 
             if (await _empresasServices.DeleteEmpresas(empresaId)){
                 _uploads.DeleteImageUpload(claimUser.Id, claimUser.Master, empresa.Logotipo, "Logos");
                 return Ok( new { message = "OK"});
             } else {
-                return BadRequest("Empresa não excluída.");
+                return BadRequest("Falha na exclusão da empresa.");
             }
         }
         catch (Exception e)

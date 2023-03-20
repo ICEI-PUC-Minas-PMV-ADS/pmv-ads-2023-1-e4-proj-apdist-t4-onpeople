@@ -34,11 +34,9 @@
         <div class="form-row d-md-flex">
           <div class="form-group col-md-3 p-1">
             <label>Ativa</label>
-            <select class="form-select form-control" formControlName="ativa" [ngClass]="validarCampo(fmC.ativa)">
-              <option Value="false">Não</option>
-              <option Value="true">Sim</option>
-            </select>
-            <div class="invalid-feedback">{{retornarValidacao(fmC.ativa, "")}}</div>
+            <span class="form-control bg-light">
+              {{this.empresaAtiva ? "Sim" : "Não"}}
+            </span>
           </div>
           <div class="form-group col-md-3 p-1">
             <label>Data Cadastro</label>
@@ -48,15 +46,8 @@
                   <fa-icon [icon]="calendarIcon" class="calendarIcon"fa-></fa-icon>
                 </label>
                 <!--              value="{{empresa.dataCadastro | DateTimeFormatPipe}}" -->
-                <input
-                type="text"
-                class="form-control"
-                placeholder="Data de cadastro"
-                formControlName="dataCadastro"
-                bsDatepicker
-                [bsConfig]="bsConfig"
-                [ngClass]="validarCampo(fmC.dataCadastro)"
-                >
+                <input type="text" class="form-control"  placeholder="Data de cadastro" formControlName="dataCadastro"
+                  bsDatepicker [bsConfig]="bsConfig" [ngClass]="validarCampo(fmC.dataCadastro)">
                 <div class="invalid-feedback">{{retornarValidacao(fmC.dataCadastro, "")}}</div>
               </div>
             </div>
@@ -69,15 +60,8 @@
                   <fa-icon [icon]="calendarIcon" class="calendarIcon"></fa-icon>
                 </label>
                 <!--              value="{{empresa.dataDesativacao | DateTimeFormatPipe}}" -->
-                <input
-                type="datetime"
-                class="form-control"
-                placeholder="Data desativação"
-                formControlName="dataDesativacao"
-                bsDatepicker
-                [bsConfig]="bsConfig"
-                [ngClass]="validarCampo(fmC.dataDesativacao)"
-                >
+                <input type="datetime" class="form-control" placeholder="Data desativação" formControlName="dataDesativacao"
+                  bsDatepicker [bsConfig]="bsConfig" [ngClass]="validarCampo(fmC.dataDesativacao)">
                 <div class="invalid-feedback">{{retornarValidacao(fmC.dataDesativacao, "")}}</div>
               </div>
             </div>
@@ -85,7 +69,7 @@
           <div class="form-group col-md-3 p-1">
             <label>É uma Filial?</label>
             <span class="form-control bg-light">
-              {{empresaMatriz ? "Não" : "Sim"}}
+              {{!this.empresaMatriz ? "Sim" : "Não"}}
             </span>
           </div>
         </div>

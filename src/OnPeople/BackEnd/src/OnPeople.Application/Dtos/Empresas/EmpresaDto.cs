@@ -35,7 +35,6 @@ namespace OnPeople.Application.Dtos.Empresas
         
         public int? MatrizId { get; set; }
 
-        [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public string Logotipo { get; set; }
         
         public IEnumerable<DepartamentoDto> Departamentos { get; set; }

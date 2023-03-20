@@ -120,9 +120,10 @@ namespace OnPeople.Application.Services.Implementations.Users
                 user.Gold = (user.Visao.ToLower() == "gold");
                 user.Bronze = (user.Visao.ToLower() != "master" && user.Visao.ToLower() != "gold");
 
-                var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-
-                await _userManager.ResetPasswordAsync(user, token, userUpdateDto.Password);
+                if (userUpdateDto.Password != null) {
+                    var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+                    await _userManager.ResetPasswordAsync(user, token, userUpdateDto.Password);               
+                }
 
                 _usersPersistence.Update<User>(user);
 
@@ -187,5 +188,21 @@ namespace OnPeople.Application.Services.Implementations.Users
             }
         }
 
+        public async Task<UserVisaoDto> GetVisaoByUserNameAsync(string userName)
+        {
+            try
+            {
+                var user = await _usersPersistence.GetUserByUserNameAsync(userName);
+
+                if (user == null) return null;
+
+                return _mapper.Map<UserVisaoDto>(user);
+            }
+            catch (Exception e)
+            {
+                
+                throw new Exception($"Falha ao recuperar Contas. Erro: {e.Message}");
+            }
+        }
     }
 }

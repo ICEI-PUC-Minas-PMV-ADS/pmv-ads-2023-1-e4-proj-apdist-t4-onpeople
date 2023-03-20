@@ -10,7 +10,7 @@ namespace OnPeople.Persistence.Interfaces.Contracts.Empresas
         Task<IEnumerable<Empresa>> GetAllEmpresasByArgumentoAsync(int empresaId, Boolean Master, string argumento);
         Task<IEnumerable<Empresa>> GetAllEmpresasAtivasAsync(int empresaId, Boolean Master );
         Task<IEnumerable<Empresa>> GetAllEmpresasFiliaisAsync(int empresaId, Boolean Master);
-        Task<IEnumerable<Empresa>> GetAllEmpresasMatrizesAsync(int empresaId, Boolean Master);
+        Task<Empresa> GetEmpresaMatrizAsync();
         Task<Empresa> GetEmpresaByContaIdAsync(int empresaId, Boolean Master);
     }
 }

@@ -19,11 +19,11 @@ namespace OnPeople.Domain.Models.Users
         public Boolean Gold { get; set; }
         public Boolean Bronze { get; set; }
         public int CodEmpresa { get; set; }
+        public string NomeEmpresa { get; set; }
         public int CodCargo { get; set; }
         public int CodDepartamento { get; set; }
         public int CodFuncionario { get; set; }
         public int CodMeta { get; set; }
         public IEnumerable<UserRole> UsersRoles {get; set;}
-        public int Token { get; set; }
     }
 }

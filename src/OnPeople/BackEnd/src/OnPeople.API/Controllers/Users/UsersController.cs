@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OnPeople.API.Extensions.Users;
 using OnPeople.Application.Dtos.Users;
+using OnPeople.Application.Services.Contracts.Empresas;
 using OnPeople.Application.Services.Contracts.Users;
 
 namespace OnPeople.API.Controllers.Users;
@@ -11,14 +12,17 @@ namespace OnPeople.API.Controllers.Users;
 [Route("api/[controller]")]
 public class UsersController : ControllerBase
 {
+    private readonly IEmpresasServices _empresasServices;
     private readonly IUsersServices _usersServices;
     private readonly ITokenServices _tokenServices;
 
     public UsersController(
+        IEmpresasServices empresasServices,
         IUsersServices usersServices,
         ITokenServices tokenServices
         )
     {
+        _empresasServices = empresasServices;
         _usersServices = usersServices;
         _tokenServices = tokenServices;
     }
@@ -58,12 +62,22 @@ public class UsersController : ControllerBase
 
             var user = await _usersServices.CreateUsersAsync(userDto);
 
+            var nomeEmpresa = "";
+           
+            if (user.CodEmpresa > 0) {
+                var empresa = await _empresasServices.GetEmpresaByIdAsync(user.CodEmpresa);
+            
+                if (empresa != null)
+                    nomeEmpresa = empresa.NomeEmpresa;
+            }
+            
             if (user != null) {
                 return Ok( new {
                     userName = user.UserName,
                     nomeCompleto = user.NomeCompleto,
                     id = user.Id,
                     visao = user.Visao,
+                    nomeEmpresa = nomeEmpresa,
                     token = _tokenServices.CreateToken(user).Result
                 });
             };
@@ -93,11 +107,21 @@ public class UsersController : ControllerBase
                 return Unauthorized("Conta ou Senha inválidos");
             }
 
+            var nomeEmpresa = "";
+           
+            if (user.CodEmpresa > 0) {
+                var empresa = await _empresasServices.GetEmpresaByIdAsync(user.CodEmpresa);
+            
+                if (empresa != null)
+                    nomeEmpresa = empresa.NomeEmpresa;
+            }
+
             return Ok( new {
                     userName = user.UserName,
                     nomeCompleto = user.NomeCompleto,
                     id = user.Id,
                     visao = user.Visao,
+                    nomeEmpresa = nomeEmpresa,
                     token = _tokenServices.CreateToken(user).Result
                 });
         }
@@ -205,6 +229,30 @@ public class UsersController : ControllerBase
         catch (Exception e)
         {
             return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao atualizar a conta. Erro: {e.Message}");
+        }
+    }
+
+    
+    [HttpGet("GetUserNameVisao")]
+    public async Task<IActionResult> GetVisaoByUserName()
+    {
+        try
+        {
+            var claimUserName = User.GetUserNameClaim();
+            
+           if (claimUserName == null)
+                return Unauthorized();
+
+            var user = await _usersServices.GetVisaoByUserNameAsync(claimUserName);
+
+            if (user == null) return NoContent();
+
+            return Ok(user);
+        }
+        catch (Exception e)
+        {
+            
+            return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao recuperar conta. Erro: {e.Message}");
         }
     }      
 }

@@ -39,7 +39,7 @@
     <tbody *ngIf="empresas && empresas.length">
       <tr *ngFor="let empresa of empresasFiltradas" (click)="detalheEmpresa(empresa.id)" >
         <td class="d-none d-md-table-cell">
-          <img [src]="mostrarLogotipo(empresa.logotipo)" alt="" [(ngbCollapse)]="!alternarImagem">
+          <img [src]="mostrarLogotipo(this.empresa.logotipo)" alt="" [(ngbCollapse)]="!alternarImagem">
         </td>
         <td>{{empresa.id}}</td>
         <td>{{empresa.nomeEmpresa}}</td>
