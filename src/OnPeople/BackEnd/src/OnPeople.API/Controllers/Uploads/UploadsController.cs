@@ -25,7 +25,7 @@ namespace OnPeople.API.Controllers.Uploads
             _usersServices = usersServices;
         }
 
-        [HttpPost("upload-logo-empresa/{empresaId}")]
+        [HttpPost("upload-logo-company/{empresaId}")]
         public async Task<IActionResult> UploadLogoEmpresa(int empresaId)
         {
             try
@@ -51,7 +51,7 @@ namespace OnPeople.API.Controllers.Uploads
             }
         }   
 
-        [HttpPost("upload-foto-user")]
+        [HttpPost("upload-user-photo")]
         public async Task<IActionResult> UploadFotoUSer()
         {
             try

@@ -4,7 +4,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { far } from '@fortawesome/free-regular-svg-icons';
 
 import { NgbAlertModule, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
@@ -18,46 +20,40 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ToastrModule } from 'ngx-toastr';
 
-import { DateTimeFormatPipe } from './helpers/pipe/DateTimeFormat/DateTimeFormat.pipe';
-
 import { AppRoutingModule } from './app-routing.module';
-
 import { AppComponent } from './app.component';
-import { CabecalhoTelaComponent } from './components/shared/cabecalhoTela/cabecalhoTela.component';
-import { EmpresasComponent } from './components/empresas/empresas.component';
-import { EmpresasDetalheComponent } from './components/empresas/empresasDetalhe/empresasDetalhe.component';
-import { EmpresasListaComponent } from './components/empresas/empresasLista/empresasLista.component';
-import { NavbarComponent } from './components/shared/navbar/navbar.component';
-import { UserComponent } from './components/users/user.component';
-import { UserLoginComponent } from './components/users/userLogin/userLogin.component';
-import { UserProfileComponent } from './components/users/userProfile/userProfile.component';
-import { UserProfileDetalheComponent } from './components/users/userProfile/userProfileDetalhe/userProfileDetalhe.component';
-import { UserRegisterComponent } from './components/users/userRegister/userRegister.component';
 
-import { JwtInterceptor } from './helpers/interceptors/jwt.interceptor';
-import { AuthGuard } from './helpers/guard/auth.guard';
 
-import { EmpresasService } from './services/empresas/Empresas.service';
-import { LoginLogoutService } from './services/users/login/loginLogout.service';
-import { UploadsService } from './services/uploads/uploads.service';
-import { UserService } from './services/users/user/user.service';
+import { LoginComponent,   ProfileComponent, ProfileDetailComponent, RegisterComponent,  UserComponent, } from './users/components';
+import { CompanyComponent, CompanyDetailComponent, CompanyListComponent } from './companys/components';
+import { NavbarComponent } from './shared/components';
+import { TitlebarComponent } from './shared/components';
+
+import { LoginLogoutService, UserService } from './users/services';
+import { CompanyService } from './companys/services';
+import { UploadService } from './shared/services';
+
+import { AuthGuard, JwtInterceptor } from './shared/security';
+
+import { DateTimeFormatPipe } from './shared/models';
+
 
 defineLocale('pt-br', ptBrLocale);
 
 @NgModule({
   declarations: [
     AppComponent,
-    CabecalhoTelaComponent,
+    TitlebarComponent,
     DateTimeFormatPipe,
-    EmpresasComponent,
-    EmpresasDetalheComponent,
-    EmpresasListaComponent,
+    CompanyComponent,
+    CompanyDetailComponent,
+    CompanyListComponent,
     NavbarComponent,
+    LoginComponent,
+    ProfileComponent,
+    ProfileDetailComponent,
+    RegisterComponent,
     UserComponent,
-    UserLoginComponent,
-    UserProfileComponent,
-    UserProfileDetalheComponent,
-    UserRegisterComponent,
    ],
   imports: [
     AppRoutingModule,
@@ -84,13 +80,17 @@ defineLocale('pt-br', ptBrLocale);
   ],
   providers: [
     AuthGuard,
-    EmpresasService,
+    CompanyService,
     LoginLogoutService,
-    UploadsService,
+    UploadService,
     UserService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(library: FaIconLibrary) {
+    library.addIconPacks(fas, far);
+  }
+ }
