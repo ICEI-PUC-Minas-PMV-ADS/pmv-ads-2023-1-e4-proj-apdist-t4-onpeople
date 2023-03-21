@@ -1,0 +1,88 @@
+<div class="card rounded shadow-sm p-2 mt-1 bg-white">
+  <div class="d-flex">
+    <div class="flex-fill pr-3">
+      <div class="input-group mb-1">
+        <div class="input-group-prepend">
+          <label class="input-group-text bg-info text-white">Filtro: </label>
+        </div>
+        <input
+          type="text"
+          class="form-control mr-2"
+          placeholder="argumento"
+          [(ngModel)]="companyFilter">
+      </div>
+    </div>
+    <div>
+      <a class="d-flex btn btn-outline-info ms-1" ngbTooltip="Nova Empresa" routerLink="/empresas/detalhe">
+        <fa-icon [icon]="['fas', 'plus-square']" class="novoIcon  py-0"></fa-icon>
+      </a>
+    </div>
+  </div>
+  <table class="table table-striped table-hover">
+    <thead class="table-info">
+      <tr>
+        <th class="d-none d-md-table-cell">
+            <button class="btn btn-outline-light btn-sm" (click)="changeImageState()">
+              <fa-icon [icon]="toggleImage ? ['fas', 'eye-slash'] : ['fas', 'eye']" class="mr-2"></fa-icon>
+              {{toggleImage ? "Ocultar" : "Mostrar"}}
+            </button>
+        </th>
+        <th >#</th>
+        <th >Nome Empresa</th>
+        <th class="d-none d-md-table-cell" >Nome Fantasia</th>
+        <th >Sigla</th>
+        <th class="d-none d-md-table-cell" >Data Ativação</th>
+        <th class="d-none d-md-table-cell" >Padrão de e-mail</th>
+        <th >Opções</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="companies && companies.length">
+      <tr *ngFor="let empresa of companiesFilter" (click)="companyDetail(empresa.id)" >
+        <td class="d-none d-md-table-cell">
+          <img [src]="showBranch(this.empresa.logotipo)" alt="" [(ngbCollapse)]="!toggleImage">
+        </td>
+        <td>{{empresa.id}}</td>
+        <td>{{empresa.nomeEmpresa}}</td>
+        <td class="d-none d-md-table-cell">{{empresa.nomeFantasia}}</td>
+        <td>{{empresa.sigla}}</td>
+        <td class="d-none d-md-table-cell" >{{empresa.dataCadastro | DateTimeFormatPipe }} </td>
+        <td class="d-none d-md-table-cell" >{{empresa.padraoEmail}}</td>
+        <td>
+          <div class="btn-group">
+            <button type="button" class="btn btn-outline-danger btn-lg" ngbTooltip="Excluir" (click)="openModal($event, template, empresa.id, empresa.nomeEmpresa)">
+              <fa-icon [icon]="['fas', 'trash']"></fa-icon>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <td *ngIf="!companies.length" colspan="8" class="text-center">
+        <h4>Nenhuma empresa encontrada!</h4>
+      </td>
+    </tfoot>
+  </table>
+  </div>
+
+<!--  {{ empresas | json }} -->
+
+  <ng-template #template>
+    <div class="modal-body text-center">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <p>Exclusão de dados de empresa, confirma?</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>#{{companyId}} - {{companyName}}?</p>
+      </div>
+      <div class="card-foorter ms-auto">
+      </div>
+      <button type="button" class="btn btn-danger" (click)="backOff()" >Não</button>
+      <button type="button" class="btn btn-info" (click)="confirmDeletion()" >Sim</button>
+    </div>
+</ng-template>
+
+<ngx-spinner type="ball-scale-multiple" bdColor="rgba(51,51,51,0.8)" size="medium" color="blue">
+  <p style="font-size:20px; color: white;">Carregando...</p>
+</ngx-spinner>

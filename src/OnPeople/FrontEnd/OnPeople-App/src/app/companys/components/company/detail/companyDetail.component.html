@@ -1,0 +1,112 @@
+<div class="card rounded shadow-sm p-1 bg-light">
+  <div class="card-header text-center text-white bg-info">
+    <div class="h3">Formulário de Empresas</div>
+  </div>
+  <div class="card-body p-1 bg-white">
+    <form class="row" [formGroup]="formDetail">
+      <div  class="col-md-4" *ngIf="editMode">
+        <div class="card m-0 p-0 bg-white shadow-sm">
+          <input type="file" #file (change)="toggleImage($event)" style="display: none">
+          <div class="aligns-self-center text-center pt-1">
+            <img [src]="logoURL" alt="Card imagem upload" (click)="file.click()">
+          </div>
+        </div>
+      </div>
+      <div [ngClass]="{'col-md-8': editMode, 'col-md-12': !editMode }">
+        <div class="h4 border-bottom" >Dados da Empresa: </div>
+        <div class="form-row d-md-flex">
+          <div class="form-group col-md-6 p-1">
+            <label>Empresa</label>
+            <input type="text" class="form-control" placeholder="Nome da Empresa" formControlName="nomeEmpresa" [ngClass]="fieldValidator(ctrF.nomeEmpresa)">
+            <div class="invalid-feedback">{{messageReturned(ctrF.nomeEmpresa, "")}}</div>
+          </div>
+          <div class="form-group col-md-4 p-1">
+            <label>Nome Fantasia</label>
+            <input type="text" class="form-control" placeholder="Nome Fantasia da Empresa" formControlName="nomeFantasia" [ngClass]="fieldValidator(ctrF.nomeFantasia)">
+            <div class="invalid-feedback">{{messageReturned(ctrF.nomeFantasia, "")}}</div>
+          </div>
+          <div class="form-group col-md-2 p-1">
+            <label>Sigla</label>
+            <input type="text" class="form-control" placeholder="Sigla da Empresa" formControlName="sigla" [ngClass]="fieldValidator(ctrF.sigla)">
+            <div class="invalid-feedback">{{messageReturned(ctrF.sigla, "")}}</div>
+          </div>
+        </div>
+        <div class="form-row d-md-flex">
+          <div class="form-group col-md-3 p-1">
+            <label>Ativa</label>
+            <span class="form-control bg-light">
+              {{this.companyActive ? "Sim" : "Não"}}
+            </span>
+          </div>
+          <div class="form-group col-md-3 p-1">
+            <label>Data Cadastro</label>
+            <div class="form-group">
+              <div class="input-group">
+                <label class="input-group-text bg-info text-white">
+                  <fa-icon [icon]="['fas', 'calendar-alt']" class="calendarIcon"fa-></fa-icon>
+                </label>
+                <!--              value="{{empresa.dataCadastro | DateTimeFormatPipe}}" -->
+                <input type="text" class="form-control"  placeholder="Data de cadastro" formControlName="dataCadastro"
+                  bsDatepicker [bsConfig]="bsConfig" [ngClass]="fieldValidator(ctrF.dataCadastro)">
+                <div class="invalid-feedback">{{messageReturned(ctrF.dataCadastro, "")}}</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-md-3 p-1">
+            <label>Data Desativação</label>
+            <div class="form-group">
+              <div class="input-group">
+                <label class="input-group-text bg-info text-white">
+                  <fa-icon [icon]="['fas', 'calendar-alt']" class="calendarIcon"></fa-icon>
+                </label>
+                <!--              value="{{empresa.dataDesativacao | DateTimeFormatPipe}}" -->
+                <input type="datetime" class="form-control" placeholder="Data desativação" formControlName="dataDesativacao"
+                  bsDatepicker [bsConfig]="bsConfig" [ngClass]="fieldValidator(ctrF.dataDesativacao)">
+                <div class="invalid-feedback">{{messageReturned(ctrF.dataDesativacao, "")}}</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-md-3 p-1">
+            <label>É uma Filial?</label>
+            <span class="form-control bg-light">
+              {{!this.companyPattern ? "Sim" : "Não"}}
+            </span>
+          </div>
+        </div>
+        <div class="form-row d-md-flex">
+          <div class="form-group col-md-6 p-1">
+            <label>Padrão de email</label>
+            <input class="form-control" placeholder="@xx.xxxxx.xxx" formControlName="padraoEmail" [ngClass]="fieldValidator(ctrF.padraoEmail)" >
+            <div class="invalid-feedback">{{messageReturned(ctrF.padraoEmail, "")}}</div>
+          </div>
+          <div class="form-group col-md-6 p-1" *ngIf="!this.companyPattern">
+            <label>Empresa Matriz</label>
+            <span class="form-control bg-light">
+              {{patternName}}
+            </span>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="card-footer bg-info  ">
+    <div class="d-flex ">
+      <button class="btn btn-danger ms-auto mx-1" (click)="clearForm()">
+        Cancelar
+      </button>
+      <button class="btn btn-primary mx-1 px-4" [disabled]="!formDetail.valid" (click)="saveChange()">
+        {{editMode ? "Salvar" : "Criar"}}
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<ngx-spinner type="ball-scale-multiple"
+bdColor="rgba(51,51,51,0.8)"
+size="medium"
+color="blue"
+>
+<p style="font-size:20px; color: white;">Carregando...</p>
+</ngx-spinner>
+
