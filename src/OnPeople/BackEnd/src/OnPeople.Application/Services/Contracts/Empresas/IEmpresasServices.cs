@@ -1,4 +1,6 @@
 using OnPeople.Application.Dtos.Empresas;
+using OnPeople.Integration.Models.Pages.Config;
+using OnPeople.Integration.Models.Pages.Page;
 
 namespace OnPeople.Application.Services.Contracts.Empresas
 {
@@ -8,10 +10,9 @@ namespace OnPeople.Application.Services.Contracts.Empresas
         Task<EmpresaDto> UpdateEmpresa(int empresaId, EmpresaDto empresaDto);
         Task<bool> DeleteEmpresas(int empresaId);
         Task<EmpresaDto> GetEmpresaByIdAsync(int empresaId);
-        Task<IEnumerable<EmpresaDto>> GetAllEmpresasAsync(int empresaId, Boolean Master);
-        Task<IEnumerable<EmpresaDto>> GetAllEmpreasByArgumentoAsync(int empresaId, Boolean Master, string argumento);
-        Task<IEnumerable<EmpresaDto>> GetAllEmpresasAtivasAsync(int empresaId, Boolean Master);
-        Task<IEnumerable<EmpresaDto>> GetAllEmpresasFiliaisAsync(int empresaId, Boolean Master);
+        Task<PageList<EmpresaDto>> GetAllEmpresasAsync(PageParameters pageParameters, int empresaId, Boolean Master);
+        Task<PageList<EmpresaDto>> GetAllEmpresasAtivasAsync(PageParameters pageParameters, int empresaId, Boolean Master);
+        Task<PageList<EmpresaDto>> GetAllEmpresasFiliaisAsync(PageParameters pageParameters, int empresaId, Boolean Master);
         Task<EmpresaDto> GetEmpresaMatrizAsync();
     }
 }

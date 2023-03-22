@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnPeople.API", "OnPeople.Ap
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnPeople.Persistence", "OnPeople.Persistence\OnPeople.Persistence.csproj", "{1101C7F5-940E-4CA0-BF2C-9BFD62F3B975}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnPeople.Integration", "OnPeople.Integration\OnPeople.Integration.csproj", "{49998D5B-07DE-4700-AACA-806BA31FA5D2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,13 @@ Global
 		{1101C7F5-940E-4CA0-BF2C-9BFD62F3B975}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1101C7F5-940E-4CA0-BF2C-9BFD62F3B975}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1101C7F5-940E-4CA0-BF2C-9BFD62F3B975}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BABD9769-A2C8-4196-B4F6-63982A24ED01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BABD9769-A2C8-4196-B4F6-63982A24ED01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BABD9769-A2C8-4196-B4F6-63982A24ED01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BABD9769-A2C8-4196-B4F6-63982A24ED01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49998D5B-07DE-4700-AACA-806BA31FA5D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49998D5B-07DE-4700-AACA-806BA31FA5D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49998D5B-07DE-4700-AACA-806BA31FA5D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49998D5B-07DE-4700-AACA-806BA31FA5D2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

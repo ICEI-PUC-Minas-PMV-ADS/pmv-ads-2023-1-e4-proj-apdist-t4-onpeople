@@ -96,7 +96,7 @@ namespace OnPeople.API
 
             //Injeção do Upload como serviço    
             services
-                .AddScoped<IUploads, Uploads>();
+                .AddScoped<IUploadService, UploadService>();
 
             services
                 .AddCors();

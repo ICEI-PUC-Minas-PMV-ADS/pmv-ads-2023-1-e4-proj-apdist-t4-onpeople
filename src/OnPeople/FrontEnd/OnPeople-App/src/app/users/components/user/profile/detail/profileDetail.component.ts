@@ -4,13 +4,14 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 
-
 import { Users } from 'src/app/users/models';
-import { Empresa } from 'src/app/companys/models';
-
 import { UserService } from 'src/app/users/services';
+
+import { Empresa } from 'src/app/companys/models';
 import { CompanyService } from 'src/app/companys/services';
-import { FormValidator } from 'src/app/shared/class';
+
+
+import { FormValidator } from 'src/app/shared/models';
 
 @Component({
   selector: 'app-profileDetalhe',

@@ -1259,6 +1259,7 @@
           "Microsoft.AspNetCore.Identity": "2.2.0",
           "Microsoft.IdentityModel.Tokens": "6.14.0",
           "OnPeople.Domain": "1.0.0",
+          "OnPeople.Integration": "1.0.0",
           "OnPeople.Persistence": "1.0.0",
           "System.IdentityModel.Tokens.Jwt": "6.14.0"
         },
@@ -1282,6 +1283,19 @@
           "bin/placeholder/OnPeople.Domain.dll": {}
         }
       },
+      "OnPeople.Integration/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "6.0.14"
+        },
+        "compile": {
+          "bin/placeholder/OnPeople.Integration.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/OnPeople.Integration.dll": {}
+        }
+      },
       "OnPeople.Persistence/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
@@ -1289,6 +1303,7 @@
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.14",
           "Microsoft.EntityFrameworkCore": "6.0.14",
           "OnPeople.Domain": "1.0.0",
+          "OnPeople.Integration": "1.0.0",
           "Pomelo.EntityFrameworkCore.MySql": "6.0.2"
         },
         "compile": {
@@ -3079,6 +3094,11 @@
       "path": "../OnPeople.Domain/OnPeople.Domain.csproj",
       "msbuildProject": "../OnPeople.Domain/OnPeople.Domain.csproj"
     },
+    "OnPeople.Integration/1.0.0": {
+      "type": "project",
+      "path": "../onpeople.Integration/OnPeople.Integration.csproj",
+      "msbuildProject": "../onpeople.Integration/OnPeople.Integration.csproj"
+    },
     "OnPeople.Persistence/1.0.0": {
       "type": "project",
       "path": "../OnPeople.Persistence/OnPeople.Persistence.csproj",
@@ -3094,6 +3114,7 @@
       "Microsoft.EntityFrameworkCore.Design >= 6.0.14",
       "Microsoft.EntityFrameworkCore.Tools >= 6.0.14",
       "OnPeople.Application >= 1.0.0",
+      "OnPeople.Integration >= 1.0.0",
       "Pomelo.EntityFrameworkCore.MySql >= 6.0.2",
       "Swashbuckle.AspNetCore >= 6.5.0"
     ]
@@ -3105,11 +3126,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\108093631\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Api\\OnPeople.API.csproj",
+      "projectUniqueName": "C:\\Users\\108093631\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\onpeople.api\\OnPeople.API.csproj",
       "projectName": "OnPeople.API",
-      "projectPath": "C:\\Users\\108093631\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Api\\OnPeople.API.csproj",
+      "projectPath": "C:\\Users\\108093631\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\onpeople.api\\OnPeople.API.csproj",
       "packagesPath": "C:\\Users\\108093631\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\108093631\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Api\\obj\\",
+      "outputPath": "C:\\Users\\108093631\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\onpeople.api\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -3133,6 +3154,9 @@
           "projectReferences": {
             "C:\\Users\\108093631\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Application\\OnPeople.Application.csproj": {
               "projectPath": "C:\\Users\\108093631\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Application\\OnPeople.Application.csproj"
+            },
+            "C:\\Users\\108093631\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\onpeople.Integration\\OnPeople.Integration.csproj": {
+              "projectPath": "C:\\Users\\108093631\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\onpeople.Integration\\OnPeople.Integration.csproj"
             }
           }
         }
@@ -3203,7 +3227,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.406\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.407\\RuntimeIdentifierGraph.json"
       }
     }
   }

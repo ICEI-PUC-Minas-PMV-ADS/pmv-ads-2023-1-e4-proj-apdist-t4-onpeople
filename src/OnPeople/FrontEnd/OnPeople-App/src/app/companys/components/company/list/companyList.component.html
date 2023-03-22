@@ -9,12 +9,12 @@
           type="text"
           class="form-control mr-2"
           placeholder="argumento"
-          [(ngModel)]="companyFilter">
+          (input)="companyFilter($event.target)">
       </div>
     </div>
     <div>
       <a class="d-flex btn btn-outline-info ms-1" ngbTooltip="Nova Empresa" routerLink="/empresas/detalhe">
-        <fa-icon [icon]="['fas', 'plus-square']" class="novoIcon  py-0"></fa-icon>
+        <fa-icon [icon]="['fas', 'plus-square']" class="iconClass  py-0"></fa-icon>
       </a>
     </div>
   </div>
@@ -28,16 +28,16 @@
             </button>
         </th>
         <th >#</th>
-        <th >Nome Empresa</th>
-        <th class="d-none d-md-table-cell" >Nome Fantasia</th>
-        <th >Sigla</th>
+        <th >Nome Empresa <fa-icon [icon]="['fas', 'filter']"></fa-icon></th>
+        <th class="d-none d-md-table-cell" >Nome Fantasia <fa-icon [icon]="['fas', 'filter']"> </fa-icon></th>
+        <th >Sigla <fa-icon [icon]="['fas', 'filter']"> </fa-icon></th>
         <th class="d-none d-md-table-cell" >Data Ativação</th>
         <th class="d-none d-md-table-cell" >Padrão de e-mail</th>
         <th >Opções</th>
       </tr>
     </thead>
     <tbody *ngIf="companies && companies.length">
-      <tr *ngFor="let empresa of companiesFilter" (click)="companyDetail(empresa.id)" >
+      <tr *ngFor="let empresa of companies" (click)="companyDetail(empresa.id)" >
         <td class="d-none d-md-table-cell">
           <img [src]="showBranch(this.empresa.logotipo)" alt="" [(ngbCollapse)]="!toggleImage">
         </td>
@@ -49,7 +49,7 @@
         <td class="d-none d-md-table-cell" >{{empresa.padraoEmail}}</td>
         <td>
           <div class="btn-group">
-            <button type="button" class="btn btn-outline-danger btn-lg" ngbTooltip="Excluir" (click)="openModal($event, template, empresa.id, empresa.nomeEmpresa)">
+            <button type="button" class="btn btn-outline-danger" ngbTooltip="Excluir" (click)="openModal($event, template, empresa.id, empresa.nomeEmpresa)">
               <fa-icon [icon]="['fas', 'trash']"></fa-icon>
             </button>
           </div>
@@ -62,11 +62,24 @@
       </td>
     </tfoot>
   </table>
+  <div class="card-footer d-flex p-1 m-0 bg-info" *ngIf="companies.length">
+    <div class="justify-content-center m-auto p-0 m-0 mt-3">
+      <ngb-pagination
+        [collectionSize]="pagination.itemsTotal"
+        [(page)]="pagination.currentPage"
+        [maxSize]="pagination.totalPages"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        [ellipses]="false"
+        (pageChange)="pageChanged($event)"
+      ></ngb-pagination>
+    </div>
   </div>
+</div>
 
 <!--  {{ empresas | json }} -->
 
-  <ng-template #template>
+<ng-template #template>
     <div class="modal-body text-center">
       <div class="card">
         <div class="card-header bg-primary text-white">

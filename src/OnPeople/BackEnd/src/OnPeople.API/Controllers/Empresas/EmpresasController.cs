@@ -1,10 +1,13 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+
 using OnPeople.API.Controllers.Uploads;
 using OnPeople.API.Extensions.Users;
 using OnPeople.Application.Dtos.Empresas;
 using OnPeople.Application.Services.Contracts.Users;
 using OnPeople.Application.Services.Contracts.Empresas;
+using OnPeople.Integration.Models.Pages.Config;
+using OnPeople.API.Extensions.Pages;
 
 namespace OnPeople.API.Controllers.Empresas;
 
@@ -14,22 +17,22 @@ namespace OnPeople.API.Controllers.Empresas;
 public class EmpresasController : ControllerBase
 {
     private readonly IEmpresasServices _empresasServices;
-    private readonly IUploads _uploads;
+    private readonly IUploadService _uploadService;
     private readonly IUsersServices _usersServices;
 
     public EmpresasController(
         IEmpresasServices empresasServices,
-        IUploads uploads,
+        IUploadService uploadService,
         IUsersServices usersServices)
     {
         _empresasServices = empresasServices;
-        _uploads = uploads;
+        _uploadService = uploadService;
         _usersServices = usersServices;
     }
 
 
     [HttpGet]
-    public async Task<IActionResult> GetAllEmpresas()
+    public async Task<IActionResult> GetAllEmpresas([FromQuery]PageParameters pageParameters)
     {
         try
         {
@@ -38,9 +41,11 @@ public class EmpresasController : ControllerBase
             if (claimUser == null) 
                 return Unauthorized();
             
-            var empresas = await _empresasServices.GetAllEmpresasAsync(claimUser.CodEmpresa, claimUser.Master);
+            var empresas = await _empresasServices.GetAllEmpresasAsync(pageParameters, claimUser.CodEmpresa, claimUser.Master);
 
             if (empresas == null) return NoContent();
+            
+            Response.CreatePagination(empresas.CurrentPage, empresas.PageSize, empresas.TotalCounter, empresas.TotalPages);
 
             return Ok(empresas);
         }
@@ -78,31 +83,8 @@ public class EmpresasController : ControllerBase
         }
     }
 
-    [HttpGet("{argumento}/Argumento")]
-    public async Task<IActionResult> GetEmpresaByArgumento(string argumento)
-    {
-        try
-        {
-            var claimUser = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());   
-
-            if (claimUser == null) 
-                return Unauthorized();
-                
-            var empresas = await _empresasServices.GetAllEmpreasByArgumentoAsync(claimUser.CodEmpresa, claimUser.Master, argumento);
-
-            if (empresas == null) return NoContent();
-
-            return Ok(empresas);
-        }
-        catch (Exception e)
-        {
-            
-            return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao recuperar empresa por argumento. Erro: {e.Message}");
-        }
-    }
-
     [HttpGet("Ativas")]
-    public async Task<IActionResult> GetEmpresasAtivas()
+    public async Task<IActionResult> GetEmpresasAtivas([FromQuery]PageParameters pageParameters)
     {
         try
         {
@@ -111,9 +93,11 @@ public class EmpresasController : ControllerBase
             if (claimUser == null) 
                 return Unauthorized();
                 
-            var empresas = await _empresasServices.GetAllEmpresasAtivasAsync(claimUser.CodEmpresa, claimUser.Master);
+            var empresas = await _empresasServices.GetAllEmpresasAtivasAsync(pageParameters, claimUser.CodEmpresa, claimUser.Master);
 
             if (empresas == null) return NoContent();
+
+            Response.CreatePagination(empresas.CurrentPage, empresas.PageSize, empresas.TotalCounter, empresas.TotalPages);
 
             return Ok(empresas);
         }
@@ -125,7 +109,7 @@ public class EmpresasController : ControllerBase
     }
 
     [HttpGet("Filiais")]
-    public async Task<IActionResult> GetEmpresasFiliais()
+    public async Task<IActionResult> GetEmpresasFiliais([FromQuery]PageParameters pageParameters)
     {
         try
         {
@@ -134,9 +118,11 @@ public class EmpresasController : ControllerBase
             if (claimUser == null) 
                 return Unauthorized();
 
-            var empresas = await _empresasServices.GetAllEmpresasFiliaisAsync(claimUser.CodEmpresa, claimUser.Master);
+            var empresas = await _empresasServices.GetAllEmpresasFiliaisAsync(pageParameters, claimUser.CodEmpresa, claimUser.Master);
 
             if (empresas == null) return NoContent();
+
+            Response.CreatePagination(empresas.CurrentPage, empresas.PageSize, empresas.TotalCounter, empresas.TotalPages);
 
             return Ok(empresas);
         }
@@ -250,7 +236,7 @@ public class EmpresasController : ControllerBase
                 return BadRequest("Esta empresa está ativa no sistema e não pode ser excluída");
  
             if (await _empresasServices.DeleteEmpresas(empresaId)){
-                _uploads.DeleteImageUpload(claimUser.Id, claimUser.Master, empresa.Logotipo, "Logos");
+                _uploadService.DeleteImageUpload(claimUser.Id, claimUser.Master, empresa.Logotipo, "Logos");
                 return Ok( new { message = "OK"});
             } else {
                 return BadRequest("Falha na exclusão da empresa.");

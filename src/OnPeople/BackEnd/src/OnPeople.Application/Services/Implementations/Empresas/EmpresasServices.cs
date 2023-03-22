@@ -2,6 +2,8 @@ using AutoMapper;
 using OnPeople.Application.Dtos.Empresas;
 using OnPeople.Application.Services.Contracts.Empresas;
 using OnPeople.Domain.Models.Empresas;
+using OnPeople.Integration.Models.Pages.Config;
+using OnPeople.Integration.Models.Pages.Page;
 using OnPeople.Persistence.Interfaces.Contracts.Empresas;
 
 namespace OnPeople.Application.Services.Implementations.Empresas
@@ -60,33 +62,20 @@ namespace OnPeople.Application.Services.Implementations.Empresas
                 throw new Exception(e.Message);
             }
         }
-        public async Task<IEnumerable<EmpresaDto>> GetAllEmpresasAsync(int empresaId, Boolean Master)
+        public async Task<PageList<EmpresaDto>> GetAllEmpresasAsync(PageParameters pageParameters, int empresaId, Boolean Master)
         {
             try
             {
-                var empresas = await _empresasPersistence.GetAllEmpresasAsync(empresaId, Master );
+                var empresas = await _empresasPersistence.GetAllEmpresasAsync(pageParameters, empresaId, Master );
 
                 if (empresas == null) return null;
 
-                var empresasMapper = _mapper.Map<EmpresaDto[]>(empresas);
+                var empresasMapper = _mapper.Map<PageList<EmpresaDto>>(empresas);
 
-                return empresasMapper;
-            }
-            catch (Exception e)
-            {
-                
-                throw new Exception(e.Message);
-            }
-        }
-        public async Task<IEnumerable<EmpresaDto>> GetAllEmpreasByArgumentoAsync(int empresaId, Boolean Master, string argumento)
-        {
-            try
-            {
-                var empresas = await _empresasPersistence.GetAllEmpresasByArgumentoAsync(empresaId, Master, argumento);
-
-                if (empresas == null) return null;
-
-                var empresasMapper = _mapper.Map<EmpresaDto[]>(empresas);
+                empresasMapper.CurrentPage = empresas.CurrentPage;
+                empresasMapper.TotalPages = empresas.TotalPages;
+                empresasMapper.PageSize = empresas.PageSize;
+                empresasMapper.TotalCounter = empresas.TotalCounter;
 
                 return empresasMapper;
             }
@@ -97,15 +86,20 @@ namespace OnPeople.Application.Services.Implementations.Empresas
             }
         }
 
-        public async Task<IEnumerable<EmpresaDto>> GetAllEmpresasAtivasAsync(int empresaId, Boolean Master)
+        public async Task<PageList<EmpresaDto>> GetAllEmpresasAtivasAsync(PageParameters pageParameters, int empresaId, Boolean Master)
         {
             try
             {
-                var empresas = await _empresasPersistence.GetAllEmpresasAtivasAsync(empresaId, Master);
+                var empresas = await _empresasPersistence.GetAllEmpresasAtivasAsync(pageParameters, empresaId, Master);
 
                 if (empresas == null) return null;
 
-                var empresasMapper = _mapper.Map<EmpresaDto[]>(empresas);
+                var empresasMapper = _mapper.Map<PageList<EmpresaDto>>(empresas);
+
+                empresasMapper.CurrentPage = empresas.CurrentPage;
+                empresasMapper.TotalPages = empresas.TotalPages;
+                empresasMapper.PageSize = empresas.PageSize;
+                empresasMapper.TotalCounter = empresas.TotalCounter;
 
                 return empresasMapper;
             }
@@ -116,15 +110,20 @@ namespace OnPeople.Application.Services.Implementations.Empresas
             }
         }
 
-        public async Task<IEnumerable<EmpresaDto>> GetAllEmpresasFiliaisAsync(int empresaId, Boolean Master)
+        public async Task<PageList<EmpresaDto>> GetAllEmpresasFiliaisAsync(PageParameters pageParameters, int empresaId, Boolean Master)
         {
             try
             {
-                var empresas = await _empresasPersistence.GetAllEmpresasFiliaisAsync(empresaId, Master);
+                var empresas = await _empresasPersistence.GetAllEmpresasFiliaisAsync(pageParameters, empresaId, Master);
 
                 if (empresas == null) return null;
 
-                var empresasMapper = _mapper.Map<EmpresaDto[]>(empresas);
+                var empresasMapper = _mapper.Map<PageList<EmpresaDto>>(empresas);
+
+                empresasMapper.CurrentPage = empresas.CurrentPage;
+                empresasMapper.TotalPages = empresas.TotalPages;
+                empresasMapper.PageSize = empresas.PageSize;
+                empresasMapper.TotalCounter = empresas.TotalCounter;
 
                 return empresasMapper;
             }

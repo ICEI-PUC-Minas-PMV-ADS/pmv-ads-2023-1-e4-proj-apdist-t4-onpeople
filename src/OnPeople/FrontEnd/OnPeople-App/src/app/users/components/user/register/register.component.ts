@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 
-import { FormValidator } from 'src/app/shared/class';
+import { FormValidator } from 'src/app/shared/models';
 
 import { Users } from 'src/app/users/models';
 

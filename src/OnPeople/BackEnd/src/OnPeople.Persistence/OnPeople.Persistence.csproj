@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\OnPeople.Domain\OnPeople.Domain.csproj" />
+    <ProjectReference Include="..\onpeople.Integration\OnPeople.Integration.csproj" />
   </ItemGroup>
 
   <ItemGroup>
