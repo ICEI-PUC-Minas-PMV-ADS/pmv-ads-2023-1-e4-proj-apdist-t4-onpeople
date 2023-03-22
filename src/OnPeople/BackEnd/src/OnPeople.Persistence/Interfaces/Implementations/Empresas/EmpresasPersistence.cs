@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using OnPeople.Domain.Models.Empresas;
+using OnPeople.Integration.Models.Pages.Config;
+using OnPeople.Integration.Models.Pages.Page;
 using OnPeople.Persistence.Interfaces.Contexts;
 using OnPeople.Persistence.Interfaces.Contracts.Empresas;
 using OnPeople.Persistence.Interfaces.Implementations.Shared;
@@ -14,7 +16,7 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Empresas
             _context = context;
 
         }
-        public async Task<IEnumerable<Empresa>> GetAllEmpresasAsync(int empresaId, Boolean Master)
+        public async Task<PageList<Empresa>> GetAllEmpresasAsync(PageParameters pageParameters, int empresaId, Boolean Master)
         {
             IQueryable<Empresa> query = _context.Empresas
                 .Include(e => e.Users)
@@ -23,18 +25,24 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Empresas
             if (Master) {
                 query = query
                     .AsNoTracking()
-                    .OrderBy(e => e.Id);
+                    .OrderBy(e => e.Id)
+                    .Where(e => 
+                        e.NomeEmpresa.ToLower().Contains(pageParameters.Term.ToLower()) ||
+                        e.NomeFantasia.ToLower().Contains(pageParameters.Term.ToLower()) ||
+                        e.Sigla.ToLower().Contains(pageParameters.Term.ToLower())); 
             } else {
                 query = query
                     .AsNoTracking()
                     .OrderBy(e => e.Id)
-                    .Where(e => e.Id == empresaId);
+                    .Where(e => e.Id == empresaId && (
+                        e.NomeEmpresa.ToLower().Contains(pageParameters.Term.ToLower()) ||
+                        e.NomeFantasia.ToLower().Contains(pageParameters.Term.ToLower()) ||
+                        e.Sigla.ToLower().Contains(pageParameters.Term.ToLower()))); 
             }
 
-            return await query.ToListAsync();
+            return await PageList<Empresa>.CreatePageAsync(query, pageParameters.PageNumber, pageParameters.PageSize);
         }
-
-        public async Task<IEnumerable<Empresa>> GetAllEmpresasAtivasAsync(int empresaId, Boolean Master)
+        public async Task<PageList<Empresa>> GetAllEmpresasAtivasAsync(PageParameters pageParameters, int empresaId, Boolean Master)
         {
             IQueryable<Empresa> query = _context.Empresas 
                 .Include(e => e.Users)
@@ -52,10 +60,10 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Empresas
                     .OrderBy(e => e.Id);
             }
 
-            return await query.ToListAsync();
+            return await PageList<Empresa>.CreatePageAsync(query, pageParameters.PageNumber, pageParameters.PageSize);
         }
 
-        public async Task<IEnumerable<Empresa>> GetAllEmpresasFiliaisAsync(int empreaId, Boolean Master)
+        public async Task<PageList<Empresa>> GetAllEmpresasFiliaisAsync(PageParameters pageParameters, int empreaId, Boolean Master)
         {
             IQueryable<Empresa> query = _context.Empresas
                 .Include(e => e.Users)
@@ -73,7 +81,7 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Empresas
                     .OrderBy(e => e.Id);
             }
 
-            return await query.ToListAsync();
+            return await PageList<Empresa>.CreatePageAsync(query, pageParameters.PageNumber, pageParameters.PageSize);
         }
 
         public async Task<Empresa> GetEmpresaMatrizAsync()
@@ -90,34 +98,6 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Empresas
             return await query.FirstOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<Empresa>> GetAllEmpresasByArgumentoAsync(int empresaId, Boolean Master, string argumento)
-        {
-            IQueryable<Empresa> query = _context.Empresas                
-                .Include(e => e.Users)
-                .Include(e => e.Departamentos);
-
-            if (Master) {
-                query = query
-                    .AsNoTracking()
-                    .OrderBy(e => e.Id)
-                    .Where(e => 
-                        e.NomeEmpresa.ToLower().Contains(argumento.ToLower()) ||
-                        e.NomeFantasia.ToLower().Contains(argumento.ToLower()) ||
-                        e.Sigla.ToLower().Contains(argumento.ToLower()) 
-                    );
-            } else {
-                query = query
-                    .AsNoTracking()
-                    .OrderBy(e => e.Id)
-                    .Where(e => e.Id == empresaId && (
-                        e.NomeEmpresa.ToLower().Contains(argumento.ToLower()) ||
-                        e.NomeFantasia.ToLower().Contains(argumento.ToLower()) ||
-                        e.Sigla.ToLower().Contains(argumento.ToLower())) 
-                    );
-            }
-
-            return await query.ToListAsync();
-        }
         
         public async Task<Empresa> GetEmpresaByIdAsync(int empresaId)
         {

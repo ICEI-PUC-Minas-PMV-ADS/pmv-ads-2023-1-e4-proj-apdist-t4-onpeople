@@ -10,6 +10,7 @@ import { far } from '@fortawesome/free-regular-svg-icons';
 
 import { NgbAlertModule, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbTooltipModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
@@ -67,6 +68,7 @@ defineLocale('pt-br', ptBrLocale);
     NgbAlertModule,
     NgbDropdownModule,
     NgbCollapseModule,
+    NgbPaginationModule,
     NgbTooltipModule,
     NgxSpinnerModule,
     ReactiveFormsModule,

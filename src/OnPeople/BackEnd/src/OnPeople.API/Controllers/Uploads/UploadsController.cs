@@ -11,17 +11,17 @@ namespace OnPeople.API.Controllers.Uploads
     public class UploadsController : Controller
     {
         private readonly IEmpresasServices _empresasServices;
-        private readonly IUploads _uploads;
+        private readonly IUploadService _uploads;
         private readonly IUsersServices _usersServices;
         private readonly string _destinoLogo = "Logos";
         private readonly string _destinoFoto = "Fotos";
         public UploadsController(
             IEmpresasServices empresasServices,
-            IUploads uploads,
+            IUploadService uploadService,
             IUsersServices usersServices)
         {
             _empresasServices = empresasServices;
-            _uploads = uploads;
+            _uploads = uploadService;
             _usersServices = usersServices;
         }
 

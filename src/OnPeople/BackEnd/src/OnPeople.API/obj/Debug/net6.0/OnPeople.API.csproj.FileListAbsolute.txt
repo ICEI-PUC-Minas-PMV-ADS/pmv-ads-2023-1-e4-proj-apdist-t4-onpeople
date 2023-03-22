@@ -64,3 +64,5 @@ C:\Users\108093631\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\sr
 C:\Users\108093631\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.API\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\108093631\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.API\bin\Debug\net6.0\MySqlConnector.dll
 C:\Users\108093631\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.API\bin\Debug\net6.0\Pomelo.EntityFrameworkCore.MySql.dll
+C:\Users\108093631\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\onpeople.api\bin\Debug\net6.0\OnPeople.Integration.dll
+C:\Users\108093631\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\onpeople.api\bin\Debug\net6.0\OnPeople.Integration.pdb

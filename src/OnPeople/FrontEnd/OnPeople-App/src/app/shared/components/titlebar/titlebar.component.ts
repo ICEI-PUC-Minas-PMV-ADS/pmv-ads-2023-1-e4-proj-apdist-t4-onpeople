@@ -16,7 +16,7 @@ import { LoginLogoutService } from 'src/app/users/services';
 export class TitlebarComponent implements OnInit {
 
   @Input() title: string | undefined;
-  @Input() botaoListar = false;
+  @Input() buttonList = false;
 
   public iconTitle: IconDefinition;
 
@@ -79,7 +79,7 @@ export class TitlebarComponent implements OnInit {
         this.vision = 'Operacional';
   }
 
-  public listar(): void {
+  public listNavigate(): void {
     this.router.navigate([`/${this.title?.toLocaleLowerCase()}/lista`])
   }
 

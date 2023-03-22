@@ -1,11 +1,10 @@
-
 namespace OnPeople.API.Controllers.Uploads
 {
-    public class Uploads : IUploads
+    public class UploadService : IUploadService
     {
         private readonly IWebHostEnvironment _hostEnvironment;
-
-        public Uploads(IWebHostEnvironment hostEnvironment)
+    
+        public UploadService(IWebHostEnvironment hostEnvironment)
         {
             _hostEnvironment = hostEnvironment;
         }

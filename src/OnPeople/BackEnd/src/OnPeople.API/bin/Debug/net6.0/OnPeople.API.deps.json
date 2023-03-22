@@ -15,6 +15,7 @@
           "Microsoft.EntityFrameworkCore.Design": "6.0.14",
           "Microsoft.EntityFrameworkCore.Tools": "6.0.14",
           "OnPeople.Application": "1.0.0",
+          "OnPeople.Integration": "1.0.0",
           "Pomelo.EntityFrameworkCore.MySql": "6.0.2",
           "Swashbuckle.AspNetCore": "6.5.0"
         },
@@ -602,6 +603,7 @@
           "Microsoft.AspNetCore.Identity": "2.2.0",
           "Microsoft.IdentityModel.Tokens": "6.14.0",
           "OnPeople.Domain": "1.0.0",
+          "OnPeople.Integration": "1.0.0",
           "OnPeople.Persistence": "1.0.0",
           "System.IdentityModel.Tokens.Jwt": "6.14.0"
         },
@@ -617,11 +619,20 @@
           "OnPeople.Domain.dll": {}
         }
       },
+      "OnPeople.Integration/1.0.0": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "6.0.14"
+        },
+        "runtime": {
+          "OnPeople.Integration.dll": {}
+        }
+      },
       "OnPeople.Persistence/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.14",
           "Microsoft.EntityFrameworkCore": "6.0.14",
           "OnPeople.Domain": "1.0.0",
+          "OnPeople.Integration": "1.0.0",
           "Pomelo.EntityFrameworkCore.MySql": "6.0.2"
         },
         "runtime": {
@@ -1167,6 +1178,11 @@
       "sha512": ""
     },
     "OnPeople.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "OnPeople.Integration/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

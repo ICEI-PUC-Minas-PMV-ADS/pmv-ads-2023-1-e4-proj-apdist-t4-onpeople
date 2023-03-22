@@ -7,11 +7,12 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 
 import { Empresa } from 'src/app/companys/models';
-
 import { CompanyService } from 'src/app/companys/services';
+
 import { UploadService } from 'src/app/shared/services';
 
-import { FormValidator } from 'src/app/shared/class';
+import { FormValidator } from 'src/app/shared/models';
+
 import { environment } from 'src/assets/environments';
 
 @Component({

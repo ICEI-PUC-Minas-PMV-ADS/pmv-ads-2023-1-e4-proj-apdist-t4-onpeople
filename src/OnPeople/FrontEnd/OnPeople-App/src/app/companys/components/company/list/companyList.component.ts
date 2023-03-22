@@ -4,10 +4,14 @@ import { Router } from '@angular/router';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from "ngx-spinner";
 import { ToastrService } from 'ngx-toastr';
+import { debounceTime, Subject } from 'rxjs';
 
 import { Empresa } from 'src/app/companys/models';
 
 import { CompanyService } from 'src/app/companys/services';
+
+import { Pagination, PaginatedResult } from 'src/app/shared/models';
+
 import { environment } from 'src/assets/environments';
 
 @Component({
@@ -27,25 +31,35 @@ export class CompanyListComponent implements OnInit {
   public companyId: number = 0;
   public companyName: string = "";
 
-  private _companyFilter: string = '';
+  public pagination = {} as Pagination;
 
-  public get companyFilter() {
-    return this._companyFilter;
-  }
+  public changeTerm: Subject<string> = new Subject<string>();
 
-  public set companyFilter(args: string) {
-    this._companyFilter = args;
-    this.companiesFilter = this.companyFilter ? this.filterCompanies(this.companyFilter) : this.companies
-  }
+  public companyFilter(event: any): void {
+    if (this.changeTerm.observers.length === 0) {
+      this.spinnerService.show();
+      this.changeTerm
+        .pipe(debounceTime(1500))
+        .subscribe(
+          filterBy => {
+            this.companyService
+              .getCompanies(this.pagination.currentPage, this.pagination.itemsPage, filterBy)
+              .subscribe(
+                (companies: PaginatedResult<Empresa[]>) => {
+                  this.companies = companies.result;
+                  this.pagination = companies.pagination;
+                },
+                (error: any) => {
+                  this.toastrService.error(error.error, `Erro! Status ${error.status}`);
+                  console.error(error);
+                }
+              )
+              .add(() => this.spinnerService.hide());
+          }
+        )
+    }
 
-  public filterCompanies(args: string): Empresa[] {
-    args = args.toLocaleLowerCase();
-    return this.companies.filter(
-      (empresa: {nomeEmpresa: string, nomeFantasia: string, sigla: string}) =>
-        empresa.nomeEmpresa.toLocaleLowerCase().indexOf(args) !== -1
-        || empresa.nomeFantasia.toLocaleLowerCase().indexOf(args) !== -1
-        || empresa.sigla.toLocaleLowerCase().indexOf(args) !== -1
-    )
+    this.changeTerm.next(event.value)
   }
 
   public changeImageState(): void {
@@ -68,11 +82,12 @@ export class CompanyListComponent implements OnInit {
     this.spinnerService.show;
 
     this.companyService
-      .getCompanies()
+      .getCompanies(this.pagination.currentPage, this.pagination.itemsPage)
       .subscribe(
-        (companies: Empresa[]) => {
-          this.companies = companies,
-          this.companiesFilter = this.companies;
+        (companies: PaginatedResult<Empresa[]>) => {
+          console.log(companies);
+          this.companies = companies.result
+          this.pagination = companies.pagination;
         },
         (error: any) => {
           this.toastrService.error(error.error, `Erro! Status ${error.status}`);
@@ -126,5 +141,11 @@ export class CompanyListComponent implements OnInit {
     return (logoURL !== 'Image_not_available.png')
       ? `${environment.resourcesLogosURL}${logoURL}`
       : `../../../../assets/img/${logoURL}`;
+  }
+
+  public pageChanged(event: any): void {
+    console.log(event.currentPage)
+//    this.pagination.currentPage = event.currentPage
+    this.getCompanies();
   }
 }
