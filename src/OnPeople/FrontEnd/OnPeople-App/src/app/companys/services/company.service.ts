@@ -7,6 +7,7 @@ import { Empresa } from '../models';
 import { environment } from 'src/assets/environments/environments';
 
 import { PaginatedResult } from 'src/app/shared/models/class/pages';
+import { DashboardCompany } from 'src/app/shared/models';
 
 @Injectable()
 export class CompanyService {
@@ -75,6 +76,11 @@ export class CompanyService {
 
   public deleteCompany(id:number): Observable<any> {
     return this.http.delete(`${this.baseURL}${id}?empresaId=${id}`)
+    .pipe(take(3));
+  }
+
+  public CountCompany(id: number): Observable<DashboardCompany> {
+    return this.http.get<DashboardCompany>(`${this.baseURL}${id}/Dashboard`)
     .pipe(take(3));
   }
 }

@@ -14,5 +14,7 @@ namespace OnPeople.Application.Services.Contracts.Empresas
         Task<PageList<EmpresaDto>> GetAllEmpresasAtivasAsync(PageParameters pageParameters, int empresaId, Boolean Master);
         Task<PageList<EmpresaDto>> GetAllEmpresasFiliaisAsync(PageParameters pageParameters, int empresaId, Boolean Master);
         Task<EmpresaDto> GetEmpresaMatrizAsync();
+        int CountEmpresa(int empresaId, Boolean master);
+        int CountEmpresaAtiva(int empresaId, Boolean master);
     }
 }
