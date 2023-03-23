@@ -18,7 +18,7 @@ import { environment } from 'src/assets/environments';
 @Component({
   selector: 'app-companyDetail',
   templateUrl: './companyDetail.component.html',
-  styleUrls: ['./companyDetail.component.scss']
+  styleUrls: ['./companyDetail.component.scss'],
 })
 export class CompanyDetailComponent implements OnInit {
 

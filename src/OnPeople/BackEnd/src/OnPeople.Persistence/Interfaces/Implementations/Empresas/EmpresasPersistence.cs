@@ -125,5 +125,38 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Empresas
 
             return await query.FirstOrDefaultAsync();
         }
+
+        public int CountEmpresa(int empresaId, Boolean master)
+        {
+            Console.WriteLine("----------------", master);
+
+            IQueryable<Empresa> query = _context.Empresas;
+
+            if (empresaId == 0 && master)
+                query = query
+                    .AsNoTracking();
+            else
+                query = query
+                    .AsNoTracking()
+                    .Where(e => e.Id == empresaId);
+
+            return query.Count<Empresa>();
+        }
+
+        public int CountEmpresaAtiva(int empresaId, Boolean master)
+        {
+            IQueryable<Empresa> query = _context.Empresas;
+
+            if (empresaId == 0 && master)
+                query = query
+                    .AsNoTracking()
+                    .Where(e => e.Ativa);
+            else
+                query = query
+                    .AsNoTracking()
+                    .Where(e => e.Ativa && e.Id == empresaId );
+
+            return query.Count<Empresa>();
+        }
     }
 }

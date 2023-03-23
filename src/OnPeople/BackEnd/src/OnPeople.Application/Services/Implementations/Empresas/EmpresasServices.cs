@@ -197,5 +197,28 @@ namespace OnPeople.Application.Services.Implementations.Empresas
             }
         }
 
+        public int CountEmpresa(int empresaId, Boolean master)
+        {
+            try
+            {
+                return _empresasPersistence.CountEmpresa(empresaId, master);
+            }
+            catch (Exception e)
+            { 
+                throw new Exception(e.Message);
+            }
+        }
+
+        public int CountEmpresaAtiva(int empresaId, Boolean master)
+        {
+            try
+            {
+                return _empresasPersistence.CountEmpresaAtiva(empresaId, master);
+            }
+            catch (Exception e)
+            { 
+                throw new Exception(e.Message);
+            }
+        }
     }
 }

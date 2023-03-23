@@ -1,6 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { faBuilding, faUsers, IconDefinition } from '@fortawesome/free-solid-svg-icons'
+import
+{
+  faBuilding,
+  faUsers,
+  faChartGantt,
+  IconDefinition
+} from '@fortawesome/free-solid-svg-icons'
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 
@@ -94,7 +100,12 @@ export class TitlebarComponent implements OnInit {
         break;
       }
       case 'Contas': {
-        this.iconTitle = faUsers
+        this.iconTitle = faUsers;
+        break;
+      }
+      case 'Dashboard': {
+        this.iconTitle = faChartGantt;
+        break;
       }
     }
   }

@@ -4,6 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 
+import { NgSelectModule } from '@ng-select/ng-select';
+
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
@@ -13,6 +15,7 @@ import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbTooltipModule} from '@ng-bootstrap/ng-bootstrap';
 
+
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { ptBrLocale } from 'ngx-bootstrap/locale';
@@ -20,6 +23,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ToastrModule } from 'ngx-toastr';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,6 +33,7 @@ import { LoginComponent,   ProfileComponent, ProfileDetailComponent, RegisterCom
 import { CompanyComponent, CompanyDetailComponent, CompanyListComponent } from './companys/components';
 import { NavbarComponent } from './shared/components';
 import { TitlebarComponent } from './shared/components';
+import { DashboardComponent, DashCompanyComponent } from './dashboards/components';
 
 import { LoginLogoutService, UserService } from './users/services';
 import { CompanyService } from './companys/services';
@@ -39,12 +44,15 @@ import { AuthGuard, JwtInterceptor } from './shared/security';
 import { DateTimeFormatPipe } from './shared/models';
 
 
+
 defineLocale('pt-br', ptBrLocale);
 
 @NgModule({
   declarations: [
     AppComponent,
     TitlebarComponent,
+    DashboardComponent,
+    DashCompanyComponent,
     DateTimeFormatPipe,
     CompanyComponent,
     CompanyDetailComponent,
@@ -71,6 +79,7 @@ defineLocale('pt-br', ptBrLocale);
     NgbPaginationModule,
     NgbTooltipModule,
     NgxSpinnerModule,
+    NgSelectModule,
     ReactiveFormsModule,
     TabsModule.forRoot(),
     ToastrModule.forRoot({

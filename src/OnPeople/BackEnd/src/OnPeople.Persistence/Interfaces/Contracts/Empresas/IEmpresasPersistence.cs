@@ -14,5 +14,7 @@ namespace OnPeople.Persistence.Interfaces.Contracts.Empresas
         Task<PageList<Empresa>> GetAllEmpresasFiliaisAsync(PageParameters pageParameters, int empresaId, Boolean Master);
         Task<Empresa> GetEmpresaMatrizAsync();
         Task<Empresa> GetEmpresaByContaIdAsync(int empresaId, Boolean Master);
+        int CountEmpresa(int empresaId, Boolean master);
+        int CountEmpresaAtiva(int empresaId, Boolean master);
     }
 }

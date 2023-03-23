@@ -5,6 +5,7 @@ import { LoginComponent, ProfileComponent, RegisterComponent, UserComponent, } f
 import { CompanyComponent, CompanyDetailComponent, CompanyListComponent } from './companys/components';
 
 import { AuthGuard } from './shared/security';
+import { DashboardComponent, DashCompanyComponent } from './dashboards/components';
 
 const routes: Routes = [
   { path: '', redirectTo: 'users/profile', pathMatch: 'full' },
@@ -26,6 +27,12 @@ const routes: Routes = [
         { path: 'lista', component: CompanyListComponent },
       ] },
 
+    { path: 'dashboards', redirectTo: 'dashboards/empresa', pathMatch: 'full' },
+    { path: 'dashboards', component: DashboardComponent,
+      children: [
+        { path: 'empresa', component: DashCompanyComponent },
+      ] },
+
   ] },
 
   { path: 'users', component: UserComponent,
@@ -35,7 +42,7 @@ const routes: Routes = [
     ] },
 
   { path: 'home', redirectTo: 'users/register', pathMatch: 'full'},
-  { path: '**', redirectTo: 'users/register', pathMatch: 'full'}
+  { path: '**', redirectTo: 'users/register', pathMatch: 'full'},
 ];
 
 @NgModule({

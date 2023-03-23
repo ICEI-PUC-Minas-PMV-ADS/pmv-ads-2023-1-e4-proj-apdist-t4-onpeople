@@ -8,6 +8,7 @@ using OnPeople.Application.Services.Contracts.Users;
 using OnPeople.Application.Services.Contracts.Empresas;
 using OnPeople.Integration.Models.Pages.Config;
 using OnPeople.API.Extensions.Pages;
+using OnPeople.Integration.Models.Dashboard;
 
 namespace OnPeople.API.Controllers.Empresas;
 
@@ -246,5 +247,18 @@ public class EmpresasController : ControllerBase
         {
             return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao excluir empresa. Erro: {e.Message}");
         }
+        
     }   
+
+    [HttpGet("{id}/Dashboard")]
+    public DashboardEmpresa CountEmpresa(int id)
+    {
+     
+        var dashboardEmpresa = new DashboardEmpresa();
+
+        dashboardEmpresa.CountEmpresa =  _empresasServices.CountEmpresa(id, User.GetMasterClaim());
+        dashboardEmpresa.CountEmpresaAtiva =  _empresasServices.CountEmpresaAtiva(id, User.GetMasterClaim());
+        
+        return dashboardEmpresa;
+    }
 }

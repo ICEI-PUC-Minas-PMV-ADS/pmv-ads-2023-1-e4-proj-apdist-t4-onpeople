@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "zDnKPNSSQKf95KIh40au9r0qAtEnsSTHYhi+gMWgIcpaG7URm3QskLOt3y9KQ4qQ8yNokRcITrbLzJ9RG4XkxA==",
+  "dgSpecHash": "UDAz/tFvF4udc7aK3DvDlc57wuM5iT2ifVGZEjuBUOGA3+7V1flKOvADRTGfrSbjcyhJRFDNp7373L1LbHOcGQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\108093631\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\onpeople.api\\OnPeople.API.csproj",
+  "projectFilePath": "C:\\Users\\108093631\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.API\\OnPeople.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\108093631\\.nuget\\packages\\automapper\\12.0.0\\automapper.12.0.0.nupkg.sha512",
     "C:\\Users\\108093631\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.0\\automapper.extensions.microsoft.dependencyinjection.12.0.0.nupkg.sha512",
