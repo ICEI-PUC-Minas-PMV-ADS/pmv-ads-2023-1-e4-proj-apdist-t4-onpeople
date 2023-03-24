@@ -134,7 +134,7 @@ export class CompanyListComponent implements OnInit {
   }
 
   public companyDetail(id: number): void {
-    this.router.navigate([`empresas/detalhe/${id}`])
+    this.router.navigate([`company/detail/${id}`])
   }
 
   public showBranch(logoURL: string): string {

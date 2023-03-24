@@ -1,12 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import
-{
-  faBuilding,
-  faUsers,
-  faChartGantt,
-  IconDefinition
-} from '@fortawesome/free-solid-svg-icons'
+
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 
@@ -23,8 +17,7 @@ export class TitlebarComponent implements OnInit {
 
   @Input() title: string | undefined;
   @Input() buttonList = false;
-
-  public iconTitle: IconDefinition;
+  @Input() iconTitlebar: string;
 
   public companyCode: number = 0;
   public companyName: string = "";
@@ -69,8 +62,6 @@ export class TitlebarComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.montariconTitle();
-
     console.log(this.title);
     this.userLoged = this.userActive !== null;
     this.companyCode = this.userActive.codEmpresa;
@@ -86,28 +77,11 @@ export class TitlebarComponent implements OnInit {
   }
 
   public listNavigate(): void {
-    this.router.navigate([`/${this.title?.toLocaleLowerCase()}/lista`])
+    this.router.navigate([`/${this.title?.toLocaleLowerCase()}/list`])
   }
 
   public showCabecalho(): boolean {
     return this.router.url !== '/users/login' && this.userLoged
-  }
-
-  public montariconTitle(): void {
-    switch(this.title) {
-      case 'Empresas': {
-        this.iconTitle = faBuilding;
-        break;
-      }
-      case 'Contas': {
-        this.iconTitle = faUsers;
-        break;
-      }
-      case 'Dashboard': {
-        this.iconTitle = faChartGantt;
-        break;
-      }
-    }
   }
 
 }

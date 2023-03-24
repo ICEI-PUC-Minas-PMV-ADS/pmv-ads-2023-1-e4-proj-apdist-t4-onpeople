@@ -174,7 +174,7 @@ export class CompanyDetailComponent implements OnInit {
             (company: Empresa) => {
               this.toastrService.success('Empresa criada!', 'Sucesso!');
               window.location.reload;
-              this.router.navigateByUrl(`/empresas/detalhe/${company.id}`);
+              this.router.navigateByUrl(`/company/detail/${company.id}`);
               this.saveState = 'put';
             },
             (error: any) => {
