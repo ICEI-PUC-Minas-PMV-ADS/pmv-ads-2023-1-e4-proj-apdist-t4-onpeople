@@ -13,8 +13,8 @@
       </div>
     </div>
     <div>
-      <a class="d-flex btn btn-outline-info ms-1" ngbTooltip="Nova Empresa" routerLink="/empresas/detalhe">
-        <fa-icon [icon]="['fas', 'plus-square']" class="iconClass  py-0"></fa-icon>
+      <a class="d-flex btn btn-outline-info ms-1" ngbTooltip="Nova Empresa" routerLink="/company/detail">
+        <mat-icon>addd</mat-icon>
       </a>
     </div>
   </div>
@@ -23,14 +23,14 @@
       <tr>
         <th class="d-none d-md-table-cell">
             <button class="btn btn-outline-light btn-sm" (click)="changeImageState()">
-              <fa-icon [icon]="toggleImage ? ['fas', 'eye-slash'] : ['fas', 'eye']" class="mr-2"></fa-icon>
+              <mat-icon>{{toggleImage ? 'visibility' : 'visibility_off'}}</mat-icon>
               {{toggleImage ? "Ocultar" : "Mostrar"}}
             </button>
         </th>
         <th >#</th>
-        <th >Nome Empresa <fa-icon [icon]="['fas', 'filter']"></fa-icon></th>
-        <th class="d-none d-md-table-cell" >Nome Fantasia <fa-icon [icon]="['fas', 'filter']"> </fa-icon></th>
-        <th >Sigla <fa-icon [icon]="['fas', 'filter']"> </fa-icon></th>
+        <th >Nome Empresa<mat-icon>filter_alt</mat-icon></th>
+        <th class="d-none d-md-table-cell" >Nome Fantasia<mat-icon>filter_alt</mat-icon>
+        <th >Sigla<mat-icon>filter_alt</mat-icon></th>
         <th class="d-none d-md-table-cell" >Data Ativação</th>
         <th class="d-none d-md-table-cell" >Padrão de e-mail</th>
         <th >Opções</th>
@@ -50,7 +50,7 @@
         <td>
           <div class="btn-group">
             <button type="button" class="btn btn-outline-danger" ngbTooltip="Excluir" (click)="openModal($event, template, empresa.id, empresa.nomeEmpresa)">
-              <fa-icon [icon]="['fas', 'trash']"></fa-icon>
+              <mat-icon>delete</mat-icon>
             </button>
           </div>
         </td>

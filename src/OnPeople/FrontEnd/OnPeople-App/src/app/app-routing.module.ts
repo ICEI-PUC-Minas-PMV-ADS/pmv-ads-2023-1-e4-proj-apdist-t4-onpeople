@@ -19,18 +19,18 @@ const routes: Routes = [
         { path: 'profile', component: ProfileComponent },
       ] },
 
-    { path: 'empresas', redirectTo: 'empresas/lista', pathMatch: 'full' },
-    { path: 'empresas', component: CompanyComponent,
+    { path: 'company', redirectTo: 'company/list', pathMatch: 'full' },
+    { path: 'company', component: CompanyComponent,
       children: [
-        { path: 'detalhe/:id', component: CompanyDetailComponent },
-        { path: 'detalhe', component: CompanyDetailComponent },
-        { path: 'lista', component: CompanyListComponent },
+        { path: 'detail/:id', component: CompanyDetailComponent },
+        { path: 'detail', component: CompanyDetailComponent },
+        { path: 'list', component: CompanyListComponent },
       ] },
 
-    { path: 'dashboards', redirectTo: 'dashboards/empresa', pathMatch: 'full' },
+    { path: 'dashboards', redirectTo: 'dashboards/company', pathMatch: 'full' },
     { path: 'dashboards', component: DashboardComponent,
       children: [
-        { path: 'empresa', component: DashCompanyComponent },
+        { path: 'company', component: DashCompanyComponent },
       ] },
 
   ] },
