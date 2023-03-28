@@ -51,3 +51,43 @@ $OnPeople-App-theme: mat.define-light-theme((
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+
+//Configurações personalizadas
+
+.iconBadge {
+  transform: scale(3.5);
+}
+
+.iconDash {
+  transform: scale(1.8);
+}
+
+.imageLogo {
+  width: 100%;
+}
+
+.imageLateral {
+  width: 100%;
+  margin-top: 100px;
+}
+.titulo {
+  font-size: 1.8rem;
+}
+
+.imageDetail {
+  width: 280px;
+ }
+
+.rounded-circle {
+  width: 170px;
+  height: 170px;
+  cursor: pointer;
+}
+
+ @for $i from 0 through 5 {
+  $colors:  rgb(random(255), random(255), random(255));
+  .text-color-#{$i} {color : $colors};
+  .border-left-#{$i} {border-left: 0.8rem solid $colors};
+ }

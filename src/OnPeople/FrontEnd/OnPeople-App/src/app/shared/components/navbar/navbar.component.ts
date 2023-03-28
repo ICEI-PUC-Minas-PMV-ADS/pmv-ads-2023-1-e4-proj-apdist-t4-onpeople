@@ -17,10 +17,6 @@ export class NavbarComponent implements OnInit {
   public userActive = {} as UserLoged;
 
   public userLoged = false;
-  public visao: string;
-  public visaoGold = false;
-  public visaoMaster = false;
-
 
   constructor(
     public loginLogoutService: LoginLogoutService,
@@ -35,9 +31,6 @@ export class NavbarComponent implements OnInit {
                   (userActive) => {
                     this.userLoged = userActive !== null;
                     this.userActive = { ...userActive};
-                    this.visao = this.userActive.visao;
-                    this.visaoGold = this.visao === "Gold"
-                    this.visaoMaster = this.visao === "Master"
                   }
                 )
           }
@@ -45,7 +38,6 @@ export class NavbarComponent implements OnInit {
     }
 
   ngOnInit() {
-    console.log("User Loged ", this.userLoged)
   }
 
   public showMenu(): boolean {
@@ -53,7 +45,6 @@ export class NavbarComponent implements OnInit {
   }
 
   public logout(): void {
-    console.log("logout")
     this.loginLogoutService.logout();
     this.router.navigateByUrl('/users/login')
     this.userLoged = false;

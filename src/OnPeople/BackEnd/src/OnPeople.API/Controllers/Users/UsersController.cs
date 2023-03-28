@@ -63,14 +63,7 @@ public class UsersController : ControllerBase
             var user = await _usersServices.CreateUsersAsync(userDto);
 
             var nomeEmpresa = "";
-           
-            if (user.CodEmpresa > 0) {
-                var empresa = await _empresasServices.GetEmpresaByIdAsync(user.CodEmpresa);
-            
-                if (empresa != null)
-                    nomeEmpresa = empresa.NomeEmpresa;
-            }
-            
+         
             if (user != null) {
                 return Ok( new {
                     userName = user.UserName,
@@ -96,6 +89,7 @@ public class UsersController : ControllerBase
     {
         try
         {
+            Console.WriteLine("user: " + userLoginDto);
             var user  = await _usersServices.GetUserByUserNameAsync(userLoginDto.UserName);
             if (user == null) {
                 return Unauthorized("Conta não cadastrada" );
@@ -113,7 +107,7 @@ public class UsersController : ControllerBase
                 var empresa = await _empresasServices.GetEmpresaByIdAsync(user.CodEmpresa);
             
                 if (empresa != null)
-                    nomeEmpresa = empresa.NomeEmpresa;
+                    nomeEmpresa = empresa.RazaoSocial;
             }
 
             return Ok( new {
@@ -130,7 +124,7 @@ public class UsersController : ControllerBase
             return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao realizar Login. Erro: {e.Message}");
         }
     }   
-    [HttpGet("GetUSer/{id}")]
+    [HttpGet("GetUser/{id}")]
     public async Task<IActionResult> GetUserById(int id)
     {
         try

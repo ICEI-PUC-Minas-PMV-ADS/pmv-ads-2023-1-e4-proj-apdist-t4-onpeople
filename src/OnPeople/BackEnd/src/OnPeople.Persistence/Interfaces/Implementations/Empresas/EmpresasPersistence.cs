@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using OnPeople.Domain.Models.Empresas;
+using OnPeople.Integration.Models.Dashboard;
 using OnPeople.Integration.Models.Pages.Config;
 using OnPeople.Integration.Models.Pages.Page;
 using OnPeople.Persistence.Interfaces.Contexts;
@@ -16,70 +17,48 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Empresas
             _context = context;
 
         }
-        public async Task<PageList<Empresa>> GetAllEmpresasAsync(PageParameters pageParameters, int empresaId, Boolean Master)
+        public async Task<PageList<Empresa>> GetAllEmpresasAsync(PageParameters pageParameters, int empresaId, Boolean master)
         {
+            Console.WriteLine("-------------------------" + master);
             IQueryable<Empresa> query = _context.Empresas
                 .Include(e => e.Users)
                 .Include(e => e.Departamentos);
 
-            if (Master) {
-                query = query
-                    .AsNoTracking()
-                    .OrderBy(e => e.Id)
-                    .Where(e => 
-                        e.NomeEmpresa.ToLower().Contains(pageParameters.Term.ToLower()) ||
-                        e.NomeFantasia.ToLower().Contains(pageParameters.Term.ToLower()) ||
-                        e.Sigla.ToLower().Contains(pageParameters.Term.ToLower())); 
-            } else {
-                query = query
-                    .AsNoTracking()
-                    .OrderBy(e => e.Id)
-                    .Where(e => e.Id == empresaId && (
-                        e.NomeEmpresa.ToLower().Contains(pageParameters.Term.ToLower()) ||
-                        e.NomeFantasia.ToLower().Contains(pageParameters.Term.ToLower()) ||
-                        e.Sigla.ToLower().Contains(pageParameters.Term.ToLower()))); 
-            }
+            query = query
+                .AsNoTracking()
+                .OrderBy(e => e.Id)
+                .Where(e => master && ( 
+                    e.RazaoSocial.ToLower().Contains(pageParameters.Term.ToLower()) ||
+                    e.RazaoSocial.ToLower().Contains(pageParameters.Term.ToLower()) ||
+                    e.SiglaEmpresa.ToLower().Contains(pageParameters.Term.ToLower())));
 
             return await PageList<Empresa>.CreatePageAsync(query, pageParameters.PageNumber, pageParameters.PageSize);
         }
-        public async Task<PageList<Empresa>> GetAllEmpresasAtivasAsync(PageParameters pageParameters, int empresaId, Boolean Master)
+        public async Task<PageList<Empresa>> GetAllEmpresasAtivasAsync(PageParameters pageParameters, int empresaId, Boolean master)
         {
             IQueryable<Empresa> query = _context.Empresas 
                 .Include(e => e.Users)
                 .Include(e => e.Departamentos);
 
-            if (Master) {
-                query = query
-                    .AsNoTracking()
-                    .Where(e => e.Ativa == true)
-                    .OrderBy(e => e.Id);
-            } else {
-                query = query
-                    .AsNoTracking()
-                    .Where(e => e.Ativa == true && e.Id == empresaId)
-                    .OrderBy(e => e.Id);
-            }
+            query = query
+                .AsNoTracking()
+                .Where(e => e.Ativa == true && master)
+                .OrderBy(e => e.Id);
 
             return await PageList<Empresa>.CreatePageAsync(query, pageParameters.PageNumber, pageParameters.PageSize);
         }
 
-        public async Task<PageList<Empresa>> GetAllEmpresasFiliaisAsync(PageParameters pageParameters, int empreaId, Boolean Master)
+        public async Task<PageList<Empresa>> GetAllEmpresasFiliaisAsync(PageParameters pageParameters, int empreaId, Boolean master)
         {
             IQueryable<Empresa> query = _context.Empresas
                 .Include(e => e.Users)
                 .Include(e => e.Departamentos);
 
-            if (Master) {
-                query = query
-                    .AsNoTracking()
-                    .Where(e => e.Filial == true)
-                    .OrderBy(e => e.Id);
-            } else {
-                query = query
-                    .AsNoTracking()
-                    .Where(e => e.Filial == true && e.Id == empreaId)
-                    .OrderBy(e => e.Id);
-            }
+            query = query
+                .AsNoTracking()
+                .Where(e => e.Filial == true && master)
+                .OrderBy(e => e.Id);
+ 
 
             return await PageList<Empresa>.CreatePageAsync(query, pageParameters.PageNumber, pageParameters.PageSize);
         }
@@ -92,7 +71,7 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Empresas
 
             query = query
                 .AsNoTracking()
-                .Where(e => e.Filial == false)
+                .Where(e => e.Filial == false )
                 .OrderBy(e => e.Id);
 
             return await query.FirstOrDefaultAsync();
@@ -126,37 +105,76 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Empresas
             return await query.FirstOrDefaultAsync();
         }
 
-        public int CountEmpresa(int empresaId, Boolean master)
+        public async Task<Empresa> GetEmpresaByCnpjAsync(string cnpj, Boolean Master)
         {
-            Console.WriteLine("----------------", master);
+            IQueryable<Empresa> query = _context.Empresas
+                .Include(e => e.Users)
+                .Include(e => e.Departamentos);
 
-            IQueryable<Empresa> query = _context.Empresas;
 
-            if (empresaId == 0 && master)
-                query = query
-                    .AsNoTracking();
-            else
-                query = query
-                    .AsNoTracking()
-                    .Where(e => e.Id == empresaId);
+            query = query
+                .AsNoTracking()
+                .Where(e => e.Cnpj == cnpj && Master);
 
-            return query.Count<Empresa>();
+            return await query.FirstOrDefaultAsync();
         }
-
-        public int CountEmpresaAtiva(int empresaId, Boolean master)
+        public DashboardEmpresa GetDashboard(int empresaId, Boolean master)
         {
-            IQueryable<Empresa> query = _context.Empresas;
+            IQueryable<Empresa> queryFiliais = _context.Empresas;
 
             if (empresaId == 0 && master)
-                query = query
+                queryFiliais = queryFiliais
+                    .AsNoTracking()
+                    .Where(e => e.Filial);
+            else
+                queryFiliais = queryFiliais
+                    .AsNoTracking()
+                    .Where(e => e.Filial && e.Id == empresaId );
+
+            DashboardEmpresa dashEmpresa = new DashboardEmpresa();
+
+            dashEmpresa.CountFiliais = queryFiliais.Count<Empresa>();
+
+            IQueryable<Empresa> queryEmpresaAtivas = _context.Empresas;
+
+            if (empresaId == 0 && master)
+                queryEmpresaAtivas = queryEmpresaAtivas
                     .AsNoTracking()
                     .Where(e => e.Ativa);
             else
-                query = query
+                queryEmpresaAtivas = queryEmpresaAtivas
                     .AsNoTracking()
                     .Where(e => e.Ativa && e.Id == empresaId );
 
-            return query.Count<Empresa>();
+            dashEmpresa.CountEmpresasAtivas = queryEmpresaAtivas.Count<Empresa>();
+
+            IQueryable<Empresa> queryEmpresas = _context.Empresas;
+
+            if (empresaId == 0 && master)
+                queryEmpresas = queryEmpresas
+                    .AsNoTracking();
+            else
+                queryEmpresas = queryEmpresas
+                    .AsNoTracking()
+                    .Where(e => e.Id == empresaId);
+
+            dashEmpresa.CountEmpresas = queryEmpresas.Count<Empresa>();   
+
+            IQueryable<Empresa> queryFiliaisAtivas = _context.Empresas;
+
+            if (empresaId == 0 && master)
+                queryFiliaisAtivas = queryFiliaisAtivas
+                    .AsNoTracking()
+                    .Where(e => e.Filial && e.Ativa);
+            else
+                queryFiliaisAtivas = queryFiliaisAtivas
+                    .AsNoTracking()
+                    .Where(e => e.Filial && e.Ativa && e.Id == empresaId );
+                    
+            dashEmpresa.CountFiliaisAtivas = queryFiliaisAtivas.Count<Empresa>();   
+
+            return dashEmpresa;
         }
+
     }
 }

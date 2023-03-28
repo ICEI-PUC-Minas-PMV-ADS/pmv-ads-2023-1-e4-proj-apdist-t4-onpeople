@@ -195,11 +195,53 @@ namespace OnPeople.Persistence.Migrations
                     b.Property<bool>("Ativa")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<DateTime>("DataCadastro")
-                        .HasColumnType("datetime(6)");
+                    b.Property<string>("AtividadePrincipal")
+                        .HasColumnType("longtext");
 
-                    b.Property<DateTime?>("DataDesativacao")
-                        .HasColumnType("datetime(6)");
+                    b.Property<string>("Bairro")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("CEP")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Cidade")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("CidadeIbgeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CidadeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CidadeSiafiId")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Cnpj")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Complemento")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("DDD")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("DataCadastro")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("DataDesativacao")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Estado")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("EstadoIbgeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EstadoId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("Filial")
                         .HasColumnType("tinyint(1)");
@@ -207,22 +249,58 @@ namespace OnPeople.Persistence.Migrations
                     b.Property<string>("Logotipo")
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("MatrizId")
+                    b.Property<string>("Logradouro")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("MatrizId")
                         .HasColumnType("int");
 
-                    b.Property<string>("NomeEmpresa")
+                    b.Property<string>("NaturezaJuridica")
                         .HasColumnType("longtext");
 
                     b.Property<string>("NomeFantasia")
                         .HasColumnType("longtext");
 
+                    b.Property<string>("NomePais")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Numero")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("OptanteSimples")
+                        .HasColumnType("longtext");
+
                     b.Property<string>("PadraoEmail")
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("PresidenteId")
+                    b.Property<string>("PaisId")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("PorteEmpresa")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("PresidenteId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Sigla")
+                    b.Property<string>("RazaoSocial")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("SiglaEmpresa")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("SiglaEstado")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("SiglaPaisIso2")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("SiglaPaisIso3")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Telefone")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("TipoLogradouro")
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");

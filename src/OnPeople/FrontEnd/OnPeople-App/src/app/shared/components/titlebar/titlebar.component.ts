@@ -62,7 +62,6 @@ export class TitlebarComponent implements OnInit {
    }
 
   ngOnInit() {
-    console.log(this.title);
     this.userLoged = this.userActive !== null;
     this.companyCode = this.userActive.codEmpresa;
     this.companyName =this.userActive.nomeEmpresa;

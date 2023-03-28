@@ -18,7 +18,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { NgbAlertModule, NgbCollapseModule, NgbPaginationModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TabsModule } from 'ngx-tabset';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { CompanyService } from 'src/app/companys/services';
+import { CompanyService } from 'src/app/companies/services';
 import { LoginLogoutService } from '../../services/login';
 import { UploadService } from 'src/app/shared/services';
 import { UserService } from '../../services';

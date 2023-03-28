@@ -30,6 +30,7 @@ namespace OnPeople.API.Controllers.Uploads
         {
             try
             {
+                Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                 var user = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());
 
                 var empresa = await _empresasServices.GetEmpresaByIdAsync(empresaId);

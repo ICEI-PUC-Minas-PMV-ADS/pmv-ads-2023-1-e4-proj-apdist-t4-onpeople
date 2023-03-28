@@ -1,4 +1,5 @@
 using OnPeople.Application.Dtos.Empresas;
+using OnPeople.Integration.Models.Dashboard;
 using OnPeople.Integration.Models.Pages.Config;
 using OnPeople.Integration.Models.Pages.Page;
 
@@ -14,7 +15,8 @@ namespace OnPeople.Application.Services.Contracts.Empresas
         Task<PageList<EmpresaDto>> GetAllEmpresasAtivasAsync(PageParameters pageParameters, int empresaId, Boolean Master);
         Task<PageList<EmpresaDto>> GetAllEmpresasFiliaisAsync(PageParameters pageParameters, int empresaId, Boolean Master);
         Task<EmpresaDto> GetEmpresaMatrizAsync();
-        int CountEmpresa(int empresaId, Boolean master);
-        int CountEmpresaAtiva(int empresaId, Boolean master);
+        Task<AtualizarEmpresaAtivaDto> SetEmpresa(int empresaId, AtualizarEmpresaAtivaDto atualizarEmpresaAtivaDto);
+        DashboardEmpresa GetDashboard(int empresaId, Boolean master);  
+        Task<EmpresaDto> GetEmpresaByCnpjAsync(string cnpj, Boolean master);      
     }
 }

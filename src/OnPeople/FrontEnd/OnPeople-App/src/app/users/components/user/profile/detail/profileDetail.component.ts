@@ -7,8 +7,8 @@ import { ToastrService } from 'ngx-toastr';
 import { Users } from 'src/app/users/models';
 import { UserService } from 'src/app/users/services';
 
-import { Empresa } from 'src/app/companys/models';
-import { CompanyService } from 'src/app/companys/services';
+import { Empresa } from 'src/app/companies/models';
+import { CompanyService } from 'src/app/companies/services';
 
 
 import { FormValidator } from 'src/app/shared/models';
@@ -77,11 +77,10 @@ export class ProfileDetailComponent implements OnInit {
         (users: Users) => {
           this.users = { ... users}
           this.formDetail.patchValue(this.users);
-          console.log("Conta :", users)
         },
         (error: any) => {
           this.toastrService.error(error.error, `Erro! Status ${error.status}`);
-          console.log(error);
+          console.error(error);
         }
       )
       .add(() => this.spinnerService.hide());
@@ -95,7 +94,7 @@ export class ProfileDetailComponent implements OnInit {
       .subscribe(
         (empresa: Empresa) => {
           if (empresa != null) {
-            this.users.nomeEmpresa = empresa.nomeEmpresa;
+            this.users.nomeEmpresa = empresa.razaoSocial;
             this.formDetail.patchValue(this.users)
           }
         },
@@ -108,11 +107,8 @@ export class ProfileDetailComponent implements OnInit {
   }
 
   public onSubmit(): void {
-    console.log("aqui")
     if (this.formDetail.valid) {
       this.spinnerService.show();
-
-      console.log(this.formDetail.value)
     }
   }
 }
