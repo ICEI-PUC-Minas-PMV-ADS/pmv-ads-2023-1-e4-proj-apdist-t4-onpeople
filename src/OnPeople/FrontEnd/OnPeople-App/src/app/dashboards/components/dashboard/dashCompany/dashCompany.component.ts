@@ -2,8 +2,9 @@ import { Component, OnInit, } from '@angular/core';
 import { NgSelectConfig } from '@ng-select/ng-select';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
-import { Empresa } from 'src/app/companys/models';
-import { CompanyService } from 'src/app/companys/services';
+import { Empresa } from 'src/app/companies/models';
+import { CompanyService } from 'src/app/companies/services';
+import { RandomColors } from 'src/app/shared/functions';
 import { DashboardCompany, PaginatedResult } from 'src/app/shared/models';
 
 @Component({
@@ -12,6 +13,7 @@ import { DashboardCompany, PaginatedResult } from 'src/app/shared/models';
   styleUrls: ['./dashCompany.component.scss']
 })
 export class DashCompanyComponent implements OnInit {
+  public color: any = "";
 
   public totalCompany = 0;
   public totalActive = 0;
@@ -79,5 +81,9 @@ export class DashCompanyComponent implements OnInit {
           }
         }
       )
+  }
+
+  public newColor(): any {
+    return 'color: ' + RandomColors.colorsGenerate();
   }
 }

@@ -2,12 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using OnPeople.Integration.Models.Links;
 
 namespace OnPeople.Integration.Models.Dashboard
 {
-    public class DashboardEmpresa
+    public class DashboardEmpresa : LinksHATEOS
     {
-        public int CountEmpresa { get; set; }
-        public int CountEmpresaAtiva { get; set; }
+        public int CountEmpresas { get; set; }
+        public int CountEmpresasAtivas { get; set; }
+        public int CountFiliais { get; set; }
+        public int CountFiliaisAtivas{ get; set; }
     }
 }

@@ -9,6 +9,8 @@ using OnPeople.Application.Services.Contracts.Empresas;
 using OnPeople.Integration.Models.Pages.Config;
 using OnPeople.API.Extensions.Pages;
 using OnPeople.Integration.Models.Dashboard;
+using Newtonsoft.Json.Linq;
+using OnPeople.Integration.Models.Links;
 
 namespace OnPeople.API.Controllers.Empresas;
 
@@ -45,6 +47,7 @@ public class EmpresasController : ControllerBase
             var empresas = await _empresasServices.GetAllEmpresasAsync(pageParameters, claimUser.CodEmpresa, claimUser.Master);
 
             if (empresas == null) return NoContent();
+            
             
             Response.CreatePagination(empresas.CurrentPage, empresas.PageSize, empresas.TotalCounter, empresas.TotalPages);
 
@@ -171,8 +174,18 @@ public class EmpresasController : ControllerBase
 
             var empresaMatriz = await _empresasServices.GetEmpresaMatrizAsync();
 
-            if (empresaMatriz != null && !empresaMatriz.Ativa)
-                return BadRequest("Não foi encontrada uma empresa matriz ativa para criação da nova empresa.");
+/*            if (empresaMatriz != null && !empresaMatriz.Ativa) {
+                var atualizarEmpresaAtivaDto  = new AtualizarEmpresaAtivaDto();
+
+                atualizarEmpresaAtivaDto.Id = empresaMatriz.Id;
+                atualizarEmpresaAtivaDto.Ativa = true;
+
+                if (await _empresasServices.SetEmpresa(atualizarEmpresaAtivaDto.Id, atualizarEmpresaAtivaDto) == null)
+                    return BadRequest("Falha ao ativar empresa Matriz");
+            }
+*/
+            if (empresaMatriz != null && empresaDto.Filial)
+                empresaDto.MatrizId = empresaMatriz.Id;
 
             var createdEmpresa = await _empresasServices.CreateEmpresas(claimUser.CodEmpresa, claimUser.Master, empresaDto);
 
@@ -219,8 +232,7 @@ public class EmpresasController : ControllerBase
     {
         try
         {
-            Console.Write("------------------------------- Delete " + empresaId);
-            var claimUser = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());   
+             var claimUser = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());   
 
             if (claimUser == null) 
                 return Unauthorized();
@@ -251,14 +263,105 @@ public class EmpresasController : ControllerBase
     }   
 
     [HttpGet("{id}/Dashboard")]
-    public DashboardEmpresa CountEmpresa(int id)
-    {
-     
-        var dashboardEmpresa = new DashboardEmpresa();
+    public DashboardEmpresa GetDashboard(int id)
+    {     
+        var dashboardEmpresa = _empresasServices.GetDashboard(id, User.GetMasterClaim());
 
-        dashboardEmpresa.CountEmpresa =  _empresasServices.CountEmpresa(id, User.GetMasterClaim());
-        dashboardEmpresa.CountEmpresaAtiva =  _empresasServices.CountEmpresaAtiva(id, User.GetMasterClaim());
-        
         return dashboardEmpresa;
+    }
+
+    [HttpGet("{cnpj}/external")]
+    public async Task<IActionResult> GetPublicCNPJ(string cnpj)
+    {
+        try
+        {
+            var claimUser = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());
+            
+            if (claimUser == null) 
+                return Unauthorized();
+                    
+            var url = $"https://publica.cnpj.ws/cnpj/{cnpj}";
+
+            Console.WriteLine(url);
+            HttpClient request = new();
+
+            request.BaseAddress = new Uri(url);
+            request.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("consultar-cnpj/json"));
+
+            System.Net.Http.HttpResponseMessage response = request.GetAsync(url).Result;
+
+            EmpresaCnpjDto empresaCnpjDto = new EmpresaCnpjDto();
+
+            empresaCnpjDto = response.Content.ReadFromJsonAsync<EmpresaCnpjDto>().Result;
+    
+            if (response.IsSuccessStatusCode) {
+                var empresaDto = new EmpresaDto();
+
+                empresaDto.Cnpj = empresaCnpjDto.estabelecimento.cnpj;
+                empresaDto.RazaoSocial = empresaCnpjDto.razao_social;
+                empresaDto.PorteEmpresa = empresaCnpjDto.porte.descricao;
+                empresaDto.NaturezaJuridica = empresaCnpjDto.natureza_juridica.descricao;
+                empresaDto.OptanteSimples = empresaCnpjDto.simples;
+                empresaDto.Filial = empresaCnpjDto.estabelecimento.tipo == "Matriz" ? false : true;
+                empresaDto.NomeFantasia = empresaCnpjDto.estabelecimento.nome_fantasia;
+                empresaDto.Ativa = empresaCnpjDto.estabelecimento.situacao_cadastral == "Ativa" ? true : false;
+                empresaDto.DataCadastro = empresaCnpjDto.estabelecimento.data_inicio_atividade;
+                empresaDto.TipoLogradouro = empresaCnpjDto.estabelecimento.tipo_logradouro;
+                empresaDto.Logradouro = empresaCnpjDto.estabelecimento.logradouro;
+                empresaDto.Numero = empresaCnpjDto.estabelecimento.numero;
+                empresaDto.Complemento = empresaCnpjDto.estabelecimento.complemento;
+                empresaDto.Bairro = empresaCnpjDto.estabelecimento.bairro;
+                empresaDto.CEP = empresaCnpjDto.estabelecimento.cep;
+                empresaDto.DDD = empresaCnpjDto.estabelecimento.ddd1;
+                empresaDto.Telefone = empresaCnpjDto.estabelecimento.tekefine1;
+                empresaDto.Email = empresaCnpjDto.estabelecimento.email;
+                empresaDto.AtividadePrincipal = empresaCnpjDto.estabelecimento.atividade_principal.descricao;
+                empresaDto.PaisId = empresaCnpjDto.estabelecimento.pais.id;
+                empresaDto.SiglaPaisIso2 = empresaCnpjDto.estabelecimento.pais.iso2;
+                empresaDto.SiglaPaisIso3 = empresaCnpjDto.estabelecimento.pais.iso3;
+                empresaDto.NomePais = empresaCnpjDto.estabelecimento.pais.nome;
+                empresaDto.EstadoId = empresaCnpjDto.estabelecimento.estado.id;
+                empresaDto.Estado = empresaCnpjDto.estabelecimento.estado.nome;
+                empresaDto.SiglaEstado = empresaCnpjDto.estabelecimento.estado.sigla;
+                empresaDto.EstadoIbgeId = empresaCnpjDto.estabelecimento.estado.igbe_id;
+                empresaDto.CidadeId = empresaCnpjDto.estabelecimento.cidade.id;
+                empresaDto.Cidade = empresaCnpjDto.estabelecimento.cidade.nome;
+                empresaDto.CidadeIbgeId = empresaCnpjDto.estabelecimento.cidade.ibge_id;
+                empresaDto.CidadeSiafiId = empresaCnpjDto.estabelecimento.cidade.siafi_id;
+              
+                return Ok(empresaDto);
+            }
+            return BadRequest("CNPJ Inválido");
+        }
+        catch (Exception e)
+        {  
+            return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao recuperar empresa por CNPJ. Erro: {e.Message}");
+        }
+    }
+
+  [HttpGet("{cnpj}/internal")]
+    public async Task<IActionResult> GetCNPJ(string cnpj)
+    {
+        try
+        {
+            var claimUser = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());
+            
+            if (claimUser == null) 
+                return Unauthorized();
+                    
+            if (!claimUser.Master)
+                return Unauthorized();
+
+            var empresa = await _empresasServices.GetEmpresaByCnpjAsync(cnpj, claimUser.Master);
+            
+            if (empresa == null)
+                return NoContent();
+
+            return Ok(empresa);
+        }
+        catch (Exception e)
+        {
+            return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao recuperar empresa por CNPJ. Erro: {e.Message}");
+        }
     }
 }

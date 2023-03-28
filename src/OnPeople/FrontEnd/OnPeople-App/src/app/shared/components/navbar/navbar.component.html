@@ -17,8 +17,8 @@
               <span class="visually-hidden">(current)</span>
             </a>
           </li>
-          <li class="nav-item" routerLinkActive="active">
-            <a class="nav-link" routerLink="company">Empresas</a>
+          <li class="nav-item" routerLinkActive="active" *ngIf="(user.visao == 'Master') ? true : false">
+            <a class="nav-link" routerLink="empresas">Empresas</a>
           </li>
           <li class="nav-item" routerLinkActive="active">
             <a class="nav-link" href="#">Departamentos</a>

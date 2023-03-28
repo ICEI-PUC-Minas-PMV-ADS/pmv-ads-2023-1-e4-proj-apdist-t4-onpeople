@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { LoginComponent, ProfileComponent, RegisterComponent, UserComponent, } from './users/components';
-import { CompanyComponent, CompanyDetailComponent, CompanyListComponent } from './companys/components';
+import { CompanyComponent, CompanyDetailComponent, CompanyListComponent } from './companies/components';
 
 import { AuthGuard } from './shared/security';
 import { DashboardComponent, DashCompanyComponent } from './dashboards/components';
@@ -19,18 +19,18 @@ const routes: Routes = [
         { path: 'profile', component: ProfileComponent },
       ] },
 
-    { path: 'company', redirectTo: 'company/list', pathMatch: 'full' },
-    { path: 'company', component: CompanyComponent,
+    { path: 'empresas', redirectTo: 'empresas/list', pathMatch: 'full' },
+    { path: 'empresas', component: CompanyComponent,
       children: [
         { path: 'detail/:id', component: CompanyDetailComponent },
         { path: 'detail', component: CompanyDetailComponent },
         { path: 'list', component: CompanyListComponent },
       ] },
 
-    { path: 'dashboards', redirectTo: 'dashboards/company', pathMatch: 'full' },
+    { path: 'dashboards', redirectTo: 'dashboards/empresa', pathMatch: 'full' },
     { path: 'dashboards', component: DashboardComponent,
       children: [
-        { path: 'company', component: DashCompanyComponent },
+        { path: 'empresa', component: DashCompanyComponent },
       ] },
 
   ] },

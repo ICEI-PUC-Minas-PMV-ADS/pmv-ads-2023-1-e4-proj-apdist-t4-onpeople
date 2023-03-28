@@ -45,18 +45,10 @@ export class RegisterComponent implements OnInit {
     };
 
     this.formRegister = this.fb.group({
-      userName: ['', [
-        Validators.required,
-        Validators.minLength(4),
-        Validators.maxLength(15)]],
-      nomeCompleto: ['', [
-        Validators.required,
-        Validators.minLength(4),
-        Validators.maxLength(40)]],
-      password: ['', [
-        Validators.required, Validators.minLength(3)]],
-      confirmPassword: ['', [
-        Validators.required ]],
+      userName: ['', [ Validators.required, Validators.minLength(4), Validators.maxLength(15)]],
+      nomeCompleto: ['', [ Validators.required,  Validators.minLength(4), Validators.maxLength(40)]],
+      password: ['', [ Validators.required, Validators.minLength(3)]],
+      confirmPassword: ['', [ Validators.required ]],
     }, formOptions);
   }
 
@@ -74,9 +66,10 @@ export class RegisterComponent implements OnInit {
     this.newUser = { ...this.formRegister.value};
 
     this.newUser.email = "default@default.com.br";
-    this.newUser.visao = "default";
     this.newUser.dataCadastro = new Date();
-    this.newUser.master = false;
+
+    this.newUser.visao = (this.newUser.userName == 'Admin') ? "Master" : "Default";
+    this.newUser.master = (this.newUser.userName == 'Admin') ? true : false;
     this.newUser.gold = false;
     this.newUser.bronze = false;
     this.newUser.ativa = true;
@@ -86,15 +79,13 @@ export class RegisterComponent implements OnInit {
     this.newUser.codFuncionario = 0;
     this.newUser.codMeta = 0;
 
-    console.log(this.newUser);
-
     this.userService
       .createUser(this.newUser)
       .subscribe(
         () => {
+          this.router.navigateByUrl('dashboards/empresa');
+          location.replace('dashboards/empresa');
           this.toastrService.success("Conta cadastrada!", "Sucesso!");
-          window.location.reload;
-          this.router.navigateByUrl('users/profile');
         },
         (error: any) => {
           this.toastrService.error(error.error, `Erro! Status ${error.status}`);

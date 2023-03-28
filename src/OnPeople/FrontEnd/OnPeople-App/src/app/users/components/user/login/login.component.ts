@@ -63,13 +63,12 @@ export class LoginComponent implements OnInit {
       .login(this.userLogin)
       .subscribe(
         () => {
-          location.reload;
-          this.router.navigateByUrl('users/profile');
+          this.router.navigateByUrl('dashboards/empresa');
+          location.replace('dashboards/empresa');
         },
         (error: any) => {
           this.toastrService.error(error.error, `Erro! Status ${error.status}`);
           console.error(error);
-
         }
       )
       .add(() => this.spinner.hide())

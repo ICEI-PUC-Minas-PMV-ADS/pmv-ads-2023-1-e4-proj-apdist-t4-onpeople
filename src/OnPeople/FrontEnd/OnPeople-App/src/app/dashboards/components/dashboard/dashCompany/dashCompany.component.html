@@ -11,41 +11,41 @@
   <div class="col-xl-3 col-mg-6">
     <label>Selecione uma Empresa</label>
     <ng-select [(ngModel)]="selectCompanyId" (change)="changeSelectCompany()" placeholder="Selecione uma Empresa">
-      <ng-option *ngFor="let company of companies" [value]="company.id">{{company.nomeEmpresa}}</ng-option>
+      <ng-option *ngFor="let company of companies" [value]="company.id">{{company.razaoSocial}}</ng-option>
     </ng-select>
   </div>
 </div>
 
 <div class="row mt-3">
   <div class="col-xl-3 col-md-6 mb-4">
-    <div class="card border-left1 shadow h-100 py-2 ">
+    <div class="card border-left-1 shadow h-100 py-2 ">
       <div class="card-body">
         <div class="row align-items-center">
           <div class="col mr-2 ">
-            <div class="text-xs text-uppercase mb-1 text-color1">
+            <div class="text-xs text-uppercase mb-1 text-color-1">
               Total de Empresas
             </div>
-            <div class="h5 mb-0 text-color1">
+            <div class="h5 mb-0 text-color-1">
               {{totalCompany}}
             </div>
           </div>
-          <div class="h3 col-auto text-color1">
-            <mat-icon>apartment</mat-icon>
+          <div class="h3 col-auto text-color-1" >
+            <mat-icon class="iconDash">apartment</mat-icon>
           </div>
         </div>
       </div>
     </div>
   </div>
   <div class="col-xl-3 col-md-6 mb-4">
-    <div class="card border-left2 shadow h-100 py-2 ">
+    <div class="card border-left-2 shadow h-100 py-2 ">
       <div class="card-body">
         <div class="row align-items-center">
           <div class="col mr-2 ">
-            <div class="text-xs text-uppercase mb-1 text-color2">
+            <div class="text-xs text-uppercase mb-1 text-color-2">
               Empresas Ativas
             </div>
             <div class="col mr-2 d-flex">
-              <div class="h5 mb-0 text-color2">
+              <div class="h5 mb-0 text-color-2">
                 {{totalActive}}
               </div>
               <div class="h7 mb-0 text-success ms-2">
@@ -53,46 +53,46 @@
               </div>
             </div>
           </div>
-          <div class="h3 col-auto text-color2">
-            <mat-icon>attach_money</mat-icon>
+          <div class="h3 col-auto text-color-2">
+            <mat-icon class="iconDash">attach_money</mat-icon>
           </div>
         </div>
       </div>
     </div>
   </div>
   <div class="col-xl-3 col-md-6 mb-4">
-    <div class="card border-left3 shadow h-100 py-2">
+    <div class="card border-left-3 shadow h-100 py-2">
       <div class="card-body">
         <div class="row no-gutters align-items-center">
           <div class="col mr-2">
-            <div class="text-xs font-weight-bold text-color3 text-uppercase mb-1">
+            <div class="text-xs font-weight-bold text-color-3 text-uppercase mb-1">
               Total de Metas
             </div>
             <div class="row no-gutters align-items-center">
               <div class="col-auto">
-                <div class="h5 mb-0 mr-3 font-weight-bold text-color3">
+                <div class="h5 mb-0 mr-3 font-weight-bold text-color-3">
                   {{totalGoal}}
                 </div>
               </div>
             </div>
           </div>
-          <div class="h3 col-auto text-color3">
-            <mat-icon>query_status</mat-icon>
+          <div class="h3 col-auto text-color-3">
+            <mat-icon class="iconDash">query_stats</mat-icon>
           </div>
         </div>
       </div>
     </div>
   </div>
   <div class="col-xl-3 col-md-6 mb-4">
-    <div class="card border-left4 shadow h-100 py-2 ">
+    <div class="card border-left-4 shadow h-100 py-2 ">
       <div class="card-body">
         <div class="row align-items-center">
           <div class="col mr-2 ">
-            <div class="text-xs text-uppercase mb-1 text-color4">
+            <div class="text-xs text-uppercase mb-1 text-color-4">
               Metas Pendentes
             </div>
             <div class="col mr-2 d-flex">
-              <div class="h5 mb-0 text-color4">
+              <div class="h5 mb-0 text-color-4">
                 {{totalNotGoal}}
               </div>
               <div class="h7 mb-0 text-success ms-2">
@@ -100,8 +100,8 @@
               </div>
             </div>
           </div>
-          <div class="h3 col-auto text-color4">
-            <mat-icon>fact-check</mat-icon>
+          <div class="h3 col-auto text-color-4">
+            <mat-icon class="iconDash">fact_check</mat-icon>
           </div>
         </div>
       </div>

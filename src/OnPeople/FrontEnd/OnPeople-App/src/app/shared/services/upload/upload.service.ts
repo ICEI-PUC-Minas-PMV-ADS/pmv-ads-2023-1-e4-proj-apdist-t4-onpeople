@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Empresa } from 'src/app/companys/models/Empresa';
+import { Empresa } from 'src/app/companies/models/Empresa';
 import { Observable, take } from 'rxjs';
 import { environment } from 'src/assets/environments/environments';
 
@@ -19,7 +19,7 @@ export class UploadService {
     const fileUpload = file[0] as File;
     const formData = new FormData();
 
-    formData. append('file', fileUpload);
+    formData.append('file', fileUpload);
 
     return this.http
     .post<Empresa>(`${this.baseURL}upload-logo-company/${empresaId}`, formData)

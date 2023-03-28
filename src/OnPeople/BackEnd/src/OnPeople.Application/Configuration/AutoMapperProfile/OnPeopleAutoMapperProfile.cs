@@ -13,6 +13,8 @@ namespace OnPeople.Application.Configuration.AutoMapperProfile
         public OnPeopleAutoMapperProfile() {
             CreateMap<Empresa, EmpresaDto>().ReverseMap();
 
+            CreateMap<Empresa, AtualizarEmpresaAtivaDto>().ReverseMap();
+
             CreateMap<User, UserDto>().ReverseMap();
             CreateMap<User, UserUpdateDto>().ReverseMap();
             CreateMap<User, UserVisaoDto>().ReverseMap();
