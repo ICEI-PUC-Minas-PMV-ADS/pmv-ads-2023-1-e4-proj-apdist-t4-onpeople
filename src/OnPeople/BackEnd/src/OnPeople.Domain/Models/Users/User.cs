@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using OnPeople.Domain.Enum;
 using OnPeople.Domain.Models.Cargos;
 using OnPeople.Domain.Models.Departamentos;
 using OnPeople.Domain.Models.Empresas;
@@ -10,7 +11,7 @@ namespace OnPeople.Domain.Models.Users
     public class User: IdentityUser<int>
     {
         public string NomeCompleto { get; set; }
-        public string Visao { get; set; }
+        public Visao Visao { get; set; }
         public string Foto { get; set; }
         public DateTime DataCadastro { get; set; }
         public DateTime? DataEncerramento { get; set; }
