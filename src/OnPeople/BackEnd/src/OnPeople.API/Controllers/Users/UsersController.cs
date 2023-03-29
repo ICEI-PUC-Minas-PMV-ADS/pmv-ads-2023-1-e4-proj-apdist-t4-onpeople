@@ -27,29 +27,6 @@ public class UsersController : ControllerBase
         _tokenServices = tokenServices;
     }
 
-    [HttpGet("GetUserName")]
-    public async Task<IActionResult> GetUserByUserName()
-    {
-        try
-        {
-            var claimUserName = User.GetUserNameClaim();
-            
-           if (claimUserName == null)
-                return Unauthorized();
-
-            var user = await _usersServices.GetUserByUserNameAsync(claimUserName);
-
-            if (user == null) return NoContent();
-
-            return Ok(user);
-        }
-        catch (Exception e)
-        {
-            
-            return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao recuperar conta. Erro: {e.Message}");
-        }
-    }
-
     [HttpPost("CreateAccount")]
     [AllowAnonymous]
     public async Task<IActionResult> CreateAccount(UserDto userDto)
@@ -82,6 +59,58 @@ public class UsersController : ControllerBase
             return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao cadastrar conta. Erro: {e.Message}");
         }
     } 
+
+    [HttpGet("GetUser/{id}")]
+    public async Task<IActionResult> GetUserById(int id)
+    {
+        try
+        {
+            var claimUser = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());
+
+            if (claimUser == null) 
+                return Unauthorized();
+
+            if (!claimUser.Master && !claimUser.Gold)
+                return Unauthorized();
+
+            var user = await _usersServices.GetUserByIdAsync(id);
+
+            if (!claimUser.Master && !claimUser.Gold)
+                if (user == null || claimUser.Id != user.Id)
+                    return Unauthorized();
+
+            if (user == null) return NoContent();
+
+            return Ok(user);
+        }
+        catch (Exception e)
+        {      
+            return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao recuperar conta por Id. Erro: {e.Message}");
+        }
+    }
+
+    [HttpGet("GetUserName")]
+    public async Task<IActionResult> GetUserByUserName()
+    {
+        try
+        {
+            var claimUserName = User.GetUserNameClaim();
+            
+           if (claimUserName == null)
+                return Unauthorized();
+
+            var user = await _usersServices.GetUserByUserNameAsync(claimUserName);
+
+            if (user == null) return NoContent();
+
+            return Ok(user);
+        }
+        catch (Exception e)
+        {
+            
+            return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao recuperar conta. Erro: {e.Message}");
+        }
+    }
 
     [HttpPost("Login")]
     [AllowAnonymous]
@@ -124,34 +153,7 @@ public class UsersController : ControllerBase
             return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao realizar Login. Erro: {e.Message}");
         }
     }   
-    [HttpGet("GetUser/{id}")]
-    public async Task<IActionResult> GetUserById(int id)
-    {
-        try
-        {
-            var claimUser = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());
 
-            if (claimUser == null) 
-                return Unauthorized();
-
-            if (!claimUser.Master && !claimUser.Gold)
-                return Unauthorized();
-
-            var user = await _usersServices.GetUserByIdAsync(id);
-
-            if (!claimUser.Master && !claimUser.Gold)
-                if (user == null || claimUser.Id != user.Id)
-                    return Unauthorized();
-
-            if (user == null) return NoContent();
-
-            return Ok(user);
-        }
-        catch (Exception e)
-        {      
-            return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao recuperar conta por Id. Erro: {e.Message}");
-        }
-    }
 
     [HttpPut("UpdateUser")]
     public async Task<IActionResult> UpdateUser(UserUpdateDto userUpdateDto)
@@ -172,7 +174,7 @@ public class UsersController : ControllerBase
             if (user == null || (userUpdateDto.Id != user.Id))
                 return Unauthorized("Conta inválida para atualização.");
 
-            var userChanged = await _usersServices.UpdateUserTokenAsync(userUpdateDto);
+            var userChanged = await _usersServices.UpdateUserAsync(userUpdateDto);
 
             if (userChanged == null) {
                 return NoContent();
@@ -192,61 +194,4 @@ public class UsersController : ControllerBase
             return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao atualizar a conta. Erro: {e.Message}");
         }
     }
-
-    [HttpPut("UpdateVisao")]
-    public async Task<IActionResult> UpdateVisao(UserVisaoDto userVisaoDto)
-    {
-        try
-        {
-            var claimUser = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());
-
-            if (claimUser == null) 
-                return Unauthorized();
-
-            if (!claimUser.Master && !claimUser.Gold)
-                return Unauthorized();
-
-            if (userVisaoDto.UserName != claimUser.UserName) 
-                return Unauthorized("Conta inválida para atualização.");
-
-            if (userVisaoDto.Id != claimUser.Id)
-                return Unauthorized("Conta inválida para atualização.");
-
-            var userChanged = await _usersServices.UpdateUserVisaoAsync(userVisaoDto);
-
-            if (userChanged == null) {
-                return NoContent();
-            }
-
-            return Ok( userChanged);
-        }
-        catch (Exception e)
-        {
-            return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao atualizar a conta. Erro: {e.Message}");
-        }
-    }
-
-    
-    [HttpGet("GetUserNameVisao")]
-    public async Task<IActionResult> GetVisaoByUserName()
-    {
-        try
-        {
-            var claimUserName = User.GetUserNameClaim();
-            
-           if (claimUserName == null)
-                return Unauthorized();
-
-            var user = await _usersServices.GetVisaoByUserNameAsync(claimUserName);
-
-            if (user == null) return NoContent();
-
-            return Ok(user);
-        }
-        catch (Exception e)
-        {
-            
-            return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao recuperar conta. Erro: {e.Message}");
-        }
-    }      
 }

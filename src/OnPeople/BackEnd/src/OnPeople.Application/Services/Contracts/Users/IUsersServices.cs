@@ -5,13 +5,11 @@ namespace OnPeople.Application.Services.Contracts.Users
 {
     public interface IUsersServices
     {
-        Task<UserUpdateDto> UpdateUserTokenAsync(UserUpdateDto userUpdateDto);
-        Task<UserVisaoDto> UpdateUserVisaoAsync(UserVisaoDto userVisaoDto);
+        Task<SignInResult> CheckUserPasswordAsync(UserUpdateDto userUpdateDto, string password);
         Task<UserUpdateDto> CreateUsersAsync(UserDto userDto);
         Task<UserDto> GetUserByIdAsync(int UserId);
         Task<UserUpdateDto> GetUserByUserNameAsync(string userName);
-        Task<SignInResult> CheckUserPasswordAsync(UserUpdateDto userUpdateDto, string password);
+        Task<UserUpdateDto> UpdateUserAsync(UserUpdateDto userUpdateDto);
         Task<bool> VerifyUserExistsAsync(string userName);
-        Task<UserVisaoDto> GetVisaoByUserNameAsync(string userName);
     }
 }

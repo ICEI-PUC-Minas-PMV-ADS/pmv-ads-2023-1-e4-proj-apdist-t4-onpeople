@@ -11,9 +11,9 @@ Apresente uma visão geral do que será abordado nesta parte do documento, enume
 | Lucas De Oliveira Santos | Melissa Fernandes Santos | Lúcia De Medeiros Silva |
 | ---        |    ----   |          --- |
 | <img src="/docs/img/photo-lucas.jpg " alt="Lucas De Oliveira Santos"/>| <img src="/docs/img/photo-melissa.jpeg" alt="Melissa Fernandes Santos"/>| <img src="/docs/img/photo-lucia.png" alt="Lúcia De Medeiros Silva" /> |
-| Idade: 32 anos <br>Ocupação: foi promovido a Gerente do setor de RH há aproximadamente 2 anos, trabalha na empresa Neskal do Brasil, uma multinacional de grande porte.| Idade: 22 anos <br>Ocupação: Estagiária do setor de RH na empresa Neskal do Brasil. Faz faculdade de Ciências Contábeis e obteve uma oportunidade de expressar seus conhecimentos contábeis junto ao setor de RH.| Idade: 42 anos <br>Ocupação: Operacional de RH na empresa Neskal do Brasil. Faz o acompanhamento do time e atividades de RH.|
+| Idade: 32 anos <br>Ocupação: foi promovido a Gerente do setor de RH há aproximadamente 2 anos, trabalha na empresa Neskal do Brasil, uma multinacional de grande porte.| Idade: 22 anos <br>Ocupação: Estagiária do setor de RH na empresa Neskal do Brasil. Faz faculdade de Ciências Contábeis e obteve uma oportunidade de expressar seus conhecimentos contábeis junto ao setor de RH.| Idade: 42 anos <br>Ocupação: Operacional de RH na empresa Neskal do Brasil. Faz o acompanhamento do time e das atividades de RH.|
 |Hobbies, História:<br>Lucas sonha em revolucionar as relação funcionário x empregador e, para isso, dedica parte de seu tempo em estudo, pesquisas e treinamentos em inovações de RH.|Hobbies, História:<br>Além de ser uma jogador de vôlei e estudante, Melissa dedica uma fração do tempo em pesquisa e desenvolvimento interpessoal.|Hobbies, História:<br>Lucia realiza um sonho de estudar e conhecer belas artes.|
-|Motivações: <br>Lucas tem ótimas ideias de gerenciamento e controle da produção, bem como, a gestão de expectativas de carreira e motivacional.|Motivações: <br>Melissa está conhecendo o mercado de trabalho e viu a oportunidade de trabalhar na empresa de Lucas desafiadora pois conciliar contabilidade com RH será um desafio inovador para sua carreira.|Motivações: <br>Lúcia está na empresa a 10 anos. Sempre trabalhou no operacional de produção da empresa. Recentemente recebeu yma proposta para trabalhar no operacional de RH. Está motivada com as ideias e metodologias de Lucas e está empenhada em fazer acontecer a inovação na empresa.|
+|Motivações: <br>Lucas tem ótimas ideias de gerenciamento e controle da produção, bem como, a gestão de expectativas de carreira e motivacional.|Motivações: <br>Melissa está conhecendo o mercado de trabalho e viu a oportunidade de trabalhar na empresa de Lucas desafiadora pois conciliar contabilidade com RH será um desafio inovador para sua carreira.|Motivações: <br>Lúcia está na empresa a 10 anos. Sempre trabalhou no operacional de produção da empresa. Recentemente recebeu ma proposta para trabalhar no operacional de RH. Está motivada com as ideias e metodologias de Lucas e está empenhada em fazer acontecer a inovação na empresa.|
 |Frustrações: <br>Atualmente Lucas tem dificuldades de acompanhar/avaliar as metas e os objetivos profissionais de cada funcionário, pois não possui uma ferramenta sistematizada que fornece dados estatísticos dos funcionários.|Frustrações: <br>Não domina a maratona de atividades da empresa e precisa se orientar dentro da empresa através de uma ferramenta de suporte e capacitação.|Frustrações:  <br>A ausência de ferramentas sistematizadas de gestão de RH, onera seu tempo de pensamento inovador com funções operacionais de preenchimento de formulários de cadastros, envio e recebimento de malotes, dentre outras necessidades do setor.|
 
 ## Histórias de Usuários
@@ -23,11 +23,13 @@ Com base na análise das personas forma identificadas as seguintes histórias de
 |EU COMO... `PERSONA`| QUERO/PRECISO ... `FUNCIONALIDADE` |PARA ... `MOTIVO/VALOR`                 |
 |--------------------|------------------------------------|----------------------------------------|
 | Lucas	| Receber dados estatísticos de funcionários(metas atingidas, não atingidas e em atraso) | Analisar tendências, cumprimento das metas e atendimento aos objetivos.|
-| Lucia | Estabelecer metas para cumprimento em curto, médio e longo prazo para departamento, individuais e RH | Melhoria contínua no desenvolvimento pessoal e profissional.|
-| Melissa |Gostaria de fazer a gestão dos funcionários permitndo que eles tenham uma conta própria no sistema para entrar, sair e manter estes dados. | Ter uma maior agilidade na gestão de pessoas.|
+| Lucas	| Gerenciar a abertura de empresas no sistema, bem como a manutenção de seu cadastro com base nas informações da Receita Federal | Conceder um melhor suporte às emrpesas que fazem parte de organização empresarial a que trabalha.|
+| Lucia | Estabelecer metas para cumprimento em curto, médio e longo prazo, além de estabelecer metas para departamentos, individuais e RH | Melhoria contínua no desenvolvimento pessoal e profissional.|
+| Lucia | Gostaria de fazer a gestão dos funcionários permitndo que eles tenham uma conta própria no sistema para entrar, sair e manter estes dados. | Ter uma maior agilidade na gestão de pessoas.|
 | Lucas |	Realizar cadastros de metas	| Controle de metas.|
-| Lucia	| Gostaria de controlar as empresas com seus departamentos e cargos | Ter uma maior agilidade de gestão administrativa. |
+| Lucia	| Gostaria de ter uma ferramenta que facile a gestão de cargos e salarios de cada funcionário. | Ter uma maior agilidade de gestão administrativa. |
 | Lucia |	Acompanhar objetivos individuais | Garantir o aperfeicoamento profissional de cada membro da equipe.|
+| Melissa |	Acompanhar seu desenvovimento profissional e poder suportar os demais funcionários na adminstração de suas metas e crescimento profissional | Garantir o aperfeicoamento profissional de cada membro da equipe.|
 
 ## Modelagem do Processo de Negócio 
 
@@ -66,15 +68,16 @@ Obs.: todas as informações para gerar os indicadores devem estar no diagrama d
 
 |ID    | Descrição do Requisito  | Prioridade |
 |------|-----------------------------------------|----|
-|RF-001| O sistema deverá permitir o Login de funcionários da empresa | ALTA | 
-|RF-002| O sistema deverá permitir o recuperação de senha   | BAIXA |
-|RF-003| O sistema deverá permitir o gerenciamento de usuários (CRUD) | ALTA | 
-|RF-004| O sistema deverá permitir o gerenciamento de empresas (CRUD)   | ALTA |
-|RF-005| O sistema deverá permitir o gerenciamento de funcionários (CRUD) | ALTA | 
-|RF-006| O sistema deverá permitir o gerenciamento de departamentos   | ALTA |
-|RF-007| O sistema deverá permitir o gerenciamento de salários e atualizações do mesmo | ALTA | 
-|RF-008| O sistema deverá permitir o cadastro de novas metas   | ALTA |
-|RF-009| O sistema deverá permitir a associação de metas a funcionarios | ALTA | 
+|RF-001| Permitir o gerencimaneto de contas (CRUD, login, logout) | ALTA | 
+|RF-002| Permitir a recuperação de senha   | BAIXA |
+|RF-003| Permitir o gerenciamento de empresas (CRUD)   | ALTA |
+|RF-004| Permitir o gerenciamento de funcionários (CRUD) | ALTA | 
+|RF-005| Permitir o gerenciamento de cargos (CRUD)   | ALTA |
+|RF-006| Permitir o gerenciamento de departamentos (CRUD)   | ALTA |
+|RF-007| Permitir a atulização de salários | ALTA | 
+|RF-008| Permitir o gerenciamento de novas metas (CRUD)   | ALTA |
+|RF-009| Permitir a associação de metas a funcionarios | ALTA | 
+|RF-010| Criar relatório de análise estatística (dashboard) | ALTA | 
 
 
 ### Requisitos não Funcionais

@@ -27,6 +27,7 @@ namespace OnPeople.Application.Services.Implementations.Users
             _usersPersistence = usersPersistence;
             _userManager = userManager;
         }
+
         public async Task<SignInResult> CheckUserPasswordAsync(UserUpdateDto userUpdateDto, string password)
         {
             try
@@ -45,7 +46,7 @@ namespace OnPeople.Application.Services.Implementations.Users
                 throw new Exception($"Falha ao validar Conta e Senha. Erro: {e.Message}");
             }
         }
-
+        
         public async Task<UserUpdateDto> CreateUsersAsync(UserDto userDto)
         {
             try
@@ -70,6 +71,7 @@ namespace OnPeople.Application.Services.Implementations.Users
                 throw new Exception($"Falha ao criar a Conta. Erro: {e.Message}");
             }
         }
+
         public async Task<UserDto> GetUserByIdAsync(int userId)
         {
             try
@@ -104,7 +106,7 @@ namespace OnPeople.Application.Services.Implementations.Users
             }
         }
 
-        public async Task<UserUpdateDto> UpdateUserTokenAsync(UserUpdateDto userUpdateDto)
+        public async Task<UserUpdateDto> UpdateUserAsync(UserUpdateDto userUpdateDto)
         {
             try
             {
@@ -141,38 +143,6 @@ namespace OnPeople.Application.Services.Implementations.Users
             }
         }
 
-        public async Task<UserVisaoDto> UpdateUserVisaoAsync(UserVisaoDto userVisaoDto)
-        {
-            try
-            {
-                var user = await _usersPersistence.GetUserByIdAsync(userVisaoDto.Id);
-
-                if (user == null) return null;
-
-                userVisaoDto.Id = user.Id;
-
-                var userMapper = _mapper.Map(userVisaoDto, user);
-
-                userMapper.Master = (user.Visao.ToLower() == "master");
-                userMapper.Gold = (user.Visao.ToLower() == "gold");
-                userMapper.Bronze = (user.Visao.ToLower() != "master" && user.Visao.ToLower() != "gold");
-
-                _usersPersistence.Update<User>(userMapper);
-
-                if (await _usersPersistence.SaveChangesAsync()) {
-                    var userRetorno = await _usersPersistence.GetUserByIdAsync(user.Id);
-                    return _mapper.Map<UserVisaoDto>(userRetorno);
-                }
-
-                return null;
-            }
-            catch (Exception e)
-            {
-                
-                throw new Exception($"Falha ao alterar conta visao. Erro: {e.Message}");
-            }
-        }
-
         public async Task<bool> VerifyUserExistsAsync(string userName)
         {
             try
@@ -188,21 +158,5 @@ namespace OnPeople.Application.Services.Implementations.Users
             }
         }
 
-        public async Task<UserVisaoDto> GetVisaoByUserNameAsync(string userName)
-        {
-            try
-            {
-                var user = await _usersPersistence.GetUserByUserNameAsync(userName);
-
-                if (user == null) return null;
-
-                return _mapper.Map<UserVisaoDto>(user);
-            }
-            catch (Exception e)
-            {
-                
-                throw new Exception($"Falha ao recuperar Contas. Erro: {e.Message}");
-            }
-        }
     }
 }

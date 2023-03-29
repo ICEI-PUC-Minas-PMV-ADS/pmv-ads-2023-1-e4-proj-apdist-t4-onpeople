@@ -56,10 +56,4 @@ export class UserService {
         })
       );
   }
-
-  public updateUserVisao(model: Users): Observable<any> {
-    return this.http
-      .put<Users>(this.baseURL + 'updateVisao', model)
-      .pipe(take(1));
-  }
 }

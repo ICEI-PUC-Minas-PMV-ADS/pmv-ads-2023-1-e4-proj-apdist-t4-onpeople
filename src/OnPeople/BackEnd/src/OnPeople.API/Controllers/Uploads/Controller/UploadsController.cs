@@ -57,7 +57,7 @@ namespace OnPeople.API.Controllers.Uploads
         {
             try
             {
-                var user = await _usersServices.GetVisaoByUserNameAsync(User.GetUserNameClaim());
+                var user = await _usersServices.GetUserByUserNameAsync(User.GetUserNameClaim());
 
                 if (user == null) return NoContent();
 
@@ -69,7 +69,7 @@ namespace OnPeople.API.Controllers.Uploads
                     user.Foto = await _uploads.SaveImageUpload(user.Id, user.Master, file, _destinoFoto);
                 }
 
-                return Ok(await _usersServices.UpdateUserVisaoAsync( user));
+                return Ok(await _usersServices.UpdateUserAsync( user));
             }
             catch (Exception e)
             {
