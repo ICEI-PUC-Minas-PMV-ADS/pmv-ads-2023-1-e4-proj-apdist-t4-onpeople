@@ -152,6 +152,16 @@ O gerenciamento adequado de tarefas contribuirá para que o projeto alcance alto
 
 ![Simple Project Timeline](img/gerenciamento_equipe.png)
 
+#### Time Back-End: 
+* Alex de Souza Galdino
+* Ciro Hideki Artiga Watanabe
+* Pedro Luiz Braga Andrade Leite
+* Rafaela Cristina Souza de Oliveira
+
+#### Time Front-End: 
+* Isabella Carolina de Almeida Siqueira Damião
+* Vitória Gabriella Maffei Corrêa Rocha
+
 ## Gestão de Orçamento
 
 O processo de determinar o orçamento do projeto é uma tarefa que depende, além dos produtos (saídas) dos processos anteriores, do gerenciamento de custos, e também de produtos oferecidos por outros processos de gerenciamento, como o escopo e o tempo.
