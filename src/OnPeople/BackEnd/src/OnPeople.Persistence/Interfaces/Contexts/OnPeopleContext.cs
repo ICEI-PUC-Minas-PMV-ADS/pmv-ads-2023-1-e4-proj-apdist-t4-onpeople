@@ -24,6 +24,7 @@ namespace OnPeople.Persistence.Interfaces.Contexts
         public DbSet<Funcionario> Funcionarios { get; set; }
         public DbSet<FuncionarioMeta> FuncionariosMetas { get; set; }
         public DbSet<Meta> Metas { get; set; }
+        public DbSet<DepartamentoEmpresa> DepartamentosEmpresas { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             base.OnModelCreating(modelBuilder);
 
@@ -37,7 +38,10 @@ namespace OnPeople.Persistence.Interfaces.Contexts
                 .HasKey(FM => new { FM.FuncionarioId, FM.MetaId});
                 
             modelBuilder.Entity<ContaFuncao>()
-                .HasKey(CF => new {CF.ContaId, CF.FuncaoId});    
+                .HasKey(CF => new {CF.ContaId, CF.FuncaoId}); 
+
+            modelBuilder.Entity<DepartamentoEmpresa>()
+                .HasKey(DE => new {DE.DepartamentoId, DE.EmpresaId});   
         }
     }
 }

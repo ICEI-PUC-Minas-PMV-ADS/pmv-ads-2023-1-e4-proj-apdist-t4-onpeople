@@ -229,6 +229,30 @@ namespace OnPeople.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+            name: "DepartamentosEmpresas",
+            columns: table => new
+            {
+                EmpresaId = table.Column<int>(type: "INTEGER", nullable: false),
+                DepartamentoId = table.Column<int>(type: "INTEGER", nullable: false)
+            },
+            constraints: table =>
+            {
+                table.PrimaryKey("PK_DepartamentosEmpresas", x => new { x.EmpresaId, x.DepartamentoId });
+                table.ForeignKey(
+                    name: "FK_DepartamentosEmpresas_Departamentos_DepartamentoId",
+                    column: x => x.DepartamentoId,
+                    principalTable: "Departamentos",
+                    principalColumn: "Id",
+                    onDelete: ReferentialAction.Cascade);
+                table.ForeignKey(
+                    name: "FK_DepartamentosEmpresas_Empresas_EmpresaId",
+                    column: x => x.EmpresaId,
+                    principalTable: "Empresas",
+                    principalColumn: "Id",
+                    onDelete: ReferentialAction.Cascade);
+            });
+
+            migrationBuilder.CreateTable(
                 name: "Funcionarios",
                 columns: table => new
                 {
@@ -380,6 +404,11 @@ namespace OnPeople.Persistence.Migrations
                 column: "DepartamentoId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_DepartamentosEmpresas_EmpresaId",
+                table: "DepartamentosEmpresas",
+                column: "EmpresaId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Enderecos_FuncionarioId",
                 table: "Enderecos",
                 column: "FuncionarioId");
@@ -436,6 +465,9 @@ namespace OnPeople.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "EmpresasDepartamentos");
+
+            migrationBuilder.DropTable(
+                name: "DepartamentosEmpresas");
 
             migrationBuilder.DropTable(
                 name: "Enderecos");

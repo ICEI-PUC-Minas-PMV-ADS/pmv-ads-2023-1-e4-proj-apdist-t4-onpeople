@@ -1,6 +1,7 @@
 using OnPeople.Domain.Models.Cargos;
 using OnPeople.Domain.Models.Empresas;
 
+
 namespace OnPeople.Domain.Models.Departamentos
 {
     public class Departamento

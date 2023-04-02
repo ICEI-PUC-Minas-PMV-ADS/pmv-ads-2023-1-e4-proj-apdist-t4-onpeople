@@ -211,6 +211,22 @@ namespace OnPeople.Persistence.Migrations
                     b.ToTable("EmpresasDepartamentos");
                 });
 
+                modelBuilder.Entity("OnPeople.Domain.Models.Departamentos.DepartamentoEmpresa", b =>
+                {
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("DepartamentoId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("EmpresaId", "DepartamentoId");
+
+                    b.HasIndex("DepartamentoId");
+
+                    b.ToTable("DepartamentosEmpresas");
+                });
+
+
             modelBuilder.Entity("OnPeople.Domain.Models.Funcionarios.DadoPessoal", b =>
                 {
                     b.Property<int>("Id")
@@ -523,7 +539,26 @@ namespace OnPeople.Persistence.Migrations
 
                     b.Navigation("Empresa");
                 });
+                
+                 modelBuilder.Entity("OnPeople.Domain.Models.Departamentos.DepartamentoEmpresa", b =>
+                {
+                    b.HasOne("OnPeople.Domain.Models.Departamentos.Departamento", "Departamento")
+                        .WithMany()
+                        .HasForeignKey("DepartamentoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
+                    b.HasOne("OnPeople.Domain.Models.Empresas.Empresa", "Empresa")
+                        .WithMany()
+                        .HasForeignKey("EmpresaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Departamento");
+
+                    b.Navigation("Empresa");
+                });
+                
             modelBuilder.Entity("OnPeople.Domain.Models.Funcionarios.Endereco", b =>
                 {
                     b.HasOne("OnPeople.Domain.Models.Funcionarios.Funcionario", null)

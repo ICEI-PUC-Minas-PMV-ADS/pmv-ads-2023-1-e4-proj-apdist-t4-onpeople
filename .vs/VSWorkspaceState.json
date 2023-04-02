@@ -1,0 +1,17 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\OnPeople",
+    "\\src\\OnPeople\\BackEnd",
+    "\\src\\OnPeople\\BackEnd\\src",
+    "\\src\\OnPeople\\BackEnd\\src\\OnPeople.API\\Controllers",
+    "\\src\\OnPeople\\BackEnd\\src\\OnPeople.API\\Controllers\\Departamentos",
+    "\\src\\OnPeople\\BackEnd\\src\\OnPeople.Application",
+    "\\src\\OnPeople\\FrontEnd\\OnPeople-App",
+    "\\src\\OnPeople\\FrontEnd\\OnPeople-App\\src",
+    "\\src\\OnPeople\\FrontEnd\\OnPeople-App\\src\\app"
+  ],
+  "SelectedNode": "\\src\\OnPeople\\BackEnd\\src\\OnPeople.Application\\OnPeople.Application.csproj",
+  "PreviewInSolutionExplorer": false
+}

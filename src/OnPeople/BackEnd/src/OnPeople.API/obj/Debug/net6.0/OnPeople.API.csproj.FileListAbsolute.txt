@@ -248,3 +248,5 @@ C:\Users\Rafae\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\On
 C:\Users\Rafae\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.API\obj\Debug\net6.0\OnPeople.API.pdb
 C:\Users\Rafae\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.API\obj\Debug\net6.0\OnPeople.API.genruntimeconfig.cache
 C:\Users\Rafae\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.API\obj\Debug\net6.0\ref\OnPeople.API.dll
+C:\Users\Rafae\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.API\bin\Debug\net6.0\OnPeople.API.xml
+C:\Users\Rafae\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.API\obj\Debug\net6.0\OnPeople.API.xml

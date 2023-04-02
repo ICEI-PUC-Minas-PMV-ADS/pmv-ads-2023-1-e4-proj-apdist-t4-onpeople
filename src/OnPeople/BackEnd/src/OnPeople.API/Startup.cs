@@ -7,6 +7,11 @@ using OnPeople.Persistence.Interfaces.Contracts.Empresas;
 using OnPeople.Persistence.Interfaces.Contracts.Shared;
 using OnPeople.Persistence.Interfaces.Implementations.Empresas;
 using OnPeople.Persistence.Interfaces.Implementations.Shared;
+using OnPeople.Application.Services.Contracts.Departamentos;
+using OnPeople.Application.Services.Implementations.Departamentos;
+using OnPeople.Persistence.Interfaces.Contracts.Departamentos;
+using OnPeople.Persistence.Interfaces.Implementations.Departamentos;
+using System.Reflection;
 
 namespace OnPeople.API
 {
@@ -29,19 +34,27 @@ namespace OnPeople.API
             //Injeção das controllers
             services.AddControllers()
                     // Eliminar loop infinito da estrutura
-                    .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = 
+                    .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling =
                         Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
-            //InjeÇão dos serviços de persistencias
+            //Injeção dos serviços de persistencias
             services.AddScoped<IEmpresasServices, EmpresasServices>();
             services.AddScoped<ISharedPersistence, SharedPersistence>();
             services.AddScoped<IEmpresasPersistence, EmpresasPersistence>();
+            services.AddScoped<IDepartamentosServices, DepartamentosServices>();
+            services.AddScoped<IDepartamentosPersistence, DepartamentosPersistence>();
+            services.AddScoped<IDepartamentosEmpresasServices, DepartamentosEmpresasServices>();
+            services.AddScoped<IDepartamentosEmpresasPersistence, DepartamentosEmpresasPersistence>();
 
             services.AddCors();
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "OnPeople.API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "OnPeople.API", Version = "v1", Description = "API desenvolvida para o projeto OnPeople - PUC Minas" });
+
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
             });
         }
 
