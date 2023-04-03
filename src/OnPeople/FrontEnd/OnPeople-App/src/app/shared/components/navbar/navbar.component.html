@@ -1,0 +1,57 @@
+<nav class="navbar nav-tabs navbar-expand-lg navbar-dark bg-primary shdow-sw py-0" *ngIf="showMenu()">
+  <div class="container ">
+    <div class="row ">
+      <a class="navbar-brand p-3" routerLink="/home">
+        <img src="../../../../assets/img/Logo 3.png" alt="Logotipo OnPeople Services New Generation">
+      </a>
+    </div>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarnav"
+            aria-controls="navbarnav" aria-expanded="false" aria-lavel="Togle navigation" (click)="isCollapsed = !isCollapsed">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse "  id="navbarnav" #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed" isAnimated="true">
+      <ng-container *ngIf="(loginLogoutService.currentUser$ | async) as user">
+        <ul class="navbar-nav me-auto" >
+          <li class="nav-item" routerLinkActive="active">
+            <a class="nav-link" href="#">Home
+              <span class="visually-hidden">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item" routerLinkActive="active" *ngIf="(user.visao == 'Master') ? true : false">
+            <a class="nav-link" routerLink="empresas">Empresas</a>
+          </li>
+          <li class="nav-item" routerLinkActive="active">
+            <a class="nav-link" href="#">Departamentos</a>
+          </li>
+          <li class="nav-item" routerLinkActive="active">
+            <a class="nav-link" href="#">Cargos</a>
+          </li>
+          <li class="nav-item" routerLinkActive="active">
+            <a class="nav-link" href="#">Funcionários</a>
+          </li>
+          <li class="nav-item" routerLinkActive="active">
+            <a class="nav-link" href="#">Metas</a>
+          </li>
+          <li class="nav-item" routerLinkActive="active">
+            <a class="nav-link" routerLink="dashboards">Dashboard</a>
+          </li>
+        </ul>
+
+        <ul class="navbar-nav" >
+          <li class="nav-item dropdown" ngbDropdown>
+            <a class="nav-link dropdown-toggle" id="dropdownBasic1" ngbDropdownToggle>
+             {{user.userName}}
+            </a>
+            <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <a class="dropdown-item" ngbDropdownModule routerLink="users/register">Cadastro</a>
+              <a class="dropdown-item" ngbDropdownModule routerLink="users/profile">Perfil</a>
+              <a class="dropdown-item" ngbDropdownModule href="#">Something else here</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" ngbDropdownModule (click)="logout()">Sair</a>
+            </div>
+          </li>
+        </ul>
+      </ng-container>
+    </div>
+  </div>
+</nav>

@@ -16,5 +16,7 @@ namespace OnPeople.Domain.Models.Funcionarios
         public string ComplementoEndereco { get; set; }
         public DateTime DataCriação { get; set; }
         public DateTime DataUltimaAtualizacao { get; set; }
+        public int FuncionarioId { get; set; }
+        public Funcionario Funcionarios { get; set; }
     }
 }

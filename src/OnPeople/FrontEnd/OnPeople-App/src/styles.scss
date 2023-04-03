@@ -1,15 +1,93 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$OnPeople-App-primary: mat.define-palette(mat.$indigo-palette);
+$OnPeople-App-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$OnPeople-App-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$OnPeople-App-theme: mat.define-light-theme((
+  color: (
+    primary: $OnPeople-App-primary,
+    accent: $OnPeople-App-accent,
+    warn: $OnPeople-App-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($OnPeople-App-theme);
+
 /* You can add global styles to this file, and also import other style files */
-@import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
 /* Importing Bootstrap SCSS file. */
 
+/* Importing Bootstrap SCSS file. */
+@import "~@ng-select/ng-select/themes/default.theme.css";
 
 /* Importing Datepicker SCSS file. */
 @import "node_modules/ngx-bootstrap/datepicker/bs-datepicker";
 
-@import "../node_modules/bootswatch/dist/cosmo/bootstrap.min.css";
-
+@import "../node_modules/bootswatch/dist/flatly/bootstrap.min.css";
 
 
 /* Importing Bootstrap SCSS file. */
-@import 'bootstrap/scss/bootstrap';
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+
+//Configurações personalizadas
+
+.iconBadge {
+  transform: scale(3.5);
+}
+
+.iconDash {
+  transform: scale(1.8);
+}
+
+.imageLogo {
+  width: 100%;
+}
+
+.imageLateral {
+  width: 100%;
+  margin-top: 100px;
+}
+.titulo {
+  font-size: 1.8rem;
+}
+
+.imageDetail {
+  width: 280px;
+ }
+
+.rounded-circle {
+  width: 170px;
+  height: 170px;
+  cursor: pointer;
+}
+
+ @for $i from 0 through 5 {
+  $colors:  rgb(random(255), random(255), random(255));
+  .text-color-#{$i} {color : $colors};
+  .border-left-#{$i} {border-left: 0.8rem solid $colors};
+ }

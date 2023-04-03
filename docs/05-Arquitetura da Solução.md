@@ -16,31 +16,21 @@ O diagrama de classes ilustra graficamente como será a estrutura do software, e
 
 </br>
 <p align="center">
-<img src=https://raw.githubusercontent.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e4-proj-apdist-t4-onpeople/main/docs/img/DiagramaDeClassesOnPeople.png>
+<img src=https://raw.githubusercontent.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e4-proj-apdist-t4-onpeople/main/docs/img/Diagrama%20de%20Classes%20-%20OnPeople.png>
 </p>
 <p align="center"> Diagrama de Classes </p>
 </br>
 
-As referências abaixo irão auxiliá-lo na geração do artefato “Diagrama de Classes”.
-
-> - [Diagramas de Classes - Documentação da IBM](https://www.ibm.com/docs/pt-br/rational-soft-arch/9.6.1?topic=diagrams-class)
-> - [O que é um diagrama de classe UML? | Lucidchart](https://www.lucidchart.com/pages/pt/o-que-e-diagrama-de-classe-uml)
-
 ## Modelo ER
 
-O Modelo ER representa através de um diagrama como as entidades (coisas, objetos) se relacionam entre si na aplicação interativa.]
+O Modelo ER representa, através de um diagrama, como as entidades (coisas, objetos) se relacionam entre si na aplicação interativa.]
 
 </br>
 <p align="center">
-<img src=https://raw.githubusercontent.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e4-proj-apdist-t4-onpeople/main/docs/img/Diagrama%20de%20Entidade%20Relacionamento.png>
+<img src=https://raw.githubusercontent.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e4-proj-apdist-t4-onpeople/main/docs/img/EntityRelationshipDiagram.png>
 </p>
 <p align="center"> Diagrama Entidade-Relacionamento </p>
 </br>
-
-As referências abaixo irão auxiliá-lo na geração do artefato “Modelo ER”.
-
-> - [Como fazer um diagrama entidade relacionamento | Lucidchart](https://www.lucidchart.com/pages/pt/como-fazer-um-diagrama-entidade-relacionamento)
-
 
 ## Modelo Físico
 
@@ -50,7 +40,7 @@ Entregar um arquivo banco.sql contendo os scripts de criação das tabelas do ba
 
 * **Tecnologias front-end:** HTML, CSS, JavaScript, Angular e Bootstrap
 * **Tecnologias back-end:** C# e SQL
-* **Sistema Gerenciador de Banco de Dados:** MySQL
+* **Sistema Gerenciador de Banco de Dados:** SQLServer
 * **Editor de código:** Visual Studio Code
 
 ## Hospedagem
