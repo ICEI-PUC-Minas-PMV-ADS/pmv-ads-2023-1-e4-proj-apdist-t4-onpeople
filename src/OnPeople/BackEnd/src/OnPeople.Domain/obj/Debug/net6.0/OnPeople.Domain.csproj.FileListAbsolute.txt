@@ -1,0 +1,12 @@
+C:\Users\Rafae\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Domain\bin\Debug\net6.0\OnPeople.Domain.deps.json
+C:\Users\Rafae\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Domain\bin\Debug\net6.0\OnPeople.Domain.dll
+C:\Users\Rafae\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Domain\bin\Debug\net6.0\OnPeople.Domain.pdb
+C:\Users\Rafae\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Domain\obj\Debug\net6.0\OnPeople.Domain.csproj.AssemblyReference.cache
+C:\Users\Rafae\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Domain\obj\Debug\net6.0\OnPeople.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Rafae\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Domain\obj\Debug\net6.0\OnPeople.Domain.AssemblyInfoInputs.cache
+C:\Users\Rafae\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Domain\obj\Debug\net6.0\OnPeople.Domain.AssemblyInfo.cs
+C:\Users\Rafae\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Domain\obj\Debug\net6.0\OnPeople.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Rafae\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Domain\obj\Debug\net6.0\OnPeople.Domain.dll
+C:\Users\Rafae\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Domain\obj\Debug\net6.0\refint\OnPeople.Domain.dll
+C:\Users\Rafae\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Domain\obj\Debug\net6.0\OnPeople.Domain.pdb
+C:\Users\Rafae\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Domain\obj\Debug\net6.0\ref\OnPeople.Domain.dll
