@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>OnPeople.API</name>
+    </assembly>
+    <members>
+        <member name="M:OnPeople.API.Controllers.Departamentos.DepartamentosController.GetAllDepartamentos">
+            <summary>
+            Obtém os dados de todos os departamentos cadastrados
+            </summary>
+            <response code="200">Dados dos departamentos cadastrados</response>
+            <response code="400">Parâmetros incorretos</response>
+            <response code="500">Erro interno</response>
+        </member>
+        <member name="M:OnPeople.API.Controllers.Departamentos.DepartamentosController.GetDepartamentoById(System.Int32)">
+            <summary>
+            Obtém os dados de um departamento específico
+            </summary>
+            <param name="id">Identificador do departamento</param>
+            <response code="200">Dados do departamento consultado</response>
+            <response code="400">Parâmetros incorretos</response>
+            <response code="500">Erro interno</response>
+        </member>
+        <member name="M:OnPeople.API.Controllers.Departamentos.DepartamentosController.GetDepartamentosByEmpresaId(System.Int32)">
+            <summary>
+            Obtém os dados de todos os departamento vinculados a uma empresa específica
+            </summary>
+            <param name="empresaId">Identificador da empresa</param>
+            <response code="200">Departamentos cadastrados para a empresa</response>
+            <response code="400">Parâmetros incorretos</response>
+            <response code="500">Erro interno</response>
+        </member>
+        <member name="M:OnPeople.API.Controllers.Departamentos.DepartamentosController.CreateDepartamento(OnPeople.Domain.Models.Departamentos.Departamento)">
+            <summary>
+            Efetua a inclusão de um novo departamento
+            </summary>
+            <response code="200">Departamento cadastrado com sucesso</response>
+            <response code="400">Parâmetros incorretos</response>
+            <response code="500">Erro interno</response>
+        </member>
+        <member name="M:OnPeople.API.Controllers.Departamentos.DepartamentosController.UpdateDepartamento(System.Int32,OnPeople.Domain.Models.Departamentos.Departamento)">
+            <summary>
+            Realiza a atualização dos dados de um departamento
+            </summary>
+            <param name="id">Identificador do departamento</param>
+            <param name="model">Dados a serem atualizados</param>
+            <response code="200">Departamento atualizado com sucesso</response>
+            <response code="400">Parâmetros incorretos</response>
+            <response code="500">Erro interno</response>
+        </member>
+        <member name="M:OnPeople.API.Controllers.Departamentos.DepartamentosController.DeleteDepartamento(System.Int32)">
+            <summary>
+            Realiza a exclusão de um departamento
+            </summary>
+            <param name="id">Identificador do departamento</param>
+            <response code="200">Departamento excluído com sucesso</response>
+            <response code="400">Parâmetros incorretos</response>
+            <response code="500">Erro interno</response>
+        </member>
+    </members>
+</doc>

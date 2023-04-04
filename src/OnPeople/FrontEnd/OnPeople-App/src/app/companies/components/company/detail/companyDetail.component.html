@@ -1,0 +1,238 @@
+<div class="card rounded shadow-sm p-1 bg-light">
+  <div class="card-header text-center text-white bg-info">
+    <div class="h3">Formulário de Empresas</div>
+  </div>
+  <div class="card-body p-1 bg-white">
+    <form class="row" [formGroup]="formDetail">
+
+      <div  class="col-md-4" *ngIf="editMode">
+        <div class="card m-0 p-0 bg-white shadow-sm">
+          <input type="file" #file (change)="toggleImage($event)" style="display: none">
+          <div class="aligns-self-center text-center pt-1">
+            <img class="imageDetail" [src]="logoURL" alt="Card imagem upload imageDetail" (click)="file.click()">
+          </div>
+        </div>
+      </div>
+
+      <div [ngClass]="{'col-md-8': editMode, 'col-md-12': !editMode }">
+        <div class="h4 border-bottom" >Dados da Empresa: </div>
+        <div class="form-row d-md-flex">
+          <div class="form-group col-md-3 p-1">
+            <label>CNPJ</label>
+            <input type="text" class="form-control bg-dark text-white" placeholder="CNPJ" formControlName="cnpj" [ngClass]="fieldValidator(ctrF.cnpj)" (change)="getCompanyByCnpj()" [readOnly]="editMode">
+            <div class="invalid-feedback">{{messageReturned(ctrF.cnpj, "")}}</div>
+          </div>
+          <div class="form-group col-md-2 p-1" *ngIf="this.CNPJOk">
+            <label>Sigla</label>
+            <input type="text" class="form-control" placeholder="Sigla da Empresa" formControlName="siglaEmpresa" [ngClass]="fieldValidator(ctrF.siglaEmpresa)">
+            <div class="invalid-feedback">{{messageReturned(ctrF.siglaEmpresa, "")}}</div>
+          </div>
+          <div class="form-group col-md-5 p-1" *ngIf="this.CNPJOk">
+            <label>Padrão de email</label>
+            <input class="form-control" placeholder="@xx.xxxxx.xxx" formControlName="padraoEmail" [ngClass]="fieldValidator(ctrF.padraoEmail)" >
+            <div class="invalid-feedback">{{messageReturned(ctrF.padraoEmail, "")}}</div>
+          </div>
+          <div class="form-group col-md-2 p-1" *ngIf="this.CNPJOk">
+            <label>Ativa</label>
+            <select class="form-select form-control bg-light" formControlName="ativa">
+              <option value="false" disabled>Não</option>
+              <option value="true" disabled>Sim</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row d-md-flex" *ngIf="this.CNPJOk">
+          <div class="form-group col-md-5 p-1">
+            <label>Empresa</label>
+            <input type="text" class="form-control bg-light" placeholder="Nome da Empresa" formControlName="razaoSocial" [ngClass]="fieldValidator(ctrF.razaoSocial)" readonly>
+            <div class="invalid-feedback">{{messageReturned(ctrF.razaoSocial, "")}}</div>
+          </div>
+          <div class="form-group col-md-5 p-1">
+            <label>Nome Fantasia</label>
+            <input type="text" class="form-control bg-light" placeholder="Nome Fantasia da Empresa" formControlName="nomeFantasia" [ngClass]="fieldValidator(ctrF.nomeFantasia)" readonly>
+            <div class="invalid-feedback">{{messageReturned(ctrF.nomeFantasia, "")}}</div>
+          </div>
+          <div class="form-group col-md-2 p-1">
+            <label>É uma Filial?</label>
+            <select class="form-select form-control bg-light" formControlName="filial">
+              <option value="false" disabled>Não</option>
+              <option value="true" disabled>Sim</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row d-md-flex" *ngIf="this.CNPJOk">
+          <div class="form-group col-md-5 p-1">
+            <label>Presidente</label>
+            <span class="form-control bg-light">
+              Não definido
+            </span>
+          </div>
+          <div class="form-group col-md-4 p-1">
+            <label>Natureza Juridica</label>
+            <input class="form-control bg-light" placeholder="Natureza Juridica" formControlName="naturezaJuridica" [ngClass]="fieldValidator(ctrF.naturezaJuridica)" readonly>
+            <div class="invalid-feedback">{{messageReturned(ctrF.naturezaJuridica, "")}}</div>
+          </div>
+          <div class="form-group col-md-3 p-1">
+            <label>Data Cadastro</label>
+            <div class="form-group">
+              <div class="input-group">
+                <label class="input-group-text bg-info text-white">
+                  <mat-icon>calendar_month</mat-icon>
+                </label>
+                <input type="text" class="form-control bg-light"  placeholder="Data de cadastro" formControlName="dataCadastro"
+                [value]="ctrF.dataCadastro" [ngClass]="fieldValidator(ctrF.dataCadastro)" readyonly>
+                <div class="invalid-feedback">{{messageReturned(ctrF.dataCadastro, "")}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row d-md-flex" *ngIf="this.CNPJOk">
+          <div class="form-group col-md-5 p-1">
+            <label>Atividade Principal</label>
+            <input class="form-control bg-light" placeholder="atividadePrincipal" formControlName="atividadePrincipal" [ngClass]="fieldValidator(ctrF.atividadePrincipal)" readonly>
+            <div class="invalid-feedback">{{messageReturned(ctrF.atividadePrincipal, "")}}</div>
+          </div>
+          <div class="form-group col-md-4 p-1" >
+            <label>Optante Simples</label>
+            <input class="form-control bg-light" placeholder="optante simples" formControlName="optanteSimples" [ngClass]="fieldValidator(ctrF.optanteSimples)" readonly>
+            <div class="invalid-feedback">{{messageReturned(ctrF.optanteSimples, "")}}</div>
+          </div>
+          <div class="form-group col-md-3 p-1">
+            <label>Data Desativação</label>
+            <div class="form-group">
+              <div class="input-group">
+                <label class="input-group-text bg-info text-white">
+                  <mat-icon>calendar_month</mat-icon>
+                </label>
+                <input type="datetime" class="form-control" placeholder="Data desativação" formControlName="dataDesativacao"
+                bsDatepicker [bsConfig]="bsConfig" [ngClass]="fieldValidator(ctrF.dataDesativacao)">
+                <div class="invalid-feedback">{{messageReturned(ctrF.dataDesativacao, "")}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="form-row d-md-flex" *ngIf="this.CNPJOk">
+        <div class="form-group col-md-2 p-1">
+          <label>CEP</label>
+          <input class="form-control bg-light" placeholder="CEP" formControlName="cep" [ngClass]="fieldValidator(ctrF.cep)" readonly>
+          <div class="invalid-feedback">{{messageReturned(ctrF.cep, "")}}</div>
+        </div>
+
+        <div class="form-group col-md-3 p-1">
+          <label>Tipo Logradouro</label>
+          <input class="form-control bg-light" placeholder="Tipo Logradouro" formControlName="tipoLogradouro" [ngClass]="fieldValidator(ctrF.tipoLogradouro)" readonly>
+          <div class="invalid-feedback">{{messageReturned(ctrF.tipoLogradouro, "")}}</div>
+        </div>
+        <div class="form-group col-md-5 p-1">
+          <label>Logradouro</label>
+          <input class="form-control bg-light" placeholder="Logradouro" formControlName="logradouro" [ngClass]="fieldValidator(ctrF.logradouro)" readonly>
+          <div class="invalid-feedback">{{messageReturned(ctrF.logradouro, "")}}</div>
+        </div>
+        <div class="form-group col-md-2 p-1">
+          <label>Numero</label>
+          <input class="form-control bg-light" placeholder="Numero" formControlName="numero" [ngClass]="fieldValidator(ctrF.numero)" readonly>
+          <div class="invalid-feedback">{{messageReturned(ctrF.numero, "")}}</div>
+        </div>
+      </div>
+
+      <div class="form-row d-md-flex" *ngIf="this.CNPJOk">
+
+        <div class="form-group col-md-3 p-1">
+          <label>Complemento</label>
+          <input class="form-control bg-light" placeholder="complemento" formControlName="complemento" [ngClass]="fieldValidator(ctrF.complemento)" readonly>
+          <div class="invalid-feedback">{{messageReturned(ctrF.complemento, "")}}</div>
+        </div>
+        <div class="form-group col-md-4 p-1">
+          <label>Bairro</label>
+          <input class="form-control bg-light" placeholder="Bairro" formControlName="bairro" [ngClass]="fieldValidator(ctrF.bairro)" readonly>
+          <div class="invalid-feedback">{{messageReturned(ctrF.bairro, "")}}</div>
+        </div>
+        <div class="form-group col-md-4 p-1">
+          <label>Cidade</label>
+          <input class="form-control bg-light" placeholder="Cidade" formControlName="cidade" [ngClass]="fieldValidator(ctrF.cidade)" readonly>
+          <div class="invalid-feedback">{{messageReturned(ctrF.cidade, "")}}</div>
+        </div>
+        <div class="form-group col-md-1 p-1">
+          <label>UF:</label>
+          <input class="form-control bg-light" placeholder="UF" formControlName="siglaEstado" [ngClass]="fieldValidator(ctrF.siglaEstado)" readonly>
+          <div class="invalid-feedback">{{messageReturned(ctrF.siglaEstado, "")}}</div>
+        </div>
+
+      </div>
+
+      <div class="form-row d-md-flex" *ngIf="this.CNPJOk">
+        <div class="form-group col-md-3 p-1">
+          <label>Estado</label>
+          <input class="form-control bg-light" placeholder="Estado" formControlName="estado" [ngClass]="fieldValidator(ctrF.estado)" readonly>
+          <div class="invalid-feedback">{{messageReturned(ctrF.estado, "")}}</div>
+        </div>
+        <div class="form-group col-md-2 p-1">
+          <label>Sigla País</label>
+          <input class="form-control bg-light" placeholder="Sigla País" formControlName="siglaPaisIso3" [ngClass]="fieldValidator(ctrF.siglaPaisIso3)" readonly>
+          <div class="invalid-feedback">{{messageReturned(ctrF.siglaPaisIso3, "")}}</div>
+        </div>
+        <div class="form-group col-md-2 p-1">
+          <label>Sigla País</label>
+          <input class="form-control bg-light" placeholder="Sigla País" formControlName="siglaPaisIso2" [ngClass]="fieldValidator(ctrF.siglaPaisIso2)" readonly>
+          <div class="invalid-feedback">{{messageReturned(ctrF.siglaPaisIso2, "")}}</div>
+        </div>
+        <div class="form-group col-md-2 p-1">
+          <label>País</label>
+          <input class="form-control bg-light" placeholder="País" formControlName="nomePais" [ngClass]="fieldValidator(ctrF.nomePais)" readonly>
+          <div class="invalid-feedback">{{messageReturned(ctrF.nomePais, "")}}</div>
+        </div>
+        <div class="form-group col-md-1 p-1">
+          <label>DDD</label>
+          <input class="form-control bg-light" placeholder="DDD" formControlName="ddd" [ngClass]="fieldValidator(ctrF.ddd)" readonly>
+          <div class="invalid-feedback">{{messageReturned(ctrF.ddd, "")}}</div>
+        </div>
+        <div class="form-group col-md-2 p-1">
+          <label>Telefone</label>
+          <input class="form-control bg-light" placeholder="telefone" formControlName="telefone" [ngClass]="fieldValidator(ctrF.telefone)" readonly>
+          <div class="invalid-feedback">{{messageReturned(ctrF.telefone, "")}}</div>
+        </div>
+      </div>
+
+      <div class="form-row d-md-flex" *ngIf="this.CNPJOk">
+        <div class="form-group col-md-3 p-1">
+          <label>e-mail</label>
+          <input class="form-control bg-light" placeholder="e-mail" formControlName="email" [ngClass]="fieldValidator(ctrF.email)" readonly>
+          <div class="invalid-feedback">{{messageReturned(ctrF.email, "")}}</div>
+        </div>
+        <div class="form-group col-md-2 p-1">
+          <label>Porte</label>
+          <input class="form-control bg-light" placeholder="porte" formControlName="porteEmpresa" [ngClass]="fieldValidator(ctrF.porteEmpresa)" readonly>
+          <div class="invalid-feedback">{{messageReturned(ctrF.porteEmpresa, "")}}</div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="card-footer bg-info  ">
+    <div class="d-flex ">
+      <button class="btn btn-danger ms-auto mx-1" (click)="clearForm()">
+        Cancelar
+      </button>
+      <button class="btn btn-primary mx-1 px-4" [disabled]="!formDetail.valid" (click)="saveChange()">
+        {{editMode ? "Salvar" : "Criar"}}
+      </button>
+    </div>
+  </div>
+</div>
+
+<!--
+<p>Form Value: {{formDetail.value | json}}</p>
+<p>Form Status: {{formDetail.status | json}}</p>
+-->
+
+<ngx-spinner type="ball-scale-multiple"
+bdColor="rgba(51,51,51,0.8)"
+size="medium"
+color="blue"
+>
+<p style="font-size:20px; color: white;">Carregando...</p>
+</ngx-spinner>
+

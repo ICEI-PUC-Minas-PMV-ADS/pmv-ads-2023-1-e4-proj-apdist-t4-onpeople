@@ -1,0 +1,74 @@
+<div class="card bg-white d-flex p-2" >
+  <form [formGroup]="formDetail" (ng-submit)="onSubmit()">
+    <div class="form-row">
+      <div class="form-group col-12 p-1 m-0">
+        <div class="h5 pt-3 border-bottom">Detalhe Perfil</div>
+      </div>
+
+      <div class="form-row d-md-flex">
+        <div class="form-group col-md-6 col-12 p-1 m-0">
+          <label>Empresa</label>
+          <input type="text" class="form-control bg-light" formControlName="nomeEmpresa"  readonly>
+        </div>
+
+        <div class="form-group col-md-6 col-12 p-1 m-0">
+          <label>Conta</label>
+          <input type="text" class="form-control bg-light" formControlName="userName"  readonly>
+        </div>
+      </div>
+
+      <div class="form-row d-md-flex">
+        <div class="form-group col-md-6 col-12 p-1 m-0">
+          <label>Nome Completo</label>
+          <input type="text" class="form-control" placeholder="Informe seu nome completo"
+            formControlName="nomeCompleto" [ngClass]="fieldValidator(ctrF.nomeCompleto)">
+        </div>
+        <div class="invalid-feedback">
+          {{messageReturned(ctrF.nomeCompleto, "")}}
+        </div>
+        <div class="form-group col-md-6 col-12 p-1 m-0">
+          <label>email</label>
+          <input type="text" class="form-control bg-light" formControlName="email" readonly>
+        </div>
+      </div>
+      <div class="form-row d-flex">
+        <div class="form-group col-md-6 col-12 p-1 m-0">
+          <label>Telefone</label>
+          <input type="text" class="form-control" placeholder="Informe seu telefone"
+          formControlName="phoneNumber" [ngClass]="fieldValidator(ctrF.phoneNumber)">
+          <div class="invalid-feedback">
+            {{messageReturned(ctrF.phoneNumber, "")}}
+          </div>
+        </div>
+        <div class="form-group col-md-3 col-6 p-1 m-0">
+          <label>Visao</label>
+          <select class="form-select form-control bg-light" formControlName="visao">
+            <option value="Master" disabled>Gerencial</option>
+            <option value="Gold" disabled>Adminstrativa</option>
+            <option value="Bronze" disabled>Operacional</option>
+          </select>
+        </div>
+        <div class="form-group col-md-3 col-6 p-1 m-0">
+          <label>Conta Ativa?</label>
+          <select class="form-select form-control bg-light" formControlName="ativa">
+            <option value="false" disabled>Não</option>
+            <option value="true" disabled>Sim</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row d-flex">
+        <div class="form-group col-md-6 col-12 p-1 m-0">
+          <label>Data Cadastro</label>
+          <input type="teste" value="{{this.users.dataCadastro | DateTimeFormat}}" class="form-control bg-light" placeholder="Informe seu telefone"
+            formControlName="dataCadastro" readonly>
+        </div>
+      </div>
+    </div>
+    <div class="d-grid mt-2 p-1 ">
+      <button class="btn btn-info btn-block " [disabled]="!formDetail.valid" type="submit" >Salvar</button>
+    </div>
+  </form>
+</div>
+
+<p>Form Value: {{formDetail.value | json}}</p>
+<p>Form Status: {{formDetail.status | json}}</p>

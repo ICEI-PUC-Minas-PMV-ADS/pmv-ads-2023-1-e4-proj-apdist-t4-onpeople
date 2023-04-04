@@ -1,0 +1,158 @@
+<div class="row g-0 mt-1 p-0">
+
+  <div class="col-md-6 d-none d-md-block p-1">
+
+    <div class="text-center col-md-12 my-auto side-header">
+      <div class="titulo shadow">Cadastro de Contas</div>
+      <img class="imageLateral mt-3" src="../../../../assets/img/BadgeRegistration.png">
+    </div>
+
+  </div>
+
+  <div class="col-md-6 cold-sm-12 p-1">
+
+    <div class="card bg-primary">
+
+      <div class="card-header ">
+
+        <div class="text-center col-md-12 ">
+          <img class="imageLogo" src="../../../../assets/img/Logo Fundo.png" alt="">
+          <div class="titulo shadow text-white">
+            OnPeople Services New Generation
+          </div>
+        </div>
+
+      </div>
+
+      <div class="card-body bg-white mx-3">
+
+        <form class="row p-0" [formGroup]="formRegister" (submit)="createUser()" #registerForm="ngForm">
+
+          <div class="pb-1 d-block d-md-none">
+            <div class="h4 border-bottom">Cadastro de contas</div>
+          </div>
+
+          <div class="p-1">
+            <div class="h1 text-center text-info ">
+              <mat-icon class="iconBadge">badge</mat-icon>
+            </div>
+          </div>
+
+          <div class="form-row d-md-flex p-1">
+            <div class="form-group col-12">
+              <label>Conta</label>
+              <div class="input-group ">
+                <span class="input-group-text bg-info text-white">
+                  <mat-icon>person</mat-icon>
+                </span>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Informe sua conta de usuário"
+                  formControlName="userName"
+                  [ngClass]="fieldValidator(ctrF.userName)">
+                <div class="invalid-feedback">
+                  {{validatorReturn(ctrF.userName, "")}}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row d-md-flex p-1">
+            <div class="form-group col-12">
+              <label>Nome Completo</label>
+              <div class="input-group">
+                <span class="input-group-text bg-info text-white">
+                  <mat-icon>remember_me</mat-icon>
+                </span>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Informe seu nome completo"
+                  formControlName="nomeCompleto"
+                  [ngClass]="fieldValidator(ctrF.nomeCompleto)">
+                <div class="invalid-feedback">
+                  {{validatorReturn(ctrF.nomeCompleto, "")}}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row d-md-flex p-1">
+            <div class="form-group col-sm-6">
+              <label>Senha</label>
+              <div class="input-group">
+                <span class="input-group-text bg-info text-white">
+                  <mat-icon>key</mat-icon>
+                </span>
+                <input
+                  type="password"
+                  class="form-control"
+                  placeholder="Informe sua senha"
+                  formControlName="password"
+                  [ngClass]="fieldValidator(ctrF.password)">
+                <div class="invalid-feedback">
+                  {{validatorReturn(ctrF.password, "Senha")}}
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group col-sm-6 ps-1">
+              <label>Confirmar Senha</label>
+              <div class="input-group mb-1">
+                <span class="input-group-text bg-info text-white">
+                  <mat-icon>done_all</mat-icon>
+                </span>
+                <input
+                  type="password"
+                  class="form-control"
+                  placeholder="Confirme sua senha"
+                  formControlName="confirmPassword"
+                  [ngClass]="fieldValidator(ctrF.confirmPassword)">
+                <div class="invalid-feedback">
+                  {{validatorReturn(ctrF.confirmPassword, "Confirmar Senha")}}
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="form-row d-md-flex mt-0 p-1">
+            <div class="form-group col-12">
+              <button class="btn btn-success btn-block col-12 bg-info" [disabled]="!formRegister.valid" type="submit">
+                Cadastrar
+              </button>
+            </div>
+          </div>
+
+        </form>
+
+    </div>
+
+    <div  class="card-footer bg-primary">
+      <div class="pt-0">
+        <div class="row">
+          <div class="d-sm-flex">
+            <div class="custom-control custom-check-box">
+              <a class="btn btn-link btn-block text-white" routerLink="/users/login">
+                Já sou cdastrado
+              </a>
+            </div>
+            <div class="custom-control custom-check-box ms-auto">
+              <a class="btn btn-link btn-block text-white" routerLink="/users/login">
+                Recuperar Senha
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+<!--
+<p>Form Value: {{formRegister.value | json}}</p>
+<p>Form Status: {{formRegister.status | json}}</p>
+-->
+

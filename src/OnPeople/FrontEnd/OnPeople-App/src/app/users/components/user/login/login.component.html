@@ -1,0 +1,116 @@
+<div class="row g-0 mt-1 p-0">
+
+  <div class="col-md-6 col-sm-12 p-1">
+
+    <div class="card bg-primary p-1">
+
+      <div class="card-header">
+
+        <div class="text-center col-md-12">
+          <img class="imageLogo" src="../../../../assets/img/Logo Fundo.png" alt="">
+          <div class="titulo shadow text-white ">
+            OnPeople Services New Generation
+          </div>
+        </div>
+
+      </div>
+
+      <div class="card-body bg-white  mx-3">
+
+        <form class="row p-0" [formGroup]="formLogin" (submit)="login()" #loginForm="ngForm">
+
+          <div class="pb-1 d-block d-md-none">
+            <div class="h4 border-bottom">Login</div>
+          </div>
+
+          <div class="p-1">
+            <div class="h1 text-center text-info">
+              <mat-icon class="iconBadge">lock</mat-icon>
+            </div>
+          </div>
+
+          <div class="form-row d-md-flex p-1">
+            <div class="form-group col-12">
+              <label>Conta</label>
+              <div class="input-group mb-3">
+                <span class="input-group-text bg-info text-white">
+                  <mat-icon>people</mat-icon>
+                </span>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Informe sua conta de usuário."
+                  formControlName="userName"
+                  [ngClass]="fieldValidator(ctrF.userName)">
+                  <div class="invalid-feedback">
+                  {{messageReturned(ctrF.userName, "")}}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row d-md-flex p-1">
+            <div class="form-group col-12">
+              <label>Senha</label>
+              <div class="input-group mb-3">
+                <span class="input-group-text bg-info text-white">
+                  <mat-icon>key</mat-icon>
+                </span>
+                <input
+                  type="password"
+                  class="form-control"
+                  placeholder="Informe sua senha."
+                  formControlName="password"
+                  [ngClass]="fieldValidator(ctrF.password)">
+                <div class="invalid-feedback">
+                  {{messageReturned(ctrF.password, "")}}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row d-md-flex mt-3 p-1">
+            <div class="form-group col-12">
+              <button class="btn btn-success btn-block col-12 bg-info" [disabled]="!formLogin.valid" type="submit">
+                Entrar
+              </button>
+            </div>
+          </div>
+
+        </form>
+
+      </div>
+      <div  class="card-footer bg-primary">
+        <div class="pt-0">
+          <div class="row">
+            <div class="d-sm-flex">
+              <div class="custom-control custom-check-box">
+                <a class="btn btn-link btn-block text-white" routerLink="/users/register">
+                  Esqueci minha senha
+                </a>
+              </div>
+              <div class="custom-control custom-check-box ms-auto">
+                <a class="btn btn-link btn-block text-white" routerLink="/users/register">
+                  Quero me cadastrar
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="col-md-6 d-none d-md-block p-1">
+    <div class="text-center col-md-12 my-auto side-header">
+      <div class="titulo shadow bd-primary">Login</div>
+      <img  class="imageLateral" src="../../../../assets/img/istockphoto-1281150061-612x612.jpg">
+    </div>
+  </div>
+
+</div>
+
+<!-- <p>Form Value: {{formLogin.value | json}}</p>
+<p>Form Status: {{formLogin.status | json}}</p> -->
+

@@ -28,11 +28,12 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Shared
 
         public async Task<bool> SaveChangesAsync()
         {
-            return(await _context.SaveChangesAsync()) > 0;
+            return ((await _context.SaveChangesAsync()) > 0);
         }
 
         public void Update<T>(T entity) where T : class
         {
+            _context.Add(entity);
             _context.Update(entity);
         }
     }
