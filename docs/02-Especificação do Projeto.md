@@ -33,24 +33,29 @@ Com base na análise das personas, foram identificadas as seguintes histórias d
 
 ### Análise da Situação Atual
 
-Apresente aqui os problemas existentes que viabilizam sua proposta. Apresente o modelo do sistema como ele funciona hoje. Caso sua proposta seja inovadora e não existam processos claramente definidos, apresente como as tarefas que o seu sistema pretende implementar são executadas atualmente, mesmo que não se utilize tecnologia computacional. 
+<p>Com o avanço e crescimento no setor de RH, existe a necessidade de organização e automação das diferentes funções de forma ágil, como por exemplo: a verificação cadastral de funcionários, análise de metas e desempenho deles.</p> Muitas empresas enfrentam problemas no que diz respeito à análise de desempenho de cada funcionário. Tal dificuldade de verificar e analisar o crescimento ao longo dos meses, torna muito despercebido e pouco notado, além de se formarem inúmeros gargalos, impossibilitando agilidade e criando um grande desafio de análise; dessa forma, enxerga-se a necessidade de criação de um sistema automatizado para que este desenvolvimento seja visto, gerando ânimo e consequentemente um reconhecimento a longo prazo.
 
 ### Descrição Geral da Proposta
 
-Apresente aqui uma descrição da sua proposta abordando seus limites e suas ligações com as estratégias e objetivos do negócio. Apresente aqui as oportunidades de melhorias.
+O objetivo é desenvolver um sistema que auxilie no gerenciamento do crescimento e desenvolvimento de cada colaborador, com cadastro de funcionários, metas, cargos e salários.
 
-### Processo 1 – NOME DO PROCESSO
+### Processo 1 – USUÁRIO COMUM 
 
-Apresente aqui o nome e as oportunidades de melhorias para o processo 1. Em seguida, apresente o modelo do processo 1, descrito no padrão BPMN. 
+Atualmente o processos funcionam assim, sem realizar nenhuma análise crítica e sem discutir se o processo está bom ou ruim. 
 
-![Processo 1](img/02-bpmn-proc1.png)
+![Usuário Comum](img/02-bpmn-user-comum.png)
 
-### Processo 2 – NOME DO PROCESSO
+### Processo 2 – OPERACIONAL RH
 
-Apresente aqui o nome e as oportunidades de melhorias para o processo 2. Em seguida, apresente o modelo do processo 2, descrito no padrão BPMN.
+Atualmente o processos funcionam assim, sem realizar nenhuma análise crítica e sem discutir se o processo está bom ou ruim. 
 
-![Processo 2](img/02-bpmn-proc2.png)
+![Operacional RH](img/02-bpmn-oper-rh.png)
 
+### Processo 2 – GESTÃO RH
+
+Atualmente o processos funcionam assim, sem realizar nenhuma análise crítica e sem discutir se o processo está bom ou ruim.
+
+![Gestão RH](img/02-bpmn-gestao-rh.png)
 ## Indicadores de Desempenho
 
 Apresente aqui os principais indicadores de desempenho e algumas metas para o processo. Atenção: as informações necessárias para gerar os indicadores devem estar contempladas no diagrama de classe. Colocar no mínimo 5 indicadores. 
