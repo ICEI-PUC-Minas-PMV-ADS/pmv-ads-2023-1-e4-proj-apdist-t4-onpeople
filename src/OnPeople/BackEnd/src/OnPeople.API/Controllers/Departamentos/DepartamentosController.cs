@@ -13,7 +13,7 @@ public class DepartamentosController : ControllerBase
     private readonly IDepartamentosServices _departamentosServices;
    
 
-    public DepartamentosController(IDepartamentosServices departamentosServices,IDepartamentosEmpresasServices departamentosEmpresasServices)
+    public DepartamentosController(IDepartamentosServices departamentosServices)
     {
         _departamentosServices = departamentosServices;
        
