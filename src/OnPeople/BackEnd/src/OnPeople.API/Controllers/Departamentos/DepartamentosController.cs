@@ -11,12 +11,12 @@ namespace OnPeople.API.Controllers.Departamentos;
 public class DepartamentosController : ControllerBase
 {
     private readonly IDepartamentosServices _departamentosServices;
-    private readonly IDepartamentosEmpresasServices _departamentosEmpresasServices;
+   
 
     public DepartamentosController(IDepartamentosServices departamentosServices,IDepartamentosEmpresasServices departamentosEmpresasServices)
     {
         _departamentosServices = departamentosServices;
-        _departamentosEmpresasServices = departamentosEmpresasServices;
+       
     }
 
     /// <summary>
@@ -70,30 +70,7 @@ public class DepartamentosController : ControllerBase
         }
     }
 
-    /// <summary>
-    /// Obtém os dados de todos os departamento vinculados a uma empresa específica
-    /// </summary>
-    /// <param name="empresaId">Identificador da empresa</param>
-    /// <response code="200">Departamentos cadastrados para a empresa</response>
-    /// <response code="400">Parâmetros incorretos</response>
-    /// <response code="500">Erro interno</response>
-    [HttpGet("{empresaId}/empresa")]
-    public async Task<IActionResult> GetDepartamentosByEmpresaId(int empresaId)
-    {
-        try
-        {
-            var departamentos = await _departamentosEmpresasServices.GetAllDepartamentosByEmpresaIdAsync(empresaId);
-
-            if (departamentos == null) return NotFound("Não foram encontrados departamentos para a empresa informada");
-
-            return Ok(departamentos);
-        }
-        catch (Exception e)
-        {
-
-            return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao recuperar os departamentos da empresa. Erro: {e.Message}");
-        }
-    }
+  
 
     /// <summary>
     /// Realiza a inclusão de um novo departamento
