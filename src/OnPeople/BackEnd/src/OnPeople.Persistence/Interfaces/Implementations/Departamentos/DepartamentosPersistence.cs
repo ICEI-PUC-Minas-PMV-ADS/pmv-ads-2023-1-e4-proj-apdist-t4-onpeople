@@ -17,7 +17,7 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Departamentos
         }
         public async Task<IEnumerable<Departamento>> GetAllDepartamentosAsync()
         {
-            IQueryable<Departamento> query = _context.Departamento;
+            IQueryable<Departamento> query = _context.Departamentos;
             
 
             query = query
