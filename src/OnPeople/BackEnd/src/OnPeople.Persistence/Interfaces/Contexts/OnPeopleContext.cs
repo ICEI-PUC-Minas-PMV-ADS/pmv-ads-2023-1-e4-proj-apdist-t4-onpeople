@@ -64,7 +64,7 @@ namespace OnPeople.Persistence.Interfaces.Contexts
 
             modelBuilder.Entity<Departamento>(departamento =>
                 {
-                    departamento.HasOne(d => d.Empresas);
+                    departamento.HasIndex(d => d.EmpresaId);
 
                     departamento.HasMany(c => c.Cargos);
 

@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using OnPeople.Application.Services.Contracts.Departamentos;
 using OnPeople.Domain.Models.Departamentos;
 using OnPeople.Application.Services.Contracts.Empresas;
+using OnPeople.Application.Dtos.Departamentos;
 
 namespace OnPeople.API.Controllers.Departamentos;
 
@@ -47,17 +48,17 @@ public class DepartamentosController : ControllerBase
     /// <summary>
     /// Obtém os dados de um departamento específico
     /// </summary>
-    /// <param name="id">Identificador do departamento</param>
+    /// <param name="departamentoId">Identificador do departamento</param>
     /// <response code="200">Dados do departamento consultado</response>
     /// <response code="400">Parâmetros incorretos</response>
     /// <response code="500">Erro interno</response>
     
-    [HttpGet("{id}")]
-    public async Task<IActionResult> GetDepartamentoById(int id)
+    [HttpGet("{departamentoId}")]
+    public async Task<IActionResult> GetDepartamentoById(int departamentoId)
     {
         try
         {
-            var departamentos = await _departamentosServices.GetDepartamentoByIdAsync(id);
+            var departamentos = await _departamentosServices.GetDepartamentoByIdAsync(departamentoId);
 
             if (departamentos == null) return NotFound("Departamento não encontrado.");
 
@@ -80,11 +81,11 @@ public class DepartamentosController : ControllerBase
     /// <response code="500">Erro interno</response>
     
     [HttpPost]
-    public async Task<IActionResult> CreateDepartamento(Departamento departamento)
+    public async Task<IActionResult> CreateDepartamento(DepartamentoDto departamentoDto)
     {
         try
         {
-            var createdDepartamento = await _departamentosServices.CreateDepartamentos(departamento);
+            var createdDepartamento = await _departamentosServices.CreateDepartamentos(departamentoDto);
 
             if (createdDepartamento != null) return Ok(createdDepartamento);
 
@@ -99,18 +100,17 @@ public class DepartamentosController : ControllerBase
     /// <summary>
     /// Realiza a atualização dos dados de um departamento
     /// </summary>
-    /// <param name="id">Identificador do departamento</param>
-    /// <param name="model">Dados a serem atualizados</param>
+    /// <param name="departamentoId">Identificador do departamento</param>
     /// <response code="200">Departamento atualizado com sucesso</response>
     /// <response code="400">Parâmetros incorretos</response>
     /// <response code="500">Erro interno</response>
 
-    [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateDepartamento(int id, Departamento model)
+    [HttpPut("{departamentoId}")]
+    public async Task<IActionResult> UpdateDepartamento(int departamentoId, DepartamentoDto departamentoDto)
     {
         try
         {
-            var departamento = await _departamentosServices.UpdateDepartamento(id, model);
+            var departamento = await _departamentosServices.UpdateDepartamento(departamentoId, departamentoDto);
 
             if (departamento == null) return BadRequest("Não foi possível atualizar os dados do departamento.");
 
@@ -125,17 +125,17 @@ public class DepartamentosController : ControllerBase
     /// <summary>
     /// Realiza a exclusão de um departamento
     /// </summary>
-    /// <param name="id">Identificador do departamento</param>
+    /// <param name="departamentoId">Identificador do departamento</param>
     /// <response code="200">Departamento excluído com sucesso</response>
     /// <response code="400">Parâmetros incorretos</response>
     /// <response code="500">Erro interno</response>
     
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteDepartamento(int id)
+    [HttpDelete("{departamentoId}")]
+    public async Task<IActionResult> DeleteDepartamento(int departamentoId)
     {
         try
         {
-            if (await _departamentosServices.DeleteDepartamento(id))
+            if (await _departamentosServices.DeleteDepartamento(departamentoId))
             {
                 return Ok();
             }

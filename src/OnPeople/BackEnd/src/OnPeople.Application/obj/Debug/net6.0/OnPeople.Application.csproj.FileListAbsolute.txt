@@ -15,3 +15,5 @@ C:\Users\Rafae\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\On
 C:\Users\Rafae\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Application\obj\Debug\net6.0\refint\OnPeople.Application.dll
 C:\Users\Rafae\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Application\obj\Debug\net6.0\OnPeople.Application.pdb
 C:\Users\Rafae\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Application\obj\Debug\net6.0\ref\OnPeople.Application.dll
+C:\Users\Rafae\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Application\bin\Debug\net6.0\OnPeople.Integration.dll
+C:\Users\Rafae\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Application\bin\Debug\net6.0\OnPeople.Integration.pdb

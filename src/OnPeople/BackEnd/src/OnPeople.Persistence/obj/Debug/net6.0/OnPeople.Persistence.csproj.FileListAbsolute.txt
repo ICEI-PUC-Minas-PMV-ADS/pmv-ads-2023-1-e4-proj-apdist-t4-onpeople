@@ -15,3 +15,5 @@ C:\Users\Rafae\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\On
 C:\Users\Rafae\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Persistence\obj\Debug\net6.0\OnPeople.Persistence.pdb
 C:\Users\Rafae\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Persistence\obj\Debug\net6.0\OnPeople.Persistence.genruntimeconfig.cache
 C:\Users\Rafae\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Persistence\obj\Debug\net6.0\ref\OnPeople.Persistence.dll
+C:\Users\Rafae\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Persistence\bin\Debug\net6.0\OnPeople.Integration.dll
+C:\Users\Rafae\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Persistence\bin\Debug\net6.0\OnPeople.Integration.pdb

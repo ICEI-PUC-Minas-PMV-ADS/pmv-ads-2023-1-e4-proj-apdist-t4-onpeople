@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\108093631\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\onpeople.api\\OnPeople.API.csproj": {}
+    "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.API\\OnPeople.API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\108093631\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\onpeople.api\\OnPeople.API.csproj": {
+    "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.API\\OnPeople.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\108093631\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\onpeople.api\\OnPeople.API.csproj",
+        "projectUniqueName": "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.API\\OnPeople.API.csproj",
         "projectName": "OnPeople.API",
-        "projectPath": "C:\\Users\\108093631\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\onpeople.api\\OnPeople.API.csproj",
-        "packagesPath": "C:\\Users\\108093631\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\108093631\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\onpeople.api\\obj\\",
+        "projectPath": "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.API\\OnPeople.API.csproj",
+        "packagesPath": "C:\\Users\\Rafae\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.API\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\108093631\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Rafae\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -26,18 +22,17 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\108093631\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Application\\OnPeople.Application.csproj": {
-                "projectPath": "C:\\Users\\108093631\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Application\\OnPeople.Application.csproj"
+              "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Application\\OnPeople.Application.csproj": {
+                "projectPath": "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Application\\OnPeople.Application.csproj"
               },
-              "C:\\Users\\108093631\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\onpeople.Integration\\OnPeople.Integration.csproj": {
-                "projectPath": "C:\\Users\\108093631\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\onpeople.Integration\\OnPeople.Integration.csproj"
+              "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\onpeople.Integration\\OnPeople.Integration.csproj": {
+                "projectPath": "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\onpeople.Integration\\OnPeople.Integration.csproj"
               }
             }
           }
@@ -112,21 +107,17 @@
         }
       }
     },
-    "C:\\Users\\108093631\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Application\\OnPeople.Application.csproj": {
+    "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Application\\OnPeople.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\108093631\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Application\\OnPeople.Application.csproj",
+        "projectUniqueName": "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Application\\OnPeople.Application.csproj",
         "projectName": "OnPeople.Application",
-        "projectPath": "C:\\Users\\108093631\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Application\\OnPeople.Application.csproj",
-        "packagesPath": "C:\\Users\\108093631\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\108093631\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Application\\obj\\",
+        "projectPath": "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Application\\OnPeople.Application.csproj",
+        "packagesPath": "C:\\Users\\Rafae\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Application\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\108093631\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Rafae\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -134,21 +125,20 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\108093631\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Domain\\OnPeople.Domain.csproj": {
-                "projectPath": "C:\\Users\\108093631\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Domain\\OnPeople.Domain.csproj"
+              "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Domain\\OnPeople.Domain.csproj": {
+                "projectPath": "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Domain\\OnPeople.Domain.csproj"
               },
-              "C:\\Users\\108093631\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\onpeople.Integration\\OnPeople.Integration.csproj": {
-                "projectPath": "C:\\Users\\108093631\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\onpeople.Integration\\OnPeople.Integration.csproj"
+              "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\onpeople.Integration\\OnPeople.Integration.csproj": {
+                "projectPath": "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\onpeople.Integration\\OnPeople.Integration.csproj"
               },
-              "C:\\Users\\108093631\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Persistence\\OnPeople.Persistence.csproj": {
-                "projectPath": "C:\\Users\\108093631\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Persistence\\OnPeople.Persistence.csproj"
+              "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Persistence\\OnPeople.Persistence.csproj": {
+                "projectPath": "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Persistence\\OnPeople.Persistence.csproj"
               }
             }
           }
@@ -200,21 +190,17 @@
         }
       }
     },
-    "C:\\Users\\108093631\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Domain\\OnPeople.Domain.csproj": {
+    "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Domain\\OnPeople.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\108093631\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Domain\\OnPeople.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Domain\\OnPeople.Domain.csproj",
         "projectName": "OnPeople.Domain",
-        "projectPath": "C:\\Users\\108093631\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Domain\\OnPeople.Domain.csproj",
-        "packagesPath": "C:\\Users\\108093631\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\108093631\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Domain\\obj\\",
+        "projectPath": "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Domain\\OnPeople.Domain.csproj",
+        "packagesPath": "C:\\Users\\Rafae\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Domain\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\108093631\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Rafae\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -222,7 +208,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -266,21 +251,17 @@
         }
       }
     },
-    "C:\\Users\\108093631\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\onpeople.Integration\\OnPeople.Integration.csproj": {
+    "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\onpeople.Integration\\OnPeople.Integration.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\108093631\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\onpeople.Integration\\OnPeople.Integration.csproj",
+        "projectUniqueName": "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\onpeople.Integration\\OnPeople.Integration.csproj",
         "projectName": "OnPeople.Integration",
-        "projectPath": "C:\\Users\\108093631\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\onpeople.Integration\\OnPeople.Integration.csproj",
-        "packagesPath": "C:\\Users\\108093631\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\108093631\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\onpeople.Integration\\obj\\",
+        "projectPath": "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\onpeople.Integration\\OnPeople.Integration.csproj",
+        "packagesPath": "C:\\Users\\Rafae\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\onpeople.Integration\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\108093631\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Rafae\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -288,7 +269,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -332,21 +312,17 @@
         }
       }
     },
-    "C:\\Users\\108093631\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Persistence\\OnPeople.Persistence.csproj": {
+    "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Persistence\\OnPeople.Persistence.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\108093631\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Persistence\\OnPeople.Persistence.csproj",
+        "projectUniqueName": "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Persistence\\OnPeople.Persistence.csproj",
         "projectName": "OnPeople.Persistence",
-        "projectPath": "C:\\Users\\108093631\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Persistence\\OnPeople.Persistence.csproj",
-        "packagesPath": "C:\\Users\\108093631\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\108093631\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Persistence\\obj\\",
+        "projectPath": "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Persistence\\OnPeople.Persistence.csproj",
+        "packagesPath": "C:\\Users\\Rafae\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Persistence\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\108093631\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Rafae\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -354,18 +330,17 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\108093631\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Domain\\OnPeople.Domain.csproj": {
-                "projectPath": "C:\\Users\\108093631\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Domain\\OnPeople.Domain.csproj"
+              "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Domain\\OnPeople.Domain.csproj": {
+                "projectPath": "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Domain\\OnPeople.Domain.csproj"
               },
-              "C:\\Users\\108093631\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\onpeople.Integration\\OnPeople.Integration.csproj": {
-                "projectPath": "C:\\Users\\108093631\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\onpeople.Integration\\OnPeople.Integration.csproj"
+              "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\onpeople.Integration\\OnPeople.Integration.csproj": {
+                "projectPath": "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\onpeople.Integration\\OnPeople.Integration.csproj"
               }
             }
           }

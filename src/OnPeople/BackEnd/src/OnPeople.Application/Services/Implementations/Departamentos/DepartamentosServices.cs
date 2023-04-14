@@ -1,5 +1,8 @@
+using AutoMapper;
+using OnPeople.Application.Dtos.Departamentos;
 using OnPeople.Application.Services.Contracts.Departamentos;
 using OnPeople.Domain.Models.Departamentos;
+using OnPeople.Integration.Models.Pages.Page;
 using OnPeople.Persistence.Interfaces.Contracts.Departamentos;
 using OnPeople.Persistence.Interfaces.Contracts.Shared;
 
@@ -9,17 +12,19 @@ namespace OnPeople.Application.Services.Implementations.Departamentos
     {
         private readonly ISharedPersistence _sharedPersistence;
         private readonly IDepartamentosPersistence _departamentosPersistence;
+        private readonly IMapper _mapper;
 
         public DepartamentosServices(
            ISharedPersistence sharedPersistence,
-           IDepartamentosPersistence departamentosPersistence)
+           IDepartamentosPersistence departamentosPersistence, IMapper mapper)
         {
             _departamentosPersistence = departamentosPersistence;
             _sharedPersistence = sharedPersistence;
+            _mapper = mapper;
 
         }
 
-        public async Task<IEnumerable<Departamento>> GetAllDepartamentosAsync()
+        public async Task<PageList<DepartamentoDto>> GetAllDepartamentosAsync()
         {
             try
             {
@@ -27,7 +32,9 @@ namespace OnPeople.Application.Services.Implementations.Departamentos
 
                 if (departamentos == null) return null;
 
-                return departamentos;
+                var departamentosMapper = _mapper.Map<PageList<DepartamentoDto>>(departamentos);
+
+                return departamentosMapper;
             }
 
             catch (Exception e)
@@ -36,15 +43,17 @@ namespace OnPeople.Application.Services.Implementations.Departamentos
             }
         }
 
-        public async Task<Departamento> GetDepartamentoByIdAsync(int id)
+        public async Task<DepartamentoDto> GetDepartamentoByIdAsync(int departamentoId)
         {
             try
             {
-                var departamento = await _departamentosPersistence.GetDepartamentoByIdAsync(id);
+                var departamento = await _departamentosPersistence.GetDepartamentoByIdAsync(departamentoId);
 
                 if (departamento == null) return null;
 
-                return departamento;
+                var departamentoMapper = _mapper.Map<DepartamentoDto>(departamento);
+
+                return departamentoMapper;
             }
 
             catch (Exception e)
@@ -53,41 +62,18 @@ namespace OnPeople.Application.Services.Implementations.Departamentos
             }
         }
 
-        public async Task<Departamento> CreateDepartamentos(Departamento model)
+        public async Task<DepartamentoDto> CreateDepartamentos(DepartamentoDto departamentoDto)
         {
             try
             {
-                _sharedPersistence.Create<Departamento>(model);
+                var departamento = _mapper.Map<Departamento>(departamentoDto);
 
-                if (await _departamentosPersistence.SaveChangesAsync())
-                {
-                    return await _departamentosPersistence.GetDepartamentoByIdAsync(model.Id);
-                }
-
-                return null;
-            }
-
-            catch (Exception e)
-            {
-                throw new Exception(e.Message);
-            }
-        }
-
-        public async Task<Departamento> UpdateDepartamento(int id, Departamento model)
-        {
-            try
-            {
-                var departamento = await _departamentosPersistence.GetDepartamentoByIdAsync(id);
-
-                if (departamento == null) throw new Exception("Departamento não encontrado.");
-
-                model.Id = departamento.Id;
-
-                _sharedPersistence.Update(model);
+                _sharedPersistence.Create<Departamento>(departamento);
 
                 if (await _sharedPersistence.SaveChangesAsync())
                 {
-                    return await _departamentosPersistence.GetDepartamentoByIdAsync(model.Id);
+                    var departamentoCriado = await _departamentosPersistence.GetDepartamentoByIdAsync(departamento.Id);
+                    return _mapper.Map<DepartamentoDto>(departamentoCriado);
                 }
 
                 return null;
@@ -99,13 +85,40 @@ namespace OnPeople.Application.Services.Implementations.Departamentos
             }
         }
 
-        public async Task<bool> DeleteDepartamento(int id)
+        public async Task<DepartamentoDto> UpdateDepartamento(int departamentoId, DepartamentoDto departamentoDto)
         {
             try
             {
-                var departamento = await _departamentosPersistence.GetDepartamentoByIdAsync(id);
+                var departamento = await _departamentosPersistence.GetDepartamentoByIdAsync(departamentoId);
+                
+                if (departamento == null) return null;
+                
+                var departamentoUpdate = _mapper.Map(departamentoDto, departamento);
 
-                if (departamento == null) throw new Exception("Departamento não encontrado.");
+                _departamentosPersistence.Update<Departamento>(departamentoUpdate);
+
+                if (await _departamentosPersistence.SaveChangesAsync())
+                {
+                    var departamentoAlterado = await _departamentosPersistence.GetDepartamentoByIdAsync(departamentoUpdate.Id);
+                    return _mapper.Map<DepartamentoDto>(departamentoAlterado);
+                }
+
+                return null;
+            }
+
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        public async Task<bool> DeleteDepartamento(int departamentoId)
+        {
+            try
+            {
+                var departamento = await _departamentosPersistence.GetDepartamentoByIdAsync(departamentoId);
+
+                if (departamento == null) return false;
 
                 _departamentosPersistence.Delete<Departamento>(departamento);
 

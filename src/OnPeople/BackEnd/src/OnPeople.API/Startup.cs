@@ -21,6 +21,11 @@ using OnPeople.Persistence.Interfaces.Contracts.Shared;
 using OnPeople.Persistence.Interfaces.Implementations.Users;
 using OnPeople.Persistence.Interfaces.Implementations.Empresas;
 using OnPeople.Persistence.Interfaces.Implementations.Shared;
+using OnPeople.Application.Services.Contracts.Departamentos;
+using OnPeople.Persistence.Interfaces.Contracts.Departamentos;
+using OnPeople.Application.Services.Implementations.Departamentos;
+using OnPeople.Persistence.Interfaces.Implementations.Departamentos;
+using System.Reflection;
 
 namespace OnPeople.API
 {
@@ -43,7 +48,8 @@ namespace OnPeople.API
 
             // Injeção Identity
             services
-                .AddIdentityCore<User>(options => {
+                .AddIdentityCore<User>(options =>
+                {
                     options.Password.RequireDigit = false;
                     options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequireLowercase = false;
@@ -56,26 +62,28 @@ namespace OnPeople.API
                 .AddRoleValidator<RoleValidator<Role>>()
                 .AddEntityFrameworkStores<OnPeopleContext>()
                 .AddDefaultTokenProviders();
-            
+
             //Injeção de autenticação
-            services    
+            services
                 .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options => {
-                    options.TokenValidationParameters = new TokenValidationParameters {
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Tokenkey"])),
                         ValidateIssuer = false,
                         ValidateAudience = false
                     };
                 });
-            
+
             //Injeção das controllers
             services
                 .AddControllers()
 
                 // Já leva os enum convertidos na query
                 .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()))
-                
+
                 // Eliminar loop infinito da estrutura
                 .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
@@ -86,13 +94,15 @@ namespace OnPeople.API
             services
                 .AddScoped<IEmpresasServices, EmpresasServices>()
                 .AddScoped<IUsersServices, UsersServices>()
-                .AddScoped<ITokenServices, TokenServices>();
+                .AddScoped<ITokenServices, TokenServices>()
+                .AddScoped<IDepartamentosServices, DepartamentosServices>();
 
             //Injeção das interfaces de Persistencias
             services
                 .AddScoped<ISharedPersistence, SharedPersistence>()
                 .AddScoped<IEmpresasPersistence, EmpresasPersistence>()
-                .AddScoped<IUsersPersistence, UsersPersistence>();
+                .AddScoped<IUsersPersistence, UsersPersistence>()
+                .AddScoped<IDepartamentosPersistence, DepartamentosPersistence>();
 
             //Injeção do Upload como serviço    
             services
@@ -104,9 +114,15 @@ namespace OnPeople.API
             services
                 .AddSwaggerGen(options =>
                 {
-                        options.SwaggerDoc("v1", new OpenApiInfo { Title = "OnPeople.API", Version = "v1" });
-                        options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme {
-                        Description = @"JWT Authorization header usando Beares. Entre com 'Bearer [espaço] em seguida coloque sei token.
+                    options.SwaggerDoc("v1", new OpenApiInfo { Title = "OnPeople.API", Version = "v1", Description = "API responsável por implementar as funcionalidades de backend do sistema OnPeople" });
+
+                    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                    options.IncludeXmlComments(xmlPath);
+
+                    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                    {
+                        Description = @"JWT Authorization header usando Beares. Entre com 'Bearer [espaço] em seguida coloque seu token.
                                         Exemplo: 'Bearer 12345abcdef'",
                         Name = "Authorization",
                         In = ParameterLocation.Header,
@@ -147,7 +163,7 @@ namespace OnPeople.API
 
             //Para autorizar, primeiramento temos que autenticar
             app.UseAuthentication();
-            
+
             app.UseAuthorization();
 
             //Injeção cors ...
@@ -157,7 +173,8 @@ namespace OnPeople.API
                                     .AllowAnyOrigin());
 
             //Injeção de diretivas para utilização de diretórios
-            app.UseStaticFiles(new StaticFileOptions() {
+            app.UseStaticFiles(new StaticFileOptions()
+            {
                 FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Resources")),
                 RequestPath = new PathString("/Resources")
             });
