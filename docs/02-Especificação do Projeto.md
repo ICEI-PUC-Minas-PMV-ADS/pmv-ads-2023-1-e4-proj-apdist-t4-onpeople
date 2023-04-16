@@ -76,10 +76,11 @@ Obs.: todas as informações para gerar os indicadores devem estar no diagrama d
 |RF-003| O sistema deverá permitir o gerenciamento de usuários (CRUD) | ALTA | 
 |RF-004| O sistema deverá permitir o gerenciamento de empresas (CRUD)   | ALTA |
 |RF-005| O sistema deverá permitir o gerenciamento de funcionários (CRUD) | ALTA | 
-|RF-006| O sistema deverá permitir o gerenciamento de departamentos   | ALTA |
-|RF-007| O sistema deverá permitir o gerenciamento de salários e atualizações do mesmo | ALTA | 
-|RF-008| O sistema deverá permitir o cadastro de novas metas   | ALTA |
-|RF-009| O sistema deverá permitir a associação de metas aos funcionários | ALTA | 
+|RF-006| O sistema deverá permitir o gerenciamento de departamentos (CRUD) | ALTA |
+|RF-007| O sistema deverá permitir o gerenciamento de cargos (CRUD) | ALTA | 
+|RF-008| O sistema deverá permitir o gerenciamento de salários e atualizações do mesmo | ALTA | 
+|RF-009| O sistema deverá permitir o cadastro de novas metas   | ALTA |
+|RF-010| O sistema deverá permitir a associação de metas aos funcionários | ALTA | 
 
 
 ### Requisitos Não Funcionais
