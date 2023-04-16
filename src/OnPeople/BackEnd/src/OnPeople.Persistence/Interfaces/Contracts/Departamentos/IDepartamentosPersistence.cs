@@ -7,5 +7,6 @@ namespace OnPeople.Persistence.Interfaces.Contracts.Departamentos
     {
         Task<IEnumerable<Departamento>> GetAllDepartamentosAsync();
         Task<Departamento> GetDepartamentoByIdAsync(int departamentoId);
+        Task<IEnumerable<Departamento>> GetDepartamentosByEmpresaIdAsync(int empresaId);
     }
 }

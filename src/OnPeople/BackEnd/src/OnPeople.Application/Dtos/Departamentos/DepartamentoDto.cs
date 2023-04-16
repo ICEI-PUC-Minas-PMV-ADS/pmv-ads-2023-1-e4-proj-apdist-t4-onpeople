@@ -1,6 +1,4 @@
-using OnPeople.Application.Dtos.Empresas;
 using OnPeople.Domain.Models.Cargos;
-using OnPeople.Integration.Models.Links;
 using System.ComponentModel.DataAnnotations;
 
 namespace OnPeople.Application.Dtos.Departamentos

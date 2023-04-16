@@ -1,5 +1,6 @@
 using System.Text;
 using System.Text.Json.Serialization;
+using System.Reflection;
 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -25,7 +26,10 @@ using OnPeople.Application.Services.Contracts.Departamentos;
 using OnPeople.Persistence.Interfaces.Contracts.Departamentos;
 using OnPeople.Application.Services.Implementations.Departamentos;
 using OnPeople.Persistence.Interfaces.Implementations.Departamentos;
-using System.Reflection;
+using OnPeople.Application.Services.Contracts.Cargos;
+using OnPeople.Application.Services.Implementations.Cargos;
+using OnPeople.Persistence.Interfaces.Contracts.Cargos;
+using OnPeople.Persistence.Interfaces.Implementations.Cargos;
 
 namespace OnPeople.API
 {
@@ -90,19 +94,21 @@ namespace OnPeople.API
             //InjeÇão do mapeamento automático de canpos (DTO)
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-            //InjeÇão dos serviços de persistencias
+            //Injeção dos serviços de persistencias
             services
                 .AddScoped<IEmpresasServices, EmpresasServices>()
                 .AddScoped<IUsersServices, UsersServices>()
                 .AddScoped<ITokenServices, TokenServices>()
-                .AddScoped<IDepartamentosServices, DepartamentosServices>();
+                .AddScoped<IDepartamentosServices, DepartamentosServices>()
+                .AddScoped<ICargosServices, CargosServices>();
 
             //Injeção das interfaces de Persistencias
             services
                 .AddScoped<ISharedPersistence, SharedPersistence>()
                 .AddScoped<IEmpresasPersistence, EmpresasPersistence>()
                 .AddScoped<IUsersPersistence, UsersPersistence>()
-                .AddScoped<IDepartamentosPersistence, DepartamentosPersistence>();
+                .AddScoped<IDepartamentosPersistence, DepartamentosPersistence>()
+                .AddScoped<ICargosPersistence, CargosPersistence>();
 
             //Injeção do Upload como serviço    
             services

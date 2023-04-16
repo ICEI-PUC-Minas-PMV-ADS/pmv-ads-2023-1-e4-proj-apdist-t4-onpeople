@@ -11,8 +11,8 @@ using OnPeople.Persistence.Interfaces.Contexts;
 namespace OnPeople.Persistence.Migrations
 {
     [DbContext(typeof(OnPeopleContext))]
-    [Migration("20230413012254_Initial-AddIdentity-1")]
-    partial class InitialAddIdentity1
+    [Migration("20230416212447_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -117,7 +117,7 @@ namespace OnPeople.Persistence.Migrations
                     b.Property<DateTime>("DataCriacao")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<DateTime>("DataEncerramento")
+                    b.Property<DateTime?>("DataEncerramento")
                         .HasColumnType("datetime(6)");
 
                     b.Property<int>("DepartamentoId")
@@ -751,32 +751,20 @@ namespace OnPeople.Persistence.Migrations
 
             modelBuilder.Entity("OnPeople.Domain.Models.Cargos.Cargo", b =>
                 {
-                    b.HasOne("OnPeople.Domain.Models.Departamentos.Departamento", "Departamentos")
+                    b.HasOne("OnPeople.Domain.Models.Departamentos.Departamento", null)
                         .WithMany("Cargos")
                         .HasForeignKey("DepartamentoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("OnPeople.Domain.Models.Empresas.Empresa", "Empresas")
-                        .WithMany()
-                        .HasForeignKey("EmpresaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Departamentos");
-
-                    b.Navigation("Empresas");
                 });
 
             modelBuilder.Entity("OnPeople.Domain.Models.Departamentos.Departamento", b =>
                 {
-                    b.HasOne("OnPeople.Domain.Models.Empresas.Empresa", "Empresas")
+                    b.HasOne("OnPeople.Domain.Models.Empresas.Empresa", null)
                         .WithMany("Departamentos")
                         .HasForeignKey("EmpresaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Empresas");
                 });
 
             modelBuilder.Entity("OnPeople.Domain.Models.Funcionarios.DadoPessoal", b =>

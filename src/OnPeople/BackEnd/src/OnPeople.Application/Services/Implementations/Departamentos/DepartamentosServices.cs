@@ -62,6 +62,24 @@ namespace OnPeople.Application.Services.Implementations.Departamentos
             }
         }
 
+        public async Task<PageList<DepartamentoDto>> GetDepartamentosByEmpresaIdAsync(int empresaId)
+        {
+            try
+            {
+                var departamentos = await _departamentosPersistence.GetDepartamentosByEmpresaIdAsync(empresaId);
+
+                if (departamentos == null) return null;
+
+                var departamentosMapper = _mapper.Map<PageList<DepartamentoDto>>(departamentos);
+
+                return departamentosMapper;
+            }
+
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
         public async Task<DepartamentoDto> CreateDepartamentos(DepartamentoDto departamentoDto)
         {
             try
@@ -90,9 +108,9 @@ namespace OnPeople.Application.Services.Implementations.Departamentos
             try
             {
                 var departamento = await _departamentosPersistence.GetDepartamentoByIdAsync(departamentoId);
-                
+
                 if (departamento == null) return null;
-                
+
                 var departamentoUpdate = _mapper.Map(departamentoDto, departamento);
 
                 _departamentosPersistence.Update<Departamento>(departamentoUpdate);

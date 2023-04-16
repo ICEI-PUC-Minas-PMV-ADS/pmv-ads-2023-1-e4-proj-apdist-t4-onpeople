@@ -6,10 +6,11 @@ namespace OnPeople.Application.Services.Contracts.Departamentos
 {
     public interface IDepartamentosServices
     {
-        Task<DepartamentoDto> CreateDepartamentos(DepartamentoDto departamentoDto);
         Task<PageList<DepartamentoDto>> GetAllDepartamentosAsync();
         Task<DepartamentoDto> GetDepartamentoByIdAsync(int departamentoId);
-        Task<DepartamentoDto> UpdateDepartamento(int departamentoId, DepartamentoDto DepartamentoDto);
+        Task<PageList<DepartamentoDto>> GetDepartamentosByEmpresaIdAsync(int empresaId);
+        Task<DepartamentoDto> CreateDepartamentos(DepartamentoDto departamentoDto);
+        Task<DepartamentoDto> UpdateDepartamento(int departamentoId, DepartamentoDto departamentoDto);
         Task<bool> DeleteDepartamento(int departamentoId);
     }
 }

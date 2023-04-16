@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using OnPeople.Application.Services.Contracts.Departamentos;
-using OnPeople.Domain.Models.Departamentos;
-using OnPeople.Application.Services.Contracts.Empresas;
 using OnPeople.Application.Dtos.Departamentos;
 
 namespace OnPeople.API.Controllers.Departamentos;
@@ -58,11 +56,11 @@ public class DepartamentosController : ControllerBase
     {
         try
         {
-            var departamentos = await _departamentosServices.GetDepartamentoByIdAsync(departamentoId);
+            var departamento = await _departamentosServices.GetDepartamentoByIdAsync(departamentoId);
 
-            if (departamentos == null) return NotFound("Departamento não encontrado.");
+            if (departamento == null) return NotFound("Departamento não encontrado.");
 
-            return Ok(departamentos);
+            return Ok(departamento);
         }
         catch (Exception e)
         {
@@ -71,7 +69,31 @@ public class DepartamentosController : ControllerBase
         }
     }
 
-  
+    /// <summary>
+    /// Obtém os dados de todos os departamentos cadastrados para uma determinada empresa
+    /// </summary>
+    /// <param name="empresaId">Identificador da empresa</param>
+    /// <response code="200">Dados dos departamentos cadastrados para a empresa</response>
+    /// <response code="400">Parâmetros incorretos</response>
+    /// <response code="500">Erro interno</response>
+    
+    [HttpGet("{empresaId}/empresa")]
+    public async Task<IActionResult> GetDepartamentosByEmpresaId(int empresaId)
+    {
+        try
+        {
+            var departamentos = await _departamentosServices.GetDepartamentosByEmpresaIdAsync(empresaId);
+
+            if (departamentos == null) return NotFound("A empresa informada não possui departamentos cadastrados.");
+
+            return Ok(departamentos);
+        }
+        catch (Exception e)
+        {
+
+            return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao recuperar os departamentos. Erro: {e.Message}");
+        }
+    }
 
     /// <summary>
     /// Realiza a inclusão de um novo departamento
@@ -135,13 +157,17 @@ public class DepartamentosController : ControllerBase
     {
         try
         {
+            var departamento = await _departamentosServices.GetDepartamentoByIdAsync(departamentoId);
+
+            if (departamento.Ativo) return BadRequest("Departamentos ativos não podem ser excluídos. Inative o departamento e tente novamente.");
+
             if (await _departamentosServices.DeleteDepartamento(departamentoId))
             {
                 return Ok();
             }
             else
             {
-                return BadRequest("Não foi possível excluir o departamento");
+                return BadRequest("Não foi possível excluir o departamento.");
             }
         }
         catch (Exception e)

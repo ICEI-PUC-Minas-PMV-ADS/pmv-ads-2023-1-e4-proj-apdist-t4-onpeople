@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace OnPeople.Persistence.Migrations
 {
-    public partial class Initial2 : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -367,7 +367,7 @@ namespace OnPeople.Persistence.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Ativo = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     DataCriacao = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    DataEncerramento = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    DataEncerramento = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     DepartamentoId = table.Column<int>(type: "int", nullable: false),
                     EmpresaId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -378,12 +378,6 @@ namespace OnPeople.Persistence.Migrations
                         name: "FK_Cargos_Departamentos_DepartamentoId",
                         column: x => x.DepartamentoId,
                         principalTable: "Departamentos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Cargos_Empresas_EmpresaId",
-                        column: x => x.EmpresaId,
-                        principalTable: "Empresas",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
