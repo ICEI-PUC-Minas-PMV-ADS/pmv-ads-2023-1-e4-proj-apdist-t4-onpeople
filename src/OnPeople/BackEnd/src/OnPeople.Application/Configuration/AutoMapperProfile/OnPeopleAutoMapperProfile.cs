@@ -18,6 +18,7 @@ namespace OnPeople.Application.Configuration.AutoMapperProfile
             CreateMap<User, UserDto>().ReverseMap();
             CreateMap<User, UserUpdateDto>().ReverseMap();
             CreateMap<User, UserVisaoDto>().ReverseMap();
+            CreateMap<User, UserRegisterDto>().ReverseMap();
 
             CreateMap<Departamento, DepartamentoDto>().ReverseMap();
             

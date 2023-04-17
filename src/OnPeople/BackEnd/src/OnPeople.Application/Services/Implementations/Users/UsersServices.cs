@@ -47,17 +47,17 @@ namespace OnPeople.Application.Services.Implementations.Users
             }
         }
         
-        public async Task<UserUpdateDto> CreateUsersAsync(UserDto userDto)
+        public async Task<UserUpdateDto> CreateUsersAsync(UserRegisterDto userRegisterDto)
         {
             try
             {
-                var user = _mapper.Map<User>(userDto);
+                var user = _mapper.Map<User>(userRegisterDto);
 
                 user.Master = (user.Visao.ToLower() == "master");
                 user.Gold = (user.Visao.ToLower() == "gold");
                 user.Bronze = (user.Visao.ToLower() != "master" && user.Visao.ToLower() != "gold");
 
-                var userCreated = await _userManager.CreateAsync(user, userDto.Password);
+                var userCreated = await _userManager.CreateAsync(user, userRegisterDto.Password);
 
                 if (userCreated.Succeeded) {
                     return _mapper.Map<UserUpdateDto>(user);

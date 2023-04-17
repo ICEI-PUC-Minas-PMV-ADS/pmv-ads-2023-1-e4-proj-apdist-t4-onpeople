@@ -258,7 +258,7 @@ public class EmpresasController : ControllerBase
     }      
     
 
-    [HttpGet("{cnpj}/external")]
+    [HttpGet("{cnpj}/receitafederal")]
     public async Task<IActionResult> GetPublicCNPJ(string cnpj)
     {
         try
@@ -268,57 +268,11 @@ public class EmpresasController : ControllerBase
             if (claimUser == null) 
                 return Unauthorized();
                     
-            var url = $"https://publica.cnpj.ws/cnpj/{cnpj}";
+            var empresaDto = await _empresasServices.GetCnpjReceitaFederalAsync(cnpj);   
 
-            Console.WriteLine(url);
-            HttpClient request = new();
-
-            request.BaseAddress = new Uri(url);
-            request.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("consultar-cnpj/json"));
-
-            System.Net.Http.HttpResponseMessage response = request.GetAsync(url).Result;
-
-            EmpresaCnpjDto empresaCnpjDto = new EmpresaCnpjDto();
-
-            empresaCnpjDto = response.Content.ReadFromJsonAsync<EmpresaCnpjDto>().Result;
-    
-            if (response.IsSuccessStatusCode) {
-                var empresaDto = new EmpresaDto();
-
-                empresaDto.Cnpj = empresaCnpjDto.estabelecimento.cnpj;
-                empresaDto.RazaoSocial = empresaCnpjDto.razao_social;
-                empresaDto.PorteEmpresa = empresaCnpjDto.porte.descricao;
-                empresaDto.NaturezaJuridica = empresaCnpjDto.natureza_juridica.descricao;
-                empresaDto.OptanteSimples = empresaCnpjDto.simples;
-                empresaDto.Filial = empresaCnpjDto.estabelecimento.tipo == "Matriz" ? false : true;
-                empresaDto.NomeFantasia = empresaCnpjDto.estabelecimento.nome_fantasia;
-                empresaDto.Ativa = empresaCnpjDto.estabelecimento.situacao_cadastral == "Ativa" ? true : false;
-                empresaDto.DataCadastro = empresaCnpjDto.estabelecimento.data_inicio_atividade;
-                empresaDto.TipoLogradouro = empresaCnpjDto.estabelecimento.tipo_logradouro;
-                empresaDto.Logradouro = empresaCnpjDto.estabelecimento.logradouro;
-                empresaDto.Numero = empresaCnpjDto.estabelecimento.numero;
-                empresaDto.Complemento = empresaCnpjDto.estabelecimento.complemento;
-                empresaDto.Bairro = empresaCnpjDto.estabelecimento.bairro;
-                empresaDto.CEP = empresaCnpjDto.estabelecimento.cep;
-                empresaDto.DDD = empresaCnpjDto.estabelecimento.ddd1;
-                empresaDto.Telefone = empresaCnpjDto.estabelecimento.tekefine1;
-                empresaDto.Email = empresaCnpjDto.estabelecimento.email;
-                empresaDto.AtividadePrincipal = empresaCnpjDto.estabelecimento.atividade_principal.descricao;
-                empresaDto.PaisId = empresaCnpjDto.estabelecimento.pais.id;
-                empresaDto.SiglaPaisIso2 = empresaCnpjDto.estabelecimento.pais.iso2;
-                empresaDto.SiglaPaisIso3 = empresaCnpjDto.estabelecimento.pais.iso3;
-                empresaDto.NomePais = empresaCnpjDto.estabelecimento.pais.nome;
-                empresaDto.EstadoId = empresaCnpjDto.estabelecimento.estado.id;
-                empresaDto.Estado = empresaCnpjDto.estabelecimento.estado.nome;
-                empresaDto.SiglaEstado = empresaCnpjDto.estabelecimento.estado.sigla;
-                empresaDto.EstadoIbgeId = empresaCnpjDto.estabelecimento.estado.igbe_id;
-                empresaDto.CidadeId = empresaCnpjDto.estabelecimento.cidade.id;
-                empresaDto.Cidade = empresaCnpjDto.estabelecimento.cidade.nome;
-                empresaDto.CidadeIbgeId = empresaCnpjDto.estabelecimento.cidade.ibge_id;
-                empresaDto.CidadeSiafiId = empresaCnpjDto.estabelecimento.cidade.siafi_id;
-              
+            if (empresaDto != null)
                 return Ok(empresaDto);
-            }
+            
             return BadRequest("CNPJ Inválido");
         }
         catch (Exception e)

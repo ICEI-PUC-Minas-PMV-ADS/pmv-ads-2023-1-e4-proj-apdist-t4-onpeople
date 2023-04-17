@@ -17,6 +17,7 @@ namespace OnPeople.Application.Services.Contracts.Empresas
         Task<EmpresaDto> GetEmpresaMatrizAsync();
         Task<AtualizarEmpresaAtivaDto> SetEmpresa(int empresaId, AtualizarEmpresaAtivaDto atualizarEmpresaAtivaDto);
         DashboardEmpresa GetDashboard(int empresaId, Boolean master);  
-        Task<EmpresaDto> GetEmpresaByCnpjAsync(string cnpj, Boolean master);      
+        Task<EmpresaDto> GetEmpresaByCnpjAsync(string cnpj, Boolean master);   
+        Task<EmpresaDto> GetCnpjReceitaFederalAsync(string cnpj);     
     }
 }

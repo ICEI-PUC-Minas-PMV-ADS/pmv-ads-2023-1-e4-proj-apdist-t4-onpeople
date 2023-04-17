@@ -1,3 +1,5 @@
+using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using AutoMapper;
 using OnPeople.Application.Dtos.Empresas;
 using OnPeople.Application.Services.Contracts.Empresas;
@@ -13,6 +15,7 @@ namespace OnPeople.Application.Services.Implementations.Empresas
     {
         private readonly IEmpresasPersistence _empresasPersistence;
         private readonly IMapper _mapper;
+
         public EmpresasServices(
             IEmpresasPersistence empresasPersistence,
             IMapper mapper)
@@ -254,5 +257,67 @@ namespace OnPeople.Application.Services.Implementations.Empresas
             }
         }
         
-    }
+        public async  Task<EmpresaDto> GetCnpjReceitaFederalAsync(string cnpj) 
+        {
+            try
+                {
+                var url = "https://publica.cnpj.ws/cnpj/" + cnpj;
+
+                Console.WriteLine(url);
+                HttpClient request = new();
+
+                request.BaseAddress = new Uri(url);
+                request.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("consultar-cnpj/json"));
+
+                HttpResponseMessage response = request.GetAsync(url).Result;
+
+                EmpresaCnpjDto empresaCnpjDto = new EmpresaCnpjDto();
+
+                empresaCnpjDto = (await response.Content.ReadFromJsonAsync<EmpresaCnpjDto>());
+
+                if (!response.IsSuccessStatusCode)
+                    return null;
+
+                var empresaDto = new EmpresaDto();
+
+                empresaDto.Cnpj = empresaCnpjDto.estabelecimento.cnpj;
+                empresaDto.RazaoSocial = empresaCnpjDto.razao_social;
+                empresaDto.PorteEmpresa = empresaCnpjDto.porte.descricao;
+                empresaDto.NaturezaJuridica = empresaCnpjDto.natureza_juridica.descricao;
+                empresaDto.OptanteSimples = empresaCnpjDto.simples;
+                empresaDto.Filial = empresaCnpjDto.estabelecimento.tipo == "Matriz" ? false : true;
+                empresaDto.NomeFantasia = empresaCnpjDto.estabelecimento.nome_fantasia;
+                empresaDto.Ativa = empresaCnpjDto.estabelecimento.situacao_cadastral == "Ativa" ? true : false;
+                empresaDto.DataCadastro = empresaCnpjDto.estabelecimento.data_inicio_atividade;
+                empresaDto.TipoLogradouro = empresaCnpjDto.estabelecimento.tipo_logradouro;
+                empresaDto.Logradouro = empresaCnpjDto.estabelecimento.logradouro;
+                empresaDto.Numero = empresaCnpjDto.estabelecimento.numero;
+                empresaDto.Complemento = empresaCnpjDto.estabelecimento.complemento;
+                empresaDto.Bairro = empresaCnpjDto.estabelecimento.bairro;
+                empresaDto.CEP = empresaCnpjDto.estabelecimento.cep;
+                empresaDto.DDD = empresaCnpjDto.estabelecimento.ddd1;
+                empresaDto.Telefone = empresaCnpjDto.estabelecimento.tekefine1;
+                empresaDto.Email = empresaCnpjDto.estabelecimento.email;
+                empresaDto.AtividadePrincipal = empresaCnpjDto.estabelecimento.atividade_principal.descricao;
+                empresaDto.PaisId = empresaCnpjDto.estabelecimento.pais.id;
+                empresaDto.SiglaPaisIso2 = empresaCnpjDto.estabelecimento.pais.iso2;
+                empresaDto.SiglaPaisIso3 = empresaCnpjDto.estabelecimento.pais.iso3;
+                empresaDto.NomePais = empresaCnpjDto.estabelecimento.pais.nome;
+                empresaDto.EstadoId = empresaCnpjDto.estabelecimento.estado.id;
+                empresaDto.Estado = empresaCnpjDto.estabelecimento.estado.nome;
+                empresaDto.SiglaEstado = empresaCnpjDto.estabelecimento.estado.sigla;
+                empresaDto.EstadoIbgeId = empresaCnpjDto.estabelecimento.estado.igbe_id;
+                empresaDto.CidadeId = empresaCnpjDto.estabelecimento.cidade.id;
+                empresaDto.Cidade = empresaCnpjDto.estabelecimento.cidade.nome;
+                empresaDto.CidadeIbgeId = empresaCnpjDto.estabelecimento.cidade.ibge_id;
+                empresaDto.CidadeSiafiId = empresaCnpjDto.estabelecimento.cidade.siafi_id;
+
+                return empresaDto;
+            }
+            catch (Exception e)
+            { 
+                throw new Exception(e.Message);
+            }
+        }
+    }   
 }

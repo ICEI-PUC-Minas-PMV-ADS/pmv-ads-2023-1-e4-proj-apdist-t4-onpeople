@@ -10,7 +10,6 @@ namespace OnPeople.Application.Dtos.Users
         public string PhoneNumber { get; set; }
         public string Visao { get; set; }
         public string Foto { get; set; }
-        public string Password { get; set; }
         public DateTime DataCadastro { get; set; }
         public DateTime? DataEncerramento { get; set; }
         public Boolean Master { get; set; }

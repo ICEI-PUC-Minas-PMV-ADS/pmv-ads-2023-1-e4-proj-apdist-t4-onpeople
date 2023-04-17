@@ -29,15 +29,15 @@ public class UsersController : ControllerBase
 
     [HttpPost("CreateAccount")]
     [AllowAnonymous]
-    public async Task<IActionResult> CreateAccount(UserDto userDto)
+    public async Task<IActionResult> CreateAccount(UserRegisterDto userRegisterDto)
     {
         try
         {        
-            if (await _usersServices.VerifyUserExistsAsync(userDto.UserName)) {
+            if (await _usersServices.VerifyUserExistsAsync(userRegisterDto.UserName)) {
                return BadRequest("Conta já cadastrada!");
             }
 
-            var user = await _usersServices.CreateUsersAsync(userDto);
+            var user = await _usersServices.CreateUsersAsync(userRegisterDto);
 
             var nomeEmpresa = "";
          

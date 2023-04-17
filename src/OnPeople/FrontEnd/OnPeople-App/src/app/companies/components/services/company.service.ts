@@ -77,7 +77,7 @@ export class CompanyService {
   }
 
   public getCompanyByCnpjExternal(cnpj: string): Observable<Empresa> {
-    return this.http.get<Empresa>(`${this.baseURL}${cnpj}/receitafederal`)
+    return this.http.get<Empresa>(`${this.baseURL}${cnpj}/external`)
     .pipe(take(3));
   }
 
