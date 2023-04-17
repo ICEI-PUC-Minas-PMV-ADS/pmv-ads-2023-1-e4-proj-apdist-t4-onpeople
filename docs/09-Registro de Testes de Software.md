@@ -38,6 +38,14 @@ Resposta da requisição:
 </p>
 </br>
 
+Departamento inserido no banco de dados:
+
+</br>
+<p align="center">
+<img src=https://raw.githubusercontent.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e4-proj-apdist-t4-onpeople/main/docs/img/Evidencias/ControllerDepartamentos/CT01.4.png>
+</p>
+</br>
+
 **CT02: POST api/Departamentos - Realizando a requisição sem informar os dados obrigatórios**
 
 **Status do caso de teste:** Aprovado
