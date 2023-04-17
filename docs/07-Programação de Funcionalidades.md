@@ -6,7 +6,7 @@ Endpoints implementados na controller Departamentos para atender o requisito esp
 
 </br>
 <p align="center">
-<img src=https://raw.githubusercontent.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e4-proj-apdist-t4-onpeople/main/docs/img/ControllerDepartamentos.png>
+<img src=https://raw.githubusercontent.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e4-proj-apdist-t4-onpeople/main/docs/img/ControllerDepartamentosSwagger.png>
 </p>
 
 
