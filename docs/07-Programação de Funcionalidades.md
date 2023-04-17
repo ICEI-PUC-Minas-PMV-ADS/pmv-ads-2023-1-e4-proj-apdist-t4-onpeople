@@ -1,15 +1,59 @@
 # Programação de Funcionalidades
 
-<span style="color:red">Pré-requisitos: <a href="2-Especificação do Projeto.md"> Especificação do Projeto</a></span>, <a href="3-Projeto de Interface.md"> Projeto de Interface</a>, <a href="4-Metodologia.md"> Metodologia</a>, <a href="3-Projeto de Interface.md"> Projeto de Interface</a>, <a href="5-Arquitetura da Solução.md"> Arquitetura da Solução</a>
+## RF-006: O sistema deverá permitir o gerenciamento de departamentos (CRUD)
 
-Implementação do sistema descritas por meio dos requisitos funcionais e/ou não funcionais. Deve relacionar os requisitos atendidos os artefatos criados (código fonte) além das estruturas de dados utilizadas e as instruções para acesso e verificação da implementação que deve estar funcional no ambiente de hospedagem.
+Endpoints implementados na controller Departamentos para atender o requisito especificado:
 
-Para cada requisito funcional, pode ser entregue um artefato desse tipo
+</br>
+<p align="center">
+<img src=https://raw.githubusercontent.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e4-proj-apdist-t4-onpeople/main/docs/img/ControllerDepartamentos.png>
+</p>
 
-> **Links Úteis**:
->
-> - [Trabalhando com HTML5 Local Storage e JSON](https://www.devmedia.com.br/trabalhando-com-html5-local-storage-e-json/29045)
-> - [JSON Tutorial](https://www.w3resource.com/JSON)
-> - [JSON Data Set Sample](https://opensource.adobe.com/Spry/samples/data_region/JSONDataSetSample.html)
-> - [JSON - Introduction (W3Schools)](https://www.w3schools.com/js/js_json_intro.asp)
-> - [JSON Tutorial (TutorialsPoint)](https://www.tutorialspoint.com/json/index.htm)
+
+## Artefatos gerados
+
+### Camada OnPeople.API
+
+* src\OnPeople\BackEnd\src\OnPeople.API\Controllers\Departamentos\DepartamentosController.cs
+
+</br>
+<p align="center">
+<img src=https://raw.githubusercontent.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e4-proj-apdist-t4-onpeople/main/docs/img/OnPeopleAPI_Departamentos.png>
+</p>
+</br>
+
+### Camada OnPeople.Application
+
+* src\OnPeople\BackEnd\src\OnPeople.Application\Dtos\Departamentos\DepartamentoDto.cs
+* src\OnPeople\BackEnd\src\OnPeople.Application\Services\Contracts\Departamentos\IDepartamentosServices.cs
+* src\OnPeople\BackEnd\src\OnPeople.Application\Services\Implementations\Departamentos\DepartamentosServices.cs
+
+</br>
+<p align="center">
+<img src=https://raw.githubusercontent.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e4-proj-apdist-t4-onpeople/main/docs/img/OnPeopleApplication_Departamentos.png>
+</p>
+</br>
+
+### Camada OnPeople.Domain
+
+* src\OnPeople\BackEnd\src\OnPeople.Domain\Models\Departamentos\Departamento.cs
+
+</br>
+<p align="center">
+<img src=https://raw.githubusercontent.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e4-proj-apdist-t4-onpeople/main/docs/img/OnPeopleDomain_Departamentos.png>
+</p>
+</br>
+
+### Camada OnPeople.Persistence
+
+* src\OnPeople\BackEnd\src\OnPeople.Persistence\Interfaces\Contexts\OnPeopleContext.cs
+* src\OnPeople\BackEnd\src\OnPeople.Persistence\Interfaces\Contracts\Departamentos\IDepartamentosPersistence.cs
+* src\OnPeople\BackEnd\src\OnPeople.Persistence\Interfaces\Contracts\Shared\ISharedPersistence.cs
+* src\OnPeople\BackEnd\src\OnPeople.Persistence\Interfaces\Implementations\Departamentos\DepartamentosPersistence.cs
+* src\OnPeople\BackEnd\src\OnPeople.Persistence\Interfaces\Implementations\Shared\SharedPersistence.cs
+
+</br>
+<p align="center">
+<img src=https://raw.githubusercontent.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e4-proj-apdist-t4-onpeople/main/docs/img/OnPeoplePersistence_Departamentos.png>
+</p>
+</br>
