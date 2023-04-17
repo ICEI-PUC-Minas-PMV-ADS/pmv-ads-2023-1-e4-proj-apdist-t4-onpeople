@@ -7,7 +7,7 @@
 **Given** que as propriedades nomeDepartamento e empresaId sejam informados no request body <br/>
 **When** a rota api/Departamentos for executada <br/>
 **Then** o status code 200 deve ser retornado <br/>
-**And** o response body deve conter os dados do departamento cadastrado conforme as informações enviadas na requisição
+**And** o response body deve conter os dados do departamento cadastrado conforme as informações enviadas na requisição <br/>
 **And** o departamento cadastrado deve ser inserido no banco de dados
 
 **CT02: POST api/Departamentos - Realizando a requisição sem informar os dados obrigatórios**
