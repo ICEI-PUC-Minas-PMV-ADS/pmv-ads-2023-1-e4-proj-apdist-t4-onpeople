@@ -1,0 +1,80 @@
+<app-titulo [titulo]="'Metas'"></app-titulo>
+
+<div class="card rounded shadow-sm p-3">
+
+  <div class="d-flex">
+    <div class="flex-fill pr-3">
+      <div class="input-group mb-2">
+        <div class="input-group-prepend">
+          <div class="input-group-text">Filtro: </div>
+        </div>
+        <input
+        type="text"
+        class="form-control"
+        placeholder="Filtrar por Nome e Tipo"
+        [(ngModel)]="filtroLista"
+        >
+      </div>
+    </div>
+    <div>
+      <a class="d-flex btn btn-outline-primary" routerLink="/metas/detalhe">
+        <i class="fa fa-plus-circle my-1"></i>
+        <b class="ml-1 d-none d-sm-block">Novo</b>
+      </a>
+    </div>
+    </div>
+<!-- <h3>Filtro: {{filtroLista}}</h3> -->
+<table class="table table-striped">
+  <thead class="thead-dark">
+    <tr>
+      <th>#</th>
+      <th>Tipo</th>
+      <th>Nome</th>
+      <th>Data de Inicio</th>
+      <th>Data do Término</th>
+      <th>Descrição</th>
+      <th>Cumprida</th>
+      <th>Editar/Excluir</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="metas && metas.length">
+    <tr *ngFor="let meta of metasFiltradas">
+      <td>{{meta.id}}</td>
+      <td>{{meta.tipoMeta}}</td>
+      <td>{{meta.nomeMeta}}</td>
+      <td>{{meta.inicioOficial | DateFormatPipe}}</td>
+      <td>{{meta.fimOficial | DateFormatPipe}}</td>
+      <td>{{meta.descricao}}</td>
+      <td>{{meta.metaCumprida}}</td>
+      <td>
+        <button type="button" class="btn btn-primary btn-sm mr-2" tooltip="Editar" (click)="detalheMeta(meta.id)">
+          <i class="fa fa-edit"></i>
+        </button>
+        <button type="button" class="btn btn-danger btn-sm" tooltip="Excluir" (click)="openModal(template)">
+          <i class="fa fa-trash"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+  <tfoot *ngIf="!metas.length">
+    <tr>
+      <td colspan="8" class="text-center">
+        <h4>Nenhum evento encontrado!</h4>
+      </td>
+    </tr>
+  </tfoot>
+</table>
+
+<!-- {{eventos | json}} -->
+
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Tem certeza que quer deletar esta Meta?</p>
+    <button type="button" class="btn btn-default" (click)="confirm()">Sim</button>
+    <button type="button" class="btn btn-primary" (click)="decline()">Não</button>
+  </div>
+</ng-template>
+
+</div>
+
+<router-outlet></router-outlet>

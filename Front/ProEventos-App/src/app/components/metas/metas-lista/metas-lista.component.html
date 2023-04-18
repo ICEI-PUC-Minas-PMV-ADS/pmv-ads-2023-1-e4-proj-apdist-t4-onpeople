@@ -1,0 +1,62 @@
+<div class="form-inline">
+  <div class="form-group mb-2">
+    <label class="mr-2">Filtro: </label>
+    <input
+    type="text"
+    class="form-control mr-2"
+    placeholder="buscar"
+    [(ngModel)]="filtroLista"
+    >
+  </div>
+</div>
+<!-- <h3>Filtro: {{filtroLista}}</h3> -->
+<table class="table table-striped">
+  <thead class="thead-dark">
+    <tr>
+      <th>#</th>
+      <th>Tipo</th>
+      <th>Nome</th>
+      <th>Data de Inicio</th>
+      <th>Data do Término</th>
+      <th>Descrição</th>
+      <th>Cumprida</th>
+      <th>Editar/Excluir</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="metas && metas.length">
+    <tr *ngFor="let meta of metasFiltradas">
+      <td>{{meta.id}}</td>
+      <td>{{meta.tipoMeta}}</td>
+      <td>{{meta.nomeMeta}}</td>
+      <td>{{meta.inicioOficial | DateFormatPipe}}</td>
+      <td>{{meta.fimOficial | DateFormatPipe}}</td>
+      <td>{{meta.descricao}}</td>
+      <td>{{meta.metaCumprida}}</td>
+      <td>
+        <button type="button" class="btn btn-primary btn-sm mr-2" tooltip="Editar">
+          <i class="fa fa-edit"></i>
+        </button>
+        <button type="button" class="btn btn-danger btn-sm" tooltip="Excluir" (click)="openModal(template)">
+          <i class="fa fa-trash"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+  <tfoot *ngIf="!metas.length">
+    <tr>
+      <td colspan="8" class="text-center">
+        <h4>Nenhum evento encontrado!</h4>
+      </td>
+    </tr>
+  </tfoot>
+</table>
+
+<!-- {{eventos | json}} -->
+
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Tem certeza que quer deletar esta Meta?</p>
+    <button type="button" class="btn btn-default" (click)="confirm()">Sim</button>
+    <button type="button" class="btn btn-primary" (click)="decline()">Não</button>
+  </div>
+</ng-template>
