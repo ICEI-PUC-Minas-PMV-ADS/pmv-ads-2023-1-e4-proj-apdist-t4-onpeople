@@ -61,9 +61,9 @@ Para organização e distribuição das tarefas do projeto, a equipe está utili
 
 Backlog: recebe as tarefas a serem trabalhadas e representa o Product Backlog. Todas as atividades identificadas no decorrer do projeto também devem ser incorporadas a esta lista;</br>
 To Do: Esta lista representa o Sprint Backlog. Este é o Sprint atual que estamos trabalhando;</br>
-In Progress: representa as tarefas que estão em execução naquele momento; e </br>
-Done: nesta lista são colocadas as tarefas que passaram pelos testes e controle de qualidade e estão prontos para ser entregues ao usuário. Não há mais edições ou revisões necessárias, ele está agendado e pronto para a ação. </br>
-Foi escolhido o quadro de kanban para o gerenciamento do projeto, com o sistema kanban é possível avaliar o progresso do trabalho da equipe, avaliar etapas posteriores, medir o tempo gasto em tarefas especificas e também promover a cooperação entre a equipe, tudo isso utilizando um sistema simples e visual. (AGUIAR, 2007). O quadro kanban do grupo no Github está disponível através da URL Doação (github.com) e é apresentado, no estado atual:
+In Progress: representa as tarefas que estão em execução naquele momento; </br>
+Done: nesta lista são colocadas as tarefas que passaram pelos testes e controle de qualidade e estão prontos para ser entregues ao usuário. Não há mais edições ou revisões necessárias, ele está agendado e pronto para a ação. </br></br>
+Foi escolhido o quadro de kanban para o gerenciamento do projeto, com o sistema kanban é possível avaliar o progresso do trabalho da equipe, avaliar etapas posteriores, medir o tempo gasto em tarefas especificas e também promover a cooperação entre a equipe, tudo isso utilizando um sistema simples e visual. (AGUIAR, 2007). </br></br> O quadro kanban do grupo no Github está disponível através da URL Doação (github.com) e é apresentado, no estado atual:
 No processo está sendo ultilizado o método Kamban e também Criado um Backlog no Github.
 
 <img src="./img/kanban-img.png">
