@@ -112,11 +112,11 @@ namespace OnPeople.Persistence.Migrations
                     b.Property<bool>("Ativo")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<DateTime>("DataCriacao")
-                        .HasColumnType("datetime(6)");
+                    b.Property<string>("DataCriacao")
+                        .HasColumnType("longtext");
 
-                    b.Property<DateTime?>("DataEncerramento")
-                        .HasColumnType("datetime(6)");
+                    b.Property<string>("DataEncerramento")
+                        .HasColumnType("longtext");
 
                     b.Property<int>("DepartamentoId")
                         .HasColumnType("int");
