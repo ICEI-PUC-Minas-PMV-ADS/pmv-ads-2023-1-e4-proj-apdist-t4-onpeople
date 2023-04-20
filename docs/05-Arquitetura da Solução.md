@@ -1,12 +1,21 @@
 # Arquitetura da Solução
 
-A arquitetura da solução será baseada no estilo arquitetural de microserviços. Este estilo arquitetural coloca prioridade no desacoplamento entre serviços através da definição de domínios de aplicação que são independentes de outros, em termos de código fonte e esquemas de banco de dados. Este estilo baseia-se no conceito de contexto limitado, onde em cada contexto são acoplados código e esquemas de forma coesa, mas sem acoplamento com contextos externos. Desta forma, os serviços são menos complexos que em outros estilos arquiteturais.
+A arquitetura da solução foi baseada no estilo arquitetural de microserviços. Este estilo arquitetural coloca prioridade no desacoplamento entre serviços através da definição de domínios de aplicação que são independentes de outros, em termos de código fonte e esquemas de banco de dados. Este estilo baseia-se no conceito de contexto limitado, onde em cada contexto são acoplados código e esquemas de forma coesa, mas sem acoplamento com contextos externos. Desta forma, os serviços são menos complexos que em outros estilos arquiteturais.
 
 </br>
 <p align="center">
-<img src=https://raw.githubusercontent.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e4-proj-apdist-t4-onpeople/main/docs/img/Arquitetura%20distribu%C3%ADda.png>
+<img src=https://raw.githubusercontent.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e4-proj-apdist-t4-onpeople/main/docs/img/Arquitetura%20distribu%C3%ADda%20v2.png>
 </p>
-<p align="center"> Arquitetura da solução </p>
+</br>
+
+# Projeto da arquitetura baseada em API
+
+O projeto da arquitetura baseada em API foi implementado utilizando as camadas OnPeople.Integration, OnPeople.API, OnPeople.Application, OnPeople.Persistence e OnPeople.Domain que se comunicam conforme a ilustração a seguir. A estruturação do projeto permite uma boa encapsulação provida pelo uso de interfaces, o que proporciona o reuso de camadas. Além disso, facilita a padronização das implementações e garante que as dependências sejam mantidades de forma local, quando não há alteração nas interfaces.
+
+</br>
+<p align="center">
+<img src=https://raw.githubusercontent.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e4-proj-apdist-t4-onpeople/main/docs/img/Projeto%20da%20arquitetura%20baseada%20em%20API.png>
+</p>
 </br>
 
 ## Diagrama de Classes
@@ -18,7 +27,6 @@ O diagrama de classes ilustra graficamente como será a estrutura do software, e
 <p align="center">
 <img src=https://raw.githubusercontent.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e4-proj-apdist-t4-onpeople/main/docs/img/Diagrama%20de%20Classes%20-%20OnPeople.png>
 </p>
-<p align="center"> Diagrama de Classes </p>
 </br>
 
 ## Modelo ER
@@ -29,7 +37,6 @@ O Modelo ER representa, através de um diagrama, como as entidades (coisas, obje
 <p align="center">
 <img src=https://raw.githubusercontent.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e4-proj-apdist-t4-onpeople/main/docs/img/EntityRelationshipDiagram.png>
 </p>
-<p align="center"> Diagrama Entidade-Relacionamento </p>
 </br>
 
 ## Modelo Físico
@@ -40,7 +47,7 @@ Entregar um arquivo banco.sql contendo os scripts de criação das tabelas do ba
 
 * **Tecnologias front-end:** HTML, CSS, JavaScript, Angular e Bootstrap
 * **Tecnologias back-end:** C# e SQL
-* **Sistema Gerenciador de Banco de Dados:** SQLServer
+* **Sistema Gerenciador de Banco de Dados:** MySQL
 * **Editor de código:** Visual Studio Code
 
 ## Hospedagem
