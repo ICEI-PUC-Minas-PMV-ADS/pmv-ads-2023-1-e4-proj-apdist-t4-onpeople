@@ -14,9 +14,9 @@ Os artefatos do projeto são desenvolvidos a partir de diversas plataformas e a 
 Ambiente|Plataforma|Link de Acesso
 |:--------|:----------:|:--------------:|
 |Repositório|GitHub|  [GitHub](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e4-proj-apdist-t4-onpeople)|
-|Documentos do projeto|GitHubDocs|Projeto Grow Human Resources|[GitHub]()|
+|Documentos do projeto|GitHubDocs|Projeto On People|[GitHub]()|
 |Projeto de Interface e  Wireframes|Figma|Figma |[Figma]() | Ferramenta de colaboração e design de UI/UX rápida e avançada)|
-|Gerenciamento do Projeto|Github|Gow Human Resources (github.com)|
+|Gerenciamento do Projeto|Github|Grow Human Resources (github.com)|
 
 ## Controle de Versão
 
@@ -48,10 +48,16 @@ etiquetas:
 
 ### Divisão de Papéis:
 
-Scrum Master: Pedro Alves de Oliveira 
-Product Owner: Pedro Alves de Oliveira
+- Scrum Master: Pedro Alves de Oliveira </br>
+- Product Owner: Pedro Alves de Oliveira
 
-Equipe de Desenvolvimento: Alex de Souza Galdino, Ciro Hideki Artiga Watanabe, Isabella Carolina de Almeida Siqueira Damião, Pedro Luiz Braga Andrade Leite, Rafaela Cristina Souza de Oliveira, Vitória Gabriella Maffei Corrêa Rocha.
+#### Equipe de Desenvolvimento: 
+ - Alex de Souza Galdino
+ - Ciro Hideki Artiga Watanabe
+ - Isabella Carolina de Almeida Siqueira Damião 
+ - Pedro Luiz Braga Andrade Leite
+ - Rafaela Cristina Souza de Oliveira
+ - Vitória Gabriella Maffei Corrêa Rocha.
 
 
 
@@ -59,12 +65,19 @@ Equipe de Desenvolvimento: Alex de Souza Galdino, Ciro Hideki Artiga Watanabe, I
 
 Para organização e distribuição das tarefas do projeto, a equipe está utilizando a ferramenta de gestão do Github estruturado da seguinte forma:
 
-Backlog: recebe as tarefas a serem trabalhadas e representa o Product Backlog. Todas as atividades identificadas no decorrer do projeto também devem ser incorporadas a esta lista;
-To Do: Esta lista representa o Sprint Backlog. Este é o Sprint atual que estamos trabalhando;
-In Progress: representa as tarefas que estão em execução naquele momento; e
-Done: nesta lista são colocadas as tarefas que passaram pelos testes e controle de qualidade e estão prontos para ser entregues ao usuário. Não há mais edições ou revisões necessárias, ele está agendado e pronto para a ação.
-Foi escolhido o quadro de kanban para o gerenciamento do projeto, com o sistema kanban é possível avaliar o progresso do trabalho da equipe, avaliar etapas posteriores, medir o tempo gasto em tarefas especificas e também promover a cooperação entre a equipe, tudo isso utilizando um sistema simples e visual. (AGUIAR, 2007). O quadro kanban do grupo no Github está disponível através da URL Doação (github.com) e é apresentado, no estado atual:
-No processo está sendo ultilizado o método Kamban e também Criado um Backlog no Github.
+`Backlog:` recebe as tarefas a serem trabalhadas e representa o Product Backlog. Todas as atividades identificadas no decorrer do projeto também devem ser incorporadas a esta lista;
+</br></br>
+`To Do:` Esta lista representa o Sprint Backlog. Este é o Sprint atual que estamos trabalhando;
+</br></br>
+`In Progress:` representa as tarefas que estão em execução naquele momento;
+</br></br>
+`Done:` nesta lista são colocadas as tarefas que passaram pelos testes e controle de qualidade e estão prontos para ser entregues ao usuário. Não há mais edições ou revisões necessárias, ele está agendado e pronto para a ação. 
+</br></br>
+
+Foi escolhido o quadro de Kanban para o gerenciamento do projeto. Com o sistema Kanban é possível avaliar o progresso do trabalho da equipe, avaliar etapas posteriores, medir o tempo gasto em tarefas específicas e também promover a cooperação entre a equipe, tudo isso utilizando um sistema simples e visual. (AGUIAR, 2007). </br></br>
+
+A URL do quadro Kanban do grupo no GitHub está disponível em (github.com). </br>
+Atualmente, o processo emprega o método Kanban e foi criado um backlog no Github.
 
 <img src="./img/kanban-img.png">
  
@@ -72,13 +85,9 @@ No processo está sendo ultilizado o método Kamban e também Criado um Backlog 
 
 As ferramentas empregadas no projeto são:
 
-- Editor de código - Visual Code.
+- Editor de código - Visual Studio Code.
 - Ferramentas de comunicação - WhatsApp, Microsoft Teams.
 - Ferramentas de desenho de tela - Dra.wio, Figma.
 
-O editor de código foi escolhido porque ele possui uma integração com o
-sistema de versão. As ferramentas de comunicação utilizadas possuem
-integração semelhante e por isso foram selecionadas. Por fim, para criar
-diagramas utilizamos essa ferramenta por melhor captar as
-necessidades da nossa solução.
+Selecionamos o editor de código devido à sua integração com o sistema de versão, escolhemos ferramentas de comunicação com integração semelhante e utilizamos essa ferramenta para criar diagramas, pois ela melhor atendeu às necessidades da nossa solução.
 
