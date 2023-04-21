@@ -134,7 +134,7 @@ public class DepartamentosController : ControllerBase
         {
             var departamento = await _departamentosServices.UpdateDepartamento(departamentoId, departamentoDto);
 
-            if (departamento == null) return BadRequest("Não foi possível atualizar os dados do departamento.");
+            if (departamento == null) return BadRequest("O departamento informado não existe.");
 
             return Ok(departamento);
         }

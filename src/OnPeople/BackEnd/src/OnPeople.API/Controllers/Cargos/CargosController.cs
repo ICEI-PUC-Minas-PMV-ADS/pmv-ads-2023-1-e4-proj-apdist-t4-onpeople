@@ -134,7 +134,7 @@ public class CargosController : ControllerBase
         {
             var cargo = await _cargosServices.UpdateCargo(cargoId, cargoDto);
 
-            if (cargo == null) return BadRequest("Não foi possível atualizar os dados do cargo");
+            if (cargo == null) return BadRequest("O cargo informado não existe.");
 
             return Ok(cargo);
         }
