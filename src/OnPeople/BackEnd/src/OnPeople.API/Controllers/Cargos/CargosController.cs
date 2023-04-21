@@ -10,12 +10,12 @@ namespace OnPeople.API.Controllers.Cargos;
 public class CargosController : ControllerBase
 {
     private readonly ICargosServices _cargosServices;
-   
+
 
     public CargosController(ICargosServices cargosServices)
     {
         _cargosServices = cargosServices;
-       
+
     }
 
     /// <summary>
@@ -50,7 +50,7 @@ public class CargosController : ControllerBase
     /// <response code="200">Dados do cargo consultado</response>
     /// <response code="400">Parâmetros incorretos</response>
     /// <response code="500">Erro interno</response>
-    
+
     [HttpGet("{cargoId}")]
     public async Task<IActionResult> GetCargoById(int cargoId)
     {
@@ -76,7 +76,7 @@ public class CargosController : ControllerBase
     /// <response code="200">Dados dos cargos cadastrados para o departamento</response>
     /// <response code="400">Parâmetros incorretos</response>
     /// <response code="500">Erro interno</response>
-    
+
     [HttpGet("{departamentoId}/departamento")]
     public async Task<IActionResult> GetCargosByDepartamentoIdAsync(int departamentoId)
     {
@@ -101,7 +101,7 @@ public class CargosController : ControllerBase
     /// <response code="200">Cargo cadastrado com sucesso</response>
     /// <response code="400">Parâmetros incorretos</response>
     /// <response code="500">Erro interno</response>
-    
+
     [HttpPost]
     public async Task<IActionResult> CreateCargos(CargoDto cargoDto)
     {
@@ -119,4 +119,60 @@ public class CargosController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Realiza a alteração de um cargo
+    /// </summary>
+    /// <param name="cargoId">Identificador do cargo</param>
+    /// <response code="200">Cargo atualizado com sucesso</response>
+    /// <response code="400">Parâmetros incorretos</response>
+    /// <response code="500">Erro interno</response>
+
+    [HttpPut("cargoId")]
+    public async Task<IActionResult> UpdateCargos(int cargoId, CargoDto cargoDto)
+    {
+        try
+        {
+            var cargo = await _cargosServices.UpdateCargo(cargoId, cargoDto);
+
+            if (cargo == null) return BadRequest("Não foi possível atualizar os dados do cargo");
+
+            return Ok(cargo);
+        }
+        catch (Exception e)
+        {
+            return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao atualizar o cargo. Erro: {e.Message}");
+        }
+    }
+
+    /// <summary>
+    /// Realiza a exclusão de um cargo
+    /// </summary>
+    /// <param name="cargoId">Identificador do cargo</param>
+    /// <response code="200">Cargo excluído com sucesso</response>
+    /// <response code="400">Parâmetros incorretos</response>
+    /// <response code="500">Erro interno</response>
+
+    [HttpDelete("cargoId")]
+    public async Task<IActionResult> DeleteCargos(int cargoId)
+    {
+        try
+        {
+            var cargo = await _cargosServices.GetCargoByIdAsync(cargoId);
+
+            if (cargo.Ativo) return BadRequest("Cargos ativos não podem ser excluídos. Inative o cargo e tente novamente.");
+
+            if (await _cargosServices.DeleteCargo(cargoId))
+            {
+                return Ok("Cargo excluído com sucesso");
+            }
+            else
+            {
+                return BadRequest("Não foi possível excluir o cargo.");
+            }
+        }
+        catch (Exception e)
+        {
+            return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao excluir o cargo. Erro: {e.Message}");
+        }
+    }
 }

@@ -38,6 +38,24 @@
             <response code="400">Parâmetros incorretos</response>
             <response code="500">Erro interno</response>
         </member>
+        <member name="M:OnPeople.API.Controllers.Cargos.CargosController.UpdateCargos(System.Int32,OnPeople.Application.Dtos.Cargos.CargoDto)">
+            <summary>
+            Realiza a alteração de um cargo
+            </summary>
+            <param name="cargoId">Identificador do cargo</param>
+            <response code="200">Cargo atualizado com sucesso</response>
+            <response code="400">Parâmetros incorretos</response>
+            <response code="500">Erro interno</response>
+        </member>
+        <member name="M:OnPeople.API.Controllers.Cargos.CargosController.DeleteCargos(System.Int32)">
+            <summary>
+            Realiza a exclusão de um cargo
+            </summary>
+            <param name="cargoId">Identificador do cargo</param>
+            <response code="200">Cargo excluído com sucesso</response>
+            <response code="400">Parâmetros incorretos</response>
+            <response code="500">Erro interno</response>
+        </member>
         <member name="M:OnPeople.API.Controllers.Departamentos.DepartamentosController.GetAllDepartamentos">
             <summary>
             Obtém os dados de todos os departamentos cadastrados

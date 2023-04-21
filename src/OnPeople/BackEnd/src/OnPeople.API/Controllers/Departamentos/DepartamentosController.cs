@@ -163,7 +163,7 @@ public class DepartamentosController : ControllerBase
 
             if (await _departamentosServices.DeleteDepartamento(departamentoId))
             {
-                return Ok();
+                return Ok(("Departamento excluído com sucesso"));
             }
             else
             {
