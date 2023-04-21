@@ -10,3 +10,15 @@ C:\Users\Rafae\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\On
 C:\Users\Rafae\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\onpeople.Integration\obj\Debug\net6.0\refint\OnPeople.Integration.dll
 C:\Users\Rafae\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\onpeople.Integration\obj\Debug\net6.0\OnPeople.Integration.pdb
 C:\Users\Rafae\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\onpeople.Integration\obj\Debug\net6.0\ref\OnPeople.Integration.dll
+C:\Users\Pedro Braga\Desktop\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Integration\bin\Debug\net6.0\OnPeople.Integration.deps.json
+C:\Users\Pedro Braga\Desktop\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Integration\bin\Debug\net6.0\OnPeople.Integration.dll
+C:\Users\Pedro Braga\Desktop\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Integration\bin\Debug\net6.0\OnPeople.Integration.pdb
+C:\Users\Pedro Braga\Desktop\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Integration\obj\Debug\net6.0\OnPeople.Integration.csproj.AssemblyReference.cache
+C:\Users\Pedro Braga\Desktop\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Integration\obj\Debug\net6.0\OnPeople.Integration.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Pedro Braga\Desktop\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Integration\obj\Debug\net6.0\OnPeople.Integration.AssemblyInfoInputs.cache
+C:\Users\Pedro Braga\Desktop\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Integration\obj\Debug\net6.0\OnPeople.Integration.AssemblyInfo.cs
+C:\Users\Pedro Braga\Desktop\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Integration\obj\Debug\net6.0\OnPeople.Integration.csproj.CoreCompileInputs.cache
+C:\Users\Pedro Braga\Desktop\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Integration\obj\Debug\net6.0\OnPeople.Integration.dll
+C:\Users\Pedro Braga\Desktop\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Integration\obj\Debug\net6.0\refint\OnPeople.Integration.dll
+C:\Users\Pedro Braga\Desktop\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Integration\obj\Debug\net6.0\OnPeople.Integration.pdb
+C:\Users\Pedro Braga\Desktop\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Integration\obj\Debug\net6.0\ref\OnPeople.Integration.dll

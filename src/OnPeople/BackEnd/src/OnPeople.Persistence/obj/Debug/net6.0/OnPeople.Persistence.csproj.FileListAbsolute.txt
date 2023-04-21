@@ -17,3 +17,22 @@ C:\Users\Rafae\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\On
 C:\Users\Rafae\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Persistence\obj\Debug\net6.0\ref\OnPeople.Persistence.dll
 C:\Users\Rafae\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Persistence\bin\Debug\net6.0\OnPeople.Integration.dll
 C:\Users\Rafae\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Persistence\bin\Debug\net6.0\OnPeople.Integration.pdb
+C:\Users\Pedro Braga\Desktop\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Persistence\obj\Debug\net6.0\OnPeople.Persistence.csproj.AssemblyReference.cache
+C:\Users\Pedro Braga\Desktop\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Persistence\obj\Debug\net6.0\OnPeople.Persistence.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Pedro Braga\Desktop\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Persistence\obj\Debug\net6.0\OnPeople.Persistence.AssemblyInfoInputs.cache
+C:\Users\Pedro Braga\Desktop\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Persistence\obj\Debug\net6.0\OnPeople.Persistence.AssemblyInfo.cs
+C:\Users\Pedro Braga\Desktop\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Persistence\obj\Debug\net6.0\OnPeople.Persistence.csproj.CoreCompileInputs.cache
+C:\Users\Pedro Braga\Desktop\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Persistence\obj\Debug\net6.0\OnPeople.Persistence.dll
+C:\Users\Pedro Braga\Desktop\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Persistence\obj\Debug\net6.0\refint\OnPeople.Persistence.dll
+C:\Users\Pedro Braga\Desktop\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Persistence\obj\Debug\net6.0\OnPeople.Persistence.pdb
+C:\Users\Pedro Braga\Desktop\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Persistence\bin\Debug\net6.0\OnPeople.Persistence.deps.json
+C:\Users\Pedro Braga\Desktop\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Persistence\bin\Debug\net6.0\OnPeople.Persistence.runtimeconfig.json
+C:\Users\Pedro Braga\Desktop\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Persistence\bin\Debug\net6.0\OnPeople.Persistence.dll
+C:\Users\Pedro Braga\Desktop\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Persistence\bin\Debug\net6.0\OnPeople.Persistence.pdb
+C:\Users\Pedro Braga\Desktop\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Persistence\bin\Debug\net6.0\OnPeople.Domain.dll
+C:\Users\Pedro Braga\Desktop\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Persistence\bin\Debug\net6.0\OnPeople.Integration.dll
+C:\Users\Pedro Braga\Desktop\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Persistence\bin\Debug\net6.0\OnPeople.Domain.pdb
+C:\Users\Pedro Braga\Desktop\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Persistence\bin\Debug\net6.0\OnPeople.Integration.pdb
+C:\Users\Pedro Braga\Desktop\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Persistence\obj\Debug\net6.0\OnPeople.Persistence.csproj.CopyComplete
+C:\Users\Pedro Braga\Desktop\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Persistence\obj\Debug\net6.0\OnPeople.Persistence.genruntimeconfig.cache
+C:\Users\Pedro Braga\Desktop\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Persistence\obj\Debug\net6.0\ref\OnPeople.Persistence.dll
