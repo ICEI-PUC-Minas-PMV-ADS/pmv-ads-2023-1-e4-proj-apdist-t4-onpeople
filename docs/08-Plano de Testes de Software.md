@@ -43,7 +43,7 @@
 **Given** um departamentoId válido (existente) seja informado como parâmetro e que no request body todos os dados obrigatórios sejam preenchidos<br/>
 **When** a rota PUT api/Departamentos/{departamentoId} for executada <br/>
 **Then** o status code 200 deve ser retornado <br/>
-**And** o response body deve conter os dados do departamento alterado
+**And** o response body deve conter os dados do departamento alterado <br/>
 **And** os dados do departamento devem ser atualizados no banco de dados conforme os dados enviados na requisição
 
 **CT07: PUT api/Departamentos/{departamentoId} - Executando a rota informando um departamentoId válido (existente), mas sem informar todos os dados obrigatórios**
@@ -57,7 +57,7 @@
 
 **Given** um departamentoId inválido (inexistente) seja informado como parâmetro <br/>
 **When** a rota PUT api/Departamentos/{departamentoId} for executada <br/>
-**Then** o status code 404 deve ser retornado <br/>
+**Then** o status code 400 deve ser retornado <br/>
 **And** o response body deve conter uma mensagem informando que o departamento informado como parâmetro não foi localizado
 
 **CT09: DELETE api/Departamentos/{departamentoId} - Executando a rota informando um departamentoId inativo**
@@ -131,7 +131,7 @@
 **Given** um cargoId válido (existente) seja informado como parâmetro e que no request body todos os dados obrigatórios sejam preenchidos <br/>
 **When** a rota PUT api/Cargos/{cargoId} for executada <br/>
 **Then** o status code 200 deve ser retornado <br/>
-**And** o response body deve conter os dados do cargo alterado
+**And** o response body deve conter os dados do cargo alterado <br/>
 **And** os dados do cargo devem ser atualizados no banco de dados conforme os dados enviados na requisição
 
 **CT07: PUT api/Cargos/{cargoId} - Executando a rota informando um cargoId válido (existente), mas sem informar todos os dados obrigatórios**
@@ -145,7 +145,7 @@
 
 **Given** um cargoId inválido (inexistente) seja informado como parâmetro <br/>
 **When** a rota PUT api/Cargos/{cargoId} for executada <br/>
-**Then** o status code 404 deve ser retornado <br/>
+**Then** o status code 400 deve ser retornado <br/>
 **And** o response body deve conter uma mensagem informando que o cargo informado como parâmetro não foi localizado
 
 **CT09: DELETE api/Cargos/{cargoId} - Executando a rota informando um cargoId inativo**
