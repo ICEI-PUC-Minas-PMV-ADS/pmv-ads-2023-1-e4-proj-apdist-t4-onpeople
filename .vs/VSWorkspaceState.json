@@ -5,13 +5,12 @@
     "\\src\\OnPeople",
     "\\src\\OnPeople\\BackEnd",
     "\\src\\OnPeople\\BackEnd\\src",
-    "\\src\\OnPeople\\BackEnd\\src\\OnPeople.API\\Controllers",
-    "\\src\\OnPeople\\BackEnd\\src\\OnPeople.API\\Controllers\\Departamentos",
+    "\\src\\OnPeople\\BackEnd\\src\\OnPeople.API",
     "\\src\\OnPeople\\BackEnd\\src\\OnPeople.Application",
-    "\\src\\OnPeople\\FrontEnd\\OnPeople-App",
-    "\\src\\OnPeople\\FrontEnd\\OnPeople-App\\src",
-    "\\src\\OnPeople\\FrontEnd\\OnPeople-App\\src\\app"
+    "\\src\\OnPeople\\BackEnd\\src\\OnPeople.Application\\Services",
+    "\\src\\OnPeople\\BackEnd\\src\\OnPeople.Application\\Services\\Implementations",
+    "\\src\\OnPeople\\BackEnd\\src\\OnPeople.Application\\Services\\Implementations\\Departamentos"
   ],
-  "SelectedNode": "\\src\\OnPeople\\BackEnd\\src\\OnPeople.Application\\OnPeople.Application.csproj",
+  "SelectedNode": "\\src\\OnPeople\\BackEnd\\src\\OnPeople.API\\Controllers\\Departamentos\\DepartamentosController.cs",
   "PreviewInSolutionExplorer": false
 }

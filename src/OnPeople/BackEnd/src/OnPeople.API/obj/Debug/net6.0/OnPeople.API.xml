@@ -4,6 +4,58 @@
         <name>OnPeople.API</name>
     </assembly>
     <members>
+        <member name="M:OnPeople.API.Controllers.Cargos.CargosController.GetAllCargos">
+            <summary>
+            Obtém os dados de todos os cargos cadastrados
+            </summary>
+            <response code="200">Dados dos cargos cadastrados</response>
+            <response code="400">Parâmetros incorretos</response>
+            <response code="500">Erro interno</response>
+        </member>
+        <member name="M:OnPeople.API.Controllers.Cargos.CargosController.GetCargoById(System.Int32)">
+            <summary>
+            Obtém os dados de um cargo específico
+            </summary>
+            <param name="cargoId">Identificador do cargo</param>
+            <response code="200">Dados do cargo consultado</response>
+            <response code="400">Parâmetros incorretos</response>
+            <response code="500">Erro interno</response>
+        </member>
+        <member name="M:OnPeople.API.Controllers.Cargos.CargosController.GetCargosByDepartamentoIdAsync(System.Int32)">
+            <summary>
+            Obtém os dados de todos os cargos cadastrados para um determinado departamento
+            </summary>
+            <param name="departamentoId">Identificador do departamento</param>
+            <response code="200">Dados dos cargos cadastrados para o departamento</response>
+            <response code="400">Parâmetros incorretos</response>
+            <response code="500">Erro interno</response>
+        </member>
+        <member name="M:OnPeople.API.Controllers.Cargos.CargosController.CreateCargos(OnPeople.Application.Dtos.Cargos.CargoDto)">
+            <summary>
+            Realiza a inclusão de um novo cargo
+            </summary>
+            <response code="200">Cargo cadastrado com sucesso</response>
+            <response code="400">Parâmetros incorretos</response>
+            <response code="500">Erro interno</response>
+        </member>
+        <member name="M:OnPeople.API.Controllers.Cargos.CargosController.UpdateCargos(System.Int32,OnPeople.Application.Dtos.Cargos.CargoDto)">
+            <summary>
+            Realiza a alteração de um cargo
+            </summary>
+            <param name="cargoId">Identificador do cargo</param>
+            <response code="200">Cargo atualizado com sucesso</response>
+            <response code="400">Parâmetros incorretos</response>
+            <response code="500">Erro interno</response>
+        </member>
+        <member name="M:OnPeople.API.Controllers.Cargos.CargosController.DeleteCargos(System.Int32)">
+            <summary>
+            Realiza a exclusão de um cargo
+            </summary>
+            <param name="cargoId">Identificador do cargo</param>
+            <response code="200">Cargo excluído com sucesso</response>
+            <response code="400">Parâmetros incorretos</response>
+            <response code="500">Erro interno</response>
+        </member>
         <member name="M:OnPeople.API.Controllers.Departamentos.DepartamentosController.GetAllDepartamentos">
             <summary>
             Obtém os dados de todos os departamentos cadastrados
@@ -16,34 +68,33 @@
             <summary>
             Obtém os dados de um departamento específico
             </summary>
-            <param name="id">Identificador do departamento</param>
+            <param name="departamentoId">Identificador do departamento</param>
             <response code="200">Dados do departamento consultado</response>
             <response code="400">Parâmetros incorretos</response>
             <response code="500">Erro interno</response>
         </member>
         <member name="M:OnPeople.API.Controllers.Departamentos.DepartamentosController.GetDepartamentosByEmpresaId(System.Int32)">
             <summary>
-            Obtém os dados de todos os departamento vinculados a uma empresa específica
+            Obtém os dados de todos os departamentos cadastrados para uma determinada empresa
             </summary>
             <param name="empresaId">Identificador da empresa</param>
-            <response code="200">Departamentos cadastrados para a empresa</response>
+            <response code="200">Dados dos departamentos cadastrados para a empresa</response>
             <response code="400">Parâmetros incorretos</response>
             <response code="500">Erro interno</response>
         </member>
-        <member name="M:OnPeople.API.Controllers.Departamentos.DepartamentosController.CreateDepartamento(OnPeople.Domain.Models.Departamentos.Departamento)">
+        <member name="M:OnPeople.API.Controllers.Departamentos.DepartamentosController.CreateDepartamento(OnPeople.Application.Dtos.Departamentos.DepartamentoDto)">
             <summary>
-            Efetua a inclusão de um novo departamento
+            Realiza a inclusão de um novo departamento
             </summary>
             <response code="200">Departamento cadastrado com sucesso</response>
             <response code="400">Parâmetros incorretos</response>
             <response code="500">Erro interno</response>
         </member>
-        <member name="M:OnPeople.API.Controllers.Departamentos.DepartamentosController.UpdateDepartamento(System.Int32,OnPeople.Domain.Models.Departamentos.Departamento)">
+        <member name="M:OnPeople.API.Controllers.Departamentos.DepartamentosController.UpdateDepartamento(System.Int32,OnPeople.Application.Dtos.Departamentos.DepartamentoDto)">
             <summary>
             Realiza a atualização dos dados de um departamento
             </summary>
-            <param name="id">Identificador do departamento</param>
-            <param name="model">Dados a serem atualizados</param>
+            <param name="departamentoId">Identificador do departamento</param>
             <response code="200">Departamento atualizado com sucesso</response>
             <response code="400">Parâmetros incorretos</response>
             <response code="500">Erro interno</response>
@@ -52,7 +103,7 @@
             <summary>
             Realiza a exclusão de um departamento
             </summary>
-            <param name="id">Identificador do departamento</param>
+            <param name="departamentoId">Identificador do departamento</param>
             <response code="200">Departamento excluído com sucesso</response>
             <response code="400">Parâmetros incorretos</response>
             <response code="500">Erro interno</response>

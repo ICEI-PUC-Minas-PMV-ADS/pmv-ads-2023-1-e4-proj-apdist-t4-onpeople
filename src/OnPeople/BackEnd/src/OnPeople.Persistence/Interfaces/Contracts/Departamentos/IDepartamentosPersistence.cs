@@ -6,6 +6,7 @@ namespace OnPeople.Persistence.Interfaces.Contracts.Departamentos
     public interface IDepartamentosPersistence : ISharedPersistence
     {
         Task<IEnumerable<Departamento>> GetAllDepartamentosAsync();
-        Task<Departamento> GetDepartamentoByIdAsync(int id);
+        Task<Departamento> GetDepartamentoByIdAsync(int departamentoId);
+        Task<IEnumerable<Departamento>> GetDepartamentosByEmpresaIdAsync(int empresaId);
     }
 }

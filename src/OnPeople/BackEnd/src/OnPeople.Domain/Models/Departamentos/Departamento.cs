@@ -16,7 +16,6 @@ namespace OnPeople.Domain.Models.Departamentos
         public DateTime? DataEncerramento { get; set; }
         public Boolean Ativo { get; set; }
         public int EmpresaId { get; set; }
-        public Empresa Empresas { get; set; }
         public IEnumerable<Cargo> Cargos { get; set; }
     }
 }

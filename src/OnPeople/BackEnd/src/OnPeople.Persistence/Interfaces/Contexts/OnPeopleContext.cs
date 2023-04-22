@@ -64,7 +64,7 @@ namespace OnPeople.Persistence.Interfaces.Contexts
 
             modelBuilder.Entity<Departamento>(departamento =>
                 {
-                    departamento.HasOne(d => d.Empresas);
+                    departamento.HasIndex(d => d.EmpresaId);
 
                     departamento.HasMany(c => c.Cargos);
 
@@ -82,9 +82,9 @@ namespace OnPeople.Persistence.Interfaces.Contexts
 
             modelBuilder.Entity<Cargo>(cargo =>
                 {
-                    cargo.HasOne(c => c.Departamentos);
+                    cargo.HasIndex(c => c.DepartamentoId);
 
-                    cargo.HasOne(c => c.Empresas);
+                    cargo.HasIndex(c => c.EmpresaId);
 
                     cargo.HasMany(f => f.Funcionarios);
 
@@ -93,23 +93,23 @@ namespace OnPeople.Persistence.Interfaces.Contexts
             
             );
 
-            modelBuilder.Entity<Funcionario>(funcioario =>
+            modelBuilder.Entity<Funcionario>(funcionario =>
                 {
-                    funcioario.HasOne(f => f.Cargos);
+                    funcionario.HasOne(f => f.Cargos);
 
-                    funcioario.HasOne(f => f.Departamentos);
+                    funcionario.HasOne(f => f.Departamentos);
 
-                    funcioario.HasOne(f => f.Empresas);
+                    funcionario.HasOne(f => f.Empresas);
                     
-                    funcioario.HasOne(f => f.Users);
+                    funcionario.HasOne(f => f.Users);
 
-                    funcioario.HasMany(f => f.DadosPessoais);
+                    funcionario.HasMany(f => f.DadosPessoais);
 
-                    funcioario.HasMany(f => f.Enderecos);
+                    funcionario.HasMany(f => f.Enderecos);
 
-                    funcioario.HasMany(f => f.FuncionariosMetas);
+                    funcionario.HasMany(f => f.FuncionariosMetas);
 
-                    funcioario.HasIndex(e => e.Ativo);
+                    funcionario.HasIndex(e => e.Ativo);
                 } 
             );
 

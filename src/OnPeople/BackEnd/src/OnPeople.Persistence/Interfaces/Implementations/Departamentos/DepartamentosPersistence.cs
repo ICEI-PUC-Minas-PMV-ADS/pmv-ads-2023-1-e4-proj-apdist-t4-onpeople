@@ -18,25 +18,39 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Departamentos
         public async Task<IEnumerable<Departamento>> GetAllDepartamentosAsync()
         {
             IQueryable<Departamento> query = _context.Departamentos
-            .Include(e => e.Empresa);
+            .Include(d => d.Cargos);
+
 
             query = query
                 .AsNoTracking()
-                .OrderBy(e => e.Id);
+                .OrderBy(d => d.Id);
 
             return await query.ToListAsync();
         }
 
-        public async Task<Departamento> GetDepartamentoByIdAsync(int id)
+        public async Task<Departamento> GetDepartamentoByIdAsync(int departamentoId)
         {
             IQueryable<Departamento> query = _context.Departamentos
-            .Include(e => e.Empresa);
+            .Include(d => d.Cargos);
 
             query = query
                 .AsNoTracking()
-                .Where(e => e.Id == id);
+                .Where(d => d.Id == departamentoId);
 
             return await query.FirstOrDefaultAsync();
+        }
+
+        public async Task<IEnumerable<Departamento>> GetDepartamentosByEmpresaIdAsync(int empresaId)
+        {
+            IQueryable<Departamento> query = _context.Departamentos
+            .Include(d => d.Cargos);
+
+            query = query
+                .AsNoTracking()
+                .Where(d => d.EmpresaId == empresaId)
+                .OrderBy(d => d.Id);
+
+            return await query.ToListAsync();
         }
 
     }

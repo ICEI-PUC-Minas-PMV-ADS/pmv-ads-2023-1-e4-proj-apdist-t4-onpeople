@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using OnPeople.Application.Services.Contracts.Departamentos;
-using OnPeople.Domain.Models.Departamentos;
-using OnPeople.Application.Services.Contracts.Empresas;
+using OnPeople.Application.Dtos.Departamentos;
 
 namespace OnPeople.API.Controllers.Departamentos;
 
@@ -11,12 +10,12 @@ namespace OnPeople.API.Controllers.Departamentos;
 public class DepartamentosController : ControllerBase
 {
     private readonly IDepartamentosServices _departamentosServices;
-    private readonly IDepartamentosEmpresasServices _departamentosEmpresasServices;
+   
 
-    public DepartamentosController(IDepartamentosServices departamentosServices,IDepartamentosEmpresasServices departamentosEmpresasServices)
+    public DepartamentosController(IDepartamentosServices departamentosServices)
     {
         _departamentosServices = departamentosServices;
-        _departamentosEmpresasServices = departamentosEmpresasServices;
+       
     }
 
     /// <summary>
@@ -47,21 +46,21 @@ public class DepartamentosController : ControllerBase
     /// <summary>
     /// Obtém os dados de um departamento específico
     /// </summary>
-    /// <param name="id">Identificador do departamento</param>
+    /// <param name="departamentoId">Identificador do departamento</param>
     /// <response code="200">Dados do departamento consultado</response>
     /// <response code="400">Parâmetros incorretos</response>
     /// <response code="500">Erro interno</response>
     
-    [HttpGet("{id}")]
-    public async Task<IActionResult> GetDepartamentoById(int id)
+    [HttpGet("{departamentoId}")]
+    public async Task<IActionResult> GetDepartamentoById(int departamentoId)
     {
         try
         {
-            var departamentos = await _departamentosServices.GetDepartamentoByIdAsync(id);
+            var departamento = await _departamentosServices.GetDepartamentoByIdAsync(departamentoId);
 
-            if (departamentos == null) return NotFound("Departamento não encontrado.");
+            if (departamento == null) return NotFound("Departamento não encontrado.");
 
-            return Ok(departamentos);
+            return Ok(departamento);
         }
         catch (Exception e)
         {
@@ -71,27 +70,28 @@ public class DepartamentosController : ControllerBase
     }
 
     /// <summary>
-    /// Obtém os dados de todos os departamento vinculados a uma empresa específica
+    /// Obtém os dados de todos os departamentos cadastrados para uma determinada empresa
     /// </summary>
     /// <param name="empresaId">Identificador da empresa</param>
-    /// <response code="200">Departamentos cadastrados para a empresa</response>
+    /// <response code="200">Dados dos departamentos cadastrados para a empresa</response>
     /// <response code="400">Parâmetros incorretos</response>
     /// <response code="500">Erro interno</response>
+    
     [HttpGet("{empresaId}/empresa")]
     public async Task<IActionResult> GetDepartamentosByEmpresaId(int empresaId)
     {
         try
         {
-            var departamentos = await _departamentosEmpresasServices.GetAllDepartamentosByEmpresaIdAsync(empresaId);
+            var departamentos = await _departamentosServices.GetDepartamentosByEmpresaIdAsync(empresaId);
 
-            if (departamentos == null) return NotFound("Não foram encontrados departamentos para a empresa informada");
+            if (departamentos == null) return NotFound("A empresa informada não possui departamentos cadastrados.");
 
             return Ok(departamentos);
         }
         catch (Exception e)
         {
 
-            return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao recuperar os departamentos da empresa. Erro: {e.Message}");
+            return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao recuperar os departamentos. Erro: {e.Message}");
         }
     }
 
@@ -103,11 +103,11 @@ public class DepartamentosController : ControllerBase
     /// <response code="500">Erro interno</response>
     
     [HttpPost]
-    public async Task<IActionResult> CreateDepartamento(Departamento departamento)
+    public async Task<IActionResult> CreateDepartamento(DepartamentoDto departamentoDto)
     {
         try
         {
-            var createdDepartamento = await _departamentosServices.CreateDepartamentos(departamento);
+            var createdDepartamento = await _departamentosServices.CreateDepartamentos(departamentoDto);
 
             if (createdDepartamento != null) return Ok(createdDepartamento);
 
@@ -122,20 +122,19 @@ public class DepartamentosController : ControllerBase
     /// <summary>
     /// Realiza a atualização dos dados de um departamento
     /// </summary>
-    /// <param name="id">Identificador do departamento</param>
-    /// <param name="model">Dados a serem atualizados</param>
+    /// <param name="departamentoId">Identificador do departamento</param>
     /// <response code="200">Departamento atualizado com sucesso</response>
     /// <response code="400">Parâmetros incorretos</response>
     /// <response code="500">Erro interno</response>
 
-    [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateDepartamento(int id, Departamento model)
+    [HttpPut("{departamentoId}")]
+    public async Task<IActionResult> UpdateDepartamento(int departamentoId, DepartamentoDto departamentoDto)
     {
         try
         {
-            var departamento = await _departamentosServices.UpdateDepartamento(id, model);
+            var departamento = await _departamentosServices.UpdateDepartamento(departamentoId, departamentoDto);
 
-            if (departamento == null) return BadRequest("Não foi possível atualizar os dados do departamento.");
+            if (departamento == null) return BadRequest("O departamento informado não existe.");
 
             return Ok(departamento);
         }
@@ -148,23 +147,27 @@ public class DepartamentosController : ControllerBase
     /// <summary>
     /// Realiza a exclusão de um departamento
     /// </summary>
-    /// <param name="id">Identificador do departamento</param>
+    /// <param name="departamentoId">Identificador do departamento</param>
     /// <response code="200">Departamento excluído com sucesso</response>
     /// <response code="400">Parâmetros incorretos</response>
     /// <response code="500">Erro interno</response>
     
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteDepartamento(int id)
+    [HttpDelete("{departamentoId}")]
+    public async Task<IActionResult> DeleteDepartamento(int departamentoId)
     {
         try
         {
-            if (await _departamentosServices.DeleteDepartamento(id))
+            var departamento = await _departamentosServices.GetDepartamentoByIdAsync(departamentoId);
+
+            if (departamento.Ativo) return BadRequest("Departamentos ativos não podem ser excluídos. Inative o departamento e tente novamente.");
+
+            if (await _departamentosServices.DeleteDepartamento(departamentoId))
             {
-                return Ok();
+                return Ok(("Departamento excluído com sucesso"));
             }
             else
             {
-                return BadRequest("Não foi possível excluir o departamento");
+                return BadRequest("Não foi possível excluir o departamento.");
             }
         }
         catch (Exception e)
