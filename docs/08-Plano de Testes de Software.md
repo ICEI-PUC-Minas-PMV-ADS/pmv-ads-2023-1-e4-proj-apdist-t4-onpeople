@@ -1,5 +1,79 @@
 # Plano de Testes de Software
 
+## RF-005: O sistema deverá permitir o gerenciamento de funcionários (CRUD)
+
+**CT01: POST api/Funcionarios - Realizando a requisição informando os dados obrigatórios corretamente**
+
+**Given** que as propriedades userId, departamentoId, cargoId e empresaId sejam informados no request body <br/>
+**When** a rota POST api/Funcionarios for executada <br/>
+**Then** o status code 200 deve ser retornado <br/>
+**And** o response body deve conter os dados do funcionário cadastrado conforme as informações enviadas na requisição <br/>
+**And** o funcionário cadastrado deve ser inserido no banco de dados
+
+**CT02: POST api/Funcionarios - Realizando a requisição sem informar os dados obrigatórios**
+
+**Given** que alguma propriedade obrigatória não seja informada no request body <br/>
+**When** a rota POST api/Funcionarios for executada <br/>
+**Then** o status code 400 deve ser retornado <br/>
+**And** o objeto errors no response body deve conter uma mensagem informando sobre a obrigatoriedade dos campos
+
+**CT03: GET api/Funcionarios - Executando a rota sem informar nenhum parâmetro**
+
+**Given** que nenhum parâmetro seja informado <br/>
+**When** a rota GET api/Departamentos for executada <br/>
+**Then** o status code 200 deve ser retornado <br/>
+**And** o response body deve conter um array de objetos para cada funcionário cadastrado no banco de dados
+
+**CT04: GET api/Funcionarios/{funcionarioId} - Executando a rota informando um funcionarioId válido (existente)**
+
+**Given** um funcionarioId válido (existente) seja informado como parâmetro<br/>
+**When** a rota GET api/Funcionarios/{funcionarioId} for executada <br/>
+**Then** o status code 200 deve ser retornado <br/>
+**And** o response body deve conter os dados do funcionário informado como parâmetro
+
+**CT05: GET api/Departamentos/{funcionarioId} - Executando a rota informando um departamentoId inválido (inexistente)**
+
+**Given** um funcionarioId inválido (inexistente) seja informado como parâmetro<br/>
+**When** a rota GET api/Funcionarios/{funcionarioId} for executada <br/>
+**Then** o status code 404 deve ser retornado <br/>
+**And** o response body deve conter uma mensagem informando que o funcionário informado como parâmetro não foi localizado
+
+**CT06: PUT api/Funcionarios/{funcionarioId} - Executando a rota informando um funcionarioId válido (existente) e todos os dados obrigatórios**
+
+**Given** um funcionarioId válido (existente) seja informado como parâmetro e que no request body todos os dados obrigatórios sejam preenchidos<br/>
+**When** a rota PUT api/Funcionarios/{funcionarioId} for executada <br/>
+**Then** o status code 200 deve ser retornado <br/>
+**And** o response body deve conter os dados do funcionário alterado <br/>
+**And** os dados do funcionário devem ser atualizados no banco de dados conforme os dados enviados na requisição
+
+**CT07: PUT api/Funcionarios/{funcionarioId} - Executando a rota informando um funcionarioId válido (existente), mas sem informar todos os dados obrigatórios**
+
+**Given** um funcionarioId válido (existente) seja informado como parâmetro e que no request body nem todos os dados obrigatórios sejam preenchidos<br/>
+**When** a rota PUT api/Funcionarios/{funcionarioId} for executada <br/>
+**Then** o status code 400 deve ser retornado <br/>
+**And** o objeto errors no response body deve conter uma mensagem informando sobre a obrigatoriedade dos campos
+
+**CT08: PUT api/Funcionarios/{funcionarioId} - Executando a rota informando um funcionarioId inválido (inexistente)**
+
+**Given** um funcionarioId inválido (inexistente) seja informado como parâmetro <br/>
+**When** a rota PUT api/Funcionarios/{funcionarioId} for executada <br/>
+**Then** o status code 400 deve ser retornado <br/>
+**And** o response body deve conter uma mensagem informando que o funcionário informado como parâmetro não foi localizado
+
+**CT09: DELETE api/Funcionarios/{funcionarioId} - Executando a rota informando um funcionarioId válido (existente)**
+
+**Given** um funcionarioId válido (existente) seja informado como parâmetro<br/>
+**When** a rota DELETE api/Funcionarios/{funcionarioId} for executada <br/>
+**Then** o status code 200 deve ser retornado <br/>
+**And** o funcionário deve ser excluído no banco de dados
+
+**CT09: DELETE api/Funcionarios/{funcionarioId} - Executando a rota informando um funcionarioId inválido (inexistente)**
+
+**Given** um funcionarioId inválido (inexistente) seja informado como parâmetro<br/>
+**When** a rota DELETE api/Funcionarios/{funcionarioId} for executada <br/>
+**Then** o status code 400 deve ser retornado <br/>
+**And** o response body deve conter uma mensagem informando que o funcionário informado como parâmetro não foi localizado
+
 ## RF-006: O sistema deverá permitir o gerenciamento de departamentos (CRUD)
 
 **CT01: POST api/Departamentos - Realizando a requisição informando os dados obrigatórios corretamente**
