@@ -41,7 +41,7 @@ O Modelo ER representa, através de um diagrama, como as entidades (coisas, obje
 
 ## Modelo Físico
 
-Entregar um arquivo banco.sql contendo os scripts de criação das tabelas do banco de dados. Este arquivo deverá ser incluído dentro da pasta src\bd.
+Os scripts de criação das tabelas do banco foram criados com o uso do EntityFramework Core, fazendo-se uso das migrations. Eles foram inclusos dentro da pasta src\bd. 
 
 ## Tecnologias Utilizadas
 
