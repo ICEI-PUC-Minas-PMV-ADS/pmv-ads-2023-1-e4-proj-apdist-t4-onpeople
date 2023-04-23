@@ -122,6 +122,8 @@ Endpoints implementados na controller Cargos para atender o requisito especifica
 Endpoints implementados no controller Metas para atender o requisito especificado:
 
 ![ENDPOINTS Metas](https://user-images.githubusercontent.com/91227083/233861632-758601d4-d935-4fc5-971e-8b11de3596cf.jpg)
+![SCHEMA Metas](https://user-images.githubusercontent.com/91227083/233862082-f684efc2-b7c6-4edb-a65d-e9682b2e4606.jpg)
+
 
 ## Artefatos gerados
 
