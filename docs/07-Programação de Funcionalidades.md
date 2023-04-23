@@ -1,15 +1,25 @@
 # Programação de Funcionalidades
 
-<span style="color:red">Pré-requisitos: <a href="2-Especificação do Projeto.md"> Especificação do Projeto</a></span>, <a href="3-Projeto de Interface.md"> Projeto de Interface</a>, <a href="4-Metodologia.md"> Metodologia</a>, <a href="3-Projeto de Interface.md"> Projeto de Interface</a>, <a href="5-Arquitetura da Solução.md"> Arquitetura da Solução</a>
+## RF-009: O sistema deverá permitir o cadastro de novas metas
 
-Implementação do sistema descritas por meio dos requisitos funcionais e/ou não funcionais. Deve relacionar os requisitos atendidos os artefatos criados (código fonte) além das estruturas de dados utilizadas e as instruções para acesso e verificação da implementação que deve estar funcional no ambiente de hospedagem.
+Endpoints implementados no controller Metas para atender o requisito especificado:
 
-Para cada requisito funcional, pode ser entregue um artefato desse tipo
+![ENDPOINTS Metas](https://user-images.githubusercontent.com/91227083/233861632-758601d4-d935-4fc5-971e-8b11de3596cf.jpg)
 
-> **Links Úteis**:
->
-> - [Trabalhando com HTML5 Local Storage e JSON](https://www.devmedia.com.br/trabalhando-com-html5-local-storage-e-json/29045)
-> - [JSON Tutorial](https://www.w3resource.com/JSON)
-> - [JSON Data Set Sample](https://opensource.adobe.com/Spry/samples/data_region/JSONDataSetSample.html)
-> - [JSON - Introduction (W3Schools)](https://www.w3schools.com/js/js_json_intro.asp)
-> - [JSON Tutorial (TutorialsPoint)](https://www.tutorialspoint.com/json/index.htm)
+## Artefatos gerados
+
+### Camada OnPeople.API
+
+![API Metas](https://user-images.githubusercontent.com/91227083/233861706-1849ab0c-b092-4aac-a726-28fa4c5f1feb.jpg)
+
+### Camada OnPeople.Application
+
+![APPLICATION Metas](https://user-images.githubusercontent.com/91227083/233861787-fdde7f60-c660-4877-9879-d95bf733a1db.jpg)
+
+### Camada OnPeople.Domain
+
+![DOMAIN Metas](https://user-images.githubusercontent.com/91227083/233861799-14b52f1f-214e-447f-8a50-2a45e0aed042.jpg)
+
+### Camada OnPeople.Persistence
+
+![PERSISTENCE Metas](https://user-images.githubusercontent.com/91227083/233861810-aa25d1a4-1918-458b-8213-927600e63261.jpg)
