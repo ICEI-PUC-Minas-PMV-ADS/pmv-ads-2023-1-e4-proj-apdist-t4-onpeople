@@ -620,6 +620,10 @@ Schema mostrando os dados obrigatórios:
 Parametros informados, rota executada e resposta retornou status 200 conforme o esperado:
 ![POST Metas](https://user-images.githubusercontent.com/91227083/233863167-8763f453-05b1-4223-9b1f-f09014d9f4c9.jpg)
 
+Registro inserido na base de dados com sucesso:
+![DB Inclusao](https://user-images.githubusercontent.com/91227083/233868054-22415cb6-6f38-450d-a564-bf577c64d272.jpg)
+
+
 ### CT02: POST api/Metas - Realizando a requisição sem informar os dados obrigatórios
 
 **Status do caso de teste:** Aprovado
@@ -697,6 +701,10 @@ And os dados da meta devem ser atualizados no banco de dados <br />
 
 Parametros para alteração informados, rota executada e resposta retornou status 200 conforme o esperado:
 ![PUT Metas](https://user-images.githubusercontent.com/91227083/233864081-e3a7f7ee-161c-4a29-8866-88a2db376ec8.jpg)
+
+Alteração na base de dados feita com sucesso:
+![DB Alteracao](https://user-images.githubusercontent.com/91227083/233868073-61305746-f1a8-4426-8802-24581d4e4aa5.jpg)
+
 
 ### CT07: CT07: DELETE api/Metas/{id} - Executando a rota informando um Id válido
 
