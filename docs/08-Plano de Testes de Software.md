@@ -1,19 +1,72 @@
 # Plano de Testes de Software
 
-<span style="color:red">Pré-requisitos: <a href="2-Especificação do Projeto.md"> Especificação do Projeto</a></span>, <a href="3-Projeto de Interface.md"> Projeto de Interface</a>
+## RF-009: O sistema deverá permitir o cadastro de novas metas
 
-Apresente os cenários de testes utilizados na realização dos testes da sua aplicação. Escolha cenários de testes que demonstrem os requisitos sendo satisfeitos.
+### CT01: POST api/Metas - Realizando a requisição informando os dados obrigatórios corretamente
 
-Enumere quais cenários de testes foram selecionados para teste. Neste tópico o grupo deve detalhar quais funcionalidades avaliadas, o grupo de usuários que foi escolhido para participar do teste e as ferramentas utilizadas.
- 
-## Ferramentas de Testes (Opcional)
+Given que as propriedades nomeMeta e empresaId sejam informados <br />
+When a rota POST api/Metas for executada <br />
+Then o status code 200 deve ser retornado <br />
+And o response body deve conter os dados da meta cadastrada conforme as informações enviadas na requisição <br />
+And a meta cadastrada deve ser inserida no banco de dados <br />
 
-Comente sobre as ferramentas de testes utilizadas.
- 
-> **Links Úteis**:
-> - [IBM - Criação e Geração de Planos de Teste](https://www.ibm.com/developerworks/br/local/rational/criacao_geracao_planos_testes_software/index.html)
-> - [Práticas e Técnicas de Testes Ágeis](http://assiste.serpro.gov.br/serproagil/Apresenta/slides.pdf)
-> -  [Teste de Software: Conceitos e tipos de testes](https://blog.onedaytesting.com.br/teste-de-software/)
-> - [Criação e Geração de Planos de Teste de Software](https://www.ibm.com/developerworks/br/local/rational/criacao_geracao_planos_testes_software/index.html)
-> - [Ferramentas de Test para Java Script](https://geekflare.com/javascript-unit-testing/)
-> - [UX Tools](https://uxdesign.cc/ux-user-research-and-user-testing-tools-2d339d379dc7)
+### CT02: POST api/Metas - Realizando a requisição sem informar os dados obrigatórios
+
+Given que alguma propriedade obrigatória (nomeMeta e empresaId) não seja informada no request body <br />
+When a rota POST api/Metas for executada <br />
+Then o status code 400 deve ser retornado <br />
+
+### CT03: GET api/Meta - Executando a rota sem informar nenhum parâmetro
+
+Given que nenhum parâmetro seja informado <br />
+When a rota GET api/Metas for executada <br />
+Then o status code 200 deve ser retornado <br />
+And o response body deve conter um array de objetos para cada meta cadastrada no banco de dados <br />
+
+### CT04: GET api/Metas/{id} - Executando a rota informando um Id válido (existente)
+
+Given um Id válido (existente) seja informado como parâmetro <br />
+When a rota GET api/Metas/{id} for executada <br />
+Then o status code 200 deve ser retornado <br />
+And o response body deve conter os dados da meta informada como parâmetro <br />
+
+### CT05: GET api/Metas/{id} - Executando a rota informando um Id inválido (inexistente)
+
+Given um Id inválido (inexistente) seja informado como parâmetro <br />
+When a rota GET api/Metas/{id} for executada <br />
+Then o status code 204 (No Content) deve ser retornado <br />
+
+### CT06: PUT api/Metas/{id} - Executando a rota informando um Id válido (existente)
+
+Given um Id válido (existente) seja informado como parâmetro e todos os dados obrigatórios sejam preenchidos <br />
+When a rota PUT api/Metas/{id} for executada <br />
+Then o status code 200 deve ser retornado <br />
+And o response body deve conter os dados da meta alterada <br />
+And os dados da meta devem ser atualizados no banco de dados <br />
+
+### CT07: DELETE api/Metas/{id} - Executando a rota informando um Id válido
+
+Given um Id válido seja informado como parâmetro <br />
+When a rota DELETE api/Metas/{id} for executada <br />
+Then o status code 200 deve ser retornado <br />
+And o departamento deve ser excluído no banco de dados <br />
+
+### CT08: DELETE api/Metas/{id} - Executando a rota informando um Id inválido
+
+Given um Id inválido seja informado como parâmetro <br />
+When a rota DELETE api/Metas/{id} for executada <br />
+Then o status code 204 (No Content) deve ser retornado <br />
+
+### CT09: GET api/Metas/{tipoMeta}/tipo - Executando a rota informando um tipoMeta que possua tipos cadastrados
+
+Given um tipoMeta que possua um tipo cadastrado seja informado como parâmetro <br />
+When a rota GET api/Metas/{tipoMeta}/tipo for executada <br />
+Then o status code 200 deve ser retornado <br />
+And o response body deve conter um array de objetos que contenham o parâmetro informado <br />
+
+### CT10: GET api/Metas/{tipoMeta}/tipo - Executando a rota informando um tipoMeta que não possua tipos cadastrados
+
+Given uma tipoMeta que não possui um tipo cadastrado seja informado como parâmetro <br />
+When a rota GET api/Metas/{tipoMeta}/tipo for executada <br />
+Then o status code 200 deve ser retornado <br />
+And o response body deve conter um array vazio <br />
