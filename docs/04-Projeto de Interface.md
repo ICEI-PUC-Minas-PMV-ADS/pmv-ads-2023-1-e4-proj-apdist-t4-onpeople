@@ -22,21 +22,32 @@ As referências abaixo irão auxiliá-lo na geração do artefato “Diagramas d
 
 ## Wireframes
 
-#### Visão Gestão RH
+### Login
 
-#### Visão Operacional RH
+<img src="./img/login 2.png">
 
-#### Visão Funcionário
+ ### Cadastro
 
-![Exemplo de Wireframe](img/wireframe-example.png)
+<img src="./img/cadastro2.png .png">
 
-São protótipos usados em design de interface para sugerir a estrutura de um site web e seu relacionamentos entre suas páginas. Um wireframe web é uma ilustração semelhante do layout de elementos fundamentais na interface.
- 
-> **Links Úteis**:
-> - [Protótipos vs Wireframes](https://www.nngroup.com/videos/prototypes-vs-wireframes-ux-projects/)
-> - [Ferramentas de Wireframes](https://rockcontent.com/blog/wireframes/)
-> - [MarvelApp](https://marvelapp.com/developers/documentation/tutorials/)
-> - [Figma](https://www.figma.com/)
-> - [Adobe XD](https://www.adobe.com/br/products/xd.html#scroll)
-> - [Axure](https://www.axure.com/edu) (Licença Educacional)
-> - [InvisionApp](https://www.invisionapp.com/) (Licença Educacional)
+### Perfil
+
+<img src="./img/perfil2.png">
+
+### Dashboard - cargos 
+
+<img src="./img/dash cargos2.png">
+
+### Dashboard - metas 
+
+<img src="./img/dash metas func 2.png">
+
+### Dashboard - departamentos 
+
+<img src="./img/dashboard dep2.png">
+
+### Dashboard - empresas 
+
+<img src="./img/dashboard empresas 2.png">
+
+
