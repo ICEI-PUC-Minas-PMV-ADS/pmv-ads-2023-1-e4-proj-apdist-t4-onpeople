@@ -32,7 +32,12 @@ public class FuncionariosController : ControllerBase
         _usersServices = usersServices;
     }
 
-
+    /// <summary>
+    /// Obtém os dados de todos os funcionários cadastrados
+    /// </summary>
+    /// <response code="200">Dados dos funcionários cadastrados</response>
+    /// <response code="400">Parâmetros incorretos</response>
+    /// <response code="500">Erro interno</response>
     [HttpGet]
     public async Task<IActionResult> GetAllFuncionarios([FromQuery]PageParameters pageParameters)
     {
@@ -54,12 +59,19 @@ public class FuncionariosController : ControllerBase
         }
         catch (Exception e)
         {
-            return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao recuperar empresas. Erro: {e.Message}");
+            return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao recuperar funcionários. Erro: {e.Message}");
         }
     }
 
+    /// <summary>
+    /// Obtém os dados de um funcionário específico
+    /// </summary>
+    /// <param name="funcionarioId">Identificador do departamento</param>
+    /// <response code="200">Dados do departamento consultado</response>
+    /// <response code="400">Parâmetros incorretos</response>
+    /// <response code="500">Erro interno</response>
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetFuncionarioById(int id)
+    public async Task<IActionResult> GetFuncionarioById(int funcionarioId)
     {
         try
         {
@@ -68,18 +80,24 @@ public class FuncionariosController : ControllerBase
             // if (claimUser == null) 
             //     return Unauthorized();
 
-            var funcionario = await _funcionariosservices.GetFuncionarioById(id);
+            var funcionario = await _funcionariosservices.GetFuncionarioById(funcionarioId);
 
-            if (funcionario == null) return NoContent();
+            if (funcionario == null) return NotFound("Funcionário não encontrado.");
 
             return Ok(funcionario);
         }
         catch (Exception e)
         {
-            return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao recuperar empresa por Id. Erro: {e.Message}");
+            return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao recuperar funcionário por Id. Erro: {e.Message}");
         }
     }
 
+    /// <summary>
+    /// Realiza a inclusão de um novo funcionário
+    /// </summary>
+    /// <response code="200">Funcionário cadastrado com sucesso</response>
+    /// <response code="400">Parâmetros incorretos</response>
+    /// <response code="500">Erro interno</response>
     [HttpPost]
     public async Task<IActionResult> CreateFuncionario(CreateFuncionarioDto funcionarioDto)
     {
@@ -97,14 +115,21 @@ public class FuncionariosController : ControllerBase
 
             if (createdFuncionario != null) return Ok(createdFuncionario);
 
-            return NoContent();
+            return BadRequest("Não foi possível cadastrar o funcionário.");
         }
         catch (Exception e)
         {
-            return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao adiconar empresa. Erro: {e.Message}");
+            return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao adiconar funcionário. Erro: {e.Message}");
         }
     }    
     
+    /// <summary>
+    /// Realiza a atualização dos dados de um funcionário
+    /// </summary>
+    /// <param name="id">Identificador do funcionário</param>
+    /// <response code="200">Funcionário atualizado com sucesso</response>
+    /// <response code="400">Parâmetros incorretos</response>
+    /// <response code="500">Erro interno</response>
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateFuncionario(int id, UpdateFuncionarioDto funcionarioDto)
     {
@@ -129,10 +154,17 @@ public class FuncionariosController : ControllerBase
         }
         catch (Exception e)
         {
-            return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao atualizar empresa. Erro: {e.Message}");
+            return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao atualizar funcionário. Erro: {e.Message}");
         }
     }      
     
+    /// <summary>
+    /// Realiza a exclusão de um funcionário
+    /// </summary>
+    /// <param name="funcionarioId">Identificador do funcionário</param>
+    /// <response code="200">Funcionário excluído com sucesso</response>
+    /// <response code="400">Parâmetros incorretos</response>
+    /// <response code="500">Erro interno</response>
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteFuncionario(int funcionarioId)
     {
@@ -152,14 +184,14 @@ public class FuncionariosController : ControllerBase
                 return NoContent();
  
             if (await _funcionariosservices.DeleteFuncionario(funcionarioId)){
-                return Ok( new { message = "OK"});
+                return Ok( new { message = "Funcionário excluído com sucesso!"});
             } else {
                 return BadRequest("Falha na exclusão do funcionário.");
             }
         }
         catch (Exception e)
         {
-            return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao excluir empresa. Erro: {e.Message}");
+            return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao excluir funcionário. Erro: {e.Message}");
         }
         
     }   

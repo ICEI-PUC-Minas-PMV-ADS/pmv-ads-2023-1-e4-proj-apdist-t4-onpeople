@@ -6,18 +6,22 @@ using OnPeople.Integration.Models.Dashboard;
 using OnPeople.Integration.Models.Pages.Config;
 using OnPeople.Integration.Models.Pages.Page;
 using OnPeople.Persistence.Interfaces.Contracts.Funcionarios;
+using OnPeople.Persistence.Interfaces.Contracts.Shared;
 
 namespace OnPeople.Application.Services.Implementations.Funcionarios
 {
     public class FuncionariosServices : IFuncionariosServices
     {
         private readonly IFuncionariosPersistence _funcionariosPersistence;
+        private readonly ISharedPersistence _sharedPersistence;
         private readonly IMapper _mapper;
         public FuncionariosServices(
             IFuncionariosPersistence funcionariosPersistence,
+            ISharedPersistence sharedPersistence,
             IMapper mapper)
         {
             _funcionariosPersistence = funcionariosPersistence;
+            _sharedPersistence = sharedPersistence;
             _mapper = mapper;
         }
         public async Task<ReadFuncionarioDto> CreateFuncionario(CreateFuncionarioDto funcionarioDto)
@@ -26,9 +30,9 @@ namespace OnPeople.Application.Services.Implementations.Funcionarios
             {
                 var funcionario = _mapper.Map<Funcionario>(funcionarioDto);
 
-                _funcionariosPersistence.Create<Funcionario>(funcionario);
+                _sharedPersistence.Create<Funcionario>(funcionario);
 
-                if (await _funcionariosPersistence.SaveChangesAsync())
+                if (await _sharedPersistence.SaveChangesAsync())
                 {
                     var funcionarioRetorno = await _funcionariosPersistence.GetFuncionarioByIdAsync(funcionario.Id);
 
@@ -97,7 +101,7 @@ namespace OnPeople.Application.Services.Implementations.Funcionarios
 
                 _funcionariosPersistence.Update<Funcionario>(funcionarioUpdate);
 
-                if (await _funcionariosPersistence.SaveChangesAsync())
+                if (await _sharedPersistence.SaveChangesAsync())
                 {
                     var funcionarioMapper =  await _funcionariosPersistence.GetFuncionarioByIdAsync(funcionarioUpdate.Id);
                     return _mapper.Map<Funcionario>(funcionarioMapper);
@@ -118,11 +122,11 @@ namespace OnPeople.Application.Services.Implementations.Funcionarios
                 var funcionario = await _funcionariosPersistence.GetFuncionarioByIdAsync(funcionarioId);
 
                 if (funcionario == null) 
-                    throw new Exception("Funcionário para deleção náo foi encontrada!"); 
+                    throw new Exception("Funcionário para deleção náo foi encontrado!"); 
 
                 _funcionariosPersistence.Delete<Funcionario>(funcionario);
 
-                return await _funcionariosPersistence.SaveChangesAsync();
+                return await _sharedPersistence.SaveChangesAsync();
             }
             catch (Exception e)
             {

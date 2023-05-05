@@ -113,17 +113,17 @@ namespace OnPeople.Persistence.Interfaces.Contexts
                 } 
             );
 
-            modelBuilder.Entity<DadoPessoal>(dadoPessoal =>
-                {
-                    dadoPessoal.HasOne(dp => dp.Funcionarios);
-                } 
-            );
+            // modelBuilder.Entity<DadoPessoal>(dadoPessoal =>
+            //     {
+            //         dadoPessoal.HasOne(dp => dp.Funcionarios);
+            //     } 
+            // );
 
-            modelBuilder.Entity<Endereco>(endereco =>
-                {
-                    endereco.HasOne(e => e.Funcionarios);
-                } 
-            );
+            // modelBuilder.Entity<Endereco>(endereco =>
+            //     {
+            //         endereco.HasOne(e => e.Funcionarios);
+            //     } 
+            // );
 
             modelBuilder.Entity<Meta>(meta =>
                 {

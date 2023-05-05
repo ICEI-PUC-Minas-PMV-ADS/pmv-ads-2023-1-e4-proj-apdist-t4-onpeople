@@ -14,6 +14,6 @@ namespace OnPeople.Domain.Models.Funcionarios
         public String PisPasep { get; set; }
         public DateTime DataExpedicaoCarteiraTrabalho { get; set; }
         public int FuncionarioId { get; set; }
-        public Funcionario Funcionarios { get; set; }
+        //public Funcionario Funcionarios { get; set; }
     }
 }

@@ -30,6 +30,10 @@ using OnPeople.Application.Services.Contracts.Cargos;
 using OnPeople.Application.Services.Implementations.Cargos;
 using OnPeople.Persistence.Interfaces.Contracts.Cargos;
 using OnPeople.Persistence.Interfaces.Implementations.Cargos;
+using OnPeople.Application.Services.Contracts.Funcionarios;
+using OnPeople.Application.Services.Implementations.Funcionarios;
+using OnPeople.Persistence.Interfaces.Contracts.Funcionarios;
+using OnPeople.Persistence.Interfaces.Implementations.Funcionarios;
 
 namespace OnPeople.API
 {
@@ -100,7 +104,8 @@ namespace OnPeople.API
                 .AddScoped<IUsersServices, UsersServices>()
                 .AddScoped<ITokenServices, TokenServices>()
                 .AddScoped<IDepartamentosServices, DepartamentosServices>()
-                .AddScoped<ICargosServices, CargosServices>();
+                .AddScoped<ICargosServices, CargosServices>()
+                .AddScoped<IFuncionariosServices, FuncionariosServices>();
 
             //Injeção das interfaces de Persistencias
             services
@@ -108,7 +113,8 @@ namespace OnPeople.API
                 .AddScoped<IEmpresasPersistence, EmpresasPersistence>()
                 .AddScoped<IUsersPersistence, UsersPersistence>()
                 .AddScoped<IDepartamentosPersistence, DepartamentosPersistence>()
-                .AddScoped<ICargosPersistence, CargosPersistence>();
+                .AddScoped<ICargosPersistence, CargosPersistence>()
+                .AddScoped<IFuncionariosPersistence, FuncionariosPersistence>();
 
             //Injeção do Upload como serviço    
             services
