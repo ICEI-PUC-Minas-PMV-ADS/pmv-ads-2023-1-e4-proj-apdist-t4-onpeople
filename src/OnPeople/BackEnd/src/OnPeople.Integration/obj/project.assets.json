@@ -580,19 +580,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Pedro Braga\\.nuget\\packages\\": {}
+    "C:\\Users\\isaca\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Pedro Braga\\Desktop\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Integration\\OnPeople.Integration.csproj",
+      "projectUniqueName": "C:\\Users\\isaca\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Integration\\OnPeople.Integration.csproj",
       "projectName": "OnPeople.Integration",
-      "projectPath": "C:\\Users\\Pedro Braga\\Desktop\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Integration\\OnPeople.Integration.csproj",
-      "packagesPath": "C:\\Users\\Pedro Braga\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Pedro Braga\\Desktop\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Integration\\obj\\",
+      "projectPath": "C:\\Users\\isaca\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Integration\\OnPeople.Integration.csproj",
+      "packagesPath": "C:\\Users\\isaca\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\isaca\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Integration\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Pedro Braga\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\isaca\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"

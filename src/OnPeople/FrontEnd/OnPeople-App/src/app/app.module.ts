@@ -11,8 +11,6 @@ import { UsersAccountModule } from './users/modules';
 import { CompanyModule } from './companies/modules';
 import { DashboardModule } from './dashboards/components/modules';
 
-
-
 defineLocale('pt-br', ptBrLocale);
 
 @NgModule({
@@ -25,7 +23,6 @@ defineLocale('pt-br', ptBrLocale);
     UsersAccountModule,
     CompanyModule,
     DashboardModule,
-
   ],
   providers: [
   ],

@@ -2312,19 +2312,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Pedro Braga\\.nuget\\packages\\": {}
+    "C:\\Users\\isaca\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Pedro Braga\\Desktop\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Application\\OnPeople.Application.csproj",
+      "projectUniqueName": "C:\\Users\\isaca\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Application\\OnPeople.Application.csproj",
       "projectName": "OnPeople.Application",
-      "projectPath": "C:\\Users\\Pedro Braga\\Desktop\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Application\\OnPeople.Application.csproj",
-      "packagesPath": "C:\\Users\\Pedro Braga\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Pedro Braga\\Desktop\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Application\\obj\\",
+      "projectPath": "C:\\Users\\isaca\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Application\\OnPeople.Application.csproj",
+      "packagesPath": "C:\\Users\\isaca\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\isaca\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Application\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Pedro Braga\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\isaca\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
@@ -2336,14 +2336,14 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\Pedro Braga\\Desktop\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Domain\\OnPeople.Domain.csproj": {
-              "projectPath": "C:\\Users\\Pedro Braga\\Desktop\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Domain\\OnPeople.Domain.csproj"
+            "C:\\Users\\isaca\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Domain\\OnPeople.Domain.csproj": {
+              "projectPath": "C:\\Users\\isaca\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Domain\\OnPeople.Domain.csproj"
             },
-            "C:\\Users\\Pedro Braga\\Desktop\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Integration\\OnPeople.Integration.csproj": {
-              "projectPath": "C:\\Users\\Pedro Braga\\Desktop\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Integration\\OnPeople.Integration.csproj"
+            "C:\\Users\\isaca\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Integration\\OnPeople.Integration.csproj": {
+              "projectPath": "C:\\Users\\isaca\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Integration\\OnPeople.Integration.csproj"
             },
-            "C:\\Users\\Pedro Braga\\Desktop\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Persistence\\OnPeople.Persistence.csproj": {
-              "projectPath": "C:\\Users\\Pedro Braga\\Desktop\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Persistence\\OnPeople.Persistence.csproj"
+            "C:\\Users\\isaca\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Persistence\\OnPeople.Persistence.csproj": {
+              "projectPath": "C:\\Users\\isaca\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Persistence\\OnPeople.Persistence.csproj"
             }
           }
         }

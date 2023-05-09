@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
@@ -6,7 +7,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { TitlebarModule } from 'src/app/shared/modules';
-import { DashboardComponent, DashCompanyComponent } from '../../dashboard';
+import { DashboardComponent, DashCargosComponent, DashCompanyComponent, DashMetasComponent, DashDepartamentoComponent } from '../../dashboard';
+
 
 @NgModule({
 imports: [
@@ -21,10 +23,17 @@ imports: [
 declarations: [
   DashboardComponent,
   DashCompanyComponent,
+  DashCargosComponent,
+  DashMetasComponent,
+  DashDepartamentoComponent
 ],
 exports: [
   DashboardComponent,
   DashCompanyComponent,
+  DashCargosComponent,
+  DashMetasComponent,
+  DashDepartamentoComponent
+
 ],
 providers: [
 ],

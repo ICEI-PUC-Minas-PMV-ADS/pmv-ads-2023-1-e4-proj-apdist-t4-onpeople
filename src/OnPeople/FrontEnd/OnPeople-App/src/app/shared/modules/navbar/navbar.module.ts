@@ -2,8 +2,7 @@ import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgbCollapseModule, NgbDropdownModule } from "@ng-bootstrap/ng-bootstrap";
-import { AppRoutingModule } from "src/app/app-routing.module";
-
+import { AppRoutingModule } from "src/app/app-routing.module"
 import { NavbarComponent } from "../../components";
 import { AuthGuard, JwtInterceptor } from "../../security";
 
