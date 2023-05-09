@@ -34,6 +34,14 @@ using OnPeople.Application.Services.Contracts.Funcionarios;
 using OnPeople.Application.Services.Implementations.Funcionarios;
 using OnPeople.Persistence.Interfaces.Contracts.Funcionarios;
 using OnPeople.Persistence.Interfaces.Implementations.Funcionarios;
+using OnPeople.Application.Services.Contracts.FuncionariosMetas;
+using OnPeople.Application.Services.Implementations.FuncionariosMetas;
+using OnPeople.Persistence.Interfaces.Contracts.FuncionariosMetas;
+using OnPeople.Persistence.Interfaces.Implementations.FuncionariosMetas;
+using OnPeople.Application.Services.Contracts.Metas;
+using OnPeople.Application.Services.Implementations.Metas;
+using OnPeople.Persistence.Interfaces.Contracts.Metas;
+using OnPeople.Persistence.Interfaces.Implementations.Metas;
 
 namespace OnPeople.API
 {
@@ -105,7 +113,9 @@ namespace OnPeople.API
                 .AddScoped<ITokenServices, TokenServices>()
                 .AddScoped<IDepartamentosServices, DepartamentosServices>()
                 .AddScoped<ICargosServices, CargosServices>()
-                .AddScoped<IFuncionariosServices, FuncionariosServices>();
+                .AddScoped<IFuncionariosServices, FuncionariosServices>()
+                .AddScoped<IFuncionarioMetaServices, FuncionarioMetaServices>()
+                .AddScoped<IMetasService, MetasService>();
 
             //Injeção das interfaces de Persistencias
             services
@@ -114,7 +124,9 @@ namespace OnPeople.API
                 .AddScoped<IUsersPersistence, UsersPersistence>()
                 .AddScoped<IDepartamentosPersistence, DepartamentosPersistence>()
                 .AddScoped<ICargosPersistence, CargosPersistence>()
-                .AddScoped<IFuncionariosPersistence, FuncionariosPersistence>();
+                .AddScoped<IFuncionariosPersistence, FuncionariosPersistence>()
+                .AddScoped<IFuncionarioMetaPersistence, FuncionarioMetaPersistence>()
+                .AddScoped<IMetaPersist, MetasPersist>();;
 
             //Injeção do Upload como serviço    
             services
