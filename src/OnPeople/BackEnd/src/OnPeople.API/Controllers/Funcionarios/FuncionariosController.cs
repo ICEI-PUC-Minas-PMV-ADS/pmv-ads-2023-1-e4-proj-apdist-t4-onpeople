@@ -11,6 +11,7 @@ using Newtonsoft.Json.Linq;
 using OnPeople.Integration.Models.Links;
 using OnPeople.Application.Services.Contracts.Funcionarios;
 using OnPeople.Application.Dtos.Funcionarios;
+using OnPeople.Application.Services.Contracts.FuncionariosMetas;
 
 namespace OnPeople.API.Controllers.Funcionarios;
 
@@ -19,15 +20,18 @@ namespace OnPeople.API.Controllers.Funcionarios;
 public class FuncionariosController : ControllerBase
 {
     private readonly IFuncionariosServices _funcionariosservices;
+    private readonly IFuncionarioMetaServices _funcionarioMetaservices;
     private readonly IUploadService _uploadService;
     private readonly IUsersServices _usersServices;
 
     public FuncionariosController(
         IFuncionariosServices funcionariosservices,
+        IFuncionarioMetaServices funcionarioMetaservices,
         IUploadService uploadService,
         IUsersServices usersServices)
     {
         _funcionariosservices = funcionariosservices;
+        _funcionarioMetaservices = funcionarioMetaservices;
         _uploadService = uploadService;
         _usersServices = usersServices;
     }
@@ -127,6 +131,7 @@ public class FuncionariosController : ControllerBase
     /// Realiza a atualização dos dados de um funcionário
     /// </summary>
     /// <param name="id">Identificador do funcionário</param>
+    /// <param name="funcionarioDto">Dados de funcionário</param>
     /// <response code="200">Funcionário atualizado com sucesso</response>
     /// <response code="400">Parâmetros incorretos</response>
     /// <response code="500">Erro interno</response>
@@ -195,4 +200,30 @@ public class FuncionariosController : ControllerBase
         }
         
     }   
+
+    /// <summary>
+    /// Associa uma meta a um funcionário
+    /// </summary>
+    /// <param name="funcionarioId">Identificador do funcionário</param>
+    /// <param name="metaId">Identificador da meta</param>
+    /// <response code="200">Associação feita com sucesso</response>
+    /// <response code="400">Parâmetros incorretos</response>
+    /// <response code="500">Erro interno</response>
+    [HttpPost("{id}")]
+    public async Task<IActionResult> AssociarMetaAFuncionario(int funcionarioId, int metaId)
+    {
+        try
+        {
+            if (await _funcionarioMetaservices.AssociarMetaAFuncionario(funcionarioId, metaId) == 1){
+                return Ok( new { message = "Associação feita com sucesso!"});
+            } else {
+                return BadRequest("Falha na associação de meta ao funcionário.");
+            }
+        }
+        catch (Exception e)
+        {
+            return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao associar meta a funcionário. Erro: {e.Message}");
+        }
+        
+    } 
 }
