@@ -148,9 +148,13 @@ A matriz deve contemplar todos os elementos relevantes que fazem parte do sistem
 
 ## Gerenciamento de Tempo
 
-O gráfico de Gantt ou Diagrama de Gantt também é uma ferramenta visual utilizada para controlar e gerenciar o cronograma de atividades de um projeto. Com ele, é possível listar tudo o que precisa ser feito para colocar o projeto em prática, dividir em atividades e estimar o tempo necessário para executá-las.
+O cronograma da equipe é atualizado a cada sprint.
 
+Cronograma das etapas 1 e 2:
 ![Gráfico de Gantt](img/cronograma-onpeople.png)
+
+Cronograma da etapa 3:
+![Gráfico de Gantt](img/cronograma-etapa3.png)
 
 ## Gerenciamento de Equipe
 

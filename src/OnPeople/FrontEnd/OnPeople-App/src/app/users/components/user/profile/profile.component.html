@@ -1,3 +1,5 @@
+
+
 <div class="card rounded shadow-sm p-1 m-0 bg-ligth">
 
   <div class="card-header bg-info shadow-sm text-center text-white ">
@@ -6,16 +8,18 @@
 
   <div class="card-body bg-white m-0 p-0">
 
-    <div  class="row g-0">
+    <div class="row g-0">
 
       <div class="col-sm-12 col-md-3 p-1">
 
         <div class="card m-0 p-0">
 
           <div class="card-header bg-primary">
-            <input type="file" #file (change)="changePhoto($event)" style="display: none" >
+            <input type="file" #file (change)="changePhoto($event)"
+              style="display: none">
             <div class="align-self-center text-center pt-1">
-              <img class="rounded-circle" [src]="fotoURL" (click)="file.click()" alt="Foto do perfil">
+              <img class="rounded-circle" [src]="fotoURL" (click)="file.click()"
+                alt="Foto do perfil">
               <div class="h5 text-center text-white">
                 {{users.email}}
               </div>
@@ -26,7 +30,8 @@
             <div class="h7 p-0">Nome: {{users.nomeCompleto}}</div>
             <div class="h7 p-0">e-mail: {{users.email}}</div>
             <div class="h7 p-0">Telefone: {{users.phoneNumber}}</div>
-            <div class="h7 p-0">Dt. Cadastro: {{users.dataCadastro | DateTimeFormat}}</div>
+            <div class="h7 p-0">Dt. Cadastro: {{users.dataCadastro |
+              DateTimeFormat}}</div>
             <div class="h7 p-0">Conta Ativa: {{(users.ativa) ? "Sim" : "Não"}}</div>
             <div class="h7 p-0">Empresa: {{users.nomeEmpresa}}</div>
           </div>
@@ -44,7 +49,7 @@
       <div class="col-md-9 m-0 p-1">
         <div class="form-row d-md-flex">
           <div class="form-group col-12">
-             <app-profileDetalhe (changeFormValue)="getDataLoged($event)"></app-profileDetalhe>
+            <app-profileDetalhe (changeFormValue)="getDataLoged($event)"></app-profileDetalhe>
           </div>
         </div>
       </div>
@@ -54,8 +59,3 @@
   </div>
 
 </div>
-
-
-
-
-
