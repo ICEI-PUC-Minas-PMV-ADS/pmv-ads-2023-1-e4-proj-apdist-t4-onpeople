@@ -1,5 +1,6 @@
 import { Component, OnInit, } from '@angular/core';
 import { NgSelectConfig } from '@ng-select/ng-select';
+
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { Empresa } from 'src/app/companies/models';
@@ -21,6 +22,8 @@ export class DashCompanyComponent implements OnInit {
   public totalGoal = 40;
   public totalNotGoal = 25;
   public percTotalNotGoal = 25.0/40.0*100
+
+  public dashboardCompany: DashboardCompany;
 
   public selectCompanyId = 0;
 
@@ -72,12 +75,14 @@ export class DashCompanyComponent implements OnInit {
     this.companyService
       .CountCompany(id)
       .subscribe(
-        (dashboardCompany: DashboardCompany) => {
-          console.log("conntador: ", dashboardCompany)
-          if (dashboardCompany != null) {
-            this.totalCompany = dashboardCompany.countEmpresa;
-            this.totalActive = dashboardCompany.countEmpresaAtiva;
-            this.percTotalActive = +(dashboardCompany.countEmpresaAtiva / dashboardCompany.countEmpresa * 100).toFixed(2);
+        (returnDash: DashboardCompany) => {
+          this.dashboardCompany = {...returnDash}
+          console.log("conntador: ", this.dashboardCompany)
+          if (this.dashboardCompany !== null) {
+            console.log('countEmpresa', this.dashboardCompany.countEmpresas)
+            this.totalCompany = this.dashboardCompany.countEmpresas;
+            this.totalActive = this.dashboardCompany.countEmpresasAtivas;
+            this.percTotalActive = +(this.dashboardCompany.countEmpresasAtivas / this.dashboardCompany.countEmpresas * 100).toFixed(2);
           }
         }
       )

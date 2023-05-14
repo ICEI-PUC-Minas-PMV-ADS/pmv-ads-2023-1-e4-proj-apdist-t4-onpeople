@@ -1,4 +1,4 @@
 export class DashboardCompany {
-  countEmpresa: number;
-  countEmpresaAtiva: number;
+  countEmpresas: number;
+  countEmpresasAtivas: number;
 }

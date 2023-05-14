@@ -10,11 +10,11 @@ namespace OnPeople.Domain.Models.Funcionarios
         public int FuncionarioId { get; set; }
         public Funcionario Funcionario { get; set; }
         public Boolean MetaCumprida { get; set; }
-        public DateTime InicioEfetivo { get; set; }
-        public DateTime FimEfetivo { get; set; }
+        public string InicioEfetivo { get; set; }
+        public string FimEfetivo { get; set; }
         public int DiasEfetivo { get; set; }
-        public DateTime InicioAcordado { get; set; }
-        public DateTime FimAcordado { get; set; }
+        public string InicioAcordado { get; set; }
+        public string FimAcordado { get; set; }
         public int DiasAcordado { get; set; }
     }
 }

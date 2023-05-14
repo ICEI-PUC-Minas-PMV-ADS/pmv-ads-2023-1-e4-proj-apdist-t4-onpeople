@@ -77,7 +77,7 @@ public class DepartamentosController : ControllerBase
     /// <response code="400">Parâmetros incorretos</response>
     /// <response code="500">Erro interno</response>
     
-    [HttpGet("{empresaId}/empresa")]
+    [HttpGet("{empresaId}/departamento")]
     public async Task<IActionResult> GetDepartamentosByEmpresaId(int empresaId)
     {
         try
@@ -123,6 +123,7 @@ public class DepartamentosController : ControllerBase
     /// Realiza a atualização dos dados de um departamento
     /// </summary>
     /// <param name="departamentoId">Identificador do departamento</param>
+    /// <param name="departamentoDto">Departamentos Cadastradps</param>
     /// <response code="200">Departamento atualizado com sucesso</response>
     /// <response code="400">Parâmetros incorretos</response>
     /// <response code="500">Erro interno</response>

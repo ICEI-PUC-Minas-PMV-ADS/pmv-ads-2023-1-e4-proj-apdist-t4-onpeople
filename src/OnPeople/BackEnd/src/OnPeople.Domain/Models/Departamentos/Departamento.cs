@@ -12,10 +12,11 @@ namespace OnPeople.Domain.Models.Departamentos
         public int DiretorId { get; set; }
         public int GerenteId {get; set;}
         public int SupervisorId { get; set; }
-        public DateTime DataCriacao { get; set; }
-        public DateTime? DataEncerramento { get; set; }
+        public string DataCriacao { get; set; }
+        public string DataEncerramento { get; set; }
         public Boolean Ativo { get; set; }
         public int EmpresaId { get; set; }
+        public Empresa Empresa { get; set; }
         public IEnumerable<Cargo> Cargos { get; set; }
     }
 }

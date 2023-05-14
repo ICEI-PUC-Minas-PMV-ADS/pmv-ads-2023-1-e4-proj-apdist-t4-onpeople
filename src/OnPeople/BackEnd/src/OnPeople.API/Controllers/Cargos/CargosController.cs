@@ -123,6 +123,7 @@ public class CargosController : ControllerBase
     /// Realiza a alteração de um cargo
     /// </summary>
     /// <param name="cargoId">Identificador do cargo</param>
+    /// <param name="cargoDto">Cargps Cadastrados</param>
     /// <response code="200">Cargo atualizado com sucesso</response>
     /// <response code="400">Parâmetros incorretos</response>
     /// <response code="500">Erro interno</response>

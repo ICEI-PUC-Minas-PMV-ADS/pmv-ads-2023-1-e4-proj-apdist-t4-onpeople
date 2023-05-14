@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace OnPeople.Persistence.Migrations
 {
-    public partial class Initial : Migration
+    public partial class EFInitail : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -149,8 +149,10 @@ namespace OnPeople.Persistence.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Foto = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    DataCadastro = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    DataEncerramento = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    DataCadastro = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    DataEncerramento = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Ativa = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     Master = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     Gold = table.Column<bool>(type: "tinyint(1)", nullable: false),
@@ -210,8 +212,10 @@ namespace OnPeople.Persistence.Migrations
                     DiretorId = table.Column<int>(type: "int", nullable: false),
                     GerenteId = table.Column<int>(type: "int", nullable: false),
                     SupervisorId = table.Column<int>(type: "int", nullable: false),
-                    DataCriacao = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    DataEncerramento = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    DataCriacao = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    DataEncerramento = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Ativo = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     EmpresaId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -241,11 +245,15 @@ namespace OnPeople.Persistence.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     MetaCumprida = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     MetaAprovada = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    InicioPlanejado = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    FumPlanejado = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    InicioPlanejado = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    FumPlanejado = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     DiasPlanejado = table.Column<int>(type: "int", nullable: false),
-                    InicioOficial = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    FimOficial = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    InicioOficial = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    FimOficial = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     EmpresaId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -391,8 +399,10 @@ namespace OnPeople.Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    DataAdmissao = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    DataDemissao = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    DataAdmissao = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    DataDemissao = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Ativo = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: true),
                     DepartamentoId = table.Column<int>(type: "int", nullable: false),
@@ -442,7 +452,8 @@ namespace OnPeople.Persistence.Migrations
                     ImpedimentoEleitora = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     Identidade = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    DataExpedicao = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    DataExpedicao = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     UfEmissao = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     EstadoCivil = table.Column<string>(type: "longtext", nullable: true)
@@ -494,8 +505,10 @@ namespace OnPeople.Persistence.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     ComplementoEndereco = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    DataCriação = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    DataUltimaAtualizacao = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    DataCriação = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    DataUltimaAtualizacao = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     FuncionarioId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -518,11 +531,15 @@ namespace OnPeople.Persistence.Migrations
                     FuncionarioId = table.Column<int>(type: "int", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false),
                     MetaCumprida = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    InicioEfetivo = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    FimEfetivo = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    InicioEfetivo = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    FimEfetivo = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     DiasEfetivo = table.Column<int>(type: "int", nullable: false),
-                    InicioAcordado = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    FimAcordado = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    InicioAcordado = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    FimAcordado = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     DiasAcordado = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

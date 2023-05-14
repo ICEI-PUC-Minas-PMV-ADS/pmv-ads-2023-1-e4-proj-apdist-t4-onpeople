@@ -12,8 +12,8 @@ namespace OnPeople.Domain.Models.Users
         public string NomeCompleto { get; set; }
         public string Visao { get; set; }
         public string Foto { get; set; }
-        public DateTime DataCadastro { get; set; }
-        public DateTime? DataEncerramento { get; set; }
+        public string DataCadastro { get; set; }
+        public string DataEncerramento { get; set; }
         public Boolean Ativa { get; set; }      
         public Boolean Master { get; set; }
         public Boolean Gold { get; set; }

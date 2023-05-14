@@ -8,8 +8,8 @@ namespace OnPeople.Domain.Models.Funcionarios
     public class Funcionario
     {
         public int Id { get; set; }
-        public DateTime DataAdmissao { get; set; }
-        public DateTime DataDemissao { get; set; }
+        public string DataAdmissao { get; set; }
+        public string DataDemissao { get; set; }
         public Boolean Ativo { get; set; }
         public int? UserId { get; set; }
         public User Users { get; set; }
