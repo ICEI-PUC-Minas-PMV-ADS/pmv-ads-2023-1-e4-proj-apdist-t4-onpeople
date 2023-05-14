@@ -1,9 +1,10 @@
 <div class="row g-0 mt-1 p-0">
 
-  <div class="col-md-6 d-none d-md-block p-1">
+  <div class="col-md-6 col-sm-12 p-1">
 
     <div class="text-center col-md-12 my-auto side-header">
-      <img class="imageLateral mt-3" src="../../../../assets/img/banner-606x430.png">
+      <img class="imageLateral mt-3"
+        src="../../../../../assets/img/banner-606x420.png">
     </div>
 
   </div>
@@ -24,7 +25,8 @@
 
       <div class="card-body bg-white mx-3">
 
-        <form class="row p-0" [formGroup]="formRegister" (submit)="createUser()" #registerForm="ngForm">
+        <form class="row p-0" [formGroup]="formRegister" (submit)="createUser()"
+          #registerForm="ngForm">
 
           <div class="pb-1 d-block d-md-none">
             <div class="h4 border-bottom">Cadastro de contas</div>
@@ -117,7 +119,8 @@
 
           <div class="form-row d-md-flex mt-0 p-1">
             <div class="form-group col-12">
-              <button class="btn btn-success btn-block col-12 bg-info" [disabled]="!formRegister.valid" type="submit">
+              <button class="btn btn-success btn-block col-12 bg-info"
+                [disabled]="!formRegister.valid" type="submit">
                 Cadastrar
               </button>
             </div>
@@ -125,32 +128,33 @@
 
         </form>
 
-    </div>
+      </div>
 
-    <div  class="card-footer bg-primary">
-      <div class="pt-0">
-        <div class="row">
-          <div class="d-sm-flex">
-            <div class="custom-control custom-check-box">
-              <a class="btn btn-link btn-block text-white" routerLink="/users/login">
-                Já sou cadastrado
-              </a>
-            </div>
-            <div class="custom-control custom-check-box ms-auto">
-              <a class="btn btn-link btn-block text-white" routerLink="/users/login">
-                Recuperar Senha
-              </a>
+      <div class="card-footer bg-primary">
+        <div class="pt-0">
+          <div class="row">
+            <div class="d-sm-flex">
+              <div class="custom-control custom-check-box">
+                <a class="btn btn-link btn-block text-white"
+                  routerLink="/users/login">
+                  Já sou cadastrado
+                </a>
+              </div>
+              <div class="custom-control custom-check-box ms-auto">
+                <a class="btn btn-link btn-block text-white"
+                  routerLink="/users/login">
+                  Recuperar Senha
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </div>
+
     </div>
 
   </div>
-
-</div>
-<!--
+  <!--
 <p>Form Value: {{formRegister.value | json}}</p>
 <p>Form Status: {{formRegister.status | json}}</p>
 -->
-
