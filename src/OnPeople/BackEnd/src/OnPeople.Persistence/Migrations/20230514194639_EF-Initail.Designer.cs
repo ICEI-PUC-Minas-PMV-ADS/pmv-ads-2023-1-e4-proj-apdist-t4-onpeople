@@ -11,8 +11,8 @@ using OnPeople.Persistence.Interfaces.Contexts;
 namespace OnPeople.Persistence.Migrations
 {
     [DbContext(typeof(OnPeopleContext))]
-    [Migration("20230419012442_Initial")]
-    partial class Initial
+    [Migration("20230514194639_EF-Initail")]
+    partial class EFInitail
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -149,11 +149,11 @@ namespace OnPeople.Persistence.Migrations
                     b.Property<bool>("Ativo")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<DateTime>("DataCriacao")
-                        .HasColumnType("datetime(6)");
+                    b.Property<string>("DataCriacao")
+                        .HasColumnType("longtext");
 
-                    b.Property<DateTime?>("DataEncerramento")
-                        .HasColumnType("datetime(6)");
+                    b.Property<string>("DataEncerramento")
+                        .HasColumnType("longtext");
 
                     b.Property<int>("DiretorId")
                         .HasColumnType("int");
@@ -330,8 +330,8 @@ namespace OnPeople.Persistence.Migrations
                     b.Property<string>("CarteiraTrabalho")
                         .HasColumnType("longtext");
 
-                    b.Property<DateTime>("DataExpedicao")
-                        .HasColumnType("datetime(6)");
+                    b.Property<string>("DataExpedicao")
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("DataExpedicaoCarteiraTrabalho")
                         .HasColumnType("datetime(6)");
@@ -388,11 +388,11 @@ namespace OnPeople.Persistence.Migrations
                     b.Property<string>("ComplementoEndereco")
                         .HasColumnType("longtext");
 
-                    b.Property<DateTime>("DataCriação")
-                        .HasColumnType("datetime(6)");
+                    b.Property<string>("DataCriação")
+                        .HasColumnType("longtext");
 
-                    b.Property<DateTime>("DataUltimaAtualizacao")
-                        .HasColumnType("datetime(6)");
+                    b.Property<string>("DataUltimaAtualizacao")
+                        .HasColumnType("longtext");
 
                     b.Property<int>("FuncionarioId")
                         .HasColumnType("int");
@@ -431,11 +431,11 @@ namespace OnPeople.Persistence.Migrations
                     b.Property<int>("CargoId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("DataAdmissao")
-                        .HasColumnType("datetime(6)");
+                    b.Property<string>("DataAdmissao")
+                        .HasColumnType("longtext");
 
-                    b.Property<DateTime>("DataDemissao")
-                        .HasColumnType("datetime(6)");
+                    b.Property<string>("DataDemissao")
+                        .HasColumnType("longtext");
 
                     b.Property<int>("DepartamentoId")
                         .HasColumnType("int");
@@ -478,20 +478,20 @@ namespace OnPeople.Persistence.Migrations
                     b.Property<int>("DiasEfetivo")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("FimAcordado")
-                        .HasColumnType("datetime(6)");
+                    b.Property<string>("FimAcordado")
+                        .HasColumnType("longtext");
 
-                    b.Property<DateTime>("FimEfetivo")
-                        .HasColumnType("datetime(6)");
+                    b.Property<string>("FimEfetivo")
+                        .HasColumnType("longtext");
 
                     b.Property<int>("Id")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("InicioAcordado")
-                        .HasColumnType("datetime(6)");
+                    b.Property<string>("InicioAcordado")
+                        .HasColumnType("longtext");
 
-                    b.Property<DateTime>("InicioEfetivo")
-                        .HasColumnType("datetime(6)");
+                    b.Property<string>("InicioEfetivo")
+                        .HasColumnType("longtext");
 
                     b.Property<bool>("MetaCumprida")
                         .HasColumnType("tinyint(1)");
@@ -515,17 +515,17 @@ namespace OnPeople.Persistence.Migrations
                     b.Property<int>("EmpresaId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("FimOficial")
-                        .HasColumnType("datetime(6)");
+                    b.Property<string>("FimOficial")
+                        .HasColumnType("longtext");
 
-                    b.Property<DateTime>("FumPlanejado")
-                        .HasColumnType("datetime(6)");
+                    b.Property<string>("FumPlanejado")
+                        .HasColumnType("longtext");
 
-                    b.Property<DateTime>("InicioOficial")
-                        .HasColumnType("datetime(6)");
+                    b.Property<string>("InicioOficial")
+                        .HasColumnType("longtext");
 
-                    b.Property<DateTime>("InicioPlanejado")
-                        .HasColumnType("datetime(6)");
+                    b.Property<string>("InicioPlanejado")
+                        .HasColumnType("longtext");
 
                     b.Property<bool>("MetaAprovada")
                         .HasColumnType("tinyint(1)");
@@ -617,11 +617,11 @@ namespace OnPeople.Persistence.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("longtext");
 
-                    b.Property<DateTime>("DataCadastro")
-                        .HasColumnType("datetime(6)");
+                    b.Property<string>("DataCadastro")
+                        .HasColumnType("longtext");
 
-                    b.Property<DateTime?>("DataEncerramento")
-                        .HasColumnType("datetime(6)");
+                    b.Property<string>("DataEncerramento")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -760,33 +760,31 @@ namespace OnPeople.Persistence.Migrations
 
             modelBuilder.Entity("OnPeople.Domain.Models.Departamentos.Departamento", b =>
                 {
-                    b.HasOne("OnPeople.Domain.Models.Empresas.Empresa", null)
+                    b.HasOne("OnPeople.Domain.Models.Empresas.Empresa", "Empresa")
                         .WithMany("Departamentos")
                         .HasForeignKey("EmpresaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Empresa");
                 });
 
             modelBuilder.Entity("OnPeople.Domain.Models.Funcionarios.DadoPessoal", b =>
                 {
-                    b.HasOne("OnPeople.Domain.Models.Funcionarios.Funcionario", "Funcionarios")
+                    b.HasOne("OnPeople.Domain.Models.Funcionarios.Funcionario", null)
                         .WithMany("DadosPessoais")
                         .HasForeignKey("FuncionarioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Funcionarios");
                 });
 
             modelBuilder.Entity("OnPeople.Domain.Models.Funcionarios.Endereco", b =>
                 {
-                    b.HasOne("OnPeople.Domain.Models.Funcionarios.Funcionario", "Funcionarios")
+                    b.HasOne("OnPeople.Domain.Models.Funcionarios.Funcionario", null)
                         .WithMany("Enderecos")
                         .HasForeignKey("FuncionarioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Funcionarios");
                 });
 
             modelBuilder.Entity("OnPeople.Domain.Models.Funcionarios.Funcionario", b =>

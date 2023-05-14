@@ -1,4 +1,5 @@
 using OnPeople.Domain.Models.Cargos;
+using OnPeople.Domain.Models.Empresas;
 using System.ComponentModel.DataAnnotations;
 
 namespace OnPeople.Application.Dtos.Departamentos
@@ -19,6 +20,7 @@ namespace OnPeople.Application.Dtos.Departamentos
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public int EmpresaId { get; set; }
+        public Empresa Empresa { get; set; }
         public IEnumerable<Cargo> Cargos { get; set; }
         
     }

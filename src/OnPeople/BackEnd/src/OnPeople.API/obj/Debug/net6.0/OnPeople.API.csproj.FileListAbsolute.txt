@@ -206,3 +206,5 @@ C:\Users\Pedro Braga\Desktop\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeo
 C:\Users\Pedro Braga\Desktop\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Api\obj\Debug\net6.0\OnPeople.API.csproj.CopyComplete
 C:\Users\Pedro Braga\Desktop\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Api\obj\Debug\net6.0\OnPeople.API.genruntimeconfig.cache
 C:\Users\Pedro Braga\Desktop\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Api\obj\Debug\net6.0\ref\OnPeople.API.dll
+C:\Users\108093631\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.API\bin\Debug\net6.0\OnPeople.API.xml
+C:\Users\108093631\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.API\obj\Debug\net6.0\OnPeople.API.xml

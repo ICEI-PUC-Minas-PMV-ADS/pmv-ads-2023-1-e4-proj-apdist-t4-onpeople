@@ -22,3 +22,15 @@ C:\Users\Pedro Braga\Desktop\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeo
 C:\Users\Pedro Braga\Desktop\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Domain\obj\Debug\net6.0\refint\OnPeople.Domain.dll
 C:\Users\Pedro Braga\Desktop\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Domain\obj\Debug\net6.0\OnPeople.Domain.pdb
 C:\Users\Pedro Braga\Desktop\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Domain\obj\Debug\net6.0\ref\OnPeople.Domain.dll
+C:\Users\108093631\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Domain\bin\Debug\net6.0\OnPeople.Domain.deps.json
+C:\Users\108093631\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Domain\bin\Debug\net6.0\OnPeople.Domain.dll
+C:\Users\108093631\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Domain\bin\Debug\net6.0\OnPeople.Domain.pdb
+C:\Users\108093631\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Domain\obj\Debug\net6.0\OnPeople.Domain.csproj.AssemblyReference.cache
+C:\Users\108093631\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Domain\obj\Debug\net6.0\OnPeople.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\108093631\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Domain\obj\Debug\net6.0\OnPeople.Domain.AssemblyInfoInputs.cache
+C:\Users\108093631\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Domain\obj\Debug\net6.0\OnPeople.Domain.AssemblyInfo.cs
+C:\Users\108093631\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Domain\obj\Debug\net6.0\OnPeople.Domain.csproj.CoreCompileInputs.cache
+C:\Users\108093631\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Domain\obj\Debug\net6.0\OnPeople.Domain.dll
+C:\Users\108093631\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Domain\obj\Debug\net6.0\refint\OnPeople.Domain.dll
+C:\Users\108093631\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Domain\obj\Debug\net6.0\OnPeople.Domain.pdb
+C:\Users\108093631\Documents\GitHub\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\src\OnPeople\BackEnd\src\OnPeople.Domain\obj\Debug\net6.0\ref\OnPeople.Domain.dll

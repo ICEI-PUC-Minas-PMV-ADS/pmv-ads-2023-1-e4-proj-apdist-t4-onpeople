@@ -14,8 +14,8 @@ namespace OnPeople.Domain.Models.Funcionarios
         public string Pais { get; set; }
         public string CaixaPostal { get; set; }
         public string ComplementoEndereco { get; set; }
-        public DateTime DataCriação { get; set; }
-        public DateTime DataUltimaAtualizacao { get; set; }
+        public string DataCriação { get; set; }
+        public string DataUltimaAtualizacao { get; set; }
         public int FuncionarioId { get; set; }
         //public Funcionario Funcionarios { get; set; }
     }

@@ -7,7 +7,7 @@ namespace OnPeople.Domain.Models.Funcionarios
         public string TituloEleitor { get; set; }
         public Boolean ImpedimentoEleitora { get; set; }
         public string Identidade { get; set; }
-        public DateTime DataExpedicao { get; set; }
+        public string DataExpedicao { get; set; }
         public string UfEmissao { get; set; }
         public String EstadoCivil { get; set; }
         public string CarteiraTrabalho { get; set; }

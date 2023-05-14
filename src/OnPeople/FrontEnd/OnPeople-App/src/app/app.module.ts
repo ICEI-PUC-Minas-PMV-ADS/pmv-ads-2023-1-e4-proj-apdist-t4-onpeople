@@ -7,10 +7,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { NavbarModule } from './shared/modules';
-import { UsersAccountModule } from './users/modules';
 import { CompanyModule } from './companies/modules';
-import { DashboardModule } from './dashboards/components/modules';
-
+import { DepartmentModule } from "./department/Modules";
+import { UsersAccountModule } from "./users/modules";
 
 
 defineLocale('pt-br', ptBrLocale);
@@ -21,11 +20,10 @@ defineLocale('pt-br', ptBrLocale);
    ],
   imports: [
     AppRoutingModule,
+    CompanyModule,
+    DepartmentModule,
     NavbarModule,
     UsersAccountModule,
-    CompanyModule,
-    DashboardModule,
-
   ],
   providers: [
   ],

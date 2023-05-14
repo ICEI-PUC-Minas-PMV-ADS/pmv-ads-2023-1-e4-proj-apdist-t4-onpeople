@@ -9,8 +9,8 @@ namespace OnPeople.Domain.Models.Cargos
         public int Id { get; set; }
         public string NomeCargo { get; set; }
         public Boolean Ativo { get; set; }
-        public DateTime DataCriacao { get; set; }
-        public DateTime DataEncerramento { get; set; }
+        public string DataCriacao { get; set; }
+        public string DataEncerramento { get; set; }
         public int DepartamentoId { get; set; }
         public int EmpresaId { get; set; }
         public IEnumerable<Funcionario> Funcionarios { get; set; }

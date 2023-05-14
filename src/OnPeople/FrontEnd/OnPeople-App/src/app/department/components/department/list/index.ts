@@ -1,0 +1,2 @@
+export * from './departmentList.component'
+

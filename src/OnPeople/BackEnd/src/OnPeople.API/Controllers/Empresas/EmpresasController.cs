@@ -9,8 +9,7 @@ using OnPeople.Application.Services.Contracts.Empresas;
 using OnPeople.Integration.Models.Pages.Config;
 using OnPeople.API.Extensions.Pages;
 using OnPeople.Integration.Models.Dashboard;
-using Newtonsoft.Json.Linq;
-using OnPeople.Integration.Models.Links;
+
 
 namespace OnPeople.API.Controllers.Empresas;
 
@@ -34,6 +33,13 @@ public class EmpresasController : ControllerBase
     }
 
 
+    /// <summary>
+    /// Obtém os dados de todas as empresas cadastradas de acordo com o perfil
+    /// </summary>
+    /// <response code="200">Dados da empresas cadastradas</response>
+    /// <response code="400">Parâmetros incorretos</response>
+    /// <response code="500">Erro interno</response>
+    
     [HttpGet]
     public async Task<IActionResult> GetAllEmpresas([FromQuery]PageParameters pageParameters)
     {
@@ -60,8 +66,16 @@ public class EmpresasController : ControllerBase
         }
     }
 
-    [HttpGet("{id}")]
-    public async Task<IActionResult> GetEmpresaById(int id)
+    /// <summary>
+    /// Obtém os dados de uma empresa específico
+    /// </summary>
+    /// <param name="empresaId">Identificador da empresa</param>
+    /// <response code="200">Dados da empresa consultado</response>
+    /// <response code="400">Parâmetros incorretos</response>
+    /// <response code="500">Erro interno</response>
+    
+    [HttpGet("{EmpresaId}")]
+    public async Task<IActionResult> GetEmpresaById(int empresaId)
     {
         try
         {
@@ -71,10 +85,10 @@ public class EmpresasController : ControllerBase
                 return Unauthorized();
                 
             if (!claimUser.Master)
-                if (claimUser.CodEmpresa != id)
+                if (claimUser.CodEmpresa != empresaId)
                     return Unauthorized();
                     
-            var empresa = await _empresasServices.GetEmpresaByIdAsync(id);
+            var empresa = await _empresasServices.GetEmpresaByIdAsync(empresaId);
 
             if (empresa == null) return NoContent();
 
@@ -86,6 +100,13 @@ public class EmpresasController : ControllerBase
             return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao recuperar empresa por Id. Erro: {e.Message}");
         }
     }
+
+    /// <summary>
+    /// Obtém os dados das empresas ativas
+    /// </summary>
+    /// <response code="200">Dados do departamento consultado</response>
+    /// <response code="400">Parâmetros incorretos</response>
+    /// <response code="500">Erro interno</response>
 
     [HttpGet("Ativas")]
     public async Task<IActionResult> GetEmpresasAtivas([FromQuery]PageParameters pageParameters)
@@ -112,6 +133,13 @@ public class EmpresasController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Obtém os dados das empresas filiais
+    /// </summary>
+    /// <response code="200">Dados das empresas consultadas</response>
+    /// <response code="400">Parâmetros incorretos</response>
+    /// <response code="500">Erro interno</response>
+    
     [HttpGet("Filiais")]
     public async Task<IActionResult> GetEmpresasFiliais([FromQuery]PageParameters pageParameters)
     {
@@ -136,6 +164,12 @@ public class EmpresasController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Obtém os dados das empresas Matrizes
+    /// </summary>
+    /// <response code="200">Dados das empresas consultadas</response>
+    /// <response code="400">Parâmetros incorretos</response>
+    /// <response code="500">Erro interno</response>
     [HttpGet("Matriz")]
     public async Task<IActionResult> GetEmpresaMatriz()
     {
@@ -159,6 +193,13 @@ public class EmpresasController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Realiza a inclusão de uma nova empresa
+    /// </summary>
+    /// <response code="200">Empresa cadastrado com sucesso</response>
+    /// <response code="400">Parâmetros incorretos</response>
+    /// <response code="500">Erro interno</response>
+    
     [HttpPost]
     public async Task<IActionResult> CreateEmpresa(EmpresaDto empresaDto)
     {
@@ -174,16 +215,6 @@ public class EmpresasController : ControllerBase
 
             var empresaMatriz = await _empresasServices.GetEmpresaMatrizAsync();
 
-/*            if (empresaMatriz != null && !empresaMatriz.Ativa) {
-                var atualizarEmpresaAtivaDto  = new AtualizarEmpresaAtivaDto();
-
-                atualizarEmpresaAtivaDto.Id = empresaMatriz.Id;
-                atualizarEmpresaAtivaDto.Ativa = true;
-
-                if (await _empresasServices.SetEmpresa(atualizarEmpresaAtivaDto.Id, atualizarEmpresaAtivaDto) == null)
-                    return BadRequest("Falha ao ativar empresa Matriz");
-            }
-*/
             if (empresaMatriz != null && empresaDto.Filial)
                 empresaDto.MatrizId = empresaMatriz.Id;
 
@@ -199,8 +230,17 @@ public class EmpresasController : ControllerBase
         }
     }    
     
-    [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateEmpresa(int id, EmpresaDto empresaDto)
+    /// <summary>
+    /// Realiza a atualização dos dados de uma empresa
+    /// </summary>
+    /// <param name="empresaId">Identificador do departamento</param>
+    /// <param name="empresaDto">IEmpresas Cadastradaso</param>
+    /// <response code="200">Empresa atualizada com sucesso</response>
+    /// <response code="400">Parâmetros incorretos</response>
+    /// <response code="500">Erro interno</response>
+
+    [HttpPut("{empresaId}")]
+    public async Task<IActionResult> UpdateEmpresa(int empresaId, EmpresaDto empresaDto)
     {
         try
         {
@@ -212,10 +252,10 @@ public class EmpresasController : ControllerBase
             if (!claimUser.Master)
                 return Unauthorized();
 
-            if (empresaDto.Id != id)
+            if (empresaDto.Id != empresaId)
                 return Unauthorized();
 
-            var empresa  = await _empresasServices.UpdateEmpresa(id, empresaDto);
+            var empresa  = await _empresasServices.UpdateEmpresa(empresaId, empresaDto);
 
             if (empresa == null) return NoContent();
 
@@ -227,7 +267,15 @@ public class EmpresasController : ControllerBase
         }
     }      
     
-    [HttpDelete("{id}")]
+    /// <summary>
+    /// Realiza a exclusão de uma empresa
+    /// </summary>
+    /// <param name="empresaId">Identificador da empresa</param>
+    /// <response code="200">Empresa excluído com sucesso</response>
+    /// <response code="400">Parâmetros incorretos</response>
+    /// <response code="500">Erro interno</response>
+
+    [HttpDelete("{empresaId}")]
     public async Task<IActionResult> DeleteEmpresa(int empresaId)
     {
         try
@@ -262,14 +310,30 @@ public class EmpresasController : ControllerBase
         
     }   
 
-    [HttpGet("{id}/Dashboard")]
-    public DashboardEmpresa GetDashboard(int id)
+    /// <summary>
+    /// Realiza a consulta estatística de empresa
+    /// </summary>
+    /// <param name="empresaId">Identificador da empresa (pode zero para buscar todas)</param>
+    /// <response code="200">Dashboard de empresas consultado</response>
+    /// <response code="400">Parâmetros incorretos</response>
+    /// <response code="500">Erro interno</response>
+    
+    [HttpGet("{empresaId}/Dashboard")]
+    public DashboardEmpresa GetDashboard(int empresaId)
     {     
-        var dashboardEmpresa = _empresasServices.GetDashboard(id, User.GetMasterClaim());
+        var dashboardEmpresa = _empresasServices.GetDashboard(empresaId, User.GetMasterClaim());
 
         return dashboardEmpresa;
     }
 
+    /// <summary>
+    /// Realiza a consulta da empresa na Receita Federal
+    /// </summary>
+    /// <param name="cnpj">CNPJ da empresa </param>
+    /// <response code="200">Consulta da empresa na Receita Fedeal realizada</response>
+    /// <response code="400">Parâmetros incorretos</response>
+    /// <response code="500">Erro interno</response>
+    
     [HttpGet("{cnpj}/external")]
     public async Task<IActionResult> GetPublicCNPJ(string cnpj)
     {
@@ -339,7 +403,15 @@ public class EmpresasController : ControllerBase
         }
     }
 
-  [HttpGet("{cnpj}/internal")]
+    /// <summary>
+    /// Realiza a consulta da empresa npor CNPJ
+    /// </summary>
+    /// <param name="cnpj">CNPJ da empresa </param>
+    /// <response code="200">Consulta da empresa realizada</response>
+    /// <response code="400">Parâmetros incorretos</response>
+    /// <response code="500">Erro interno</response>
+
+    [HttpGet("{cnpj}/internal")]
     public async Task<IActionResult> GetCNPJ(string cnpj)
     {
         try

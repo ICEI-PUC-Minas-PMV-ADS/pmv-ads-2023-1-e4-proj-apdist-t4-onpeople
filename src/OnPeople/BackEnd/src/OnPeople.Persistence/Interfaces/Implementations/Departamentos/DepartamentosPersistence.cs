@@ -18,6 +18,7 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Departamentos
         public async Task<IEnumerable<Departamento>> GetAllDepartamentosAsync()
         {
             IQueryable<Departamento> query = _context.Departamentos
+            .Include(d => d.Empresa)
             .Include(d => d.Cargos);
 
 
@@ -31,6 +32,7 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Departamentos
         public async Task<Departamento> GetDepartamentoByIdAsync(int departamentoId)
         {
             IQueryable<Departamento> query = _context.Departamentos
+            .Include(d => d.Empresa)
             .Include(d => d.Cargos);
 
             query = query

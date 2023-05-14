@@ -1,3 +1,4 @@
+import { Departamento } from "src/app/department/models";
 import { EmpresaConta } from "./EmpresaConta";
 
 
