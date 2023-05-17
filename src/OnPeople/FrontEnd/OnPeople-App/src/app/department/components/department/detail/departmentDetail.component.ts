@@ -1,15 +1,21 @@
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+
 import { NgSelectConfig } from '@ng-select/ng-select';
-import { BsLocaleService } from 'ngx-bootstrap/datepicker';
+
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
-import { Empresa } from 'src/app/companies/models';
-import { CompanyService } from 'src/app/companies/services';
+import { BsLocaleService } from 'ngx-bootstrap/datepicker';
+
 import { Departamento } from 'src/app/department/models';
+import { Empresa } from 'src/app/companies/models';
+
+import { CompanyService } from 'src/app/companies/services';
 import { DepartmentService } from 'src/app/department/services';
+
 import { FormValidator, PaginatedResult } from 'src/app/shared/models';
+
 import { environment } from 'src/assets/environments';
 
 @Component({

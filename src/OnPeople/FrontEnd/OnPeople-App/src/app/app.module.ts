@@ -10,6 +10,7 @@ import { NavbarModule } from './shared/modules';
 import { CompanyModule } from './companies/modules';
 import { DepartmentModule } from "./department/Modules";
 import { UsersAccountModule } from "./users/modules";
+import { DashboardModule } from "./dashboards/modules";
 
 
 defineLocale('pt-br', ptBrLocale);
@@ -21,6 +22,7 @@ defineLocale('pt-br', ptBrLocale);
   imports: [
     AppRoutingModule,
     CompanyModule,
+    DashboardModule,
     DepartmentModule,
     NavbarModule,
     UsersAccountModule,

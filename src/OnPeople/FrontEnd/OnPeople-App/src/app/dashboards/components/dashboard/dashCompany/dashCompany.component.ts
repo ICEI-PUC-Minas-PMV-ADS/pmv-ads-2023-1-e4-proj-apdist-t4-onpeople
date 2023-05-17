@@ -1,10 +1,14 @@
 import { Component, OnInit, } from '@angular/core';
+
 import { NgSelectConfig } from '@ng-select/ng-select';
 
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+
 import { Empresa } from 'src/app/companies/models';
+
 import { CompanyService } from 'src/app/companies/services';
+
 import { RandomColors } from 'src/app/shared/functions';
 import { DashboardCompany, PaginatedResult } from 'src/app/shared/models';
 

@@ -41,12 +41,14 @@ export class NavbarComponent implements OnInit {
   }
 
   public showMenu(): boolean {
+
+
     return this.router.url !== '/users/login' && this.userLoged
   }
 
   public logout(): void {
     this.loginLogoutService.logout();
-    this.router.navigateByUrl('/users/login')
+    this.router.navigateByUrl('/dashboards')
     this.userLoged = false;
   }
 }
