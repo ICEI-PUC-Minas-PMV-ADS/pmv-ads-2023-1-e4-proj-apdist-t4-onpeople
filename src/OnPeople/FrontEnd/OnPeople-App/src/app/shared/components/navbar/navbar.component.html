@@ -13,9 +13,7 @@
       <ng-container *ngIf="(loginLogoutService.currentUser$ | async) as user">
         <ul class="navbar-nav me-auto" >
           <li class="nav-item" routerLinkActive="active">
-            <a class="nav-link" href="#">Home
-              <span class="visually-hidden">(current)</span>
-            </a>
+            <a class="nav-link" routerLink="dashboards">Dashboard</a>
           </li>
           <li class="nav-item" routerLinkActive="active" *ngIf="(user.visao == 'Master') ? true : false">
             <a class="nav-link" routerLink="empresas">Empresas</a>
@@ -31,9 +29,6 @@
           </li>
           <li class="nav-item" routerLinkActive="active">
             <a class="nav-link" href="#">Metas</a>
-          </li>
-          <li class="nav-item" routerLinkActive="active">
-            <a class="nav-link" routerLink="dashboards">Dashboard</a>
           </li>
         </ul>
 
