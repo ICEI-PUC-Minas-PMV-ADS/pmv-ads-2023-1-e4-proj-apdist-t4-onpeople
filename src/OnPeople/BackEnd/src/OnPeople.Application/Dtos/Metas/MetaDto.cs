@@ -10,7 +10,7 @@ namespace OnPeople.Application.Dtos.Metas
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public string NomeMeta { get; set; }
         public string TipoMeta { get; set; }
-        public string descricao { get; set; }
+        public string Descricao { get; set; }
         public Boolean MetaCumprida { get; set; }
         public Boolean MetaAprovada { get; set; }
         public DateTime InicioPlanejado { get; set; }

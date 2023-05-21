@@ -1,46 +1,29 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using OnPeople.Application.Services.Contracts.Departamentos;
+using OnPeople.API.Extensions.Pages;
+using OnPeople.API.Extensions.Users;
 using OnPeople.Application.Dtos.Departamentos;
+using OnPeople.Application.Services.Contracts.Departamentos;
+using OnPeople.Application.Services.Contracts.Users;
+using OnPeople.Integration.Models.Pages.Config;
 
 namespace OnPeople.API.Controllers.Departamentos;
 
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 
 public class DepartamentosController : ControllerBase
 {
     private readonly IDepartamentosServices _departamentosServices;
-   
+    private readonly IUsersServices _usersServices;
 
-    public DepartamentosController(IDepartamentosServices departamentosServices)
+    public DepartamentosController(
+        IDepartamentosServices departamentosServices,
+        IUsersServices usersServices)
     {
         _departamentosServices = departamentosServices;
-       
-    }
-
-    /// <summary>
-    /// Obtém os dados de todos os departamentos cadastrados
-    /// </summary>
-    /// <response code="200">Dados dos departamentos cadastrados</response>
-    /// <response code="400">Parâmetros incorretos</response>
-    /// <response code="500">Erro interno</response>
-
-    [HttpGet]
-    public async Task<ActionResult> GetAllDepartamentos()
-    {
-        try
-        {
-            var departamentos = await _departamentosServices.GetAllDepartamentosAsync();
-
-            if (departamentos == null) return NotFound("Nenhum departamento foi encontrado.");
-
-            return Ok(departamentos);
-        }
-        catch (Exception e)
-        {
-
-            return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao recuperar os departamentos. Erro: {e.Message}");
-        }
+        _usersServices = usersServices;
     }
 
     /// <summary>
@@ -70,21 +53,34 @@ public class DepartamentosController : ControllerBase
     }
 
     /// <summary>
-    /// Obtém os dados de todos os departamentos cadastrados para uma determinada empresa
+    /// Obtém os dados de todos os departamentos cadastrados para uma determinada empresa, se a empresaId for informada como 0 (zero) será consultado o departamento de todas as empresas cadastradas
     /// </summary>
     /// <param name="empresaId">Identificador da empresa</param>
+    /// <param name="pageParameters">Configuração de inicio e fim de páginas para paginação</param>
     /// <response code="200">Dados dos departamentos cadastrados para a empresa</response>
     /// <response code="400">Parâmetros incorretos</response>
     /// <response code="500">Erro interno</response>
     
-    [HttpGet("{empresaId}/departamento")]
-    public async Task<IActionResult> GetDepartamentosByEmpresaId(int empresaId)
+    [HttpGet]
+    public async Task<IActionResult> GetAllDepartamentos([FromQuery]PageParameters pageParameters)
     {
         try
         {
-            var departamentos = await _departamentosServices.GetDepartamentosByEmpresaIdAsync(empresaId);
+            var claimUser = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());
+
+            if (claimUser == null) 
+                return Unauthorized();
+
+            var userLogged = await _usersServices.GetUserByUserNameAsync(User.GetUserNameClaim());
+
+            if (userLogged == null)
+                return Unauthorized();
+
+            var departamentos = await _departamentosServices.GetAllDepartamentosAsync(pageParameters, userLogged.CodEmpresa);
 
             if (departamentos == null) return NotFound("A empresa informada não possui departamentos cadastrados.");
+
+            Response.CreatePagination(departamentos.CurrentPage, departamentos.PageSize, departamentos.TotalCounter, departamentos.TotalPages);
 
             return Ok(departamentos);
         }

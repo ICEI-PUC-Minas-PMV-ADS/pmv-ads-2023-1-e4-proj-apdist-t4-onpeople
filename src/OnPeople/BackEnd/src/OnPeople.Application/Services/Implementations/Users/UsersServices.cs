@@ -52,9 +52,9 @@ namespace OnPeople.Application.Services.Implementations.Users
             {
                 var user = _mapper.Map<User>(userDto);
 
-                user.Master = (user.Visao.ToLower() == "master");
-                user.Gold = (user.Visao.ToLower() == "gold");
-                user.Bronze = (user.Visao.ToLower() != "master" && user.Visao.ToLower() != "gold");
+                user.Master = user.Visao.ToLower() == "master";
+                user.Gold = user.Visao.ToLower() == "gold";
+                user.Bronze = user.Visao.ToLower() != "master" && user.Visao.ToLower() != "gold";
 
                 var userCreated = await _userManager.CreateAsync(user, userDto.Password);
 

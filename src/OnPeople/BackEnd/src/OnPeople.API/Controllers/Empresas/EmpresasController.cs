@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 
 using OnPeople.API.Controllers.Uploads;
 using OnPeople.API.Extensions.Users;
+using OnPeople.API.Extensions.Pages;
+
 using OnPeople.Application.Dtos.Empresas;
 using OnPeople.Application.Services.Contracts.Users;
 using OnPeople.Application.Services.Contracts.Empresas;
+
 using OnPeople.Integration.Models.Pages.Config;
-using OnPeople.API.Extensions.Pages;
 using OnPeople.Integration.Models.Dashboard;
 
 
@@ -366,9 +368,9 @@ public class EmpresasController : ControllerBase
                 empresaDto.PorteEmpresa = empresaCnpjDto.porte.descricao;
                 empresaDto.NaturezaJuridica = empresaCnpjDto.natureza_juridica.descricao;
                 empresaDto.OptanteSimples = empresaCnpjDto.simples;
-                empresaDto.Filial = empresaCnpjDto.estabelecimento.tipo == "Matriz" ? false : true;
+                empresaDto.Filial = empresaCnpjDto.estabelecimento.tipo == "Matriz" ;
                 empresaDto.NomeFantasia = empresaCnpjDto.estabelecimento.nome_fantasia;
-                empresaDto.Ativa = empresaCnpjDto.estabelecimento.situacao_cadastral == "Ativa" ? true : false;
+                empresaDto.Ativa = empresaCnpjDto.estabelecimento.situacao_cadastral == "Ativa";
                 empresaDto.DataCadastro = empresaCnpjDto.estabelecimento.data_inicio_atividade;
                 empresaDto.TipoLogradouro = empresaCnpjDto.estabelecimento.tipo_logradouro;
                 empresaDto.Logradouro = empresaCnpjDto.estabelecimento.logradouro;

@@ -126,7 +126,7 @@ export class DepartmentDetailComponent implements OnInit {
     this.spinnerService.show();
 
     this.companyService
-      .getCompanies(1, 50)
+      .getCompanies(environment.initialPageDefault, environment.totalPagesDefault)
       .subscribe(
         (companies: PaginatedResult<Empresa[]>) => {
           this.companies = companies.result;

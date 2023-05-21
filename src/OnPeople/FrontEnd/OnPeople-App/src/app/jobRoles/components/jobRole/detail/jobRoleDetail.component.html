@@ -1,0 +1,130 @@
+<div class="card rounded shadow-sm p-1 bg-light">
+  <div class="card-header text-center text-white bg-info">
+    <div class="h3">Formulário de Departamentos</div>
+  </div>
+  <div class="card-body p-1 bg-white">
+    <div class="row">
+
+      <div Class="col-md-8">
+        <div class="h4 border-bottom" >Dados da Empresa: </div>
+        <div class="form-row d-md-flex">
+          <div class="form-group col-md-6 p-1">
+            <label>Selecione uma Empresa</label>
+            <ng-select [(ngModel)]="selectCompanyId" (change)="changeSelectCompany()" placeholder="Selecione uma Empresa">
+              <ng-option *ngFor="let company of companies" [value]="company.id">{{company.razaoSocial}}</ng-option>
+            </ng-select>
+          </div>
+          <div class="form-group col-md-6 p-1">
+            <label>CNPJ</label>
+            <input type="text" class="form-control" placeholder="CNPJ" value={{company.cnpj}} readonly>
+          </div>
+        </div>
+
+        <div Class="col-md-8">
+          <div class="h4 border-bottom">Dados do Departamento: </div>
+          <div class="form-row d-md-flex">
+            <div class="form-group col-md-6 p-1">
+              <label>Selecione uma Empresa</label>
+              <ng-select [(ngModel)]="selectDepartmentId" (change)="changeSelectDepartment()" placeholder="Selecione uma Empresa">
+                <ng-option *ngFor="let company of companies" [value]="company.id">{{company.razaoSocial}}</ng-option>
+              </ng-select>
+            </div>
+            <div class="form-group col-md-6 p-1">
+              <label>CNPJ</label>
+              <input type="text" class="form-control" placeholder="CNPJ" value={{company.cnpj}} readonly>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div  class="col-md-4" >
+        <div class="card m-0 p-0 bg-white shadow-sm">
+          <div class="aligns-self-center text-center pt-1">
+            <img class="imageDetail" [src]="logoURL" alt="Card imagem upload imageDetail">
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row">
+
+
+
+    </div>
+<!--
+
+
+
+    <form class="row mt-2" [formGroup]="formDetail">
+      <div class="h4 border-bottom" >Dados do Departamento: </div>
+      <div class="row m-1">
+
+        <div class="form-group col-md-6 p-1" >
+          <label>Departamento</label>
+          <input type="text" class="form-control" placeholder="Nome do Departamento" formControlName="nomeDepartamento" [ngClass]="fieldValidator(ctrF.nomeDepartamento)">
+          <div class="invalid-feedback">{{messageReturned(ctrF.nomeDepartamento, "")}}</div>
+        </div>
+
+        <div class="form-group col-md-4 p-1" >
+          <label>Sigla</label>
+          <input type="text" class="form-control" placeholder="Sigla do Departamento" formControlName="sigla" [ngClass]="fieldValidator(ctrF.sigla)">
+          <div class="invalid-feedback">{{messageReturned(ctrF.sigla, "")}}</div>
+        </div>
+
+        <div class="form-group col-md-2 p-1" >
+          <label>Ativo</label>
+          <select class="form-select" placeholder="Ativo" formControlName="ativo" >
+            <option value=false>Não</option>
+            <option value=true>Sim</option>
+          </select>
+          <div class="invalid-feedback">{{messageReturned(ctrF.ativo, "")}}</div>
+        </div>
+
+      </div>
+
+      <div class="row m-1">
+
+        <div class="form-group col-md-4 p-1" >
+          <label>Diretor</label>
+          <input type="text" class="form-control" placeholder="Nome do Diretor" disabled readonly>
+        </div>
+
+        <div class="form-group col-md-4 p-1" >
+          <label>Gerente</label>
+          <input type="text" class="form-control" placeholder="Nome do Gerente" disabled readonly>
+        </div>
+
+        <div class="form-group col-md-4 p-1" >
+          <label>Supervisor</label>
+          <input type="text" class="form-control" placeholder="Nome do Supervisor" Disabled readonly>
+        </div>
+
+      </div>
+    </form>
+
+    <div class="card-footer bg-info  ">
+      <div class="d-flex ">
+        <button class="btn btn-danger ms-auto mx-1" (click)="clearForm()">
+          Cancelar
+        </button>
+        <button class="btn btn-primary mx-1 px-4" [disabled]="!formDetail.valid" (click)="saveChange()">
+          {{editMode ? "Salvar" : "Criar"}}
+        </button>
+      </div>
+    </div>
+</div>
+
+<p>Form Value: {{formDetail.value | json}}</p>
+<p>Form Status: {{formDetail.status | json}}</p>
+
+<ngx-spinner type="ball-scale-multiple"
+bdColor="rgba(51,51,51,0.8)"
+size="medium"
+color="blue"
+>
+<p style="font-size:20px; color: white;">Carregando...</p>
+</ngx-spinner>
+
+-->

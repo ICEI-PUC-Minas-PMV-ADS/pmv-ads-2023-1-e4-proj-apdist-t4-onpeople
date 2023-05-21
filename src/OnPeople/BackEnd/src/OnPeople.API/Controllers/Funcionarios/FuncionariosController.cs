@@ -21,19 +21,13 @@ public class FuncionariosController : ControllerBase
 {
     private readonly IFuncionariosServices _funcionariosservices;
     private readonly IFuncionarioMetaServices _funcionarioMetaservices;
-    private readonly IUploadService _uploadService;
-    private readonly IUsersServices _usersServices;
-
     public FuncionariosController(
         IFuncionariosServices funcionariosservices,
-        IFuncionarioMetaServices funcionarioMetaservices,
-        IUploadService uploadService,
-        IUsersServices usersServices)
+        IFuncionarioMetaServices funcionarioMetaservices
+        )
     {
         _funcionariosservices = funcionariosservices;
         _funcionarioMetaservices = funcionarioMetaservices;
-        _uploadService = uploadService;
-        _usersServices = usersServices;
     }
 
     /// <summary>

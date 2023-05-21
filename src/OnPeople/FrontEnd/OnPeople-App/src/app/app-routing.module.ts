@@ -7,6 +7,7 @@ import { CompanyComponent, CompanyDetailComponent, CompanyListComponent } from '
 import { DashboardComponent, DashCompanyComponent } from './dashboards/components';
 import { DepartmentComponent, DepartmentDetailComponent, DepartmentListComponent } from './department/components';
 import { LoginComponent, ProfileComponent, RegisterComponent, UserComponent, } from './users/components';
+import { JobRoleComponent, JobRoleDetailComponent, JobRoleListComponent } from './jobRoles/components';
 
 const routes: Routes = [
   { path: '', redirectTo: 'users/profile', pathMatch: 'full' },
@@ -34,6 +35,14 @@ const routes: Routes = [
         { path: 'detail/:id', component: DepartmentDetailComponent },
         { path: 'detail', component: DepartmentDetailComponent },
         { path: 'list', component: DepartmentListComponent },
+      ] },
+
+    { path: 'cargos', redirectTo: 'cargos/list', pathMatch: 'full' },
+    { path: 'cargos', component: JobRoleComponent,
+      children: [
+        { path: 'detail/:id', component: JobRoleDetailComponent },
+        { path: 'detail', component: JobRoleDetailComponent },
+        { path: 'list', component: JobRoleListComponent },
       ] },
 
     { path: 'dashboards', redirectTo: 'dashboards/empresa', pathMatch: 'full' },

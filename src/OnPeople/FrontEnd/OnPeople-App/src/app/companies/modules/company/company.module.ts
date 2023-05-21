@@ -4,7 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { NgbCollapseModule, NgbPaginationModule, NgbTooltip, NgbTooltipModule,} from '@ng-bootstrap/ng-bootstrap';
+import { NgbCollapseModule, NgbPaginationModule, NgbTooltipModule,} from '@ng-bootstrap/ng-bootstrap';
 
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgxSpinnerModule } from 'ngx-spinner';

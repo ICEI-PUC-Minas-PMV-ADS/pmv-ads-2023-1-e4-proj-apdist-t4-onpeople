@@ -11,6 +11,7 @@ import { CompanyModule } from './companies/modules';
 import { DepartmentModule } from "./department/Modules";
 import { UsersAccountModule } from "./users/modules";
 import { DashboardModule } from "./dashboards/modules";
+import { JobRoleModule } from "./jobRoles/modules";
 
 
 defineLocale('pt-br', ptBrLocale);
@@ -24,6 +25,7 @@ defineLocale('pt-br', ptBrLocale);
     CompanyModule,
     DashboardModule,
     DepartmentModule,
+    JobRoleModule,
     NavbarModule,
     UsersAccountModule,
   ],

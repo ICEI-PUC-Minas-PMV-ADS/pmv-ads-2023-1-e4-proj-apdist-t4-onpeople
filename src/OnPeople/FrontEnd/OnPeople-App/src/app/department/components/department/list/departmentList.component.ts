@@ -1,14 +1,16 @@
 import { Component, OnInit, TemplateRef } from "@angular/core";
 import { Router } from "@angular/router";
+
 import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
 import { NgxSpinnerService } from "ngx-spinner";
 import { ToastrService } from "ngx-toastr";
 import { Subject, debounceTime } from "rxjs";
-import { Empresa } from "src/app/companies/models";
-import { CompanyService } from "src/app/companies/services";
+
 import { Departamento } from "src/app/department/models";
 import { DepartmentService } from "src/app/department/services";
+
 import { PaginatedResult, Pagination } from "src/app/shared/models";
+
 import { environment } from "src/assets/environments";
 
 
@@ -23,12 +25,11 @@ export class DepartmentListComponent implements OnInit {
   public toggleImage : boolean = true;
   public logoURL: string = "../../../../assets/img/Image_not_available.png";
 
-  public companies: Empresa[] = [];
   public departments: Departamento[] = [];
-  public departmentsFilter: Empresa[] = []
+  public departmentsFilter: Departamento[] = []
 
-  public companyId: number = 0;
-  public companyName: string = "";
+  public departmentId: number = 0;
+  public departmentName: string = "";
 
   public pagination = {} as Pagination;
 
@@ -45,6 +46,7 @@ export class DepartmentListComponent implements OnInit {
               .getDepartments(this.pagination.currentPage, this.pagination.itemsPage, filterBy)
               .subscribe(
                 (departments: PaginatedResult<Departamento[]>) => {
+                  console.log("filter", departments)
                   this.departments = departments.result;
                   this.pagination = departments.pagination;
                 },
@@ -66,7 +68,6 @@ export class DepartmentListComponent implements OnInit {
   }
   constructor(
     private router: Router,
-    private companyService: CompanyService,
     private departmentService: DepartmentService,
     private modalService: BsModalService,
     public toastrService: ToastrService,
@@ -79,12 +80,13 @@ export class DepartmentListComponent implements OnInit {
   public getDepartments(): void {
     this.spinnerService.show;
 
+    console.log("this.pagination.itemsPage,", this.pagination.itemsPage)
     this.departmentService
       .getDepartments(this.pagination.currentPage, this.pagination.itemsPage)
       .subscribe(
         (departments: PaginatedResult<Departamento[]>) => {
           this.departments = departments.result
-          console.log(this.departments);
+          console.log("Departments", this.departments);
           this.pagination = departments.pagination;
         },
         (error: any) => {
@@ -95,10 +97,10 @@ export class DepartmentListComponent implements OnInit {
       .add(() => this.spinnerService.hide())
   }
 
- public openModal(event: any, template: TemplateRef<any>, companyId: number, companyName:string): void {
+ public openModal(event: any, template: TemplateRef<any>, departmentId: number, departmentName:string): void {
     event.stopPropagation();
-    this.companyId = companyId;
-    this.companyName = companyName;
+    this.departmentId = departmentId;
+    this.departmentName = departmentName;
     this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
   }
 
@@ -106,9 +108,9 @@ export class DepartmentListComponent implements OnInit {
     this.spinnerService.show();
 
     this.modalRef?.hide();
-    console.log("companyId ", this.companyId)
-    this.companyService
-      .deleteCompany(this.companyId)
+    console.log("departmentId ", this.departmentId)
+    this.departmentService
+      .deleteDepartment(this.departmentId)
       .subscribe(
         (result: any ) => {
           console.log(result);
@@ -143,7 +145,7 @@ export class DepartmentListComponent implements OnInit {
 
   public pageChanged(event: any): void {
     console.log(event.currentPage)
-//    this.pagination.currentPage = event.currentPage
+    //this.pagination.currentPage = event.currentPage
     this.getDepartments();
   }
 }

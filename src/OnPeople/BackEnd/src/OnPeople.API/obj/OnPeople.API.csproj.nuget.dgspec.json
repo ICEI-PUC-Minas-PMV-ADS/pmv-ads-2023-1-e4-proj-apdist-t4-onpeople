@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\AlexdeSouzaGaldino\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\onpeople.api\\OnPeople.API.csproj": {}
+    "C:\\Users\\AlexdeSouzaGaldino\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.API\\OnPeople.API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\AlexdeSouzaGaldino\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\onpeople.api\\OnPeople.API.csproj": {
+    "C:\\Users\\AlexdeSouzaGaldino\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.API\\OnPeople.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\AlexdeSouzaGaldino\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\onpeople.api\\OnPeople.API.csproj",
+        "projectUniqueName": "C:\\Users\\AlexdeSouzaGaldino\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.API\\OnPeople.API.csproj",
         "projectName": "OnPeople.API",
-        "projectPath": "C:\\Users\\AlexdeSouzaGaldino\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\onpeople.api\\OnPeople.API.csproj",
+        "projectPath": "C:\\Users\\AlexdeSouzaGaldino\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.API\\OnPeople.API.csproj",
         "packagesPath": "C:\\Users\\AlexdeSouzaGaldino\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\AlexdeSouzaGaldino\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\onpeople.api\\obj\\",
+        "outputPath": "C:\\Users\\AlexdeSouzaGaldino\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\AlexdeSouzaGaldino\\AppData\\Roaming\\NuGet\\NuGet.Config"

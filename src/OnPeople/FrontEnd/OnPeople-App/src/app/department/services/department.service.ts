@@ -20,7 +20,7 @@ export class DepartmentService {
 
   constructor(private http: HttpClient) { }
 
-  public getDepartments(page?: number, itemsPage?: number, term?: string): Observable<PaginatedResult<Departamento[]>> {
+  public getDepartments(page?: number, itemsPage?: number, term?: string ): Observable<PaginatedResult<Departamento[]>> {
     const paginatedResult: PaginatedResult<Departamento[]> = new PaginatedResult<Departamento[]>();
 
     let params = new HttpParams;
@@ -44,10 +44,15 @@ export class DepartmentService {
           }
           return paginatedResult;
         }));
+  };
+
+  public getDepartmentById(departmentId: number): Observable<Departamento> {
+    return this.http.get<Departamento>(`${this.baseURL}${departmentId}`)
+    .pipe(take(3));
   }
 
-  public getDepartmentById(id: number): Observable<Departamento> {
-    return this.http.get<Departamento>(`${this.baseURL}${id}`)
+  public getDepartmentsByCompanieId(companyId: number): Observable<Departamento> {
+    return this.http.get<Departamento>(`${this.baseURL}${companyId}/departamento`)
     .pipe(take(3));
   }
 

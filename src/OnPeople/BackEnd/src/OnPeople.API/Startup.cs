@@ -10,38 +10,41 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 using OnPeople.API.Controllers.Uploads;
-using OnPeople.Application.Services.Contracts.Users;
-using OnPeople.Application.Services.Contracts.Empresas;
-using OnPeople.Application.Services.Implementations.Users;
-using OnPeople.Application.Services.Implementations.Empresas;
-using OnPeople.Domain.Models.Users;
-using OnPeople.Persistence.Interfaces.Contexts;
-using OnPeople.Persistence.Interfaces.Contracts.Users;
-using OnPeople.Persistence.Interfaces.Contracts.Empresas;
-using OnPeople.Persistence.Interfaces.Contracts.Shared;
-using OnPeople.Persistence.Interfaces.Implementations.Users;
-using OnPeople.Persistence.Interfaces.Implementations.Empresas;
-using OnPeople.Persistence.Interfaces.Implementations.Shared;
-using OnPeople.Application.Services.Contracts.Departamentos;
-using OnPeople.Persistence.Interfaces.Contracts.Departamentos;
-using OnPeople.Application.Services.Implementations.Departamentos;
-using OnPeople.Persistence.Interfaces.Implementations.Departamentos;
+
 using OnPeople.Application.Services.Contracts.Cargos;
-using OnPeople.Application.Services.Implementations.Cargos;
-using OnPeople.Persistence.Interfaces.Contracts.Cargos;
-using OnPeople.Persistence.Interfaces.Implementations.Cargos;
+using OnPeople.Application.Services.Contracts.Departamentos;
+using OnPeople.Application.Services.Contracts.Empresas;
 using OnPeople.Application.Services.Contracts.Funcionarios;
-using OnPeople.Application.Services.Implementations.Funcionarios;
-using OnPeople.Persistence.Interfaces.Contracts.Funcionarios;
-using OnPeople.Persistence.Interfaces.Implementations.Funcionarios;
 using OnPeople.Application.Services.Contracts.FuncionariosMetas;
-using OnPeople.Application.Services.Implementations.FuncionariosMetas;
-using OnPeople.Persistence.Interfaces.Contracts.FuncionariosMetas;
-using OnPeople.Persistence.Interfaces.Implementations.FuncionariosMetas;
 using OnPeople.Application.Services.Contracts.Metas;
+using OnPeople.Application.Services.Contracts.Users;
+using OnPeople.Application.Services.Implementations.Cargos;
+using OnPeople.Application.Services.Implementations.Departamentos;
+using OnPeople.Application.Services.Implementations.Empresas;
+using OnPeople.Application.Services.Implementations.Funcionarios;
+using OnPeople.Application.Services.Implementations.FuncionariosMetas;
 using OnPeople.Application.Services.Implementations.Metas;
+using OnPeople.Application.Services.Implementations.Users;
+
+using OnPeople.Domain.Models.Users;
+
+using OnPeople.Persistence.Interfaces.Contexts;
+using OnPeople.Persistence.Interfaces.Contracts.Cargos;
+using OnPeople.Persistence.Interfaces.Contracts.Departamentos;
+using OnPeople.Persistence.Interfaces.Contracts.Empresas;
+using OnPeople.Persistence.Interfaces.Contracts.Funcionarios;
+using OnPeople.Persistence.Interfaces.Contracts.FuncionariosMetas;
 using OnPeople.Persistence.Interfaces.Contracts.Metas;
+using OnPeople.Persistence.Interfaces.Contracts.Shared;
+using OnPeople.Persistence.Interfaces.Contracts.Users;
+using OnPeople.Persistence.Interfaces.Implementations.Cargos;
+using OnPeople.Persistence.Interfaces.Implementations.Departamentos;
+using OnPeople.Persistence.Interfaces.Implementations.Empresas;
+using OnPeople.Persistence.Interfaces.Implementations.Funcionarios;
+using OnPeople.Persistence.Interfaces.Implementations.FuncionariosMetas;
 using OnPeople.Persistence.Interfaces.Implementations.Metas;
+using OnPeople.Persistence.Interfaces.Implementations.Shared;
+using OnPeople.Persistence.Interfaces.Implementations.Users;
 
 namespace OnPeople.API
 {
@@ -108,25 +111,25 @@ namespace OnPeople.API
 
             //Injeção dos serviços de persistencias
             services
-                .AddScoped<IEmpresasServices, EmpresasServices>()
-                .AddScoped<IUsersServices, UsersServices>()
-                .AddScoped<ITokenServices, TokenServices>()
-                .AddScoped<IDepartamentosServices, DepartamentosServices>()
                 .AddScoped<ICargosServices, CargosServices>()
-                .AddScoped<IFuncionariosServices, FuncionariosServices>()
+                .AddScoped<IDepartamentosServices, DepartamentosServices>()
+                .AddScoped<IEmpresasServices, EmpresasServices>()
                 .AddScoped<IFuncionarioMetaServices, FuncionarioMetaServices>()
-                .AddScoped<IMetasService, MetasService>();
+                .AddScoped<IFuncionariosServices, FuncionariosServices>()
+                .AddScoped<IMetasService, MetasService>()
+                .AddScoped<ITokenServices, TokenServices>()
+                .AddScoped<IUsersServices, UsersServices>();
 
             //Injeção das interfaces de Persistencias
             services
-                .AddScoped<ISharedPersistence, SharedPersistence>()
-                .AddScoped<IEmpresasPersistence, EmpresasPersistence>()
-                .AddScoped<IUsersPersistence, UsersPersistence>()
-                .AddScoped<IDepartamentosPersistence, DepartamentosPersistence>()
                 .AddScoped<ICargosPersistence, CargosPersistence>()
+                .AddScoped<IDepartamentosPersistence, DepartamentosPersistence>()
+                .AddScoped<IEmpresasPersistence, EmpresasPersistence>()
                 .AddScoped<IFuncionariosPersistence, FuncionariosPersistence>()
                 .AddScoped<IFuncionarioMetaPersistence, FuncionarioMetaPersistence>()
-                .AddScoped<IMetaPersist, MetasPersist>();;
+                .AddScoped<IMetaPersist, MetasPersist>()
+                .AddScoped<ISharedPersistence, SharedPersistence>()
+                .AddScoped<IUsersPersistence, UsersPersistence>();
 
             //Injeção do Upload como serviço    
             services

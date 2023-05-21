@@ -28,7 +28,7 @@ namespace OnPeople.Application.Services.Implementations.Users
             _userManager = userManager;
             _mapper = mapper;
             _config = config;
-            _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Tokenkey"]));
+            _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokenkey"]));
         }
         public async Task<string> CreateToken(UserUpdateDto userUpdateDto)
         {
