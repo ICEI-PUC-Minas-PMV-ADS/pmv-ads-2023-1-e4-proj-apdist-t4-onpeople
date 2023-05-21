@@ -65,14 +65,14 @@
         }
       }
     },
-    "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\onpeople.Integration\\OnPeople.Integration.csproj": {
+    "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Integration\\OnPeople.Integration.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\onpeople.Integration\\OnPeople.Integration.csproj",
+        "projectUniqueName": "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Integration\\OnPeople.Integration.csproj",
         "projectName": "OnPeople.Integration",
-        "projectPath": "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\onpeople.Integration\\OnPeople.Integration.csproj",
+        "projectPath": "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Integration\\OnPeople.Integration.csproj",
         "packagesPath": "C:\\Users\\Rafae\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\onpeople.Integration\\obj\\",
+        "outputPath": "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Integration\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Rafae\\AppData\\Roaming\\NuGet\\NuGet.Config",

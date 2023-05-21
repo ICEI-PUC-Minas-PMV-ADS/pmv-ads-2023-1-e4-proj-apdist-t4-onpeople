@@ -2291,8 +2291,8 @@
     },
     "OnPeople.Integration/1.0.0": {
       "type": "project",
-      "path": "../onpeople.Integration/OnPeople.Integration.csproj",
-      "msbuildProject": "../onpeople.Integration/OnPeople.Integration.csproj"
+      "path": "../OnPeople.Integration/OnPeople.Integration.csproj",
+      "msbuildProject": "../OnPeople.Integration/OnPeople.Integration.csproj"
     },
     "OnPeople.Persistence/1.0.0": {
       "type": "project",

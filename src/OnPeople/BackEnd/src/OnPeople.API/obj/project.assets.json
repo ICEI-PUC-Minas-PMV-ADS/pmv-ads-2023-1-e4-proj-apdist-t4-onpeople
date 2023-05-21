@@ -3096,8 +3096,8 @@
     },
     "OnPeople.Integration/1.0.0": {
       "type": "project",
-      "path": "../onpeople.Integration/OnPeople.Integration.csproj",
-      "msbuildProject": "../onpeople.Integration/OnPeople.Integration.csproj"
+      "path": "../OnPeople.Integration/OnPeople.Integration.csproj",
+      "msbuildProject": "../OnPeople.Integration/OnPeople.Integration.csproj"
     },
     "OnPeople.Persistence/1.0.0": {
       "type": "project",
@@ -3125,11 +3125,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.API\\OnPeople.API.csproj",
+      "projectUniqueName": "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Api\\OnPeople.API.csproj",
       "projectName": "OnPeople.API",
-      "projectPath": "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.API\\OnPeople.API.csproj",
+      "projectPath": "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Api\\OnPeople.API.csproj",
       "packagesPath": "C:\\Users\\Rafae\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.API\\obj\\",
+      "outputPath": "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Api\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Rafae\\AppData\\Roaming\\NuGet\\NuGet.Config",

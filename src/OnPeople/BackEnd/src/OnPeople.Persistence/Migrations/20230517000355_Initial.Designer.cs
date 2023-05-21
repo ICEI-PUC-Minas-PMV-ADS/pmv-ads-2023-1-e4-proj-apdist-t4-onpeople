@@ -11,7 +11,7 @@ using OnPeople.Persistence.Interfaces.Contexts;
 namespace OnPeople.Persistence.Migrations
 {
     [DbContext(typeof(OnPeopleContext))]
-    [Migration("20230516024426_Initial")]
+    [Migration("20230517000355_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
