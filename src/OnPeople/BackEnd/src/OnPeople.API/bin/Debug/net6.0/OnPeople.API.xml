@@ -57,14 +57,6 @@
             <response code="400">Parâmetros incorretos</response>
             <response code="500">Erro interno</response>
         </member>
-        <member name="M:OnPeople.API.Controllers.Departamentos.DepartamentosController.GetAllDepartamentos">
-            <summary>
-            Obtém os dados de todos os departamentos cadastrados
-            </summary>
-            <response code="200">Dados dos departamentos cadastrados</response>
-            <response code="400">Parâmetros incorretos</response>
-            <response code="500">Erro interno</response>
-        </member>
         <member name="M:OnPeople.API.Controllers.Departamentos.DepartamentosController.GetDepartamentoById(System.Int32)">
             <summary>
             Obtém os dados de um departamento específico
@@ -74,11 +66,12 @@
             <response code="400">Parâmetros incorretos</response>
             <response code="500">Erro interno</response>
         </member>
-        <member name="M:OnPeople.API.Controllers.Departamentos.DepartamentosController.GetDepartamentosByEmpresaId(System.Int32)">
+        <member name="M:OnPeople.API.Controllers.Departamentos.DepartamentosController.GetAllDepartamentos(OnPeople.Integration.Models.Pages.Config.PageParameters,System.Int32)">
             <summary>
-            Obtém os dados de todos os departamentos cadastrados para uma determinada empresa
+            Obtém os dados de todos os departamentos cadastrados para uma determinada empresa, se a empresaId for informada como 0 (zero) será consultado o departamento de todas as empresas cadastradas
             </summary>
             <param name="empresaId">Identificador da empresa</param>
+            <param name="pageParameters">Configuração de inicio e fim de páginas para paginação</param>
             <response code="200">Dados dos departamentos cadastrados para a empresa</response>
             <response code="400">Parâmetros incorretos</response>
             <response code="500">Erro interno</response>

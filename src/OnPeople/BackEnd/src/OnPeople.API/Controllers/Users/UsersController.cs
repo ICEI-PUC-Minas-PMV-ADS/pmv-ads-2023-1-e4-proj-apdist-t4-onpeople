@@ -62,15 +62,16 @@ public class UsersController : ControllerBase
 
             var user = await _usersServices.CreateUsersAsync(userDto);
 
-            var nomeEmpresa = "";
-         
+        
             if (user != null) {
-                return Ok( new {
+                return Ok(new
+                {
                     userName = user.UserName,
                     nomeCompleto = user.NomeCompleto,
                     id = user.Id,
+                    codEmpresa = user.CodEmpresa,
                     visao = user.Visao,
-                    nomeEmpresa = nomeEmpresa,
+                    nomeEmpresa = "",
                     token = _tokenServices.CreateToken(user).Result
                 });
             };
@@ -101,23 +102,25 @@ public class UsersController : ControllerBase
                 return Unauthorized("Conta ou Senha inválidos");
             }
 
-            var nomeEmpresa = "";
+            var razaoSocial = "";
            
             if (user.CodEmpresa > 0) {
                 var empresa = await _empresasServices.GetEmpresaByIdAsync(user.CodEmpresa);
             
                 if (empresa != null)
-                    nomeEmpresa = empresa.RazaoSocial;
+                    razaoSocial = empresa.RazaoSocial;
             }
 
-            return Ok( new {
-                    userName = user.UserName,
-                    nomeCompleto = user.NomeCompleto,
-                    id = user.Id,
-                    visao = user.Visao,
-                    nomeEmpresa = nomeEmpresa,
-                    token = _tokenServices.CreateToken(user).Result
-                });
+            return Ok(new
+            {
+                userName = user.UserName,
+                nomeCompleto = user.NomeCompleto,
+                id = user.Id,
+                codEmpresa = user.CodEmpresa,
+                visao = user.Visao,
+                nomeEmpresa = razaoSocial,
+                token = _tokenServices.CreateToken(user).Result
+            });
         }
         catch (Exception e)
         {

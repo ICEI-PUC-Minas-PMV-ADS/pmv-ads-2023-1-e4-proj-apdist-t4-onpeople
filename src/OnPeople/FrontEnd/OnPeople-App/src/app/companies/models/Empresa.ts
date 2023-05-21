@@ -42,5 +42,5 @@ export interface Empresa {
   cidade: string;
   cidadeIbgeId: number;
   cidadeSiafiId: string;
-  empresasContas: EmpresaConta[];
+  departamentos: Departamento[];
 }

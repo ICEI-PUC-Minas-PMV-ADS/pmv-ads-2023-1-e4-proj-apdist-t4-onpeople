@@ -60,12 +60,11 @@
       </tbody>
       <tfoot>
         <td *ngIf="!departments.length" colspan="8" class="text-center">
-          <h4>Nenhuma empresa encontrada!</h4>
+          <h4>Nenhum departamento encontrado!</h4>
         </td>
       </tfoot>
     </table>
-
-  <div class="card-footer d-flex p-1 m-0 bg-info" *ngIf="companies.length">
+  <div class="card-footer d-flex p-1 m-0 bg-info" *ngIf="departments.length">
     <div class="justify-content-center m-auto p-0 m-0 mt-3">
       <ngb-pagination
         [collectionSize]="pagination.itemsTotal"
@@ -79,7 +78,9 @@
     </div>
   </div>
 </div>
+<!--
 
+-->
 <!--
  {{ companies | json }}
  -->
@@ -87,11 +88,11 @@
    <div class="modal-body text-center">
      <div class="card">
        <div class="card-header bg-primary text-white">
-         <p>Exclusão de dados de empresa, confirma?</p>
+         <p>Exclusão de dados de departamento, confirma?</p>
         </div>
       </div>
       <div class="card-body">
-        <p>#{{companyId}} - {{companyName}}?</p>
+        <p>#{{departmentId}} - {{departmentName}}?</p>
       </div>
       <div class="card-foorter ms-auto">
       </div>

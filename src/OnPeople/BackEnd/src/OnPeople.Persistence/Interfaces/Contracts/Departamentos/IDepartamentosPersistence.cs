@@ -1,12 +1,15 @@
 using OnPeople.Domain.Models.Departamentos;
+using OnPeople.Integration.Models.Dashboard;
+using OnPeople.Integration.Models.Pages.Config;
+using OnPeople.Integration.Models.Pages.Page;
 using OnPeople.Persistence.Interfaces.Contracts.Shared;
 
 namespace OnPeople.Persistence.Interfaces.Contracts.Departamentos
 {
     public interface IDepartamentosPersistence : ISharedPersistence
     {
-        Task<IEnumerable<Departamento>> GetAllDepartamentosAsync();
         Task<Departamento> GetDepartamentoByIdAsync(int departamentoId);
-        Task<IEnumerable<Departamento>> GetDepartamentosByEmpresaIdAsync(int empresaId);
+        Task<PageList<Departamento>> GetAllDepartamentosAsync(PageParameters pageParameters, int empresaId);
+        DashboardDepartamento GetDashboard(int empresaId, int departamentoId);
     }
 }

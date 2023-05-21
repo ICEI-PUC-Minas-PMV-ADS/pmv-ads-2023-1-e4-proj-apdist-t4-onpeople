@@ -1,6 +1,6 @@
 import { Empresa } from "src/app/companies/models";
 
-export class Departamento {
+export interface Departamento {
   id: number;
   nomeDepartamento: string;
   sigla: string;
@@ -12,4 +12,5 @@ export class Departamento {
   ativo: Boolean;
   empresaId: number;
   empresa: Empresa;
+  //cargos: Cargo[];
 }

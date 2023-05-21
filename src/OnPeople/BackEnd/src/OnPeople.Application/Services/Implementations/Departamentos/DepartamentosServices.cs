@@ -2,6 +2,8 @@ using AutoMapper;
 using OnPeople.Application.Dtos.Departamentos;
 using OnPeople.Application.Services.Contracts.Departamentos;
 using OnPeople.Domain.Models.Departamentos;
+using OnPeople.Integration.Models.Dashboard;
+using OnPeople.Integration.Models.Pages.Config;
 using OnPeople.Integration.Models.Pages.Page;
 using OnPeople.Persistence.Interfaces.Contracts.Departamentos;
 using OnPeople.Persistence.Interfaces.Contracts.Shared;
@@ -24,15 +26,20 @@ namespace OnPeople.Application.Services.Implementations.Departamentos
 
         }
 
-        public async Task<PageList<DepartamentoDto>> GetAllDepartamentosAsync()
+        public async Task<PageList<DepartamentoDto>> GetAllDepartamentosAsync(PageParameters pageParameters, int empresaId)
         {
             try
             {
-                var departamentos = await _departamentosPersistence.GetAllDepartamentosAsync();
+                var departamentos = await _departamentosPersistence.GetAllDepartamentosAsync(pageParameters, empresaId);
 
                 if (departamentos == null) return null;
 
                 var departamentosMapper = _mapper.Map<PageList<DepartamentoDto>>(departamentos);
+
+                departamentosMapper.CurrentPage = departamentos.CurrentPage;
+                departamentosMapper.TotalPages = departamentos.TotalPages;
+                departamentosMapper.PageSize = departamentos.PageSize;
+                departamentosMapper.TotalCounter = departamentos.TotalCounter;
 
                 return departamentosMapper;
             }
@@ -62,25 +69,7 @@ namespace OnPeople.Application.Services.Implementations.Departamentos
             }
         }
 
-        public async Task<PageList<DepartamentoDto>> GetDepartamentosByEmpresaIdAsync(int empresaId)
-        {
-            try
-            {
-                var departamentos = await _departamentosPersistence.GetDepartamentosByEmpresaIdAsync(empresaId);
-
-                if (departamentos == null) return null;
-
-                var departamentosMapper = _mapper.Map<PageList<DepartamentoDto>>(departamentos);
-
-                return departamentosMapper;
-            }
-
-            catch (Exception e)
-            {
-                throw new Exception(e.Message);
-            }
-        }
-        public async Task<DepartamentoDto> CreateDepartamentos(DepartamentoDto departamentoDto)
+         public async Task<DepartamentoDto> CreateDepartamentos(DepartamentoDto departamentoDto)
         {
             try
             {
@@ -143,6 +132,18 @@ namespace OnPeople.Application.Services.Implementations.Departamentos
                 return await _sharedPersistence.SaveChangesAsync();
             }
 
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        public DashboardDepartamento GetDashboard(int empresaId, int departamentoId)
+        {
+            try
+            {
+                return _departamentosPersistence.GetDashboard(empresaId, departamentoId);
+            }
             catch (Exception e)
             {
                 throw new Exception(e.Message);
