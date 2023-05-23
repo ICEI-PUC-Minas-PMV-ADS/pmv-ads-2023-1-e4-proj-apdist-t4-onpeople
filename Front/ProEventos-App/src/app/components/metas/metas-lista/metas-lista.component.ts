@@ -16,10 +16,8 @@ export class MetasListaComponent implements OnInit {
   modalRef: BsModalRef;
   public metas: Meta[] = [];
   public metasFiltradas: Meta[] = [];
+  public metaId = 0;
 
-  public larguraImagem = 150;
-  public margemImagem = 2;
-  public exibirImagem = true;
   private filtroListado = '';
 
   public get filtroLista(): string {
@@ -52,10 +50,6 @@ export class MetasListaComponent implements OnInit {
     this.getMetas();
   }
 
-  public alterarImagem(): void {
-    this.exibirImagem = !this.exibirImagem;
-  }
-
   public getMetas(): void {
     this.metaService.getMetas().subscribe({
       next: (metas: Meta[]) => {
@@ -70,13 +64,30 @@ export class MetasListaComponent implements OnInit {
     });
   }
 
-  openModal(template: TemplateRef<any>): void {
+  openModal(event: any, template: TemplateRef<any>, metaId: number): void {
+    event.stopPropagation();
+    this.metaId = metaId
     this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
   }
 
   confirm(): void {
     this.modalRef.hide();
-    this.toastr.success('A Meta foi deletada com Sucesso.', 'Deletada!');
+    //this.toastr.success('A Meta foi deletada com Sucesso.', 'Deletada!');
+    this.spinner.show();
+
+    this.metaService.deleteMeta(this.metaId).subscribe(
+      (result: any) => {
+        if (result.message === 'Deletado') {
+          this.toastr.success('A Meta foi deletada com Sucesso.', 'Deletada!');
+          this.getMetas();
+        }
+      },
+      (error: any) => {
+        console.error(error);
+        this.toastr.error(`Erro ao tentar deletar a meta ${this.metaId}`, 'Erro');
+      }
+    ).add(() => this.spinner.hide());
+
   }
 
   decline(): void {

@@ -1,16 +1,16 @@
 using System.Threading.Tasks;
-using ProEventos.Domain;
+using ProEventos.Application.Dtos;
 
 namespace ProEventos.Application.Contratos
 {
     public interface IMetasService
     {
-        Task<Meta> AddMetas(Meta model);
-        Task<Meta> UpdateMeta(int eventoId, Meta model);
-        Task<bool> DeleteMeta(int id);
+        Task<MetaDto> AddMetas(MetaDto model);
+        Task<MetaDto> UpdateMeta(int metaId, MetaDto model);
+        Task<bool> DeleteMeta(int metaId);
 
-        Task<Meta[]> GetAllMetasAsync();
-        Task<Meta> GetMetaByIdAsync(int id);
-        Task<Meta[]> GetAllMetasByTipoAsync(string tipoMeta);
+        Task<MetaDto[]> GetAllMetasAsync();
+        Task<MetaDto[]> GetAllMetasByTipoAsync(string tipoMeta);
+        Task<MetaDto> GetMetaByIdAsync(int metaId);
     }
 }

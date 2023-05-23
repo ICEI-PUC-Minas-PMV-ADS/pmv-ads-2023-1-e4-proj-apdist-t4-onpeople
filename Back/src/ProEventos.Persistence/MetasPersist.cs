@@ -43,7 +43,7 @@ namespace ProEventos.Persistence
             IQueryable<Meta> query = _context.Metas;
 
 
-            query = query.AsNoTracking().OrderBy(m => m.Id);
+            query = query.AsNoTracking().OrderBy(m => m.Id).Where(m => m.Id == id);
 
             return await query.FirstOrDefaultAsync();
         }

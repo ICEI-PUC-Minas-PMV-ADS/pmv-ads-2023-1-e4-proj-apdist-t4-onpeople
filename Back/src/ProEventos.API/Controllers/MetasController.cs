@@ -1,16 +1,11 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using ProEventos.Persistence;
-using ProEventos.Domain;
-using ProEventos.Persistence.Contextos;
 using ProEventos.Application.Contratos;
 using Microsoft.AspNetCore.Http;
+using ProEventos.Application.Dtos;
 
-namespace OnPeople.API.Controllers.Metas
+namespace ProEventos.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -29,7 +24,7 @@ namespace OnPeople.API.Controllers.Metas
             try
             {
                 var metas = await _metasService.GetAllMetasAsync();
-                if (metas == null) return NotFound("Nenhuma meta encontrada!");
+                if (metas == null) return NoContent();
 
                 return Ok(metas);
             }
@@ -46,7 +41,7 @@ namespace OnPeople.API.Controllers.Metas
             try
             {
                 var metas = await _metasService.GetMetaByIdAsync(id);
-                if (metas == null) return NotFound("Metas por Id não encontrado.");
+                if (metas == null) return NoContent();
 
                 return Ok(metas);
             }
@@ -57,13 +52,13 @@ namespace OnPeople.API.Controllers.Metas
             }
         }
 
-        [HttpGet("{tipo}/tipo")]
+        [HttpGet("{tipoMeta}/tipo")]
         public async Task<IActionResult> GetByTipo(string tipoMeta)
         {
             try
             {
                 var metas = await _metasService.GetAllMetasByTipoAsync(tipoMeta);
-                if (metas == null) return NotFound("Metas por tipo não encontradas.");
+                if (metas == null) return NoContent();
 
                 return Ok(metas);
             }
@@ -75,12 +70,12 @@ namespace OnPeople.API.Controllers.Metas
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(Meta model)
+        public async Task<IActionResult> Post(MetaDto model)
         {
             try
             {
                 var meta = await _metasService.AddMetas(model);
-                if (meta == null) return BadRequest("Erro ao tentar adicionar meta.");
+                if (meta == null) return NoContent();
 
                 return Ok(meta);
             }
@@ -92,12 +87,12 @@ namespace OnPeople.API.Controllers.Metas
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, Meta model)
+        public async Task<IActionResult> Put(int id, MetaDto model)
         {
             try
             {
                 var meta = await _metasService.UpdateMeta(id, model);
-                if (meta == null) return BadRequest("Erro ao tentar atualizar meta.");
+                if (meta == null) return NoContent();
 
                 return Ok(meta);
             }
@@ -113,9 +108,12 @@ namespace OnPeople.API.Controllers.Metas
         {
             try
             {
+                var meta = await _metasService.GetMetaByIdAsync(id);
+                if (meta == null) return NoContent();
+
                 return await _metasService.DeleteMeta(id) ? 
-                       Ok("Deletado com sucesso!") : 
-                       BadRequest("Meta não deletada!");
+                       Ok("Deletado") : 
+                       throw new Exception("Ocorreu um problem não específico ao tentar deletar Meta.");
             }
             catch (Exception ex)
             {

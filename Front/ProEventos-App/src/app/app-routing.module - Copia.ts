@@ -14,7 +14,6 @@ import { RegistrationComponent } from './components/user/registration/registrati
 import { PerfilComponent } from './components/user/perfil/perfil.component';
 
 import { ContatosComponent } from './components/contatos/contatos.component';
-
 import { MetasComponent } from './components/metas/metas.component';
 import { MetasListaComponent } from './components/metas/metas-lista/metas-lista.component';
 import { MetasDetalheComponent } from './components/metas/metas-detalhe/metas-detalhe.component';
@@ -39,9 +38,7 @@ const routes: Routes = [
       { path: 'lista', component: EventoListaComponent },
     ],
   },
-
-  //METAS
-  { path: 'metas', redirectTo: 'metas/lista' },
+  { path: 'metas', component: MetasComponent },
   // { path: 'metas', redirectTo: 'metas/lista' },
   {
     path: 'metas', component: MetasComponent,
@@ -51,7 +48,6 @@ const routes: Routes = [
       { path: 'lista', component: MetasListaComponent },
     ],
   },
-
   { path: 'dashboard', component: DashboardComponent },
   { path: 'palestrantes', component: PalestrantesComponent },
   { path: 'contatos', component: ContatosComponent },
