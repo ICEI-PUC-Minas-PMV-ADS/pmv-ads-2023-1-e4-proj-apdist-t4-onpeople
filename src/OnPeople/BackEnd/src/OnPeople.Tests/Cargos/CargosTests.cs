@@ -8,9 +8,6 @@ using OnPeople.Persistence.Interfaces.Contracts.Shared;
 using OnPeople.Domain.Models.Cargos;
 using OnPeople.Integration.Models.Pages.Page;
 using OnPeople.Application.Dtos.Cargos;
-using OnPeople.Domain.Models.Empresas;
-using System;
-
 
 namespace OnPeople.Tests.Cargos;
 
@@ -21,7 +18,7 @@ public class CargosServicesTests
     private readonly Mock<ICargosPersistence> cargosPersistenceMock;
     private readonly Mock<IMapper> mapperMock;
     private readonly CargosFixture cargosFixture;
- 
+
 
     public CargosServicesTests()
     {
@@ -105,11 +102,11 @@ public class CargosServicesTests
 
         //Act
 
-        var departamentosConsultados = await _cargosServices.GetAllCargosAsync();
+        var cargosConsultados = await _cargosServices.GetAllCargosAsync();
 
         //Assert
 
-        Assert.False(departamentosConsultados.Count > 0);
+        Assert.False(cargosConsultados.Count > 0);
         cargosPersistenceMock.Verify(p => p.GetAllCargosAsync(), Times.Once);
     }
 
@@ -180,7 +177,7 @@ public class CargosServicesTests
 
         Assert.Null(cargoConsultado);
         cargosPersistenceMock.Verify(p => p.GetCargoByIdAsync(100), Times.Once);
-        
+
     }
 
     [Fact]
@@ -194,44 +191,51 @@ public class CargosServicesTests
 
 
         mapperMock
-            .Setup(x => x.Map<Cargo>(cargoDto))
-            .Returns((CargoDto src) => new Cargo
-            {
-                Id = src.Id,
-                NomeCargo = src.NomeCargo,
-                Ativo = src.Ativo,
-                DataCriacao = src.DataCriacao,
-                DataEncerramento = src.DataEncerramento,
-                DepartamentoId = src.DepartamentoId,
-                EmpresaId = src.EmpresaId
-            });
+              .Setup(m => m.Map<Cargo>(It.IsAny<CargoDto>()))
+              .Returns((CargoDto src) => new Cargo
+              {
+                  Id = src.Id,
+                  NomeCargo = src.NomeCargo,
+                  Ativo = src.Ativo,
+                  DataCriacao = src.DataCriacao,
+                  DataEncerramento = src.DataEncerramento,
+                  DepartamentoId = src.DepartamentoId,
+                  EmpresaId = src.EmpresaId
+              });
+
+        mapperMock
+              .Setup(m => m.Map<CargoDto>(It.IsAny<Cargo>()))
+              .Returns((Cargo source) => new CargoDto
+              {
+                  Id = source.Id,
+                  NomeCargo = source.NomeCargo,
+                  Ativo = source.Ativo,
+                  DataCriacao = source.DataCriacao,
+                  DataEncerramento = source.DataEncerramento,
+                  DepartamentoId = source.DepartamentoId,
+                  EmpresaId = source.EmpresaId
+              });
 
         sharedPersistenceMock
-            .Setup(c => c.Create<Cargo>(cargo));
+            .Setup(c => c.Create<Cargo>(cargo))
+            .Callback<Cargo>(cargo =>
+            {
+                Assert.Equal(4, cargo.Id);
+                Assert.Equal("CargoValido", cargo.NomeCargo);
+                Assert.True(cargo.Ativo);
+                Assert.Equal("2023-05-21", cargo.DataCriacao);
+                Assert.Equal(2, cargo.DepartamentoId);
+                Assert.Equal(2, cargo.EmpresaId);
+            });
 
         sharedPersistenceMock
             .Setup(s => s.SaveChangesAsync())
             .ReturnsAsync(true);
 
-
-
         cargosPersistenceMock
-            .Setup(g => g.GetCargoByIdAsync(4))
-            .ReturnsAsync(cargosFixture.ObterCargoCriadoMock(4));
-
-        mapperMock
-          .Setup(m => m.Map<CargoDto>(cargo))
-          .Returns((Cargo source) => new CargoDto
-          {
-              Id = source.Id,
-              NomeCargo = source.NomeCargo,
-              Ativo = source.Ativo,
-              DataCriacao = source.DataCriacao,
-              DataEncerramento = source.DataEncerramento,
-              DepartamentoId = source.DepartamentoId,
-              EmpresaId = source.EmpresaId
-          });
-
+            .Setup(g => g.GetCargoByIdAsync(cargo.Id))
+            .Callback<int>(Id => Assert.Equal(4, Id))
+            .ReturnsAsync(cargosFixture.ObterCargoCriadoMock(cargo.Id));
 
         //Act
 
@@ -242,8 +246,114 @@ public class CargosServicesTests
         Assert.Equal(4, cargoCriado.Id);
         Assert.IsType<CargoDto>(cargoCriado);
         cargosPersistenceMock.Verify(p => p.GetCargoByIdAsync(4), Times.Once);
-        sharedPersistenceMock.Verify(s => s.Create<CargoDto>(cargoDto), Times.Once);
         sharedPersistenceMock.Verify(s => s.SaveChangesAsync(), Times.Once);
+    }
+
+    [Fact]
+    [Trait(nameof(ICargosServices.CreateCargos), "Insucesso")]
+    public async Task CreateCargos_NaoDeveRealizarAInclusaoDoCargo_QuandoOsDadosForemInValidos()
+    {
+        //Arrange
+
+        var cargoDto = cargosFixture.CriarCargoValidoDtoMock();
+        var cargo = cargosFixture.CriarCargoValidoMock();
+
+        mapperMock
+              .Setup(m => m.Map<Cargo>(It.IsAny<CargoDto>()))
+              .Returns((CargoDto src) => new Cargo
+              {
+                  Id = src.Id,
+                  NomeCargo = src.NomeCargo,
+                  Ativo = src.Ativo,
+                  DataCriacao = src.DataCriacao,
+                  DataEncerramento = src.DataEncerramento,
+                  DepartamentoId = src.DepartamentoId,
+                  EmpresaId = src.EmpresaId
+              });
+
+        mapperMock
+              .Setup(m => m.Map<CargoDto>(It.IsAny<Cargo>()))
+              .Returns((Cargo source) => new CargoDto
+              {
+                  Id = source.Id,
+                  NomeCargo = source.NomeCargo,
+                  Ativo = source.Ativo,
+                  DataCriacao = source.DataCriacao,
+                  DataEncerramento = source.DataEncerramento,
+                  DepartamentoId = source.DepartamentoId,
+                  EmpresaId = source.EmpresaId
+              });
+
+        sharedPersistenceMock
+            .Setup(c => c.Create<Cargo>(cargo));
+
+        sharedPersistenceMock
+            .Setup(s => s.SaveChangesAsync())
+            .ReturnsAsync(false);
+
+        //Act
+
+        var cargoCriado = await _cargosServices.CreateCargos(cargoDto);
+
+        //Assert
+
+        Assert.Null(cargoCriado);
+        sharedPersistenceMock.Verify(s => s.SaveChangesAsync(), Times.Once);
+    }
+
+    [Fact]
+    [Trait(nameof(ICargosServices.DeleteCargo), "Sucesso")]
+    public async Task DeleteCargo_DeveRealizarAExclusaoDoCargo_QuandoOCargoExistir()
+    {
+        //Arrange
+
+        var cargo = cargosFixture.ObterApenasUmCargoMock(7);
+
+        cargosPersistenceMock
+           .Setup(g => g.GetCargoByIdAsync(7))
+           .ReturnsAsync(cargosFixture.ObterApenasUmCargoMock(7));
+
+        sharedPersistenceMock
+            .Setup(c => c.Delete<Cargo>(cargo));
+
+        sharedPersistenceMock
+            .Setup(s => s.SaveChangesAsync())
+            .ReturnsAsync(true);
+
+        //Act
+
+        var cargoExcluido = await _cargosServices.DeleteCargo(cargo.Id);
+
+        //Assert
+
+        Assert.True(cargoExcluido);
+        cargosPersistenceMock.Verify(p => p.GetCargoByIdAsync(7), Times.Once);
+        sharedPersistenceMock.Verify(s => s.SaveChangesAsync(), Times.Once);
+    }
+
+    [Fact]
+    [Trait(nameof(ICargosServices.DeleteCargo), "Insucesso")]
+    public async Task DeleteCargo_NaoDeveRealizarAExclusaoDoCargo_QuandoOCargoNaoExistir()
+    {
+        //Arrange
+
+        var cargo = cargosFixture.ObterApenasUmCargoMock(7);
+
+        cargosPersistenceMock
+           .Setup(g => g.GetCargoByIdAsync(8))
+           .ReturnsAsync(cargosFixture.ObterApenasUmCargoMock(8));
+
+        sharedPersistenceMock
+            .Setup(c => c.Delete<Cargo>(cargo));
+
+        //Act
+
+        var cargoExcluido = await _cargosServices.DeleteCargo(cargo.Id);
+
+        //Assert
+
+        Assert.False(cargoExcluido);
+        cargosPersistenceMock.Verify(p => p.GetCargoByIdAsync(7), Times.Once);
     }
 
 }

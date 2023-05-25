@@ -1,11 +1,6 @@
 ﻿using Bogus;
 using OnPeople.Application.Dtos.Departamentos;
 using OnPeople.Domain.Models.Departamentos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OnPeople.Tests.Departamentos
 {
@@ -44,7 +39,7 @@ namespace OnPeople.Tests.Departamentos
 
         public Departamento ObterApenasUmDepartamentoMock(int departamentoId)
         {
-            if (departamentoId == 7) 
+            if (departamentoId == 7)
             {
                 return
                 new Departamento
@@ -62,7 +57,30 @@ namespace OnPeople.Tests.Departamentos
             }
 
             return null;
-            
+
+        }
+
+        public DepartamentoDto ObterApenasUmDepartamentoDtoMock(int departamentoId)
+        {
+            if (departamentoId == 7)
+            {
+                return
+                new DepartamentoDto
+                {
+                    Id = 7,
+                    NomeDepartamento = new Faker().Commerce.Department(),
+                    Sigla = new Faker().Name.Prefix(),
+                    DiretorId = 1,
+                    GerenteId = 1,
+                    SupervisorId = 1,
+                    DataCriacao = "2023-05-18",
+                    Ativo = true,
+                    EmpresaId = 3
+                };
+            }
+
+            return null;
+
         }
 
         public IEnumerable<Departamento> ObterListaVaziaDeDepartamentosMock()
@@ -72,19 +90,19 @@ namespace OnPeople.Tests.Departamentos
 
         public Departamento CriarDepartamentoValidoMock()
         {
-                return
-                new Departamento
-                {
-                    Id = 4,
-                    NomeDepartamento = "DepartamentoValido",
-                    Sigla = "DEPVAL",
-                    DiretorId = 1,
-                    GerenteId = 1,
-                    SupervisorId = 1,
-                    DataCriacao = "2023-05-22",
-                    Ativo = true,
-                    EmpresaId = 4
-                };   
+            return
+            new Departamento
+            {
+                Id = 4,
+                NomeDepartamento = "DepartamentoValido",
+                Sigla = "DEPVAL",
+                DiretorId = 1,
+                GerenteId = 1,
+                SupervisorId = 1,
+                DataCriacao = "2023-05-22",
+                Ativo = true,
+                EmpresaId = 4
+            };
 
         }
         public DepartamentoDto CriarDepartamentoValidoDtoMock()
@@ -125,6 +143,59 @@ namespace OnPeople.Tests.Departamentos
             }
 
             return null;
+
+        }
+
+        public Departamento CriarDepartamentoInvalidoMock()
+        {
+            return
+            new Departamento
+            {
+                Id = 4,
+                NomeDepartamento = null,
+                Sigla = null,
+                DiretorId = 1,
+                GerenteId = 1,
+                SupervisorId = 1,
+                DataCriacao = "2023-05-22",
+                Ativo = true,
+                EmpresaId = 4
+            };
+
+        }
+        public DepartamentoDto CriarDepartamentoInvalidoDtoMock()
+        {
+            return
+            new DepartamentoDto
+            {
+                Id = 4,
+                NomeDepartamento = null,
+                Sigla = null,
+                DiretorId = 1,
+                GerenteId = 1,
+                SupervisorId = 1,
+                DataCriacao = "2023-05-22",
+                Ativo = true,
+                EmpresaId = 4
+            };
+
+        }
+
+        public Departamento ObterDepartamentAlteradoMock()
+        {
+            return
+            new Departamento
+            {
+                Id = 4,
+                NomeDepartamento = "DepartamentoAlterado",
+                Sigla = "DEPALT",
+                DiretorId = 2,
+                GerenteId = 2,
+                SupervisorId = 2,
+                DataCriacao = "2023-05-22",
+                Ativo = false,
+                EmpresaId = 7
+            };
 
         }
     }

@@ -8,9 +8,6 @@ using OnPeople.Persistence.Interfaces.Contracts.Shared;
 using OnPeople.Domain.Models.Departamentos;
 using OnPeople.Integration.Models.Pages.Page;
 using OnPeople.Application.Dtos.Departamentos;
-using OnPeople.Tests.Departamentos;
-using OnPeople.Domain.Models.Empresas;
-using System;
 
 
 namespace OnPeople.Tests.Departamentos;
@@ -22,7 +19,7 @@ public class DepartamentosServicesTests
     private readonly Mock<IDepartamentosPersistence> departamentosPersistenceMock;
     private readonly Mock<IMapper> mapperMock;
     private readonly CargosFixture departamentosFixture;
- 
+
 
     public DepartamentosServicesTests()
     {
@@ -126,6 +123,7 @@ public class DepartamentosServicesTests
 
         departamentosPersistenceMock
             .Setup(d => d.GetDepartamentoByIdAsync(7))
+            .Callback<int>(Id => Assert.Equal(7, Id))
             .ReturnsAsync(departamentosFixture.ObterApenasUmDepartamentoMock(7));
 
 
@@ -163,6 +161,7 @@ public class DepartamentosServicesTests
 
         departamentosPersistenceMock
             .Setup(d => d.GetDepartamentoByIdAsync(100))
+            .Callback<int>(Id => Assert.Equal(100, Id))
             .ReturnsAsync(departamentosFixture.ObterApenasUmDepartamentoMock(100));
 
 
@@ -189,7 +188,7 @@ public class DepartamentosServicesTests
 
         Assert.Null(departamentoConsultado);
         departamentosPersistenceMock.Verify(p => p.GetDepartamentoByIdAsync(100), Times.Once);
-        
+
     }
 
     [Fact]
@@ -203,48 +202,58 @@ public class DepartamentosServicesTests
 
 
         mapperMock
-            .Setup(x => x.Map<Departamento>(departamentoDto))
-            .Returns((DepartamentoDto src) => new Departamento
-            {
-                Id = src.Id,
-                NomeDepartamento = src.NomeDepartamento,
-                Sigla = src.Sigla,
-                DiretorId = src.DiretorId,
-                GerenteId = src.GerenteId,
-                SupervisorId = src.SupervisorId,
-                DataCriacao = src.DataCriacao,
-                Ativo = src.Ativo,
-                EmpresaId = src.EmpresaId
-            });
+              .Setup(m => m.Map<Departamento>(It.IsAny<DepartamentoDto>()))
+              .Returns((DepartamentoDto src) => new Departamento
+              {
+                  Id = src.Id,
+                  NomeDepartamento = src.NomeDepartamento,
+                  Sigla = src.Sigla,
+                  DiretorId = src.DiretorId,
+                  GerenteId = src.GerenteId,
+                  SupervisorId = src.SupervisorId,
+                  DataCriacao = src.DataCriacao,
+                  Ativo = src.Ativo,
+                  EmpresaId = src.EmpresaId
+              });
+
+        mapperMock
+              .Setup(m => m.Map<DepartamentoDto>(It.IsAny<Departamento>()))
+              .Returns((Departamento source) => new DepartamentoDto
+              {
+                  Id = source.Id,
+                  NomeDepartamento = source.NomeDepartamento,
+                  Sigla = source.Sigla,
+                  DiretorId = source.DiretorId,
+                  GerenteId = source.GerenteId,
+                  SupervisorId = source.SupervisorId,
+                  DataCriacao = source.DataCriacao,
+                  Ativo = source.Ativo,
+                  EmpresaId = source.EmpresaId
+              });
 
         sharedPersistenceMock
-            .Setup(c => c.Create<Departamento>(departamento));
+            .Setup(c => c.Create<Departamento>(departamento))
+            .Callback<Departamento>(departamento =>
+            {
+                Assert.Equal(4, departamento.Id);
+                Assert.Equal("DepartamentoValido", departamento.NomeDepartamento);
+                Assert.Equal("DEPVAL", departamento.Sigla);
+                Assert.Equal(1, departamento.DiretorId);
+                Assert.Equal(1, departamento.GerenteId);
+                Assert.Equal(1, departamento.SupervisorId);
+                Assert.Equal("2023-05-22", departamento.DataCriacao);
+                Assert.True(departamento.Ativo);
+                Assert.Equal(4, departamento.EmpresaId);
+            });
 
         sharedPersistenceMock
             .Setup(s => s.SaveChangesAsync())
             .ReturnsAsync(true);
 
-    
-
         departamentosPersistenceMock
-            .Setup(g => g.GetDepartamentoByIdAsync(4))
-            .ReturnsAsync(departamentosFixture.ObterDepartamentoCriadoMock(4));
-
-        mapperMock
-          .Setup(m => m.Map<DepartamentoDto>(departamento))
-          .Returns((Departamento source) => new DepartamentoDto
-          {
-              Id = source.Id,
-              NomeDepartamento = source.NomeDepartamento,
-              Sigla = source.Sigla,
-              DiretorId = source.DiretorId,
-              GerenteId = source.GerenteId,
-              SupervisorId = source.SupervisorId,
-              DataCriacao = source.DataCriacao,
-              Ativo = source.Ativo,
-              EmpresaId = source.EmpresaId
-          });
-
+            .Setup(g => g.GetDepartamentoByIdAsync(departamento.Id))
+            .Callback<int>(Id => Assert.Equal(4, Id))
+            .ReturnsAsync(departamentosFixture.ObterDepartamentoCriadoMock(departamento.Id));
 
         //Act
 
@@ -255,9 +264,122 @@ public class DepartamentosServicesTests
         Assert.Equal(4, departamentoCriado.Id);
         Assert.IsType<DepartamentoDto>(departamentoCriado);
         departamentosPersistenceMock.Verify(p => p.GetDepartamentoByIdAsync(4), Times.Once);
-        sharedPersistenceMock.Verify(s => s.Create<DepartamentoDto>(departamentoDto), Times.Once);
         sharedPersistenceMock.Verify(s => s.SaveChangesAsync(), Times.Once);
     }
+
+    [Fact]
+    [Trait(nameof(IDepartamentosServices.CreateDepartamentos), "Insucesso")]
+    public async Task CreateDepartamentos_NaoDeveRealizarAInclusaoDoDepartamento_QuandoOsDadosForemInValidos()
+    {
+        //Arrange
+
+        var departamentoDto = departamentosFixture.CriarDepartamentoInvalidoDtoMock();
+        var departamento = departamentosFixture.CriarDepartamentoInvalidoMock();
+
+
+        mapperMock
+              .Setup(m => m.Map<Departamento>(It.IsAny<DepartamentoDto>()))
+              .Returns((DepartamentoDto src) => new Departamento
+              {
+                  Id = src.Id,
+                  NomeDepartamento = src.NomeDepartamento,
+                  Sigla = src.Sigla,
+                  DiretorId = src.DiretorId,
+                  GerenteId = src.GerenteId,
+                  SupervisorId = src.SupervisorId,
+                  DataCriacao = src.DataCriacao,
+                  Ativo = src.Ativo,
+                  EmpresaId = src.EmpresaId
+              });
+
+        mapperMock
+              .Setup(m => m.Map<DepartamentoDto>(It.IsAny<Departamento>()))
+              .Returns((Departamento source) => new DepartamentoDto
+              {
+                  Id = source.Id,
+                  NomeDepartamento = source.NomeDepartamento,
+                  Sigla = source.Sigla,
+                  DiretorId = source.DiretorId,
+                  GerenteId = source.GerenteId,
+                  SupervisorId = source.SupervisorId,
+                  DataCriacao = source.DataCriacao,
+                  Ativo = source.Ativo,
+                  EmpresaId = source.EmpresaId
+              });
+
+        sharedPersistenceMock
+            .Setup(c => c.Create<Departamento>(departamento));
+
+        sharedPersistenceMock
+            .Setup(s => s.SaveChangesAsync())
+            .ReturnsAsync(false);
+
+        //Act
+
+        var departamentoCriado = await _departamentosServices.CreateDepartamentos(departamentoDto);
+
+        //Assert
+
+        Assert.Null(departamentoCriado);
+        sharedPersistenceMock.Verify(s => s.SaveChangesAsync(), Times.Once);
+    }
+
+
+    [Fact]
+    [Trait(nameof(IDepartamentosServices.DeleteDepartamento), "Sucesso")]
+    public async Task DeleteDepartamento_DeveRealizarAExclusaoDoDepartamento_QuandoODepartamentoExistir()
+    {
+        //Arrange
+
+        var departamento = departamentosFixture.ObterApenasUmDepartamentoMock(7);
+
+        departamentosPersistenceMock
+           .Setup(g => g.GetDepartamentoByIdAsync(7))
+           .ReturnsAsync(departamentosFixture.ObterApenasUmDepartamentoMock(7));
+
+        sharedPersistenceMock
+            .Setup(c => c.Delete<Departamento>(departamento));
+
+        sharedPersistenceMock
+            .Setup(s => s.SaveChangesAsync())
+            .ReturnsAsync(true);
+
+        //Act
+
+        var departamentoExcluido = await _departamentosServices.DeleteDepartamento(departamento.Id);
+
+        //Assert
+
+        Assert.True(departamentoExcluido);
+        departamentosPersistenceMock.Verify(p => p.GetDepartamentoByIdAsync(7), Times.Once);
+        sharedPersistenceMock.Verify(s => s.SaveChangesAsync(), Times.Once);
+    }
+
+    [Fact]
+    [Trait(nameof(IDepartamentosServices.DeleteDepartamento), "Insucesso")]
+    public async Task DeleteDepartamento_NaoDeveRealizarAExclusaoDoDepartamento_QuandoODepartamentoNaoExistir()
+    {
+        //Arrange
+
+        var departamento = departamentosFixture.ObterApenasUmDepartamentoMock(7);
+
+        departamentosPersistenceMock
+           .Setup(g => g.GetDepartamentoByIdAsync(8))
+           .ReturnsAsync(departamentosFixture.ObterApenasUmDepartamentoMock(8));
+
+        sharedPersistenceMock
+            .Setup(c => c.Delete<Departamento>(departamento));
+
+        //Act
+
+        var departamentoExcluido = await _departamentosServices.DeleteDepartamento(departamento.Id);
+
+        //Assert
+
+        Assert.False(departamentoExcluido);
+        departamentosPersistenceMock.Verify(p => p.GetDepartamentoByIdAsync(7), Times.Once);
+    }
+
 
 }
 
@@ -267,4 +389,27 @@ public class DepartamentosServicesTests
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//.Callback<Departamento, int>((departamento, id) =>
+//            {
+//                Assert.Equal(4, departamento.Id);
+//                Assert.Equal("DepartamentoValido", departamento.NomeDepartamento);
+//            });
 
