@@ -819,24 +819,26 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\AlexdeSouzaGaldino\\.nuget\\packages\\": {}
+    "C:\\Users\\Rafae\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\AlexdeSouzaGaldino\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Domain\\OnPeople.Domain.csproj",
+      "projectUniqueName": "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Domain\\OnPeople.Domain.csproj",
       "projectName": "OnPeople.Domain",
-      "projectPath": "C:\\Users\\AlexdeSouzaGaldino\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Domain\\OnPeople.Domain.csproj",
-      "packagesPath": "C:\\Users\\AlexdeSouzaGaldino\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\AlexdeSouzaGaldino\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Domain\\obj\\",
+      "projectPath": "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Domain\\OnPeople.Domain.csproj",
+      "packagesPath": "C:\\Users\\Rafae\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Rafae\\Documents\\GitHub\\pmv-ads-2023-1-e4-proj-apdist-t4-onpeople\\src\\OnPeople\\BackEnd\\src\\OnPeople.Domain\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\AlexdeSouzaGaldino\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Rafae\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

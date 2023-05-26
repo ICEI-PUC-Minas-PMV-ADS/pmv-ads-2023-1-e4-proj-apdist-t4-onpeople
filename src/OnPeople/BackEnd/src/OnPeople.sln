@@ -3,23 +3,22 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnPeople.Application", "OnPeople.Application\OnPeople.Application.csproj", "{2345B4A1-6461-42CF-9EB6-3F8DE2B65814}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnPeople.Application", "OnPeople.Application\OnPeople.Application.csproj", "{2345B4A1-6461-42CF-9EB6-3F8DE2B65814}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnPeople.Domain", "OnPeople.Domain\OnPeople.Domain.csproj", "{646C9CCB-4AAA-46F4-959E-00C4F4E6A107}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnPeople.Domain", "OnPeople.Domain\OnPeople.Domain.csproj", "{646C9CCB-4AAA-46F4-959E-00C4F4E6A107}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnPeople.API", "OnPeople.Api\OnPeople.API.csproj", "{DD9F44F9-385B-4EC8-97F8-C96003F1B9C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnPeople.API", "OnPeople.Api\OnPeople.API.csproj", "{DD9F44F9-385B-4EC8-97F8-C96003F1B9C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnPeople.Persistence", "OnPeople.Persistence\OnPeople.Persistence.csproj", "{1101C7F5-940E-4CA0-BF2C-9BFD62F3B975}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnPeople.Persistence", "OnPeople.Persistence\OnPeople.Persistence.csproj", "{1101C7F5-940E-4CA0-BF2C-9BFD62F3B975}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnPeople.Integration", "OnPeople.Integration\OnPeople.Integration.csproj", "{49998D5B-07DE-4700-AACA-806BA31FA5D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnPeople.Integration", "OnPeople.Integration\OnPeople.Integration.csproj", "{49998D5B-07DE-4700-AACA-806BA31FA5D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnPeople.Tests", "OnPeople.Tests\OnPeople.Tests.csproj", "{F203C74A-BFA9-4CBD-8505-9864FE59D5FA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{2345B4A1-6461-42CF-9EB6-3F8DE2B65814}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -38,13 +37,16 @@ Global
 		{1101C7F5-940E-4CA0-BF2C-9BFD62F3B975}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1101C7F5-940E-4CA0-BF2C-9BFD62F3B975}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1101C7F5-940E-4CA0-BF2C-9BFD62F3B975}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BABD9769-A2C8-4196-B4F6-63982A24ED01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BABD9769-A2C8-4196-B4F6-63982A24ED01}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BABD9769-A2C8-4196-B4F6-63982A24ED01}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BABD9769-A2C8-4196-B4F6-63982A24ED01}.Release|Any CPU.Build.0 = Release|Any CPU
 		{49998D5B-07DE-4700-AACA-806BA31FA5D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{49998D5B-07DE-4700-AACA-806BA31FA5D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49998D5B-07DE-4700-AACA-806BA31FA5D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49998D5B-07DE-4700-AACA-806BA31FA5D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F203C74A-BFA9-4CBD-8505-9864FE59D5FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F203C74A-BFA9-4CBD-8505-9864FE59D5FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F203C74A-BFA9-4CBD-8505-9864FE59D5FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F203C74A-BFA9-4CBD-8505-9864FE59D5FA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal
