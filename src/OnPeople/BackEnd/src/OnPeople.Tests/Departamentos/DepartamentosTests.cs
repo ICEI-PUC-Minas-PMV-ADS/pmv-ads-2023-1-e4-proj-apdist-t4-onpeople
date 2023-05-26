@@ -161,7 +161,7 @@ public class DepartamentosServicesTests
 
     [Fact]
     [Trait(nameof(IDepartamentosServices.GetDepartamentoByIdAsync), "Insucesso")]
-    public async Task GetDepartamentoByIdAsync_NãoDeveRetornarOsDadosDoDepartamento_QuandoOIdInformadoForInValido()
+    public async Task GetDepartamentoByIdAsync_NaoDeveRetornarOsDadosDoDepartamento_QuandoOIdInformadoForInvalido()
     {
         //Arrange
 
@@ -274,7 +274,7 @@ public class DepartamentosServicesTests
 
     [Fact]
     [Trait(nameof(IDepartamentosServices.CreateDepartamentos), "Insucesso")]
-    public async Task CreateDepartamentos_NaoDeveRealizarAInclusaoDoDepartamento_QuandoOsDadosForemInValidos()
+    public async Task CreateDepartamentos_NaoDeveRealizarAInclusaoDoDepartamento_QuandoOsDadosForemInvalidos()
     {
         //Arrange
 

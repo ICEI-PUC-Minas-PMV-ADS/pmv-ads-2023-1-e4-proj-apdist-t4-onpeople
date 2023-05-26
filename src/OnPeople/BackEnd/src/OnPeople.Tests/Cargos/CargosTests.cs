@@ -86,7 +86,7 @@ public class CargosServicesTests
 
     [Fact]
     [Trait(nameof(ICargosServices.GetAllCargosAsync), "Insucesso")]
-    public async Task GetAllCargosAsync_DeveRetornarUmaListaVazia_QuandoNãoExistirCargosCadastrados()
+    public async Task GetAllCargosAsync_DeveRetornarUmaListaVazia_QuandoNaoExistirCargosCadastrados()
     {
         //Arrange
 
@@ -148,7 +148,7 @@ public class CargosServicesTests
 
     [Fact]
     [Trait(nameof(ICargosServices.GetCargoByIdAsync), "Insucesso")]
-    public async Task GetCargoByIdAsync_NãoDeveRetornarOsDadosDoCargo_QuandoOIdInformadoForInValido()
+    public async Task GetCargoByIdAsync_NaoDeveRetornarOsDadosDoCargo_QuandoOIdInformadoForInvalido()
     {
         //Arrange
 
@@ -332,7 +332,7 @@ public class CargosServicesTests
 
     [Fact]
     [Trait(nameof(ICargosServices.CreateCargos), "Insucesso")]
-    public async Task CreateCargos_NaoDeveRealizarAInclusaoDoCargo_QuandoOsDadosForemInValidos()
+    public async Task CreateCargos_NaoDeveRealizarAInclusaoDoCargo_QuandoOsDadosForemInvalidos()
     {
         //Arrange
 
