@@ -1,21 +1,30 @@
 using Microsoft.AspNetCore.Mvc;
 using OnPeople.Application.Services.Contracts.Cargos;
 using OnPeople.Application.Dtos.Cargos;
+using Microsoft.AspNetCore.Authorization;
+using OnPeople.Application.Services.Contracts.Users;
+using OnPeople.Integration.Models.Pages.Config;
+using OnPeople.API.Extensions.Users;
+using OnPeople.API.Extensions.Pages;
 
 namespace OnPeople.API.Controllers.Cargos;
 
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 
 public class CargosController : ControllerBase
 {
     private readonly ICargosServices _cargosServices;
+    private readonly IUsersServices _usersServices;
 
-
-    public CargosController(ICargosServices cargosServices)
+    public CargosController(
+        ICargosServices cargosServices,
+        IUsersServices usersServices
+    )
     {
         _cargosServices = cargosServices;
-
+        _usersServices = usersServices;
     }
 
     /// <summary>
@@ -26,13 +35,25 @@ public class CargosController : ControllerBase
     /// <response code="500">Erro interno</response>
 
     [HttpGet]
-    public async Task<ActionResult> GetAllCargos()
+    public async Task<ActionResult> GetAllCargos([FromQuery]PageParameters pageParameters)
     {
         try
         {
-            var cargos = await _cargosServices.GetAllCargosAsync();
+            var claimUser = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());
+
+            if (claimUser == null) 
+                return Unauthorized();
+
+            var userLogged = await _usersServices.GetUserByUserNameAsync(User.GetUserNameClaim());
+
+            if (userLogged == null)
+                return Unauthorized();
+                            
+            var cargos = await _cargosServices.GetAllCargosAsync(pageParameters, userLogged.CodEmpresa, userLogged.CodDepartamento);
 
             if (cargos == null) return NotFound("Nenhum cargo foi encontrado.");
+
+            Response.CreatePagination(cargos.CurrentPage, cargos.PageSize, cargos.TotalCounter, cargos.TotalPages);
 
             return Ok(cargos);
         }
@@ -107,6 +128,14 @@ public class CargosController : ControllerBase
     {
         try
         {
+            var claimUser = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());   
+
+            if (claimUser == null) 
+                return Unauthorized();
+
+            if (!claimUser.Master)
+                return Unauthorized();
+
             var createdCargo = await _cargosServices.CreateCargos(cargoDto);
 
             if (createdCargo != null) return Ok(createdCargo);
@@ -128,11 +157,22 @@ public class CargosController : ControllerBase
     /// <response code="400">Parâmetros incorretos</response>
     /// <response code="500">Erro interno</response>
 
-    [HttpPut("cargoId")]
+    [HttpPut("{cargoId}")]
     public async Task<IActionResult> UpdateCargos(int cargoId, CargoDto cargoDto)
     {
         try
         {
+            var claimUser = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());   
+
+            if (claimUser == null) 
+                return Unauthorized();
+
+            if (!claimUser.Master)
+                return Unauthorized();
+
+            if (cargoDto.Id != cargoId)
+                return Unauthorized();
+
             var cargo = await _cargosServices.UpdateCargo(cargoId, cargoDto);
 
             if (cargo == null) return BadRequest("O cargo informado não existe.");

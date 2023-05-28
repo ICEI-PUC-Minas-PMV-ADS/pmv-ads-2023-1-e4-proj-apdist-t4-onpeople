@@ -39,82 +39,46 @@
           </div>
 
           <div class="form-row d-md-flex p-1">
-            <div class="form-group col-12">
-              <label>Conta</label>
-              <div class="input-group ">
-                <span class="input-group-text bg-info text-white">
-                  <mat-icon>person</mat-icon>
-                </span>
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Informe sua conta de usuário"
-                  formControlName="userName"
-                  [ngClass]="fieldValidator(ctrF.userName)">
-                <div class="invalid-feedback">
-                  {{validatorReturn(ctrF.userName, "")}}
-                </div>
-              </div>
-            </div>
+            <mat-form-field class="form-group col-md-12 p-1">
+              <mat-label>Conta</mat-label>
+              <mat-icon matPrefix  class="bg-info text-white">person</mat-icon>
+              <input matInput type="text" class="form-control" formControlName="userName" [ngClass]="fieldValidator(ctrF.userName)">
+              <mat-error class="invalid-feedback">
+                {{validatorReturn(ctrF.userName, "")}}
+              </mat-error>
+            </mat-form-field>
           </div>
 
           <div class="form-row d-md-flex p-1">
-            <div class="form-group col-12">
-              <label>Nome Completo</label>
-              <div class="input-group">
-                <span class="input-group-text bg-info text-white">
-                  <mat-icon>remember_me</mat-icon>
-                </span>
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Informe seu nome completo"
-                  formControlName="nomeCompleto"
-                  [ngClass]="fieldValidator(ctrF.nomeCompleto)">
-                <div class="invalid-feedback">
-                  {{validatorReturn(ctrF.nomeCompleto, "")}}
-                </div>
-              </div>
-            </div>
+            <mat-form-field class="form-group col-md-12 p-1">
+              <mat-label>Nome Completo</mat-label>
+              <mat-icon matPrefix class="bg-info text-white">remember_me</mat-icon>
+              <input matInput type="text" class="form-control" formControlName="nomeCompleto" [ngClass]="fieldValidator(ctrF.nomeCompleto)">
+              <mat-error class="invalid-feedback">
+                {{validatorReturn(ctrF.nomeCompleto, "")}}
+              </mat-error>
+            </mat-form-field>
           </div>
 
           <div class="form-row d-md-flex p-1">
-            <div class="form-group col-sm-6">
-              <label>Senha</label>
-              <div class="input-group">
-                <span class="input-group-text bg-info text-white">
-                  <mat-icon>key</mat-icon>
-                </span>
-                <input
-                  type="password"
-                  class="form-control"
-                  placeholder="Informe sua senha"
-                  formControlName="password"
-                  [ngClass]="fieldValidator(ctrF.password)">
-                <div class="invalid-feedback">
-                  {{validatorReturn(ctrF.password, "Senha")}}
-                </div>
-              </div>
-            </div>
+            <mat-form-field class="form-group col-md-6 p-1">
+              <mat-label>Senha</mat-label>
+              <mat-icon matPrefix class="bg-info text-white">key</mat-icon>
+              <input matInput type="password" class="form-control" formControlName="password"
+                [ngClass]="fieldValidator(ctrF.password)">
+              <mat-error class="invalid-feedback">
+                {{validatorReturn(ctrF.password, "")}}
+              </mat-error>
+            </mat-form-field>
 
-            <div class="form-group col-sm-6 ps-1">
-              <label>Confirmar Senha</label>
-              <div class="input-group mb-1">
-                <span class="input-group-text bg-info text-white">
-                  <mat-icon>done_all</mat-icon>
-                </span>
-                <input
-                  type="password"
-                  class="form-control"
-                  placeholder="Confirme sua senha"
-                  formControlName="confirmPassword"
-                  [ngClass]="fieldValidator(ctrF.confirmPassword)">
-                <div class="invalid-feedback">
-                  {{validatorReturn(ctrF.confirmPassword, "Confirmar Senha")}}
-                </div>
-              </div>
-            </div>
-
+            <mat-form-field class="form-group col-md-6 p-1">
+              <mat-label>Confirmar Senha</mat-label>
+              <mat-icon matPrefix class="bg-info text-white">done_all</mat-icon>
+              <input matInput type="password" class="form-control" formControlName="confirmPassword" [ngClass]="fieldValidator(ctrF.confirmPassword)">
+              <mat-error class="invalid-feedback">
+                {{validatorReturn(ctrF.confirmPassword, "Confirmar Senha")}}
+              </mat-error>
+            </mat-form-field>
           </div>
 
           <div class="form-row d-md-flex mt-0 p-1">

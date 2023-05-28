@@ -78,7 +78,7 @@ export class CompanyDetailComponent implements OnInit {
 
   public formValidator(): void {
     this.formDetail = this.formBuilder.group({
-      cnpj: ['', [ Validators.required]],
+      cnpj: ['', [Validators.required]],
       razaoSocial: ['', [ Validators.required, Validators.minLength(4), Validators.maxLength(200)]],
       nomeFantasia: ['', [ Validators.required, Validators.minLength(4), Validators.maxLength(200)]],
       siglaEmpresa: ['', [ Validators.required, Validators.minLength(1), Validators.maxLength(20)]],

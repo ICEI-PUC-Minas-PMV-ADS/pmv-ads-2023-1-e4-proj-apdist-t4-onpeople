@@ -12,7 +12,9 @@ namespace OnPeople.Domain.Models.Cargos
         public string DataCriacao { get; set; }
         public string DataEncerramento { get; set; }
         public int DepartamentoId { get; set; }
+        public Departamento Departamento { get; set; }
         public int EmpresaId { get; set; }
+        public Empresa Empresa { get; set; }
         public IEnumerable<Funcionario> Funcionarios { get; set; }
     }
 }

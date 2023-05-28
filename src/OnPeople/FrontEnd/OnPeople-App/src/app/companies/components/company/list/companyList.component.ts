@@ -85,7 +85,6 @@ export class CompanyListComponent implements OnInit {
       .getCompanies(this.pagination.currentPage, this.pagination.itemsPage)
       .subscribe(
         (companies: PaginatedResult<Empresa[]>) => {
-          console.log(companies);
           this.companies = companies.result
           this.pagination = companies.pagination;
         },
@@ -144,7 +143,6 @@ export class CompanyListComponent implements OnInit {
   }
 
   public pageChanged(event: any): void {
-    console.log(event.currentPage)
 //    this.pagination.currentPage = event.currentPage
     this.getCompanies();
   }

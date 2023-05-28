@@ -12,6 +12,7 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Empresas
     public class EmpresasPersistence : SharedPersistence, IEmpresasPersistence
     {
         private readonly OnPeopleContext _context;
+        private readonly DashboardEmpresa _dashEmpresa;
         public EmpresasPersistence(OnPeopleContext context) : base(context)
         {
             _context = context;
@@ -131,9 +132,7 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Empresas
                     .AsNoTracking()
                     .Where(e => e.Filial && e.Id == empresaId );
 
-            DashboardEmpresa dashEmpresa = new DashboardEmpresa();
-
-            dashEmpresa.CountFiliais = queryFiliais.Count<Empresa>();
+            _dashEmpresa.CountFiliais = queryFiliais.Count<Empresa>();
 
             IQueryable<Empresa> queryEmpresaAtivas = _context.Empresas;
 
@@ -146,7 +145,7 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Empresas
                     .AsNoTracking()
                     .Where(e => e.Ativa && e.Id == empresaId );
 
-            dashEmpresa.CountEmpresasAtivas = queryEmpresaAtivas.Count<Empresa>();
+            _dashEmpresa.CountEmpresasAtivas = queryEmpresaAtivas.Count<Empresa>();
 
             IQueryable<Empresa> queryEmpresas = _context.Empresas;
 
@@ -158,7 +157,7 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Empresas
                     .AsNoTracking()
                     .Where(e => e.Id == empresaId);
 
-            dashEmpresa.CountEmpresas = queryEmpresas.Count<Empresa>();   
+            _dashEmpresa.CountEmpresas = queryEmpresas.Count<Empresa>();   
 
             IQueryable<Empresa> queryFiliaisAtivas = _context.Empresas;
 
@@ -171,9 +170,9 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Empresas
                     .AsNoTracking()
                     .Where(e => e.Filial && e.Ativa && e.Id == empresaId );
                     
-            dashEmpresa.CountFiliaisAtivas = queryFiliaisAtivas.Count<Empresa>();   
+           _dashEmpresa.CountFiliaisAtivas = queryFiliaisAtivas.Count<Empresa>();   
 
-            return dashEmpresa;
+            return _dashEmpresa;
         }
 
     }

@@ -33,44 +33,29 @@
           </div>
 
           <div class="form-row d-md-flex p-1">
-            <div class="form-group col-12">
-              <label>Conta</label>
-              <div class="input-group mb-3">
-                <span class="input-group-text bg-info text-white">
-                  <mat-icon>people</mat-icon>
-                </span>
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Informe sua conta de usuário."
-                  formControlName="userName"
-                  [ngClass]="fieldValidator(ctrF.userName)">
-                <div class="invalid-feedback">
-                  {{messageReturned(ctrF.userName, "")}}
-                </div>
-              </div>
-            </div>
+            <mat-form-field class="form-group col-md-12 p-1">
+              <mat-label>Conta</mat-label>
+              <mat-icon matPrefix class="bg-info text-white">people</mat-icon>
+              <input matInput type="text" class="form-control" formControlName="userName"
+                [ngClass]="fieldValidator(ctrF.userName)">
+              <mat-error class="invalid-feedback">
+                {{messageReturned(ctrF.userName, "")}}
+              </mat-error>
+            </mat-form-field>
           </div>
 
           <div class="form-row d-md-flex p-1">
-            <div class="form-group col-12">
-              <label>Senha</label>
-              <div class="input-group mb-3">
-                <span class="input-group-text bg-info text-white">
-                  <mat-icon>key</mat-icon>
-                </span>
-                <input
-                  type="password"
-                  class="form-control"
-                  placeholder="Informe sua senha."
-                  formControlName="password"
-                  [ngClass]="fieldValidator(ctrF.password)">
-                <div class="invalid-feedback">
-                  {{messageReturned(ctrF.password, "")}}
-                </div>
-              </div>
-            </div>
+            <mat-form-field class="form-group col-md-12 p-1">
+              <mat-label>Senha</mat-label>
+              <mat-icon matPrefix class="bg-info text-white">key</mat-icon>
+              <input matInput type="password" class="form-control" formControlName="password"
+                [ngClass]="fieldValidator(ctrF.password)">
+              <mat-error class="invalid-feedback">
+                {{messageReturned(ctrF.password, "")}}
+              </mat-error>
+            </mat-form-field>
           </div>
+
 
           <div class="form-row d-md-flex mt-3 p-1">
             <div class="form-group col-12">

@@ -12,6 +12,7 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Departamentos
     public class DepartamentosPersistence : SharedPersistence, IDepartamentosPersistence
     {
         private readonly OnPeopleContext _context;
+        private readonly DashboardDepartamento _dashDepartamento;
 
         public DepartamentosPersistence(OnPeopleContext context) : base(context)
         {
@@ -45,6 +46,20 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Departamentos
             return await PageList<Departamento>.CreatePageAsync(query, pageParameters.PageNumber, pageParameters.PageSize);
         }
 
+       public async Task<IEnumerable<Departamento>> GetAllDepartamentosByEmpresaIdAsync(int empresaId)
+        {
+            IQueryable<Departamento> query = _context.Departamentos
+            .Include(d => d.Empresa)
+            .Include(d => d.Cargos);
+
+            query = query
+                .AsNoTracking()
+                .OrderBy(d => d.Id)
+                .Where(d => d.EmpresaId == empresaId);
+
+            return await query.ToArrayAsync();
+        }
+
         public async Task<Departamento> GetDepartamentoByIdAsync(int departamentoId)
         {
             IQueryable<Departamento> query = _context.Departamentos
@@ -59,26 +74,29 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Departamentos
         }
 
         public DashboardDepartamento GetDashboard(int empresaId, int departamentoId)
-        {
-            DashboardDepartamento dashDepartamento = new DashboardDepartamento();
-            
+        {       
             IQueryable<Departamento> query = _context.Departamentos
                 .Include(d => d.Cargos)
                 .Include(d => d.Empresa);
 
-            if (departamentoId == 0)
+            if (empresaId == 0) {
+                query = query
+                    .AsNoTracking();
+            } else if (departamentoId == 0) {
+
                 query = query
                     .AsNoTracking()
                     .Where(d => d.EmpresaId == empresaId);
-            else
+            } else {
                 query = query 
                     .AsNoTracking()
                     .Where(d => d.EmpresaId == empresaId &&  d.Id == departamentoId);
+            }
 
 
-            dashDepartamento.CountDepartamentos = query.Count<Departamento>();
+            _dashDepartamento.CountDepartamentos = query.Count<Departamento>();
             
-            return dashDepartamento;
+            return _dashDepartamento;
         }
 
     }
