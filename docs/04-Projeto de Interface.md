@@ -11,7 +11,7 @@ Visão geral da interação do usuário pelas telas do sistema e protótipo inte
 
 ![Diagrama de Fluxo](img/diagramadefluxo.jpeg)
 
-## Wireframes
+## Wireframes Web 
 
 ### Login
 
@@ -25,6 +25,10 @@ Visão geral da interação do usuário pelas telas do sistema e protótipo inte
 
 <img src="./img/perfil2.png">
 
+### Dashboard - empresas 
+
+<img src="./img/dashboard empresas 2.png">
+
 ### Dashboard - cargos 
 
 <img src="./img/dash cargos2.png">
@@ -37,8 +41,29 @@ Visão geral da interação do usuário pelas telas do sistema e protótipo inte
 
 <img src="./img/dashboard dep2.png">
 
-### Dashboard - empresas 
+## Wireframes Mobile
 
-<img src="./img/dashboard empresas 2.png">
+### Login
+
+<img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e4-proj-apdist-t4-onpeople/blob/main/docs/img/Login%20-%20mobile.jpg" width="350" height="600">
+
+### Dashboard - empresas
+
+<img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e4-proj-apdist-t4-onpeople/blob/main/docs/img/dash%20empresa.jpg" width="350" height="600">
+
+### Dashboard - cargos
+
+<img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e4-proj-apdist-t4-onpeople/blob/main/docs/img/dash%20cargos.jpg" width="350" height="600">
+
+### Dashboard - metas
+
+<img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e4-proj-apdist-t4-onpeople/blob/main/docs/img/dash%20metas.jpg" width="350" height="600">
+
+### Dashboard - departamentos 
+
+<img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e4-proj-apdist-t4-onpeople/blob/main/docs/img/dash%20departamentos.jpg" width="350" height="600">
+
+
+
 
 

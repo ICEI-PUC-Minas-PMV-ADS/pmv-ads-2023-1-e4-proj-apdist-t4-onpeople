@@ -2,6 +2,21 @@
 
 ## RF-006: O sistema deverá permitir o gerenciamento de departamentos (CRUD)
 
+### Testes unitários automatizados
+
+Além dos testes manuais evidenciados abaixo, foram implementados também os testes unitários automatizados utilizando a ferramenta de testes xUnit.net disponilizada para aplicações do .NET Framework.
+
+Para o RF-006 foram executados 10 testes unitários automatizados, que cobrem todos os métodos da camada de serviços do contexto DepartamentosServices. Para cada método, foram implementados 2 testes de unidades: um cenário de sucesso e outro de insucesso.
+
+**Resumo da execução:**
+</br>
+<p align="center">
+<img src=https://raw.githubusercontent.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e4-proj-apdist-t4-onpeople/main/docs/img/TestesUnitariosDepartamentos2.png>
+</p>
+
+
+### Testes manuais
+
 **CT01: POST api/Departamentos - Realizando a requisição informando os dados obrigatórios corretamente**
 
 **Status do caso de teste:** Aprovado
@@ -317,6 +332,20 @@ Resposta da requisição:
 </br>
 
 ## RF-007: O sistema deverá permitir o gerenciamento de cargos (CRUD)
+
+### Testes unitários automatizados
+
+Além dos testes manuais evidenciados abaixo, foram implementados também os testes unitários automatizados utilizando a ferramenta de testes xUnit.net disponilizada para aplicações do .NET Framework.
+
+Para o RF-007 foram executados 10 testes unitários automatizados, que cobrem todos os métodos da camada de serviços do contexto CargosServices. Para cada método, foram implementados 2 testes de unidades: um cenário de sucesso e outro de insucesso.
+
+**Resumo da execução:**
+</br>
+<p align="center">
+<img src=https://raw.githubusercontent.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e4-proj-apdist-t4-onpeople/main/docs/img/TestesUnitariosCargos2.png>
+</p>
+
+### Testes manuais
 
 **CT01: POST api/Cargos- Realizando a requisição informando os dados obrigatórios corretamente**
 
