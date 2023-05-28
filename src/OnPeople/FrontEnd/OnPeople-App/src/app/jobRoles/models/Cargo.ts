@@ -1,7 +1,7 @@
 import { Empresa } from "src/app/companies/models";
 import { Departamento } from "src/app/department/models";
 
-export class Cargo {
+export interface Cargo {
   id: number;
   nomeCargo: string;
   ativo: Boolean;

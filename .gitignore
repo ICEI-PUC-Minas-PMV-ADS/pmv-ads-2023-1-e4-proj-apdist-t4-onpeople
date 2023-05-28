@@ -1,5 +1,7 @@
+node_modules
 .angular
 .vs
-node_modules
-bin/Debug
-*/obj
+.vscode
+bin
+obj
+src\onpeople.api\pages

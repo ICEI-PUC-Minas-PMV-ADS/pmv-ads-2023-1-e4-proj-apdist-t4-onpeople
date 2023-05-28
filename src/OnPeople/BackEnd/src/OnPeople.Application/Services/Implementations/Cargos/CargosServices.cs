@@ -2,6 +2,8 @@ using AutoMapper;
 using OnPeople.Application.Dtos.Cargos;
 using OnPeople.Application.Services.Contracts.Cargos;
 using OnPeople.Domain.Models.Cargos;
+using OnPeople.Integration.Models.Dashboard;
+using OnPeople.Integration.Models.Pages.Config;
 using OnPeople.Integration.Models.Pages.Page;
 using OnPeople.Persistence.Interfaces.Contracts.Cargos;
 using OnPeople.Persistence.Interfaces.Contracts.Shared;
@@ -24,15 +26,20 @@ namespace OnPeople.Application.Services.Implementations.Cargos
 
         }
 
-        public async Task<PageList<CargoDto>> GetAllCargosAsync()
+        public async Task<PageList<CargoDto>> GetAllCargosAsync(PageParameters pageParameters, int empresaId, int departamentoId)
         {
             try
             {
-                var cargos = await _cargosPersistence.GetAllCargosAsync();
+                var cargos = await _cargosPersistence.GetAllCargosAsync(pageParameters, empresaId, departamentoId);
 
                 if (cargos == null) return null;
 
                 var cargosMapper = _mapper.Map<PageList<CargoDto>>(cargos);
+
+                cargosMapper.CurrentPage = cargos.CurrentPage;
+                cargosMapper.TotalPages = cargos.TotalPages;
+                cargosMapper.PageSize = cargos.PageSize;
+                cargosMapper.TotalCounter = cargos.TotalCounter;
 
                 return cargosMapper;
             }
@@ -145,6 +152,19 @@ namespace OnPeople.Application.Services.Implementations.Cargos
 
             catch (Exception e)
             {
+                throw new Exception(e.Message);
+            }
+        }
+
+        public DashboardCargos GetDashboard(int empresaId, int departamentoId, int cargoId) 
+        {
+            try
+            {
+                return _cargosPersistence.GetDashboard(empresaId, departamentoId, cargoId);
+            }
+            catch (Exception e)
+            {
+
                 throw new Exception(e.Message);
             }
         }

@@ -55,7 +55,6 @@ public class DepartamentosController : ControllerBase
     /// <summary>
     /// Obtém os dados de todos os departamentos cadastrados para uma determinada empresa, se a empresaId for informada como 0 (zero) será consultado o departamento de todas as empresas cadastradas
     /// </summary>
-    /// <param name="empresaId">Identificador da empresa</param>
     /// <param name="pageParameters">Configuração de inicio e fim de páginas para paginação</param>
     /// <response code="200">Dados dos departamentos cadastrados para a empresa</response>
     /// <response code="400">Parâmetros incorretos</response>
@@ -91,6 +90,37 @@ public class DepartamentosController : ControllerBase
         }
     }
 
+/// <summary>
+    /// Obtém os dados de todos os departamentos cadastrados para uma determinada empresa
+    /// </summary>
+    /// <param name="empresaId">Empresa para pesquisa</param>
+    /// <response code="200">Dados dos departamentos cadastrados para a empresa</response>
+    /// <response code="400">Parâmetros incorretos</response>
+    /// <response code="500">Erro interno</response>
+    
+    [HttpGet("{empresaId}/departamentos")]
+    public async Task<IActionResult> GetAllDepartamentosByEmpresaId(int empresaId)
+    {
+        try
+        {
+            var claimUser = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());
+
+            if (claimUser == null) 
+                return Unauthorized();
+
+            var departamentos = await _departamentosServices.GetAllDepartamentosByEmpresaIdAsync(empresaId);
+
+            if (departamentos == null) return NotFound("A empresa informada não possui departamentos cadastrados.");
+
+            return Ok(departamentos);
+        }
+        catch (Exception e)
+        {
+
+            return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao recuperar os departamentos. Erro: {e.Message}");
+        }
+    }
+
     /// <summary>
     /// Realiza a inclusão de um novo departamento
     /// </summary>
@@ -103,6 +133,14 @@ public class DepartamentosController : ControllerBase
     {
         try
         {
+            var claimUser = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());   
+
+            if (claimUser == null) 
+                return Unauthorized();
+
+            if (!claimUser.Master)
+                return Unauthorized();
+                
             var createdDepartamento = await _departamentosServices.CreateDepartamentos(departamentoDto);
 
             if (createdDepartamento != null) return Ok(createdDepartamento);
@@ -129,6 +167,17 @@ public class DepartamentosController : ControllerBase
     {
         try
         {
+            var claimUser = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());   
+
+            if (claimUser == null) 
+                return Unauthorized();
+
+            if (!claimUser.Master)
+                return Unauthorized();
+
+            if (departamentoDto.Id != departamentoId)
+                return Unauthorized();
+
             var departamento = await _departamentosServices.UpdateDepartamento(departamentoId, departamentoDto);
 
             if (departamento == null) return BadRequest("O departamento informado não existe.");

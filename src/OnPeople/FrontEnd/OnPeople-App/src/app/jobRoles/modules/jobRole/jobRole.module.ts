@@ -1,30 +1,40 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { JobRoleComponent, JobRoleDetailComponent, JobRoleListComponent } from '../../components';
-import { TitlebarModule } from 'src/app/shared/modules';
-import { AppRoutingModule } from 'src/app/app-routing.module';
-import { MatIconModule } from '@angular/material/icon';
-import { NgbPaginationModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgSelectModule } from '@ng-select/ng-select';
-import { NgxSpinnerModule } from 'ngx-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { NgbCollapseModule, NgbPaginationModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxSpinnerModule } from 'ngx-spinner';
+
+import { AppRoutingModule } from 'src/app/app-routing.module';
+
+import { JobRoleComponent, JobRoleDetailComponent, JobRoleListComponent } from '../../components';
+
+import { TitlebarModule } from 'src/app/shared/modules';
+import { JobRoleService } from '../../services';
+import { DepartmentService } from 'src/app/department/services';
+import { FilterPipeModule } from 'ngx-filter-pipe';
 
 
 @NgModule({
   imports: [
     AppRoutingModule,
-    CommonModule,
     BrowserAnimationsModule,
     BrowserModule,
+    FilterPipeModule,
     FormsModule,
     MatIconModule,
+    MatInputModule,
+    MatSelectModule,
+    NgbCollapseModule,
     NgbPaginationModule,
     NgbTooltipModule,
-    NgSelectModule,
     NgxSpinnerModule,
-    TitlebarModule
+    ReactiveFormsModule,
+    TitlebarModule,
   ],
   declarations: [
     JobRoleComponent,
@@ -35,6 +45,10 @@ import { FormsModule } from '@angular/forms';
     JobRoleComponent,
     JobRoleListComponent,
     JobRoleDetailComponent
-  ]
+  ],
+  providers: [
+    DepartmentService,
+    JobRoleService
+  ],
 })
 export class JobRoleModule { }

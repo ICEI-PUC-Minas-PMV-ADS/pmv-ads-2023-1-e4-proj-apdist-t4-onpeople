@@ -2,8 +2,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { NgSelectConfig } from '@ng-select/ng-select';
-
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
@@ -48,7 +46,6 @@ export class DepartmentDetailComponent implements OnInit {
     private activevateRouter: ActivatedRoute,
     private companyService: CompanyService,
     private departmentService: DepartmentService,
-    private config: NgSelectConfig,
     private formBuilder: FormBuilder,
     private localService: BsLocaleService,
     private router: Router,
@@ -56,9 +53,6 @@ export class DepartmentDetailComponent implements OnInit {
     private toastrService: ToastrService,
   ) {
     this.localService.use('pt-br')
-      this.config.notFoundText = 'Custom not found';
-      this.config.appendTo = 'body';
-      this.config.bindValue = 'value';
     }
 
   ngOnInit() {
@@ -66,6 +60,7 @@ export class DepartmentDetailComponent implements OnInit {
     this.editMode = (this.departmentParm != null) ? true : false;
 
     this.formValidator();
+
 
     if (this.editMode)
       this.getDepartment();
@@ -75,6 +70,8 @@ export class DepartmentDetailComponent implements OnInit {
 
   public formValidator(): void {
     this.formDetail = this.formBuilder.group({
+      selectCompanyId: [0, [Validators.required]],
+      cnpj: [''],
       nomeDepartamento: ['', [ Validators.required, Validators.minLength(4), Validators.maxLength(200)]],
       sigla: ['', [ Validators.required, Validators.minLength(1), Validators.maxLength(20)]],
       ativo: ["true",  [ Validators.required,]],
@@ -113,7 +110,8 @@ export class DepartmentDetailComponent implements OnInit {
           this.formDetail.patchValue(this.department)
           this.logoURL = (this.company.logotipo !== 'Image_not_available.png')
           ? `${environment.resourcesLogosURL}${this.company.logotipo}`
-          : `../../../../assets/img/${this.company.logotipo }`;
+            : `../../../../assets/img/${this.company.logotipo}`;
+          this.changeSelectCompany();
         },
         (error: any) => {
           this.toastrService.error(error.error, `Erro! status ${error.status}`)
@@ -177,7 +175,8 @@ export class DepartmentDetailComponent implements OnInit {
   }
 
   public updateDepartment(): void {
-    this.department ={ id: this.department.id, ...this.formDetail.value };
+    this.department = { id: this.department.id, ...this.formDetail.value };
+    this.department.empresaId = this.selectCompanyId;
     console.log("update", this.department, "form", this.ctrF.ativo.value)
 
     this.departmentService
@@ -210,7 +209,8 @@ export class DepartmentDetailComponent implements OnInit {
       .getCompanyById(id)
       .subscribe(
         (company: Empresa) => {
-          this.company = {...company}
+          this.company = { ...company }
+          this.formDetail.patchValue(this.company)
           console.log(this.company)
           this.logoURL = (this.company.logotipo !== 'Image_not_available.png')
           ? `${environment.resourcesLogosURL}${this.company.logotipo}`

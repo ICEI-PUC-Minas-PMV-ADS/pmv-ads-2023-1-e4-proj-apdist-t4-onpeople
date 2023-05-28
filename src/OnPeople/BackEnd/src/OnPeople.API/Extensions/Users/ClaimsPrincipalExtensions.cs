@@ -14,7 +14,7 @@ namespace OnPeople.API.Extensions.Users
         }
 
         public static Boolean GetMasterClaim(this ClaimsPrincipal user) {
-            return (user.FindFirst(ClaimTypes.Actor)?.Value == "Master") ? true : false;
+            return user.FindFirst(ClaimTypes.Actor)?.Value == "Master";
         }
     }
 }
