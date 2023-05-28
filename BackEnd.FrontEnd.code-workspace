@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "src/OnPeople/BackEnd"
+		},
+		{
+			"path": "src/OnPeople/FrontEnd"
+		}
+	],
+	"settings": {}
+}

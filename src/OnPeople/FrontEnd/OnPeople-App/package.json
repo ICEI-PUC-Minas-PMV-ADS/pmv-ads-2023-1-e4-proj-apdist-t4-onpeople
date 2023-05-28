@@ -28,6 +28,7 @@
     "bootswatch": "^5.2.3",
     "font-awesome": "^4.7.0",
     "ngx-bootstrap": "^10.2.0",
+    "ngx-filter-pipe": "^2.1.2",
     "ngx-spinner": "^15.0.1",
     "ngx-tabset": "^2.2.0",
     "ngx-toastr": "^16.1.0",

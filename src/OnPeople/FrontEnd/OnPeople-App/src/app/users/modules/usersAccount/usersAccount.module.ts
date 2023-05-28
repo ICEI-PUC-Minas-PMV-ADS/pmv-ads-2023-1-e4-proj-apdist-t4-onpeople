@@ -2,6 +2,8 @@ import { HttpClientModule } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatIconModule } from "@angular/material/icon";
+import { MatInputModule } from "@angular/material/input";
+import { MatSelectModule } from "@angular/material/select";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgbAlertModule, NgbCollapseModule, NgbPaginationModule, NgbTooltipModule } from "@ng-bootstrap/ng-bootstrap";
@@ -30,6 +32,8 @@ import { UserService } from "../../services";
     FormsModule,
     HttpClientModule,
     MatIconModule,
+    MatInputModule,
+    MatSelectModule,
     ModalModule.forRoot(),
     NgbAlertModule,
     NgbCollapseModule,

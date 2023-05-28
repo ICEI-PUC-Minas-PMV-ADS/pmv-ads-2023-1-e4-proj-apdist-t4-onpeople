@@ -23,6 +23,9 @@ public class EmpresasController : ControllerBase
     private readonly IEmpresasServices _empresasServices;
     private readonly IUploadService _uploadService;
     private readonly IUsersServices _usersServices;
+    private readonly HttpClient _httpClient;
+    private EmpresaCnpjDto _empresaCnpjDto;
+    private readonly EmpresaDto _empresaDto;
 
     public EmpresasController(
         IEmpresasServices empresasServices,
@@ -349,53 +352,50 @@ public class EmpresasController : ControllerBase
             var url = $"https://publica.cnpj.ws/cnpj/{cnpj}";
 
             Console.WriteLine(url);
-            HttpClient request = new();
 
-            request.BaseAddress = new Uri(url);
-            request.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("consultar-cnpj/json"));
+            _httpClient.BaseAddress = new Uri(url);
 
-            System.Net.Http.HttpResponseMessage response = request.GetAsync(url).Result;
+            _httpClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("consultar-cnpj/json"));
 
-            EmpresaCnpjDto empresaCnpjDto = new EmpresaCnpjDto();
+            System.Net.Http.HttpResponseMessage response = _httpClient.GetAsync(url).Result;
 
-            empresaCnpjDto = response.Content.ReadFromJsonAsync<EmpresaCnpjDto>().Result;
+            _empresaCnpjDto = response.Content.ReadFromJsonAsync<EmpresaCnpjDto>().Result;
     
             if (response.IsSuccessStatusCode) {
-                var empresaDto = new EmpresaDto();
 
-                empresaDto.Cnpj = empresaCnpjDto.estabelecimento.cnpj;
-                empresaDto.RazaoSocial = empresaCnpjDto.razao_social;
-                empresaDto.PorteEmpresa = empresaCnpjDto.porte.descricao;
-                empresaDto.NaturezaJuridica = empresaCnpjDto.natureza_juridica.descricao;
-                empresaDto.OptanteSimples = empresaCnpjDto.simples;
-                empresaDto.Filial = empresaCnpjDto.estabelecimento.tipo == "Matriz" ;
-                empresaDto.NomeFantasia = empresaCnpjDto.estabelecimento.nome_fantasia;
-                empresaDto.Ativa = empresaCnpjDto.estabelecimento.situacao_cadastral == "Ativa";
-                empresaDto.DataCadastro = empresaCnpjDto.estabelecimento.data_inicio_atividade;
-                empresaDto.TipoLogradouro = empresaCnpjDto.estabelecimento.tipo_logradouro;
-                empresaDto.Logradouro = empresaCnpjDto.estabelecimento.logradouro;
-                empresaDto.Numero = empresaCnpjDto.estabelecimento.numero;
-                empresaDto.Complemento = empresaCnpjDto.estabelecimento.complemento;
-                empresaDto.Bairro = empresaCnpjDto.estabelecimento.bairro;
-                empresaDto.CEP = empresaCnpjDto.estabelecimento.cep;
-                empresaDto.DDD = empresaCnpjDto.estabelecimento.ddd1;
-                empresaDto.Telefone = empresaCnpjDto.estabelecimento.tekefine1;
-                empresaDto.Email = empresaCnpjDto.estabelecimento.email;
-                empresaDto.AtividadePrincipal = empresaCnpjDto.estabelecimento.atividade_principal.descricao;
-                empresaDto.PaisId = empresaCnpjDto.estabelecimento.pais.id;
-                empresaDto.SiglaPaisIso2 = empresaCnpjDto.estabelecimento.pais.iso2;
-                empresaDto.SiglaPaisIso3 = empresaCnpjDto.estabelecimento.pais.iso3;
-                empresaDto.NomePais = empresaCnpjDto.estabelecimento.pais.nome;
-                empresaDto.EstadoId = empresaCnpjDto.estabelecimento.estado.id;
-                empresaDto.Estado = empresaCnpjDto.estabelecimento.estado.nome;
-                empresaDto.SiglaEstado = empresaCnpjDto.estabelecimento.estado.sigla;
-                empresaDto.EstadoIbgeId = empresaCnpjDto.estabelecimento.estado.igbe_id;
-                empresaDto.CidadeId = empresaCnpjDto.estabelecimento.cidade.id;
-                empresaDto.Cidade = empresaCnpjDto.estabelecimento.cidade.nome;
-                empresaDto.CidadeIbgeId = empresaCnpjDto.estabelecimento.cidade.ibge_id;
-                empresaDto.CidadeSiafiId = empresaCnpjDto.estabelecimento.cidade.siafi_id;
+                _empresaDto.Cnpj = _empresaCnpjDto.estabelecimento.cnpj;
+                _empresaDto.RazaoSocial = _empresaCnpjDto.razao_social;
+                _empresaDto.PorteEmpresa = _empresaCnpjDto.porte.descricao;
+                _empresaDto.NaturezaJuridica = _empresaCnpjDto.natureza_juridica.descricao;
+                _empresaDto.OptanteSimples = _empresaCnpjDto.simples;
+                _empresaDto.Filial = _empresaCnpjDto.estabelecimento.tipo == "Matriz" ;
+                _empresaDto.NomeFantasia = _empresaCnpjDto.estabelecimento.nome_fantasia;
+                _empresaDto.Ativa = _empresaCnpjDto.estabelecimento.situacao_cadastral == "Ativa";
+                _empresaDto.DataCadastro = _empresaCnpjDto.estabelecimento.data_inicio_atividade;
+                _empresaDto.TipoLogradouro = _empresaCnpjDto.estabelecimento.tipo_logradouro;
+                _empresaDto.Logradouro = _empresaCnpjDto.estabelecimento.logradouro;
+                _empresaDto.Numero = _empresaCnpjDto.estabelecimento.numero;
+                _empresaDto.Complemento = _empresaCnpjDto.estabelecimento.complemento;
+                _empresaDto.Bairro = _empresaCnpjDto.estabelecimento.bairro;
+                _empresaDto.CEP = _empresaCnpjDto.estabelecimento.cep;
+                _empresaDto.DDD = _empresaCnpjDto.estabelecimento.ddd1;
+                _empresaDto.Telefone = _empresaCnpjDto.estabelecimento.tekefine1;
+                _empresaDto.Email = _empresaCnpjDto.estabelecimento.email;
+                _empresaDto.AtividadePrincipal = _empresaCnpjDto.estabelecimento.atividade_principal.descricao;
+                _empresaDto.PaisId = _empresaCnpjDto.estabelecimento.pais.id;
+                _empresaDto.SiglaPaisIso2 = _empresaCnpjDto.estabelecimento.pais.iso2;
+                _empresaDto.SiglaPaisIso3 = _empresaCnpjDto.estabelecimento.pais.iso3;
+                _empresaDto.NomePais = _empresaCnpjDto.estabelecimento.pais.nome;
+                _empresaDto.EstadoId = _empresaCnpjDto.estabelecimento.estado.id;
+                _empresaDto.Estado = _empresaCnpjDto.estabelecimento.estado.nome;
+                _empresaDto.SiglaEstado = _empresaCnpjDto.estabelecimento.estado.sigla;
+                _empresaDto.EstadoIbgeId = _empresaCnpjDto.estabelecimento.estado.igbe_id;
+                _empresaDto.CidadeId = _empresaCnpjDto.estabelecimento.cidade.id;
+                _empresaDto.Cidade = _empresaCnpjDto.estabelecimento.cidade.nome;
+                _empresaDto.CidadeIbgeId = _empresaCnpjDto.estabelecimento.cidade.ibge_id;
+                _empresaDto.CidadeSiafiId = _empresaCnpjDto.estabelecimento.cidade.siafi_id;
               
-                return Ok(empresaDto);
+                return Ok(_empresaDto);
             }
             return BadRequest("CNPJ Inválido");
         }

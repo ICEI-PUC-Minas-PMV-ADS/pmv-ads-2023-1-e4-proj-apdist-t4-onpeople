@@ -50,6 +50,25 @@ namespace OnPeople.Application.Services.Implementations.Departamentos
             }
         }
 
+       public async Task<IEnumerable<DepartamentoDto>> GetAllDepartamentosByEmpresaIdAsync(int empresaId)
+        {
+            try
+            {
+                var departamentos = await _departamentosPersistence.GetAllDepartamentosByEmpresaIdAsync(empresaId);
+
+                if (departamentos == null) return null;
+
+                var departamentosMapper = _mapper.Map<IEnumerable<DepartamentoDto>>(departamentos);
+
+                return departamentosMapper;
+            }
+
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
         public async Task<DepartamentoDto> GetDepartamentoByIdAsync(int departamentoId)
         {
             try

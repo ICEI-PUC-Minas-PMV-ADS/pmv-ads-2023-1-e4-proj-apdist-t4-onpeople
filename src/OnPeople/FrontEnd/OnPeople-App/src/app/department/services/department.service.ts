@@ -46,13 +46,14 @@ export class DepartmentService {
         }));
   };
 
-  public getDepartmentById(departmentId: number): Observable<Departamento> {
-    return this.http.get<Departamento>(`${this.baseURL}${departmentId}`)
+  public getDepartmentsByCompanyId(companyId: number): Observable<Departamento[]> {
+    console.log("URL: " + `${this.baseURL}${companyId}/departamentos`)
+    return this.http.get<Departamento[]>(`${this.baseURL}${companyId}/departamentos`)
     .pipe(take(3));
   }
 
-  public getDepartmentsByCompanieId(companyId: number): Observable<Departamento> {
-    return this.http.get<Departamento>(`${this.baseURL}${companyId}/departamento`)
+  public getDepartmentById(departmentId: number): Observable<Departamento> {
+    return this.http.get<Departamento>(`${this.baseURL}${departmentId}`)
     .pipe(take(3));
   }
 

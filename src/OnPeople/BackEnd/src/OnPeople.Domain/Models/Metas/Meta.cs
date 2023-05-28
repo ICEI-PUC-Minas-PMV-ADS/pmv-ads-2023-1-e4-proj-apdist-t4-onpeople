@@ -8,7 +8,7 @@ namespace OnPeople.Domain.Models.Metas
         public int Id { get; set; }
         public string TipoMeta { get; set; }
         public string NomeMeta { get; set; }
-        public string descricao { get; set; }
+        public string Descricao { get; set; }
         public Boolean MetaCumprida { get; set; }
         public Boolean MetaAprovada { get; set; }
         public string InicioPlanejado { get; set; }

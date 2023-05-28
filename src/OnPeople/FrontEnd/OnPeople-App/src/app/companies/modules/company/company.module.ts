@@ -1,6 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -24,6 +27,8 @@ import { DateTimeFormatPipeModule } from 'src/app/shared/modules';
     BsDatepickerModule.forRoot(),
     DateTimeFormatPipeModule,
     MatIconModule,
+    MatInputModule,
+    MatSelectModule,
     NgbCollapseModule,
     NgbPaginationModule,
     NgbTooltipModule,
