@@ -12,7 +12,7 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Cargos
     public class CargosPersistence : SharedPersistence, ICargosPersistence
     {
         private readonly OnPeopleContext _context;
-        private readonly DashboardCargos _dashCargo;
+        private readonly DashboardCargos _dashCargo = new DashboardCargos();
 
         public CargosPersistence(OnPeopleContext context) : base(context)
         {

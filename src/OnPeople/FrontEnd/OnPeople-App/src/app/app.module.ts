@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 
 import { NavbarModule } from './shared/modules';
 import { CompanyModule } from './companies/modules';
-import { DepartmentModule } from "./department/Modules";
+import { DepartmentModule } from "./departments/modules";
 import { UsersAccountModule } from "./users/modules";
 import { DashboardModule } from "./dashboards/modules";
 import { JobRoleModule } from "./jobRoles/modules";

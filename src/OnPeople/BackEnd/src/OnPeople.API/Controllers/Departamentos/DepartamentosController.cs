@@ -5,6 +5,7 @@ using OnPeople.API.Extensions.Users;
 using OnPeople.Application.Dtos.Departamentos;
 using OnPeople.Application.Services.Contracts.Departamentos;
 using OnPeople.Application.Services.Contracts.Users;
+using OnPeople.Integration.Models.Dashboard;
 using OnPeople.Integration.Models.Pages.Config;
 
 namespace OnPeople.API.Controllers.Departamentos;
@@ -90,7 +91,7 @@ public class DepartamentosController : ControllerBase
         }
     }
 
-/// <summary>
+    /// <summary>
     /// Obtém os dados de todos os departamentos cadastrados para uma determinada empresa
     /// </summary>
     /// <param name="empresaId">Empresa para pesquisa</param>
@@ -220,5 +221,22 @@ public class DepartamentosController : ControllerBase
         {
             return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao excluir o departamento. Erro: {e.Message}");
         }
+    }
+
+    /// <summary>
+    /// Realiza a consulta estatística de departamento
+    /// </summary>
+    /// <param name="empresaId">Identificador da empresa (pode zero para buscar todas)</param>
+    /// <param name="departamentoId">Identificador de departmaneto</param>
+    /// <response code="200">Dashboard de empresas consultado</response>
+    /// <response code="400">Parâmetros incorretos</response>
+    /// <response code="500">Erro interno</response>
+    
+    [HttpGet("{empresaId}/{departmaneotId}/Dashboard")]
+    public DashboardDepartamento GetDashboard(int empresaId, int departamentoId)
+    {     
+        var dashboardDepartamento = _departamentosServices.GetDashboard(empresaId, departamentoId);
+
+        return dashboardDepartamento;
     }
 }

@@ -12,7 +12,7 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Departamentos
     public class DepartamentosPersistence : SharedPersistence, IDepartamentosPersistence
     {
         private readonly OnPeopleContext _context;
-        private readonly DashboardDepartamento _dashDepartamento;
+        private readonly DashboardDepartamento _dashDepartamento = new DashboardDepartamento();
 
         public DepartamentosPersistence(OnPeopleContext context) : base(context)
         {

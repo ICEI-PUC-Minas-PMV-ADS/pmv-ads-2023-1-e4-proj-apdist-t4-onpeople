@@ -12,7 +12,7 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Empresas
     public class EmpresasPersistence : SharedPersistence, IEmpresasPersistence
     {
         private readonly OnPeopleContext _context;
-        private readonly DashboardEmpresa _dashEmpresa;
+        private readonly DashboardEmpresa _dashEmpresa = new DashboardEmpresa();
         public EmpresasPersistence(OnPeopleContext context) : base(context)
         {
             _context = context;
@@ -133,6 +133,7 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Empresas
                     .Where(e => e.Filial && e.Id == empresaId );
 
             _dashEmpresa.CountFiliais = queryFiliais.Count<Empresa>();
+            Console.WriteLine("--------------------------------- Empresa " + _dashEmpresa.CountFiliais);
 
             IQueryable<Empresa> queryEmpresaAtivas = _context.Empresas;
 

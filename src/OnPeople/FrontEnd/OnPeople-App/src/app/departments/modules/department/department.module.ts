@@ -11,10 +11,11 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { AppRoutingModule } from 'src/app/app-routing.module';
 
-import { DepartmentComponent, DepartmentDetailComponent, DepartmentListComponent } from '../../components';
+
 
 import { TitlebarModule } from 'src/app/shared/modules';
 import { DepartmentService } from '../../services';
+import { DepartmentComponent, DepartmentDetailComponent, DepartmentListComponent } from '../../components';
 
 
 

@@ -63,8 +63,8 @@ constructor(private http: HttpClient) { }
     .pipe(take(3));
   }
 
-  public CountJobRole(id: number): Observable<DashboardJobRole> {
-    return this.http.get<DashboardJobRole>(`${this.baseURL}${id}/Dashboard`)
+  public CountJobRole(empresaId: number, departamentoId: number, cargoId: number ): Observable<DashboardJobRole> {
+    return this.http.get<DashboardJobRole>(`${this.baseURL}${empresaId}/${departamentoId}/${cargoId}/Dashboard`)
     .pipe(take(3));
   }
 

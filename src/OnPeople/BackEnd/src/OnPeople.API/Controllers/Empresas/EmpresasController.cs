@@ -23,9 +23,9 @@ public class EmpresasController : ControllerBase
     private readonly IEmpresasServices _empresasServices;
     private readonly IUploadService _uploadService;
     private readonly IUsersServices _usersServices;
-    private readonly HttpClient _httpClient;
-    private EmpresaCnpjDto _empresaCnpjDto;
-    private readonly EmpresaDto _empresaDto;
+    private readonly HttpClient _httpClient = new HttpClient();
+    private EmpresaCnpjDto _empresaCnpjDto = new EmpresaCnpjDto();
+    private readonly EmpresaDto _empresaDto = new EmpresaDto();
 
     public EmpresasController(
         IEmpresasServices empresasServices,

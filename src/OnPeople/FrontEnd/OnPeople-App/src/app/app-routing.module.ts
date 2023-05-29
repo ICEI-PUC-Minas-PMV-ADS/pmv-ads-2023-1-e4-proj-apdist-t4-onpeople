@@ -5,7 +5,7 @@ import { AuthGuard } from './shared/security';
 
 import { CompanyComponent, CompanyDetailComponent, CompanyListComponent } from './companies/components';
 import { DashboardComponent, DashCompanyComponent } from './dashboards/components';
-import { DepartmentComponent, DepartmentDetailComponent, DepartmentListComponent } from './department/components';
+import { DepartmentComponent, DepartmentDetailComponent, DepartmentListComponent } from './departments/components';
 import { LoginComponent, ProfileComponent, RegisterComponent, UserComponent, } from './users/components';
 import { JobRoleComponent, JobRoleDetailComponent, JobRoleListComponent } from './jobRoles/components';
 

@@ -8,12 +8,14 @@
 </div>
 
 <div class="row">
-  <div class="col-xl-3 col-mg-6">
-    <label>Selecione uma Empresa</label>
-    <ng-select [(ngModel)]="selectCompanyId" (change)="changeSelectCompany()" placeholder="Selecione uma Empresa">
-      <ng-option *ngFor="let company of companies" [value]="company.id">{{company.razaoSocial}}</ng-option>
-    </ng-select>
-  </div>
+  <mat-form-field class="col-xl-4 col-mg-6">
+    <mat-label>Empresa</mat-label>
+    <mat-select [(ngModel)]="selectCompanyId" (selectionChange)="changeSelectCompany()"
+      placeholder="Selecione uma Empresa">
+      <mat-option [value]="0">Todas</mat-option>
+      <mat-option *ngFor="let company of companies" [value]="company.id">{{company.razaoSocial}} </mat-option>
+    </mat-select>
+  </mat-form-field>
 </div>
 
 <div class="row mt-3">
@@ -66,18 +68,18 @@
         <div class="row no-gutters align-items-center">
           <div class="col mr-2">
             <div class="text-xs font-weight-bold text-color-3 text-uppercase mb-1">
-              Total de Metas
+              Departamentos
             </div>
             <div class="row no-gutters align-items-center">
               <div class="col-auto">
                 <div class="h5 mb-0 mr-3 font-weight-bold text-color-3">
-                  {{totalGoal}}
+                  {{totalDepartments}}
                 </div>
               </div>
             </div>
           </div>
           <div class="h3 col-auto text-color-3">
-            <mat-icon class="iconDash">query_stats</mat-icon>
+            <mat-icon class="iconDash">lan</mat-icon>
           </div>
         </div>
       </div>
@@ -89,19 +91,16 @@
         <div class="row align-items-center">
           <div class="col mr-2 ">
             <div class="text-xs text-uppercase mb-1 text-color-4">
-              Metas Pendentes
+              Cargos
             </div>
             <div class="col mr-2 d-flex">
               <div class="h5 mb-0 text-color-4">
-                {{totalNotGoal}}
-              </div>
-              <div class="h7 mb-0 text-success ms-2">
-                {{percTotalNotGoal}}%
+                {{totalJobRole}}
               </div>
             </div>
           </div>
           <div class="h3 col-auto text-color-4">
-            <mat-icon class="iconDash">fact_check</mat-icon>
+            <mat-icon class="iconDash">work</mat-icon>
           </div>
         </div>
       </div>

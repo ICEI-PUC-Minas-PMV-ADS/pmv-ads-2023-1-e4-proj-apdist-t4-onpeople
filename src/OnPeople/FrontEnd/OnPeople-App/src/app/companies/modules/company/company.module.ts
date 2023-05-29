@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorModule} from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
 
 import { NgModule } from '@angular/core';
@@ -28,6 +29,7 @@ import { DateTimeFormatPipeModule } from 'src/app/shared/modules';
     DateTimeFormatPipeModule,
     MatIconModule,
     MatInputModule,
+    MatPaginatorModule,
     MatSelectModule,
     NgbCollapseModule,
     NgbPaginationModule,

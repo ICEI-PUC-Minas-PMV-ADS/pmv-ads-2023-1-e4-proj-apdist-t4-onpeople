@@ -72,8 +72,8 @@ export class DepartmentService {
     .pipe(take(3));
   }
 
-  public CountDepartment(id: number): Observable<DashboardDepartment> {
-    return this.http.get<DashboardDepartment>(`${this.baseURL}${id}/Dashboard`)
+  public CountDepartment(companyId: number, departmentId: number): Observable<DashboardDepartment> {
+    return this.http.get<DashboardDepartment>(`${this.baseURL}${companyId}/${departmentId}/Dashboard`)
     .pipe(take(3));
   }
 

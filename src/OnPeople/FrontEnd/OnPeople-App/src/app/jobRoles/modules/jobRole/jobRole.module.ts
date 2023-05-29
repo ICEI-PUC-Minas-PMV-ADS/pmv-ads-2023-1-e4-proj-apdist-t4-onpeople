@@ -15,7 +15,7 @@ import { JobRoleComponent, JobRoleDetailComponent, JobRoleListComponent } from '
 
 import { TitlebarModule } from 'src/app/shared/modules';
 import { JobRoleService } from '../../services';
-import { DepartmentService } from 'src/app/department/services';
+import { DepartmentService } from 'src/app/departments/services';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 
 

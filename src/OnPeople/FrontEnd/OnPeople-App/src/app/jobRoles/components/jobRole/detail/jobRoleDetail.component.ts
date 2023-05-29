@@ -8,11 +8,11 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 
-import { Departamento } from 'src/app/department/models';
+import { Departamento } from 'src/app/departments/models';
 import { Empresa } from 'src/app/companies/models';
 
 import { CompanyService } from 'src/app/companies/services';
-import { DepartmentService } from 'src/app/department/services';
+import { DepartmentService } from 'src/app/departments/services';
 
 import { FormValidator, PaginatedResult } from 'src/app/shared/models';
 
