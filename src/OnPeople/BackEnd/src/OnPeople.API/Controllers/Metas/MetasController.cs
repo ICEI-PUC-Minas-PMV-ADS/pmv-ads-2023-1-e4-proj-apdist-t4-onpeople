@@ -1,12 +1,12 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using ProEventos.Application.Contratos;
 using Microsoft.AspNetCore.Http;
-using OnPeople.Application.Services.Contracts.Metas;
-using OnPeople.Application.Dtos.Metas;
+using ProEventos.Application.Dtos;
 
-namespace OnPeople.API.Controllers.Metas;
-
+namespace ProEventos.API.Controllers
+{
     [ApiController]
     [Route("api/[controller]")]
     public class MetasController : ControllerBase
@@ -122,3 +122,4 @@ namespace OnPeople.API.Controllers.Metas;
             }
         }
     }
+}

@@ -1,16 +1,17 @@
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using OnPeople.Domain.Models.Metas;
-using OnPeople.Persistence.Interfaces.Contexts;
-using OnPeople.Persistence.Interfaces.Contracts.Metas;
-using OnPeople.Persistence.Interfaces.Implementations.Shared;
+using ProEventos.Domain;
+using ProEventos.Persistence.Contextos;
+using ProEventos.Persistence.Contratos;
 
-namespace OnPeople.Persistence.Interfaces.Implementations.Metas
+namespace ProEventos.Persistence
 {
     public class MetasPersist : IMetaPersist
     {
-        private readonly OnPeopleContext _context;
+        private readonly ProEventosContext _context;
 
-        public MetasPersist(OnPeopleContext context)
+        public MetasPersist(ProEventosContext context)
         {
             _context = context;
     

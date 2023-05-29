@@ -1,8 +1,7 @@
-using OnPeople.Application.Dtos.Metas;
-using OnPeople.Domain.Models.Metas;
-using OnPeople.Integration.Models.Pages.Page;
+using System.Threading.Tasks;
+using ProEventos.Application.Dtos;
 
-namespace OnPeople.Application.Services.Contracts.Metas
+namespace ProEventos.Application.Contratos
 {
     public interface IMetasService
     {

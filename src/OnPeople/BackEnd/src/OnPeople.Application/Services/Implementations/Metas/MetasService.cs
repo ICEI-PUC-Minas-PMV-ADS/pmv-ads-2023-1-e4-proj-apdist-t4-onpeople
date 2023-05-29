@@ -1,24 +1,24 @@
+using System;
+using System.Threading.Tasks;
 using AutoMapper;
-using OnPeople.Application.Dtos.Metas;
-using OnPeople.Application.Services.Contracts.Metas;
-using OnPeople.Domain.Models.Metas;
-using OnPeople.Integration.Models.Pages.Page;
-using OnPeople.Persistence.Interfaces.Contracts.Metas;
-using OnPeople.Persistence.Interfaces.Contracts.Shared;
+using ProEventos.Application.Contratos;
+using ProEventos.Application.Dtos;
+using ProEventos.Domain;
+using ProEventos.Persistence.Contratos;
 
-namespace OnPeople.Application.Services.Implementations.Metas
+namespace ProEventos.Application
 {
     public class MetasService : IMetasService
     {
 
-        private readonly ISharedPersistence _sharedPersistence;
+        private readonly IGeralPersist _geralPersist;
         private readonly IMetaPersist _metasPersist;
         private readonly IMapper _mapper;
 
-        public MetasService(ISharedPersistence sharedPersistence,  IMetaPersist metasPersist, IMapper mapper)
+        public MetasService(IGeralPersist geralPersist,  IMetaPersist metasPersist, IMapper mapper)
         {
-            _sharedPersistence = sharedPersistence;
             _metasPersist = metasPersist;
+            _geralPersist = geralPersist;
             _mapper = mapper;
         }
 
@@ -29,9 +29,9 @@ namespace OnPeople.Application.Services.Implementations.Metas
             {
                 var meta = _mapper.Map<Meta>(model);
 
-                _sharedPersistence.Create<Meta>(meta);
+                _geralPersist.Add<Meta>(meta);
 
-                if (await _sharedPersistence.SaveChangesAsync())
+                if (await _geralPersist.SaveChangesAsync())
                 {
                     var metaRetorno = await _metasPersist.GetMetaByIdAsync(meta.Id);
 
@@ -56,9 +56,9 @@ namespace OnPeople.Application.Services.Implementations.Metas
 
                 _mapper.Map(model, meta);
 
-                _sharedPersistence.Update<Meta>(meta);
+                _geralPersist.Update<Meta>(meta);
                 
-                if (await _sharedPersistence.SaveChangesAsync())
+                if (await _geralPersist.SaveChangesAsync())
                 {
                     var metaRetorno = await _metasPersist.GetMetaByIdAsync(meta.Id);
 
@@ -79,8 +79,8 @@ namespace OnPeople.Application.Services.Implementations.Metas
                 var meta = await _metasPersist.GetMetaByIdAsync(metaId);
                 if (meta == null) throw new Exception("Meta não encontrada!");
 
-                _sharedPersistence.Delete<Meta>(meta);
-                return await _sharedPersistence.SaveChangesAsync();
+                _geralPersist.Delete<Meta>(meta);
+                return await _geralPersist.SaveChangesAsync();
             }
             catch (Exception ex)
             {

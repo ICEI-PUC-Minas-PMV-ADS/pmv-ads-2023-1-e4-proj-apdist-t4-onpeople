@@ -1,16 +1,17 @@
-using OnPeople.Domain.Models.Metas;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace OnPeople.Application.Dtos.Metas
+namespace ProEventos.Application.Dtos
 {
     public class MetaDto
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "O campo {0} é obrigatório")]
+        [Required(ErrorMessage = "O campo {0} é obrigatório.")]
         public string NomeMeta { get; set; }
         public string TipoMeta { get; set; }
-        public string Descricao { get; set; }
+        public string descricao { get; set; }
         public Boolean MetaCumprida { get; set; }
         public Boolean MetaAprovada { get; set; }
         public DateTime InicioPlanejado { get; set; }
@@ -18,7 +19,8 @@ namespace OnPeople.Application.Dtos.Metas
         public int DiasPlanejado { get; set; }
         public DateTime InicioOficial { get; set; }
         public DateTime FimOficial { get; set; }
-        [Required(ErrorMessage = "O campo {0} é obrigatório")]
+
+        [Required(ErrorMessage = "O campo {0} é obrigatório.")]
         public int EmpresaId { get; set; }
     }
 }

@@ -1,7 +1,7 @@
-using OnPeople.Domain.Models.Metas;
-using OnPeople.Persistence.Interfaces.Contracts.Shared;
+using System.Threading.Tasks;
+using ProEventos.Domain;
 
-namespace OnPeople.Persistence.Interfaces.Contracts.Metas
+namespace ProEventos.Persistence.Contratos
 {
     public interface IMetaPersist
     {
