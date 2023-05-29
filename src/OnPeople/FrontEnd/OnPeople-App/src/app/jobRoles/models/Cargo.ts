@@ -1,5 +1,5 @@
 import { Empresa } from "src/app/companies/models";
-import { Departamento } from "src/app/department/models";
+import { Departamento } from "src/app/departments/models";
 
 export interface Cargo {
   id: number;

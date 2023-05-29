@@ -6,8 +6,8 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { ToastrService } from "ngx-toastr";
 import { Subject, debounceTime } from "rxjs";
 
-import { Departamento } from "src/app/department/models";
-import { DepartmentService } from "src/app/department/services";
+import { Departamento } from "src/app/departments/models";
+import { DepartmentService } from "src/app/departments/services";
 
 import { PaginatedResult, Pagination } from "src/app/shared/models";
 

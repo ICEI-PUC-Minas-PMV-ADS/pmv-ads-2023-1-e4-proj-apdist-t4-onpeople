@@ -6,6 +6,7 @@ using OnPeople.Application.Services.Contracts.Users;
 using OnPeople.Integration.Models.Pages.Config;
 using OnPeople.API.Extensions.Users;
 using OnPeople.API.Extensions.Pages;
+using OnPeople.Integration.Models.Dashboard;
 
 namespace OnPeople.API.Controllers.Cargos;
 
@@ -215,5 +216,23 @@ public class CargosController : ControllerBase
         {
             return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao excluir o cargo. Erro: {e.Message}");
         }
+    }
+
+        /// <summary>
+    /// Realiza a consulta estatística de departamento
+    /// </summary>
+    /// <param name="empresaId">Identificador da empresa (pode zero para buscar todas)</param>
+    /// <param name="departamentoId">Identificador de departmaneto</param>
+    /// <param name="cargoId">Identificador de cargo</param>
+    /// <response code="200">Dashboard de empresas consultado</response>
+    /// <response code="400">Parâmetros incorretos</response>
+    /// <response code="500">Erro interno</response>
+    
+    [HttpGet("{empresaId}/{departmaneotId}/{cargoId}/Dashboard")]
+    public DashboardCargos GetDashboard(int empresaId, int departamentoId, int cargoId)
+    {     
+        var dashboardCargo = _cargosServices.GetDashboard(empresaId, departamentoId, cargoId);
+
+        return dashboardCargo;
     }
 }
