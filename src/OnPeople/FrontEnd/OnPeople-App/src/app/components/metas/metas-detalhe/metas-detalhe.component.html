@@ -1,0 +1,75 @@
+<div class="card rounded shadow-sm">
+  <form [formGroup]="form">
+    <div class="p-3">
+      <!-- <p>Form value: {{form.value | json}}</p>
+      <p>Form valid: {{form.status | json}}</p> -->
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label>Nome da Meta</label>
+          <input type="text" class="form-control" [ngClass]="{'is-invalid': f.nomeMeta.errors && f.nomeMeta.touched }"
+            formControlName="nomeMeta" placeholder="Insira o Nome da Meta">
+          <div *ngIf="f.nomeMeta.errors?.required" class="invalid-feedback">
+            Nome da Meta é obrigatório.
+          </div>
+          <div *ngIf="f.nomeMeta.errors?.minlength" class="invalid-feedback">
+            Nome da Meta deve ter no mínimo 4 caracteres.
+          </div>
+          <div *ngIf="f.nomeMeta.errors?.maxlength" class="invalid-feedback">
+            Nome da Meta deve ter no máximo 50 caracteres.
+          </div>
+          </div>
+          </div>
+
+
+      <div class="form-row">
+        <div class="form-group col-md-8">
+          <label>Tipo da Meta</label>
+          <input type="text" class="form-control" [ngClass]="{'is-invalid': f.tipoMeta.errors && f.tipoMeta.touched}"
+            formControlName="tipoMeta" placeholder="Insira o Tipo de Meta">
+          <div *ngIf="f.tipoMeta.errors?.required && f.tipoMeta.touched" class="invalid-feedback">
+            Tipo da Meta é obrigatório.
+          </div>
+        </div>
+        <div class="form-group col-md-4">
+          <label>Data de Inicio</label>
+          <input type="datetime" class="form-control" [ngClass]="{'is-invalid': f.dataInicio.errors && f.dataInicio.touched}"
+            formControlName="dataInicio" placeholder="">
+          <div *ngIf="f.dataInicio.errors?.required && f.dataInicio.touched" class="invalid-feedback">
+            Data é obrigatório.
+          </div>
+        </div>
+      </div>
+
+
+      <div class="form-row">
+        <div class="form-group col-md-2">
+          <label>Id da Empresa</label>
+          <input type="number" class="form-control" [ngClass]="{'is-invalid': f.idEmpresa.errors && f.idEmpresa.touched}"
+            formControlName="idEmpresa" placeholder="Id da Empresa">
+          <div *ngIf="f.idEmpresa.errors?.required && f.idEmpresa.touched" class="invalid-feedback">
+            Id da Empresa é obrigatório.
+          </div>
+          </div>
+          <div class="form-group col-md-2">
+            <label>Descrição</label>
+            <input type="text" class="form-control" [ngClass]="{'is-invalid': f.descricao.errors && f.descricao.touched}"
+              formControlName="descricao" placeholder="Descreva a Meta">
+            <div *ngIf="f.descricao.errors?.required && f.descricao.touched" class="invalid-feedback">
+              Descrição é obrigatório.
+            </div>
+          </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <div class="d-flex">
+        <button class="btn btn-outline-secondary mr-auto border" (click)="resetForm()">
+          Cancelar Alteração
+        </button>
+        <button class="btn btn-success" [disabled]="!form.valid">
+          <!-- <span class="spinner-border spinner-border-sm mr-1"></span> -->
+          Salvar Alterações
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
