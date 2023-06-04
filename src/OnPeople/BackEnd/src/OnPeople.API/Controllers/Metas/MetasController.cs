@@ -1,28 +1,53 @@
-using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using ProEventos.Application.Contratos;
-using Microsoft.AspNetCore.Http;
-using ProEventos.Application.Dtos;
 
-namespace ProEventos.API.Controllers
+
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using OnPeople.API.Extensions.Users;
+using OnPeople.Application.Services.Contracts.Metas;
+using OnPeople.Application.Services.Contracts.Users;
+using OnPeople.Domain.Models.Metas;
+using OnPeople.Integration.Models.Pages.Config;
+
+namespace OnPeople.API.Controllers.Metas
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class MetasController : ControllerBase
     {
         private readonly IMetasService _metasService;
+        private readonly IUsersServices _usersServices;
 
-        public MetasController(IMetasService metasService)
+        public MetasController(
+            IMetasService metasService,
+            IUsersServices usersServices
+            )
         {
             _metasService = metasService;
+            _usersServices = usersServices;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Get()
+        /// <summary>
+        /// Obtém os dados de todas as metas cadastradas
+        /// </summary>
+        /// <response code="200">Dados das metas cadastradas</response>
+        /// <response code="400">Parâmetros incorretos</response>
+        /// <response code="500">Erro interno</response>
+            [HttpGet]
+        public async Task<IActionResult> GetAllMetas()
         {
             try
             {
+                var claimUser = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());
+
+                if (claimUser == null) 
+                    return Unauthorized();
+
+                var userLogged = await _usersServices.GetUserByUserNameAsync(User.GetUserNameClaim());
+
+                if (userLogged == null)
+                    return Unauthorized();
+
                 var metas = await _metasService.GetAllMetasAsync();
                 if (metas == null) return NoContent();
 
@@ -74,7 +99,7 @@ namespace ProEventos.API.Controllers
         {
             try
             {
-                var meta = await _metasService.AddMetas(model);
+                var meta = await _metasService.CreateMetas(model);
                 if (meta == null) return NoContent();
 
                 return Ok(meta);

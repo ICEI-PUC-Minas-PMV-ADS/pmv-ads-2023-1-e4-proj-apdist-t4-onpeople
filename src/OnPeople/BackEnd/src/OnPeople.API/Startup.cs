@@ -131,7 +131,7 @@ namespace OnPeople.API
                 .AddScoped<IEnderecosPersistence, EnderecosPersistence>()
                 .AddScoped<IFuncionariosPersistence, FuncionariosPersistence>()
                 .AddScoped<IFuncionarioMetaPersistence, FuncionarioMetaPersistence>()
-                .AddScoped<IMetaPersist, MetasPersist>()
+                .AddScoped<IMetaPersistence, MetasPersistence>()
                 .AddScoped<ISharedPersistence, SharedPersistence>()
                 .AddScoped<IUsersPersistence, UsersPersistence>();
 

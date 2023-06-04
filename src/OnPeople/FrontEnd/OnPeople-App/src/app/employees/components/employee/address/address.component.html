@@ -8,8 +8,8 @@
           <div class="h4 border-bottom ">Dados do Endereço: </div>
 
           <div class="form-row d-md-flex">
-            <mat-form-field class="col-md-6 p-1" appearance="outline">
-              <mat-label class="text-success">Endereço</mat-label>
+            <mat-form-field class="col-md-3 p-1" appearance="outline">
+              <mat-label class="text-success"># id</mat-label>
               <mat-select [(ngModel)]="selectAddressId" (selectionChange)="changeSelectAddress()"
                 formControlName="selectAddressId" [ngClass]="fieldValidator(ctrF.selectAddressId)">
                 <mat-option class="text-success" *ngFor="let address of addresses"
@@ -20,11 +20,11 @@
               </mat-error>
             </mat-form-field>
 
-      <!--      <mat-form-field class="col-md-6 p-1" appearance="outline">
-              <mat-label>CNPJ</mat-label>
-              <input matInput type="text" value="{{company.cnpj}}" readonly>
+            <mat-form-field class="col-md-3 p-1" appearance="outline">
+              <mat-label class="text-success">CEP</mat-label>
+              <input matInput  class="text-success" [(ngModel)]="cep" formControlName="cep" [ngClass]="fieldValidator(ctrF.cep)" (change)="getCEP()">
+              <mat-error class="invalid-feedback">{{messageReturned(ctrF.cep, "")}}</mat-error>
             </mat-form-field>
-          -->
           </div>
 
         </div>

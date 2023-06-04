@@ -1,39 +1,38 @@
 using System;
 using System.Threading.Tasks;
 using AutoMapper;
-using ProEventos.Application.Contratos;
-using ProEventos.Application.Dtos;
-using ProEventos.Domain;
-using ProEventos.Persistence.Contratos;
+using OnPeople.Application.Services.Contracts.Metas;
+using OnPeople.Domain.Models.Metas;
+using OnPeople.Persistence.Interfaces.Contracts.Metas;
 
-namespace ProEventos.Application
+namespace OnPeople.Application.Services.Implementations.Metas
 {
     public class MetasService : IMetasService
     {
 
-        private readonly IGeralPersist _geralPersist;
-        private readonly IMetaPersist _metasPersist;
+        private readonly IMetaPersistence _metasPersistence;
         private readonly IMapper _mapper;
 
-        public MetasService(IGeralPersist geralPersist,  IMetaPersist metasPersist, IMapper mapper)
+        public MetasService(
+            IMetaPersistence metasPersistence, 
+            IMapper mapper)
         {
-            _metasPersist = metasPersist;
-            _geralPersist = geralPersist;
+            _metasPersistence = metasPersistence;
             _mapper = mapper;
         }
 
 
-        public async Task<MetaDto> AddMetas(MetaDto model)
+        public async Task<MetaDto> CreateMetas(MetaDto metaDto)
         {
             try
             {
-                var meta = _mapper.Map<Meta>(model);
+                var meta = _mapper.Map<Meta>(metaDto);
 
-                _geralPersist.Add<Meta>(meta);
+                _metasPersistence.Create<Meta>(meta);
 
-                if (await _geralPersist.SaveChangesAsync())
+                if (await _metasPersistence.SaveChangesAsync())
                 {
-                    var metaRetorno = await _metasPersist.GetMetaByIdAsync(meta.Id);
+                    var metaRetorno = await _metasPersistence.GetMetaByIdAsync(meta.Id);
 
                     return _mapper.Map<MetaDto>(metaRetorno);
                 }
@@ -49,18 +48,18 @@ namespace ProEventos.Application
         {
             try
             {
-                var meta = await _metasPersist.GetMetaByIdAsync(metaId);
+                var meta = await _metasPersistence.GetMetaByIdAsync(metaId);
                 if (meta == null) return null;
 
                 model.Id = meta.Id;
 
                 _mapper.Map(model, meta);
 
-                _geralPersist.Update<Meta>(meta);
+                _metasPersistence.Update<Meta>(meta);
                 
-                if (await _geralPersist.SaveChangesAsync())
+                if (await _metasPersistence.SaveChangesAsync())
                 {
-                    var metaRetorno = await _metasPersist.GetMetaByIdAsync(meta.Id);
+                    var metaRetorno = await _metasPersistence.GetMetaByIdAsync(meta.Id);
 
                 return _mapper.Map<MetaDto>(metaRetorno);
                 }
@@ -76,11 +75,11 @@ namespace ProEventos.Application
         {
             try
             {
-                var meta = await _metasPersist.GetMetaByIdAsync(metaId);
+                var meta = await _metasPersistence.GetMetaByIdAsync(metaId);
                 if (meta == null) throw new Exception("Meta não encontrada!");
 
-                _geralPersist.Delete<Meta>(meta);
-                return await _geralPersist.SaveChangesAsync();
+                _metasPersistence.Delete<Meta>(meta);
+                return await _metasPersistence.SaveChangesAsync();
             }
             catch (Exception ex)
             {
@@ -93,7 +92,7 @@ namespace ProEventos.Application
         {
             try
             {
-                var metas = await _metasPersist.GetAllMetasAsync();
+                var metas = await _metasPersistence.GetAllMetasAsync();
                 if (metas == null) return null;
 
                 var resultado = _mapper.Map<MetaDto[]>(metas);
@@ -110,7 +109,7 @@ namespace ProEventos.Application
         {
             try
             {
-                var metas = await _metasPersist.GetAllMetasByTipoAsync(tipoMeta);
+                var metas = await _metasPersistence.GetAllMetasByTipoAsync(tipoMeta);
                 if (metas == null) return null;
 
                 var resultado = _mapper.Map<MetaDto[]>(metas);
@@ -127,7 +126,7 @@ namespace ProEventos.Application
         {
             try
             {
-                var meta = await _metasPersist.GetMetaByIdAsync(metaId);
+                var meta = await _metasPersistence.GetMetaByIdAsync(metaId);
                 if (meta == null) return null;
 
                 var resultado = _mapper.Map<MetaDto>(meta);

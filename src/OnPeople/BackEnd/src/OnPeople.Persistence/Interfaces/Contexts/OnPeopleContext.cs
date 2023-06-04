@@ -129,7 +129,7 @@ namespace OnPeople.Persistence.Interfaces.Contexts
 
             modelBuilder.Entity<Meta>(meta =>
                 {
-                    meta.HasOne(m => m.Empresas);
+                    meta.HasIndex(m => m.EmpresaId);
 
                     meta.HasIndex(e => e.MetaCumprida);
                     

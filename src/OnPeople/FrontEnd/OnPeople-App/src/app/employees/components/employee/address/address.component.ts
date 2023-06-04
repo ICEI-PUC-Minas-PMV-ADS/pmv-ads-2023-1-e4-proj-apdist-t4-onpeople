@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Endereco } from 'src/app/employees/models';
 import { AddressService } from 'src/app/employees/services/address.service';
 import { FormValidator } from 'src/app/shared/models';
+import { consultarCep} from 'correios-brasil';
 
 @Component({
   selector: 'app-address',
@@ -20,6 +21,8 @@ export class AddressComponent implements OnInit {
   public selectAddressId = 0;
 
   public employeeParm: any = "";
+
+  public cep: any = "";
 
   public editMode: Boolean = false;
 
@@ -49,6 +52,8 @@ export class AddressComponent implements OnInit {
   public formValidator(): void {
     this.formAddress = this.formBuilder.group({
       selectAddressId: [0, Validators.required],
+      tipoEndereco: [""],
+      cep: ['', Validators.required]
     });
   }
 
@@ -67,7 +72,6 @@ export class AddressComponent implements OnInit {
   }
 
   public getAddresses(): void {
-    console.log("Address father", this.addressId)
     this.spinnerService.show();
 
     this.addressService
@@ -81,6 +85,25 @@ export class AddressComponent implements OnInit {
         },
         (error: any) => {
           this.toastrService.error(error.error, `Erro! Status ${error.status}`)
+        }
+      )
+      .add(() => this.spinnerService.hide());
+  }
+
+  public getCEP(): void {
+    this.spinnerService.show();
+
+    //const { consultarCep } = require('correios-brasil');
+
+     console.log (this.cep)
+    this.addressService
+      .getCEP(this.cep)
+      .subscribe(
+        (cep: any) => {
+          console.log(cep)
+        },
+        (error: any) => {
+          this.toastrService.error(error.error, `Erro! stats ${error.status}`)
         }
       )
       .add(() => this.spinnerService.hide());
