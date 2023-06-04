@@ -1,5 +1,6 @@
 
 using OnPeople.Domain.Models.Funcionarios;
+using OnPeople.Domain.Models.Metas;
 
 namespace OnPeople.Domain.Models.Funcionarios
 {

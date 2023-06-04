@@ -16,6 +16,8 @@ public class EnderecosController : ControllerBase
 {
     private readonly IEnderecosServices _enderecosServices;
     private readonly IUsersServices _usersServices;
+    private readonly HttpClient _httpClient = new();
+    private CEPDto _cepDto = new();
     public EnderecosController(
         IEnderecosServices funcionariosservices,
         IUsersServices usersServices
@@ -224,4 +226,44 @@ public class EnderecosController : ControllerBase
         }       
     }   
 
+    /// <summary>
+    /// Realiza a consulta do CEP junto aos correios
+    /// </summary>
+    /// <param name="cep">cep a consultar </param>
+    /// <response code="200">Consulta ao CEP nos correios realizada</response>
+    /// <response code="400">Parâmetros incorretos</response>
+    /// <response code="500">Erro interno</response>
+    [HttpGet("{cep}/json")]
+    public async Task<IActionResult> GetPublicCEP(string cep)
+    {
+        try
+        {
+            var claimUser = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());
+            
+            if (claimUser == null) 
+                return Unauthorized();
+                    
+            var url = $"viacep.com.br/ws/{cep}/json/";
+
+            Console.WriteLine(url);
+
+            _httpClient.BaseAddress = new Uri(url);
+
+            _httpClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("consultar-cep/json"));
+
+            System.Net.Http.HttpResponseMessage response = _httpClient.GetAsync(url).Result;
+
+            _cepDto = response.Content.ReadFromJsonAsync<CEPDto>().Result;
+    
+            if (response.IsSuccessStatusCode) {
+
+                return Ok(_cepDto);
+            }
+            return BadRequest("CEP Inválido");
+        }
+        catch (Exception e)
+        {  
+            return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao recuperar CEP. Erro: {e.Message}");
+        }
+    }
 }

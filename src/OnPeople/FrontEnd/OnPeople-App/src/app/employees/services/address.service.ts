@@ -47,4 +47,11 @@ export class AddressService {
     return this.http.delete(`${this.baseURL}${addressId}?addressId=${addressId}`)
     .pipe(take(3));
   }
+
+  public getCEP(cep: string): Observable<any> {
+    console.log(`viacep.com.br/ws/${cep}/json/`)
+    return this.http.get<any>(`viacep.com.br/ws/${cep}/json/`)
+    .pipe(take(3));
+  }
 }
+

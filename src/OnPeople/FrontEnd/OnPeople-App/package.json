@@ -26,6 +26,7 @@
     "@popperjs/core": "^2.11.6",
     "bootstrap": "^5.2.3",
     "bootswatch": "^5.2.3",
+    "correios-brasil": "^3.0.4",
     "font-awesome": "^4.7.0",
     "ngx-bootstrap": "^10.2.0",
     "ngx-filter-pipe": "^2.1.2",
