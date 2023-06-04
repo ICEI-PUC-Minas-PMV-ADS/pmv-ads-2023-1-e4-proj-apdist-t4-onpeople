@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "Mobile_OnPeople",
+    "slug": "Mobile_OnPeople",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/logo_sem_escrito.png",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "image": "./assets/logotipo-menor.png",
+      "resizeMode":"contain",
+      "backgroundColor": "#222831"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/logotipo-menor.png",
+        "backgroundColor": "#222831"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon2.png"
+    }
+  }
+}
