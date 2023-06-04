@@ -9,5 +9,6 @@ namespace OnPeople.Persistence.Interfaces.Contracts.Users
         Task<User> GetUserByUserNameAsync(string userName);
         Task<IEnumerable<User>> GetAllUsersAtivasAsync();
         Task<IEnumerable<User>> GetAllUsersAsync();
+        Task<IEnumerable<User>> GetAllUsersNovosAsync();
     }
 }

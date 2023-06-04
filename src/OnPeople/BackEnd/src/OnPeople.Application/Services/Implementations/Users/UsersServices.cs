@@ -204,5 +204,22 @@ namespace OnPeople.Application.Services.Implementations.Users
                 throw new Exception($"Falha ao recuperar Contas. Erro: {e.Message}");
             }
         }
+
+        public async Task<IEnumerable<UserDto>> GetAllUsersNovosAsync()
+        {
+            try
+            {
+                var users = await _usersPersistence.GetAllUsersNovosAsync();
+
+                if (users == null) return null;
+
+                return _mapper.Map<IEnumerable<UserDto>>(users);
+            }
+            catch (Exception e)
+            {
+                
+                throw new Exception($"Falha ao recuperar Contas por Id da conta. Erro: {e.Message}");
+            }
+        }
     }
 }

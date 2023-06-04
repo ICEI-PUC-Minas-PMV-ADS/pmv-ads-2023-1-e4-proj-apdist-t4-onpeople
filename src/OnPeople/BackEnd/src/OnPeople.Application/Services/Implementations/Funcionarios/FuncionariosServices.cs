@@ -47,11 +47,11 @@ namespace OnPeople.Application.Services.Implementations.Funcionarios
             }
         }
 
-        public async Task<PageList<ReadFuncionarioDto>> GetAllFuncionarios(PageParameters pageParameters)
+        public async Task<PageList<ReadFuncionarioDto>> GetAllFuncionarios(PageParameters pageParameters, int empresaId, int departamentoId, int cargoId)
         {
             try
             {
-                var funcionarios = await _funcionariosPersistence.GetAllFuncionariosAsync(pageParameters);
+                var funcionarios = await _funcionariosPersistence.GetAllFuncionariosAsync(pageParameters, empresaId, departamentoId, cargoId);
 
                 if (funcionarios == null) return null;
 
@@ -101,8 +101,9 @@ namespace OnPeople.Application.Services.Implementations.Funcionarios
 
                 _funcionariosPersistence.Update<Funcionario>(funcionarioUpdate);
 
-                if (await _sharedPersistence.SaveChangesAsync())
+                if (await _funcionariosPersistence.SaveChangesAsync())
                 {
+                Console.WriteLine("funcionarioId " + funcionarioId);
                     var funcionarioMapper =  await _funcionariosPersistence.GetFuncionarioByIdAsync(funcionarioUpdate.Id);
                     return _mapper.Map<Funcionario>(funcionarioMapper);
                 }

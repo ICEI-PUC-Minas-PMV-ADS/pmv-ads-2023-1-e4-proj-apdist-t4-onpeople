@@ -1,4 +1,5 @@
 import { Empresa } from "src/app/companies/models";
+import { Cargo } from "src/app/jobRoles/models";
 
 export interface Departamento {
   id: number;
@@ -12,5 +13,5 @@ export interface Departamento {
   ativo: Boolean;
   empresaId: number;
   empresa: Empresa;
-  //cargos: Cargo[];
+  cargos: Cargo[];
 }

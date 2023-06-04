@@ -1,3 +1,4 @@
+using OnPeople.Domain.Models.Cargos;
 using OnPeople.Domain.Models.Departamentos;
 using OnPeople.Domain.Models.Users;
 
@@ -29,7 +30,7 @@ namespace OnPeople.Domain.Models.Empresas
         public string CEP { get; set; }
         public string DDD { get; set; }
         public string Telefone { get; set; }
-        public string Email { get; set; }
+        public string EmailEmpresa { get; set; }
         public string AtividadePrincipal { get; set; }
         public string PaisId { get; set; }
         public string SiglaPaisIso2 { get; set; }
@@ -45,5 +46,6 @@ namespace OnPeople.Domain.Models.Empresas
         public string CidadeSiafiId { get; set; }
         public IEnumerable<User> Users { get; set; }
         public IEnumerable<Departamento> Departamentos { get; set; }
+        public IEnumerable<Cargo> Cargos { get; set; }
     }
 }

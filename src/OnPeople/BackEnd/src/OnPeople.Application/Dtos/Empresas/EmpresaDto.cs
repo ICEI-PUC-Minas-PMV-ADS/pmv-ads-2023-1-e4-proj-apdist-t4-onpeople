@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
+using OnPeople.Application.Dtos.Cargos;
 using OnPeople.Application.Dtos.Departamentos;
-using OnPeople.Domain.Models.Users;
+using OnPeople.Application.Dtos.Users;
 using OnPeople.Integration.Models.Links;
 
 namespace OnPeople.Application.Dtos.Empresas
@@ -65,7 +66,7 @@ namespace OnPeople.Application.Dtos.Empresas
         
         public string Telefone { get; set; }
         
-        public string Email { get; set; }
+        public string EmailEmpresa { get; set; }
         
         public string AtividadePrincipal { get; set; }
         
@@ -95,6 +96,7 @@ namespace OnPeople.Application.Dtos.Empresas
         
         public IEnumerable<DepartamentoDto> Departamentos { get; set; }
 
-        public IEnumerable<User> Users { get; set; }
+        public IEnumerable<UserDto> Users { get; set; }
+        public IEnumerable<CargoDto> Cargos { get; set; }
     }
 }

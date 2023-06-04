@@ -1,33 +1,33 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-using OnPeople.API.Controllers.Uploads;
 using OnPeople.API.Extensions.Users;
 using OnPeople.Application.Services.Contracts.Users;
 using OnPeople.Integration.Models.Pages.Config;
 using OnPeople.API.Extensions.Pages;
-using OnPeople.Integration.Models.Dashboard;
-using Newtonsoft.Json.Linq;
-using OnPeople.Integration.Models.Links;
 using OnPeople.Application.Services.Contracts.Funcionarios;
 using OnPeople.Application.Dtos.Funcionarios;
 using OnPeople.Application.Services.Contracts.FuncionariosMetas;
 
 namespace OnPeople.API.Controllers.Funcionarios;
 
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class FuncionariosController : ControllerBase
 {
     private readonly IFuncionariosServices _funcionariosservices;
     private readonly IFuncionarioMetaServices _funcionarioMetaservices;
+    private readonly IUsersServices _usersServices;
     public FuncionariosController(
         IFuncionariosServices funcionariosservices,
-        IFuncionarioMetaServices funcionarioMetaservices
+        IFuncionarioMetaServices funcionarioMetaservices,
+        IUsersServices usersServices
         )
     {
         _funcionariosservices = funcionariosservices;
         _funcionarioMetaservices = funcionarioMetaservices;
+        _usersServices = usersServices;
     }
 
     /// <summary>
@@ -41,14 +41,20 @@ public class FuncionariosController : ControllerBase
     {
         try
         {
-            // var claimUser = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());
+            var claimUser = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());
 
-            // if (claimUser == null) 
-            //     return Unauthorized();
-            
-            var funcionarios = await _funcionariosservices.GetAllFuncionarios(pageParameters);
+            if (claimUser == null) 
+               return Unauthorized();
 
-            if (funcionarios == null) return NoContent();
+
+            var userLogged = await _usersServices.GetUserByUserNameAsync(User.GetUserNameClaim());
+
+            if (userLogged == null)
+                return Unauthorized();
+
+            var funcionarios = await _funcionariosservices.GetAllFuncionarios(pageParameters, userLogged.CodEmpresa, userLogged.CodDepartamento, userLogged.CodCargo);
+
+            if (funcionarios == null) return NotFound("Nenhum funcionário foi encontrado.");
             
             
             Response.CreatePagination(funcionarios.CurrentPage, funcionarios.PageSize, funcionarios.TotalCounter, funcionarios.TotalPages);
@@ -68,15 +74,15 @@ public class FuncionariosController : ControllerBase
     /// <response code="200">Dados do departamento consultado</response>
     /// <response code="400">Parâmetros incorretos</response>
     /// <response code="500">Erro interno</response>
-    [HttpGet("{id}")]
+    [HttpGet("{funcionarioId}")]
     public async Task<IActionResult> GetFuncionarioById(int funcionarioId)
     {
         try
         {
-            // var claimUser = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());
+            var claimUser = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());
             
-            // if (claimUser == null) 
-            //     return Unauthorized();
+            if (claimUser == null) 
+                return Unauthorized();
 
             var funcionario = await _funcionariosservices.GetFuncionarioById(funcionarioId);
 
@@ -101,13 +107,13 @@ public class FuncionariosController : ControllerBase
     {
         try
         {
-            // var claimUser = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());   
+            var claimUser = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());   
 
-            // if (claimUser == null) 
-            //     return Unauthorized();
+            if (claimUser == null) 
+                return Unauthorized();
 
-            // if (!claimUser.Master)
-            //     return Unauthorized();
+            if (!claimUser.Master)
+                return Unauthorized();
 
             var createdFuncionario = await _funcionariosservices.CreateFuncionario(funcionarioDto);
 
@@ -134,17 +140,15 @@ public class FuncionariosController : ControllerBase
     {
         try
         {
-            // var claimUser = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());   
+            var claimUser = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());   
 
-            // if (claimUser == null) 
-            //     return Unauthorized();
-
-            // if (!claimUser.Master)
-            //     return Unauthorized();
+            if (claimUser == null) 
+                return Unauthorized();
 
             if (funcionarioDto.Id != id)
                 return Unauthorized();
 
+            Console.WriteLine("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= " + funcionarioDto.Id);
             var funcionario  = await _funcionariosservices.UpdateFuncionario(id, funcionarioDto);
 
             if (funcionario == null) return NoContent();

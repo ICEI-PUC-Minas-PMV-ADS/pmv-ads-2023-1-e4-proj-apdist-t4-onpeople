@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using OnPeople.Domain.Models.Cargos;
 using OnPeople.Domain.Models.Departamentos;
 using OnPeople.Domain.Models.Empresas;
@@ -13,10 +9,11 @@ namespace OnPeople.Application.Dtos.Funcionarios
     public class UpdateFuncionarioDto
     {
         public int Id { get; set; }
-        public DateTime DataAdmissao { get; set; }
-        public DateTime DataDemissao { get; set; }
+        public string NomeCompleto { get; set; }
+        public string DataAdmissao { get; set; }
+        public string DataDemissao { get; set; }
         public Boolean Ativo { get; set; }
-        public int? UserId { get; set; }
+        public int UserId { get; set; }
         public User Users { get; set; }
         public int DepartamentoId { get; set; }
         public Departamento Departamentos { get; set; }

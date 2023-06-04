@@ -43,7 +43,7 @@ export class UserService {
 
   public getUserById(id: number): Observable<Users> {
     return this.http
-      .get<Users>(this.baseURL + `${id}`)
+      .get<Users>(`${this.baseURL}GetUser/${id}`)
       .pipe(take(1));
   }
 
@@ -60,6 +60,12 @@ export class UserService {
   public updateUserVisao(model: Users): Observable<any> {
     return this.http
       .put<Users>(this.baseURL + 'updateVisao', model)
+      .pipe(take(1));
+  }
+
+  public getAccountsToAssociate(): Observable<Users[]> {
+    return this.http
+      .get<Users[]>(this.baseURL + "novos")
       .pipe(take(1));
   }
 }

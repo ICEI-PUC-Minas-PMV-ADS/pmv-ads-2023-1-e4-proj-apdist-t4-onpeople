@@ -1,311 +1,258 @@
-<div class="card rounded shadow-sm p-1 bg-light">
-  <div class="card-header text-center text-white bg-info">
-    <div class="h3">Formulário de Empresas</div>
-  </div>
-  <div class="card-body p-1 bg-white">
-    <form class="row" [formGroup]="formDetail">
+<form class=" mt-1" [formGroup]="formDetail">
 
-      <div  class="col-md-4" *ngIf="editMode">
-        <div class="card m-0 p-0 bg-white shadow-sm">
+  <div class="card rounded shadow-sm p-1">
+
+    <div class="card-header text-center text-white  bg-info">
+      <div class="h3">Formulário de Empresas</div>
+    </div>
+
+    <div class="card-body p-0 mt-1 ">
+      <div class="row m-0 p-0">
+        <div class=" col-md-8">
+
+          <div class="h4 border-bottom mt-2" >Dados da Empresa: </div>
+
+          <div class="form-row d-md-flex ">
+
+            <mat-form-field class="col-md-4 p-1" appearance="outline" >
+              <mat-label [ngClass]="!editMode ? 'text-success' : 'text-dark'" >CNPJ</mat-label>
+              <input matInput [ngClass]="!editMode ? 'text-success' : ''"  type="text" formControlName="cnpj" [ngClass]="fieldValidator(ctrF.cnpj)" (change)="getCompanyByCnpj()" (ngClass)="editMode ? 'readonly' : ''">
+              <mat-error class="invalid-feedback">{{messageReturned(ctrF.cnpj, "")}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-5 p-1" appearance="outline"  *ngIf="this.CNPJOk">
+              <mat-label>Empresa</mat-label>
+              <input matInput type="text" formControlName="razaoSocial" [ngClass]="fieldValidator(ctrF.razaoSocial)" readonly>
+              <mat-error class="invalid-feedback">{{messageReturned(ctrF.razaoSocial, "")}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-3 p-1" appearance="outline" *ngIf="this.CNPJOk">
+              <mat-label>Ativa</mat-label>
+              <mat-select formControlName="ativa">
+                <mat-option [value]="false" disabled>Não</mat-option>
+                <mat-option [value]="true" disabled>Sim</mat-option>
+              </mat-select>
+              <mat-error class="invalid-feedback">{{messageReturned(ctrF.ativa, "")}}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row d-md-flex" appearance="outline" *ngIf="this.CNPJOk">
+            <mat-form-field class="col-md-4 p-1" appearance="outline" *ngIf="this.CNPJOk">
+              <mat-label class="text-success ">Sigla Empresa</mat-label>
+              <input matInput class="text-success " type="text" formControlName="siglaEmpresa" [ngClass]="fieldValidator(ctrF.siglaEmpresa)">
+              <mat-error class="invalid-feedback">{{messageReturned(ctrF.siglaEmpresa, "")}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-5 p-1" appearance="outline" >
+              <mat-label>Nome Fantasia</mat-label>
+              <input matInput class="text-primary disabled" type="text" formControlName="nomeFantasia" [ngClass]="fieldValidator(ctrF.nomeFantasia)" readonly>
+              <mat-error class="invalid-feedback">{{messageReturned(ctrF.razaoSocial, "")}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-3 p-1" appearance="outline" >
+              <mat-label>É Filial</mat-label>
+              <mat-select formControlName="filial">
+                <mat-option [value]="false" disabled>Não</mat-option>
+                <mat-option [value]="true" disabled>Sim</mat-option>
+              </mat-select>
+              <mat-error class="invalid-feedback">{{messageReturned(ctrF.filial, "")}}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row d-md-flex" *ngIf="this.CNPJOk">
+            <mat-form-field class="col-md-4 p-1" appearance="outline" >
+              <mat-label class="text-success ">Padrão de email</mat-label>
+              <input matInput class="text-success " type="text" formControlName="padraoEmail" [ngClass]="fieldValidator(ctrF.padraoEmail)">
+              <mat-error class="invalid-feedback">{{messageReturned(ctrF.padraoEmail, "")}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-5 p-1" appearance="outline" >
+              <mat-label>Natureza Juridica</mat-label>
+              <input matInput type="text" formControlName="naturezaJuridica" [ngClass]="fieldValidator(ctrF.naturezaJuridica)" readonly>
+              <mat-error class="invalid-feedback">{{messageReturned(ctrF.naturezaJuridica, "")}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-3 p-1" appearance="outline" >
+              <mat-label>Data Cadastro</mat-label>
+              <input matInput [matDatepicker]="dataCadastro" formControlName="dataCadastro"
+                [ngClass]="fieldValidator(ctrF.dataCadastro)" readonly>
+              <mat-datepicker-toggle matIconSuffix class="text-info" [for]="dataCadastro"></mat-datepicker-toggle>
+              <mat-datepicker #dataCadastro disabled="true"></mat-datepicker>
+              <mat-error class="invalid-feedback">{{messageReturned(ctrF.dataCadastro, "")}}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row d-md-flex" *ngIf="this.CNPJOk">
+            <mat-form-field class="col-md-4 p-1" appearance="outline" >
+              <mat-label>Optante Simples</mat-label>
+              <input matInput type="text" formControlName="optanteSimples"
+                [ngClass]="fieldValidator(ctrF.optanteSimples)" readonly>
+              <mat-error class="invalid-feedback">{{messageReturned(ctrF.optanteSimples, "")}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-5 p-1" appearance="outline" >
+              <mat-label>Atividade Principal</mat-label>
+              <input matInput type="text" formControlName="atividadePrincipal" [ngClass]="fieldValidator(ctrF.atividadePrincipal)"
+                readonly>
+              <mat-error class="invalid-feedback">{{messageReturned(ctrF.atividadePrincipal, "")}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-3 p-1" appearance="outline" >
+              <mat-label>Data Desativação</mat-label>
+              <input matInput [matDatepicker]="dataDesativacao" formControlName="dataDesativacao"
+                [ngClass]="fieldValidator(ctrF.dataDesativacao)" readonly>
+              <mat-datepicker-toggle matIconSuffix class="text-info" [for]="dataDesativacao"></mat-datepicker-toggle>
+              <mat-datepicker #dataDesativacao disabled="true"></mat-datepicker>
+              <mat-error class="invalid-feedback">{{messageReturned(ctrF.dataDesativacao, "")}}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row d-md-flex" *ngIf="this.CNPJOk">
+            <mat-form-field class="col-md-4 p-1" appearance="outline" >
+              <mat-label>CEP</mat-label>
+              <input matInput type="text" formControlName="cep" [ngClass]="fieldValidator(ctrF.cep)" readonly>
+              <mat-error class="invalid-feedback">{{messageReturned(ctrF.cep, "")}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-3 p-1" appearance="outline" >
+              <mat-label>Tipo Logradouro</mat-label>
+              <input matInput type="text" formControlName="tipoLogradouro" [ngClass]="fieldValidator(ctrF.tipoLogradouro)" readonly>
+              <mat-error class="invalid-feedback">
+                {{messageReturned(ctrF.tipoLogradouro, "")}}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-5 p-1" appearance="outline" >
+              <mat-label>Logradouro</mat-label>
+              <input matInput type="text" formControlName="logradouro"
+                [ngClass]="fieldValidator(ctrF.logradouro)" readonly>
+              <mat-error class="invalid-feedback">{{messageReturned(ctrF.logradouro, "")}}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+          <div class="form-row d-md-flex" *ngIf="this.CNPJOk">
+            <mat-form-field class="col-md-4 p-1" appearance="outline" >
+              <mat-label>Bairro</mat-label>
+              <input matInput type="text" formControlName="bairro"
+                [ngClass]="fieldValidator(ctrF.bairro)" readonly>
+              <mat-error class="invalid-feedback">{{messageReturned(ctrF.bairro, "")}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-3 p-1" appearance="outline" >
+              <mat-label>Numero</mat-label>
+              <input matInput type="text" formControlName="numero"
+                [ngClass]="fieldValidator(ctrF.numero)" readonly>
+              <mat-error class="invalid-feedback">{{messageReturned(ctrF.numero, "")}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-5 p-1" appearance="outline" >
+              <mat-label>Complemento</mat-label>
+              <input matInput type="text" formControlName="complemento"
+                [ngClass]="fieldValidator(ctrF.complemento)" readonly>
+              <mat-error class="invalid-feedback">{{messageReturned(ctrF.complemento, "")}}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row d-md-flex" *ngIf="this.CNPJOk">
+            <mat-form-field class="col-md-4 p-1" appearance="outline" >
+              <mat-label>Cidade</mat-label>
+              <input matInput type="text" formControlName="cidade" [ngClass]="fieldValidator(ctrF.cidade)" readonly>
+              <mat-error class="invalid-feedback">{{messageReturned(ctrF.cidade, "")}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-3 p-1" appearance="outline" >
+              <mat-label>Estado</mat-label>
+              <input matInput type="text" formControlName="estado" [ngClass]="fieldValidator(ctrF.estado)"
+              readonly>
+              <mat-error class="invalid-feedback">
+                {{messageReturned(ctrF.estado, "")}}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-2 p-1" appearance="outline" >
+              <mat-label>UF:</mat-label>
+              <input matInput type="text" formControlName="siglaEstado" [ngClass]="fieldValidator(ctrF.siglaEstado)" readonly>
+              <mat-error class="invalid-feedback">
+                {{messageReturned(ctrF.siglaEstado, "")}}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-3 p-1" appearance="outline" >
+              <mat-label>Sigla País</mat-label>
+              <input matInput type="text" formControlName="siglaPaisIso3" [ngClass]="fieldValidator(ctrF.siglaPaisIso3)" readonly>
+              <mat-error class="invalid-feedback">{{messageReturned(ctrF.siglaPaisIso3, "")}}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row d-md-flex" *ngIf="this.CNPJOk">
+            <mat-form-field class="col-md-4 p-1 " appearance="outline" >
+              <mat-label>País</mat-label>
+              <input matInput type="text" formControlName="nomePais"
+                [ngClass]="fieldValidator(ctrF.nomePais)" readonly>
+              <mat-error class="invalid-feedback">{{messageReturned(ctrF.nomePais, "")}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-3 p-1" appearance="outline" >
+              <mat-label>e-mail</mat-label>
+              <input matInput type="text" formControlName="emailEmpresa" [ngClass]="fieldValidator(ctrF.emailEmpresa)"
+              readonly>
+              <mat-error class="invalid-feedback">{{messageReturned(ctrF.emailEmpresa, "")}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-2 p-1" appearance="outline" >
+              <mat-label>DDD</mat-label>
+              <input matInput type="text" formControlName="ddd"
+                [ngClass]="fieldValidator(ctrF.ddd)" readonly>
+              <mat-error class="invalid-feedback">{{messageReturned(ctrF.ddd, "")}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-3 p-1" appearance="outline" >
+              <mat-label>Telefone</mat-label>
+              <input matInput type="text" formControlName="telefone" [ngClass]="fieldValidator(ctrF.telefone)" readonly>
+              <mat-error class="invalid-feedback">{{messageReturned(ctrF.telefone, "")}}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row d-md-flex" *ngIf="this.CNPJOk">
+            <mat-form-field class="col-md-4 p-1" appearance="outline" >
+              <mat-label>Porte</mat-label>
+              <input matInput type="text" formControlName="porteEmpresa" [ngClass]="fieldValidator(ctrF.porteEmpresa)" readonly>
+              <mat-error class="invalid-feedback">{{messageReturned(ctrF.porteEmpresa, "")}}</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div  class="col-md-4" *ngIf="editMode">
           <input type="file" #file (change)="toggleImage($event)" style="display: none">
-          <div class="aligns-self-center text-center pt-1">
+          <div class="aligns-self-center text-center">
             <img class="imageDetail" [src]="logoURL" alt="Card imagem upload imageDetail" (click)="file.click()">
           </div>
         </div>
-      </div>
-
-      <div [ngClass]="{'col-md-8': editMode, 'col-md-12': !editMode }">
-        <div class="h4 border-bottom" >Dados da Empresa: </div>
-        <div class="form-row d-md-flex">
-
-          <mat-form-field class="form-group col-md-3 p-1 ">
-            <mat-label>CNPJ</mat-label>
-            <input matInput type="text" class="form-control bg-secondary   text-white" formControlName="cnpj" [ngClass]="fieldValidator(ctrF.cnpj)"
-              (change)="getCompanyByCnpj()" (readonly)="editMode">
-            <mat-error class="invalid-feedback">
-              {{messageReturned(ctrF.cnpj, "")}}
-            </mat-error>
-          </mat-form-field>
-
-          <mat-form-field class="form-group col-md-2 p-1" *ngIf="this.CNPJOk">
-            <mat-label>Sigla Empresa</mat-label>
-            <input matInput type="text" class="form-control" formControlName="siglaEmpresa"
-              [ngClass]="fieldValidator(ctrF.siglaEmpresa)" >
-            <mat-error class="invalid-feedback">
-            {{messageReturned(ctrF.siglaEmpresa, "")}}
-            </mat-error>
-          </mat-form-field>
-
-          <mat-form-field class="form-group col-md-5 p-1" *ngIf="this.CNPJOk">
-            <mat-label>Padrão de email</mat-label>
-            <input matInput type="text" class="form-control" formControlName="padraoEmail"
-              [ngClass]="fieldValidator(ctrF.padraoEmail)" >
-            <mat-error class="invalid-feedback">
-              {{messageReturned(ctrF.padraoEmail, "")}}
-            </mat-error>
-          </mat-form-field>
-
-          <mat-form-field class="form-group col-md-2 p-1" *ngIf="this.CNPJOk">
-            <mat-label>Ativa</mat-label>
-            <mat-select class="form-control" formControlName="ativa">
-              <mat-option [value]="false" disabled>Não</mat-option>
-              <mat-option [value]="true" disabled>Sim</mat-option>
-            </mat-select>
-            <mat-error class="invalid-feedback">
-              {{messageReturned(ctrF.ativa, "")}}
-            </mat-error>
-          </mat-form-field>
-        </div>
-
-        <div class="form-row d-md-flex" *ngIf="this.CNPJOk">
-          <mat-form-field class="form-group col-md-5 p-1">
-            <mat-label>Empresa</mat-label>
-            <input matInput type="text" class="form-control" formControlName="razaoSocial"
-              [ngClass]="fieldValidator(ctrF.razaoSocial)" readonly>
-            <mat-error class="invalid-feedback">
-              {{messageReturned(ctrF.razaoSocial, "")}}
-            </mat-error>
-          </mat-form-field>
-
-          <mat-form-field class="form-group col-md-5 p-1">
-            <mat-label>Nome Fantasia</mat-label>
-            <input matInput type="text" class="form-control" formControlName="nomeFantasia"
-              [ngClass]="fieldValidator(ctrF.nomeFantasia)" readonly>
-            <mat-error class="invalid-feedback">
-              {{messageReturned(ctrF.razaoSocial, "")}}
-            </mat-error>
-          </mat-form-field>
-
-          <mat-form-field class="form-group col-md-2 p-1">
-            <mat-label>É Filial</mat-label>
-            <mat-select class="form-control" formControlName="filial">
-              <mat-option [value]="false" disabled>Não</mat-option>
-              <mat-option [value]="true" disabled>Sim</mat-option>
-            </mat-select>
-            <mat-error class="invalid-feedback">
-              {{messageReturned(ctrF.filial, "")}}
-            </mat-error>
-          </mat-form-field>
-        </div>
-
-        <div class="form-row d-md-flex" *ngIf="this.CNPJOk">
-          <mat-form-field class="form-group col-md-6 p-1">
-            <mat-label>Natureza Juridica</mat-label>
-            <input matInput type="text" class="form-control" formControlName="naturezaJuridica"
-              [ngClass]="fieldValidator(ctrF.naturezaJuridica)" readonly>
-            <mat-error class="invalid-feedback">
-              {{messageReturned(ctrF.naturezaJuridica, "")}}
-            </mat-error>
-          </mat-form-field>
-
-          <mat-form-field class="form-group col-md-6 p-1">
-            <mat-label>Atividade Principal</mat-label>
-            <input matInput type="text" class="form-control" formControlName="atividadePrincipal"
-              [ngClass]="fieldValidator(ctrF.atividadePrincipal)" readonly>
-            <mat-error class="invalid-feedback">
-              {{messageReturned(ctrF.atividadePrincipal, "")}}
-            </mat-error>
-          </mat-form-field>
-        </div>
-
-        <div class="form-row d-md-flex" *ngIf="this.CNPJOk">
-          <mat-form-field class="form-group col-md-3  p-1">
-            <mat-label>Data Cadastro</mat-label>
-            <mat-icon matPrefix class="bg-info text-white">calendar_month</mat-icon>
-            <input matInput type="text" class="form-control" formControlName="dataCadastro"
-              [ngClass]="fieldValidator(ctrF.dataCadastro)" readonly>
-            <mat-error class="invalid-feedback">
-              {{messageReturned(ctrF.dataCadastro, "")}}
-            </mat-error>
-          </mat-form-field>
-
-          <mat-form-field class="form-group col-md-3  p-1">
-            <mat-label>Data Desativação</mat-label>
-            <mat-icon matPrefix class="bg-info text-white">calendar_month</mat-icon>
-            <input matInput type="text" class="form-control" formControlName="dataDesativacao"
-              [ngClass]="fieldValidator(ctrF.dataDesativacao)" readonly>
-            <mat-error class="invalid-feedback">
-              {{messageReturned(ctrF.dataDesativacao, "")}}
-            </mat-error>
-          </mat-form-field>
-
-          <mat-form-field class="form-group col-md-3 p-1">
-            <mat-label>Optante Simples</mat-label>
-            <input matInput type="text" class="form-control" formControlName="optanteSimples"
-              [ngClass]="fieldValidator(ctrF.optanteSimples)" readonly>
-            <mat-error class="invalid-feedback">
-              {{messageReturned(ctrF.optanteSimples, "")}}
-            </mat-error>
-          </mat-form-field>
-        </div>
 
       </div>
-
-      <div class="form-row d-md-flex" *ngIf="this.CNPJOk">
-        <mat-form-field class="form-group col-md-2 p-1">
-          <mat-label>CEP</mat-label>
-          <input matInput type="text" class="form-control" formControlName="cep"
-            [ngClass]="fieldValidator(ctrF.cep)" readonly>
-          <mat-error class="invalid-feedback">
-            {{messageReturned(ctrF.cep, "")}}
-          </mat-error>
-        </mat-form-field>
-
-        <mat-form-field class="form-group col-md-2 p-1">
-          <mat-label>Tipo Logradouro</mat-label>
-          <input matInput type="text" class="form-control" formControlName="tipoLogradouro" [ngClass]="fieldValidator(ctrF.tipoLogradouro)" readonly>
-          <mat-error class="invalid-feedback">
-            {{messageReturned(ctrF.tipoLogradouro, "")}}
-          </mat-error>
-        </mat-form-field>
-
-        <mat-form-field class="form-group col-md-4 p-1">
-          <mat-label>Logradouro</mat-label>
-          <input matInput type="text" class="form-control" formControlName="logradouro"
-            [ngClass]="fieldValidator(ctrF.logradouro)" readonly>
-          <mat-error class="invalid-feedback">
-            {{messageReturned(ctrF.logradouro, "")}}
-          </mat-error>
-        </mat-form-field>
-
-        <mat-form-field class="form-group col-md-1 p-1">
-          <mat-label>Numero</mat-label>
-          <input matInput type="text" class="form-control" formControlName="numero"
-            [ngClass]="fieldValidator(ctrF.numero)" readonly>
-          <mat-error class="invalid-feedback">
-            {{messageReturned(ctrF.numero, "")}}
-          </mat-error>
-        </mat-form-field>
-
-        <mat-form-field class="form-group col-md-3 p-1">
-          <mat-label>Complemento</mat-label>
-          <input matInput type="text" class="form-control" formControlName="complemento"
-            [ngClass]="fieldValidator(ctrF.complemento)" readonly>
-          <mat-error class="invalid-feedback">
-            {{messageReturned(ctrF.complemento, "")}}
-          </mat-error>
-        </mat-form-field>
-
-      </div>
-
-      <div class="form-row d-md-flex" *ngIf="this.CNPJOk">
-
-        <mat-form-field class="form-group col-md-4 p-1">
-          <mat-label>Bairro</mat-label>
-          <input matInput type="text" class="form-control" formControlName="bairro"
-            [ngClass]="fieldValidator(ctrF.bairro)" readonly>
-          <mat-error class="invalid-feedback">
-            {{messageReturned(ctrF.bairro, "")}}
-          </mat-error>
-        </mat-form-field>
-
-        <mat-form-field class="form-group col-md-4 p-1">
-          <mat-label>Cidade</mat-label>
-          <input matInput type="text" class="form-control" formControlName="cidade" [ngClass]="fieldValidator(ctrF.cidade)"
-            readonly>
-          <mat-error class="invalid-feedback">
-            {{messageReturned(ctrF.cidade, "")}}
-          </mat-error>
-        </mat-form-field>
-
-        <mat-form-field class="form-group col-md-1 p-1">
-          <mat-label>UF:</mat-label>
-          <input matInput type="text" class="form-control" formControlName="siglaEstado" [ngClass]="fieldValidator(ctrF.siglaEstado)"
-            readonly>
-          <mat-error class="invalid-feedback">
-            {{messageReturned(ctrF.siglaEstado, "")}}
-          </mat-error>
-        </mat-form-field>
-
-        <mat-form-field class="form-group col-md-3 p-1">
-          <mat-label>Estado</mat-label>
-          <input matInput type="text" class="form-control" formControlName="estado" [ngClass]="fieldValidator(ctrF.estado)"
-            readonly>
-          <mat-error class="invalid-feedback">
-            {{messageReturned(ctrF.estado, "")}}
-          </mat-error>
-        </mat-form-field>
-      </div>
-
-      <div class="form-row d-md-flex" *ngIf="this.CNPJOk">
-        <mat-form-field class="form-group col-md-1 p-1">
-          <mat-label>Sigla País</mat-label>
-          <input matInput type="text" class="form-control" formControlName="siglaPaisIso3" [ngClass]="fieldValidator(ctrF.siglaPaisIso3)"
-            readonly>
-          <mat-error class="invalid-feedback">
-            {{messageReturned(ctrF.siglaPaisIso3, "")}}
-          </mat-error>
-        </mat-form-field>
-
-        <mat-form-field class="form-group col-md-2 p-1">
-          <mat-label>País</mat-label>
-          <input matInput type="text" class="form-control" formControlName="nomePais"
-            [ngClass]="fieldValidator(ctrF.nomePais)" readonly>
-          <mat-error class="invalid-feedback">
-            {{messageReturned(ctrF.nomePais, "")}}
-          </mat-error>
-        </mat-form-field>
-
-        <mat-form-field class="form-group col-md-1 p-1">
-          <mat-label>DDD</mat-label>
-          <input matInput type="text" class="form-control" formControlName="ddd"
-            [ngClass]="fieldValidator(ctrF.ddd)" readonly>
-          <mat-error class="invalid-feedback">
-            {{messageReturned(ctrF.ddd, "")}}
-          </mat-error>
-        </mat-form-field>
-
-        <mat-form-field class="form-group col-md-2 p-1">
-          <mat-label>Telefone</mat-label>
-          <input matInput type="text" class="form-control" formControlName="telefone" [ngClass]="fieldValidator(ctrF.telefone)" readonly>
-          <mat-error class="invalid-feedback">
-            {{messageReturned(ctrF.telefone, "")}}
-          </mat-error>
-        </mat-form-field>
-
-        <mat-form-field class="form-group col-md-3 p-1">
-          <mat-label>e-mail</mat-label>
-          <input matInput type="text" class="form-control" formControlName="email" [ngClass]="fieldValidator(ctrF.email)"
-            readonly>
-          <mat-error class="invalid-feedback">
-            {{messageReturned(ctrF.email, "")}}
-          </mat-error>
-        </mat-form-field>
-
-        <mat-form-field class="form-group col-md-3 p-1">
-          <mat-label>Porte</mat-label>
-          <input matInput type="text" class="form-control" formControlName="porteEmpresa" [ngClass]="fieldValidator(ctrF.porteEmpresa)"
-            readonly>
-          <mat-error class="invalid-feedback">
-            {{messageReturned(ctrF.porteEmpresa, "")}}
-          </mat-error>
-        </mat-form-field>
-      </div>
-
-    </form>
-  </div>
-  <div class="card-footer bg-info  ">
-    <div class="d-flex ">
-      <button class="btn btn-danger ms-auto mx-1" (click)="clearForm()">
-        Cancelar
-      </button>
-      <button class="btn btn-primary mx-1 px-4" [disabled]="!formDetail.valid" (click)="saveChange()">
-        {{editMode ? "Salvar" : "Criar"}}
-      </button>
     </div>
+
+    <div class="card-footer bg-info mt-1 ">
+      <div class="d-flex ">
+        <button class="btn btn-danger ms-auto mx-1" (click)="clearForm()">
+          Cancelar
+        </button>
+        <button class="btn btn-primary mx-1 px-4" [disabled]="!formDetail.valid" (click)="saveChange()">
+          {{editMode ? "Salvar" : "Criar"}}
+        </button>
+      </div>
+    </div>
+
   </div>
-</div>
+
+</form>
 
 <!--
 <p>Form Value: {{formDetail.value | json}}</p>
 <p>Form Status: {{formDetail.status | json}}</p>
 -->
-
-<ngx-spinner type="ball-scale-multiple"
-bdColor="rgba(51,51,51,0.8)"
-size="medium"
-color="blue"
->
-<p style="font-size:20px; color: white;">Carregando...</p>
+<ngx-spinner type="ball-scale-multiple" bdColor="rgba(51,51,51,0.8)" size="medium" color="blue">
+  <p style="font-size:20px; color: white;">Carregando...</p>
 </ngx-spinner>
 

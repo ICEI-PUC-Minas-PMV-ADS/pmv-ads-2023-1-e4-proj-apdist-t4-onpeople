@@ -64,66 +64,68 @@ namespace OnPeople.Persistence.Interfaces.Contexts
 
             modelBuilder.Entity<Departamento>(departamento =>
                 {
+                    departamento.HasMany(d => d.Cargos);
+
                     departamento.HasIndex(d => d.EmpresaId);
 
-                    departamento.HasMany(c => c.Cargos);
+                    departamento.HasIndex(d => d.Ativo);
 
-                    departamento.HasIndex(e => e.Ativo);
+                    departamento.HasIndex(d => d.DiretorId);
 
-                    departamento.HasIndex(e => e.DiretorId);
+                    departamento.HasIndex(d => d.GerenteId);
 
-                    departamento.HasIndex(e => e.GerenteId);
-
-                    departamento.HasIndex(e => e.SupervisorId);
+                    departamento.HasIndex(d => d.SupervisorId);
                 } 
-
             
             );
 
             modelBuilder.Entity<Cargo>(cargo =>
                 {
+                    cargo.HasMany(c => c.Funcionarios);
+
                     cargo.HasIndex(c => c.DepartamentoId);
 
                     cargo.HasIndex(c => c.EmpresaId);
 
-                    cargo.HasMany(f => f.Funcionarios);
-
-                    cargo.HasIndex(e => e.Ativo);
+                    cargo.HasIndex(c => c.Ativo);
                 } 
             
             );
 
             modelBuilder.Entity<Funcionario>(funcionario =>
                 {
-                    funcionario.HasOne(f => f.Cargos);
-
-                    funcionario.HasOne(f => f.Departamentos);
-
-                    funcionario.HasOne(f => f.Empresas);
+                    funcionario.HasOne(u => u.Users);
                     
-                    funcionario.HasOne(f => f.Users);
-
                     funcionario.HasMany(f => f.DadosPessoais);
 
                     funcionario.HasMany(f => f.Enderecos);
 
                     funcionario.HasMany(f => f.FuncionariosMetas);
 
+
+                    funcionario.HasIndex(f => f.CargoId);
+
+                    funcionario.HasIndex(f => f.DepartamentoId);
+
+                    funcionario.HasIndex(f => f.EmpresaId);
+                    
+                    funcionario.HasIndex(f => f.UserId);
+
                     funcionario.HasIndex(e => e.Ativo);
                 } 
             );
 
-            // modelBuilder.Entity<DadoPessoal>(dadoPessoal =>
-            //     {
-            //         dadoPessoal.HasOne(dp => dp.Funcionarios);
-            //     } 
-            // );
+            modelBuilder.Entity<DadoPessoal>(dadoPessoal =>
+                 {
+                     dadoPessoal.HasIndex(dp => dp.FuncionarioId);
+                 } 
+             );
 
-            // modelBuilder.Entity<Endereco>(endereco =>
-            //     {
-            //         endereco.HasOne(e => e.Funcionarios);
-            //     } 
-            // );
+            modelBuilder.Entity<Endereco>(endereco =>
+                 {
+                     endereco.HasIndex(e => e.FuncionarioId);
+                 } 
+             );
 
             modelBuilder.Entity<Meta>(meta =>
                 {

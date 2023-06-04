@@ -2,10 +2,12 @@ using AutoMapper;
 using OnPeople.Application.Dtos.Cargos;
 using OnPeople.Application.Dtos.Departamentos;
 using OnPeople.Application.Dtos.Empresas;
+using OnPeople.Application.Dtos.Funcionarios;
 using OnPeople.Application.Dtos.Users;
 using OnPeople.Domain.Models.Cargos;
 using OnPeople.Domain.Models.Departamentos;
 using OnPeople.Domain.Models.Empresas;
+using OnPeople.Domain.Models.Funcionarios;
 using OnPeople.Domain.Models.Users;
 
 namespace OnPeople.Application.Configuration.AutoMapperProfile
@@ -23,7 +25,14 @@ namespace OnPeople.Application.Configuration.AutoMapperProfile
             CreateMap<Departamento, DepartamentoDto>().ReverseMap();
             
             CreateMap<Cargo, CargoDto>().ReverseMap();
-            
+
+            CreateMap<Funcionario, ReadFuncionarioDto>().ReverseMap();
+            CreateMap<Funcionario, UpdateFuncionarioDto>().ReverseMap();
+            CreateMap<Funcionario, CreateFuncionarioDto>().ReverseMap();
+
+            CreateMap<Endereco, EnderecoDto>().ReverseMap();
+
+            CreateMap<DadoPessoal, DadoPessoalDto>().ReverseMap();
         }
     }
 }

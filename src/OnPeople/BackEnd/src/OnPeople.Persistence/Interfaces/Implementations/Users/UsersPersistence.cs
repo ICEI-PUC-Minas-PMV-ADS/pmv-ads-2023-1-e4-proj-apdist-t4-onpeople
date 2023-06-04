@@ -56,5 +56,17 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Users
             return await query.SingleOrDefaultAsync();
         }
         
+                
+        public async Task<IEnumerable<User>> GetAllUsersNovosAsync()
+        {
+            IQueryable<User> query = _context.Users;
+
+            query = query
+                .AsNoTracking()
+                .Where(u => u.CodEmpresa == 0 && u.UserName != "Admin")
+                .OrderBy(u => u.Id);
+
+            return await query.ToListAsync();
+        }
     }
 }

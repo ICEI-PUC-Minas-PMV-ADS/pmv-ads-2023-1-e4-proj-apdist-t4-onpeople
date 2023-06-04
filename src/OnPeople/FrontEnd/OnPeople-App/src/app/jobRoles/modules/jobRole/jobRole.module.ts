@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -29,6 +30,7 @@ import { FilterPipeModule } from 'ngx-filter-pipe';
     MatIconModule,
     MatInputModule,
     MatSelectModule,
+    MatToolbarModule,
     NgbCollapseModule,
     NgbPaginationModule,
     NgbTooltipModule,
