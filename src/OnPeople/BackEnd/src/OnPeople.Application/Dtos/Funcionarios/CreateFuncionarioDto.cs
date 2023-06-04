@@ -14,9 +14,9 @@ namespace OnPeople.Application.Dtos.Funcionarios
     public class CreateFuncionarioDto
     {
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
-        public DateTime DataAdmissao { get; set; }
-        [Required(ErrorMessage = "O campo {0} é obrigatório")]
-        public DateTime DataDemissao { get; set; }
+        public string DataAdmissao { get; set; }
+        public string NomeCompleto { get; set; }
+        public string DataDemissao { get; set; }
         public Boolean Ativo { get; set; }
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public int UserId { get; set; }
@@ -26,7 +26,6 @@ namespace OnPeople.Application.Dtos.Funcionarios
         public int CargoId { get; set; }
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public int EmpresaId { get; set; }
-        [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public int Funcao { get; set; }
         public IEnumerable<DadoPessoal> DadosPessoais { get; set; }
         public IEnumerable<Endereco> Enderecos { get; set; }

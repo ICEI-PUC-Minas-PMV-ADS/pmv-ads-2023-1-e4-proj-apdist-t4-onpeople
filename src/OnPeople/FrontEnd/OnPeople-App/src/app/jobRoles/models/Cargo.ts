@@ -1,5 +1,7 @@
 import { Empresa } from "src/app/companies/models";
 import { Departamento } from "src/app/departments/models";
+import { Funcionario } from "src/app/employees/models/Funcionario";
+
 
 export interface Cargo {
   id: number;
@@ -11,5 +13,5 @@ export interface Cargo {
   departamento: Departamento;
   empresaId: number;
   empresa: Empresa;
-//  funcionarios: Funcionario[];
+  funcionarios: Funcionario[];
 }

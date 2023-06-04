@@ -8,7 +8,7 @@ namespace OnPeople.Persistence.Interfaces.Contracts.Cargos
 {
     public interface ICargosPersistence : ISharedPersistence
     {
-        Task<PageList<Cargo>> GetAllCargosAsync(PageParameters pageParameters, int empresaId, int departamento);
+        Task<PageList<Cargo>> GetAllCargosAsync(PageParameters pageParameters, int empresaId, int departamentoIc);
         Task<Cargo> GetCargoByIdAsync(int cargoId);
         Task<IEnumerable<Cargo>> GetCargosByDepartamentoIdAsync(int departamentoId);
         DashboardCargos GetDashboard(int empresaId, int departamentoId, int cargoId);

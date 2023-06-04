@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace OnPeople.Persistence.Migrations
 {
-    public partial class EFInitial : Migration
+    public partial class InitialAddIdentity : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -82,7 +82,7 @@ namespace OnPeople.Persistence.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Telefone = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Email = table.Column<string>(type: "longtext", nullable: true)
+                    EmailEmpresa = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     AtividadePrincipal = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -241,7 +241,7 @@ namespace OnPeople.Persistence.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     NomeMeta = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    descricao = table.Column<string>(type: "longtext", nullable: true)
+                    Descricao = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     MetaCumprida = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     MetaAprovada = table.Column<bool>(type: "tinyint(1)", nullable: false),
@@ -390,6 +390,12 @@ namespace OnPeople.Persistence.Migrations
                         principalTable: "Departamentos",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Cargos_Empresas_EmpresaId",
+                        column: x => x.EmpresaId,
+                        principalTable: "Empresas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -449,7 +455,7 @@ namespace OnPeople.Persistence.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     TituloEleitor = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    ImpedimentoEleitora = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    ImpedimentoEleitoral = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     Identidade = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     DataExpedicao = table.Column<string>(type: "longtext", nullable: true)
@@ -462,7 +468,8 @@ namespace OnPeople.Persistence.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     PisPasep = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    DataExpedicaoCarteiraTrabalho = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    DataExpedicaoCarteiraTrabalho = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     FuncionarioId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

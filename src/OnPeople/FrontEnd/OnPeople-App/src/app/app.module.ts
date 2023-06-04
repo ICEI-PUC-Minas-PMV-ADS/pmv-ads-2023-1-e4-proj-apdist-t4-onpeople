@@ -12,7 +12,7 @@ import { DepartmentModule } from "./departments/modules";
 import { UsersAccountModule } from "./users/modules";
 import { DashboardModule } from "./dashboards/modules";
 import { JobRoleModule } from "./jobRoles/modules";
-
+import { EmployeeModule } from "./employees/modules";
 
 defineLocale('pt-br', ptBrLocale);
 
@@ -25,6 +25,7 @@ defineLocale('pt-br', ptBrLocale);
     CompanyModule,
     DashboardModule,
     DepartmentModule,
+    EmployeeModule,
     JobRoleModule,
     NavbarModule,
     UsersAccountModule,

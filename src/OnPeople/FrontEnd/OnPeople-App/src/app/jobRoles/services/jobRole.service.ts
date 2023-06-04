@@ -48,6 +48,12 @@ constructor(private http: HttpClient) { }
     .pipe(take(3));
   }
 
+  public getJobRoleByDepartmentId(departmentId: number): Observable<Cargo[]> {
+    console.log("URL: " + `${this.baseURL}${departmentId}/cargos`)
+    return this.http.get<Cargo[]>(`${this.baseURL}${departmentId}/cargos`)
+    .pipe(take(3));
+  }
+
   public createJobRole(cargo: Cargo): Observable<Cargo> {
     return this.http.post<Cargo>(this.baseURL, cargo)
     .pipe(take(3));

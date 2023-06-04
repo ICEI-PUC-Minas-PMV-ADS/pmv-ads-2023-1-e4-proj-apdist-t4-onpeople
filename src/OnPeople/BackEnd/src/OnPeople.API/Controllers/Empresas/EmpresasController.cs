@@ -23,9 +23,9 @@ public class EmpresasController : ControllerBase
     private readonly IEmpresasServices _empresasServices;
     private readonly IUploadService _uploadService;
     private readonly IUsersServices _usersServices;
-    private readonly HttpClient _httpClient = new HttpClient();
-    private EmpresaCnpjDto _empresaCnpjDto = new EmpresaCnpjDto();
-    private readonly EmpresaDto _empresaDto = new EmpresaDto();
+    private readonly HttpClient _httpClient = new();
+    private EmpresaCnpjDto _empresaCnpjDto = new();
+    private readonly EmpresaDto _empresaDto = new();
 
     public EmpresasController(
         IEmpresasServices empresasServices,
@@ -259,7 +259,7 @@ public class EmpresasController : ControllerBase
 
             if (empresaDto.Id != empresaId)
                 return Unauthorized();
-
+        
             var empresa  = await _empresasServices.UpdateEmpresa(empresaId, empresaDto);
 
             if (empresa == null) return NoContent();
@@ -380,7 +380,7 @@ public class EmpresasController : ControllerBase
                 _empresaDto.CEP = _empresaCnpjDto.estabelecimento.cep;
                 _empresaDto.DDD = _empresaCnpjDto.estabelecimento.ddd1;
                 _empresaDto.Telefone = _empresaCnpjDto.estabelecimento.tekefine1;
-                _empresaDto.Email = _empresaCnpjDto.estabelecimento.email;
+                _empresaDto.EmailEmpresa = _empresaCnpjDto.estabelecimento.email;
                 _empresaDto.AtividadePrincipal = _empresaCnpjDto.estabelecimento.atividade_principal.descricao;
                 _empresaDto.PaisId = _empresaCnpjDto.estabelecimento.pais.id;
                 _empresaDto.SiglaPaisIso2 = _empresaCnpjDto.estabelecimento.pais.iso2;

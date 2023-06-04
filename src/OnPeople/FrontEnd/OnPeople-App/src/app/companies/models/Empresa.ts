@@ -1,5 +1,6 @@
 import { Departamento } from "src/app/departments/models";
 import { EmpresaConta } from "./EmpresaConta";
+import { Cargo } from "src/app/jobRoles/models";
 
 
 export interface Empresa {
@@ -25,7 +26,7 @@ export interface Empresa {
   cep: string;
   ddd: string;
   telefone: string;
-  email: string;
+  emailEmpresa: string;
   atividadePrincipal: string;
   siglaPaisIso3: string;
   siglaPaisIso2: string;
@@ -43,4 +44,5 @@ export interface Empresa {
   cidadeIbgeId: number;
   cidadeSiafiId: string;
   departamentos: Departamento[];
+  cargos: Cargo[];
 }

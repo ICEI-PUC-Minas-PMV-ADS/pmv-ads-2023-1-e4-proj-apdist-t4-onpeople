@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -10,8 +11,6 @@ import { NgbCollapseModule, NgbPaginationModule, NgbTooltipModule } from '@ng-bo
 import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { AppRoutingModule } from 'src/app/app-routing.module';
-
-
 
 import { TitlebarModule } from 'src/app/shared/modules';
 import { DepartmentService } from '../../services';
@@ -28,6 +27,7 @@ import { DepartmentComponent, DepartmentDetailComponent, DepartmentListComponent
     MatIconModule,
     MatInputModule,
     MatSelectModule,
+    MatToolbarModule,
     NgbCollapseModule,
     NgbPaginationModule,
     NgbTooltipModule,

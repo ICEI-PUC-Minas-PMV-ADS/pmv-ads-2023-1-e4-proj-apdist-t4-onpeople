@@ -2,8 +2,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { NgSelectConfig } from '@ng-select/ng-select';
-
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
@@ -52,18 +50,15 @@ export class JobRoleDetailComponent implements OnInit {
   constructor(
     private activevateRouter: ActivatedRoute,
     private companyService: CompanyService,
-    private config: NgSelectConfig,
     private departmentService: DepartmentService,
     private formBuilder: FormBuilder,
     private jobRoleService: JobRoleService,
     private localService: BsLocaleService,
     private router: Router,
     private spinnerService: NgxSpinnerService,
-    private toastrService: ToastrService,) {
+    private toastrService: ToastrService,
+  ) {
       this.localService.use('pt-br');
-      this.config.notFoundText = 'Custom not found';
-      this.config.appendTo = 'body';
-      this.config.bindValue = 'value';
     }
 
   ngOnInit() {
@@ -76,7 +71,6 @@ export class JobRoleDetailComponent implements OnInit {
       this.getJobRole();
     else {
       this.getCompanies();
-      this.getDepartments();
     }
   }
 
@@ -87,7 +81,7 @@ export class JobRoleDetailComponent implements OnInit {
       cnpj: [''],
       sigla: [''],
       nomeCargo: ['', [ Validators.required, Validators.minLength(4), Validators.maxLength(200)]],
-      ativo: ["true",  [ Validators.required,]],
+      ativo: [true,  [ Validators.required,]],
       dataCriacao: [new Date().toString()],
       dataEncerramento: []
     });
@@ -95,7 +89,6 @@ export class JobRoleDetailComponent implements OnInit {
 
   public changeSelectCompany(): void {
     this.spinnerService.show()
-    console.log(this.selectCompanyId)
     var id: number = 0;
 
     if (this.selectCompanyId != null)
@@ -105,18 +98,19 @@ export class JobRoleDetailComponent implements OnInit {
       .getCompanyById(id)
       .subscribe(
         (company: Empresa) => {
-          this.company = { ...company }
+          this.company = company
+          this.departments = company.departamentos
+          this.selectDepartmentId = this.departments[0].id
           this.formDetail.patchValue(this.company)
-          console.log("changeSelectCompany", this.company)
+          this.formDetail.patchValue(this.departments[0])
           this.logoURL = (this.company.logotipo !== 'Image_not_available.png')
           ? `${environment.resourcesLogosURL}${this.company.logotipo}`
             : `../../../../assets/img/${this.company.logotipo}`;
-          this.getDepartmentsByCompanyId();
         },
         (error: any) => {
           this.logoURL = "../../../../assets/img/Image_not_available.png";
           this.toastrService.error(error.error, `Erro! Status ${error.status}`)
-          console.log(error)
+          console.error(error)
         }
       )
       .add(() => this.spinnerService.hide());
@@ -124,23 +118,17 @@ export class JobRoleDetailComponent implements OnInit {
 
   public changeSelectDepartment(): void {
     this.spinnerService.show()
-    var id: number = 0;
 
-    if (this.selectDepartmentId != null)
-      id = this.selectDepartmentId
-
-    console.log("selectDepartmentId",this.selectDepartmentId, id, this.selectCompanyId)
     this.departmentService
-      .getDepartmentById(id)
+      .getDepartmentById(this.selectDepartmentId)
       .subscribe(
         (department: Departamento) => {
-          this.department = { ...department }
+          this.department = department
           this.formDetail.patchValue(this.department)
-          console.log("changeSelectDepartment", this.department)
         },
         (error: any) => {
           this.toastrService.error(error.error, `Erro! Status ${error.status}`)
-          console.log(error)
+          console.error(error)
         }
       )
       .add(() => this.spinnerService.hide());
@@ -154,10 +142,15 @@ export class JobRoleDetailComponent implements OnInit {
       .subscribe(
         (companies: PaginatedResult<Empresa[]>) => {
           this.companies = companies.result.filter(c => c.departamentos.length > 0);
-          console.log('Companies', this.companies)
-          this.selectCompanyId = this.companies[0].id;
+          console.log("Companies", this.companies)
+          this.company = this.companies[0];
+          this.selectCompanyId = this.company.id;
+          this.selectDepartmentId = this.company.departamentos[0].id;
           this.formDetail.patchValue(this.companies[0]);
-          this.changeSelectCompany();
+          this.logoURL = (this.companies[0].logotipo !== 'Image_not_available.png')
+            ? `${environment.resourcesLogosURL}${this.companies[0].logotipo}`
+            : `../../../../assets/img/${this.companies[0].logotipo}`;
+          this.getDepartmentsByCompanyId();
         },
         (error: any) => {
           this.toastrService.error(error.error, `Erro! Status ${error.status}`)
@@ -165,25 +158,6 @@ export class JobRoleDetailComponent implements OnInit {
       )
       .add(() => this.spinnerService.hide());
   }
-
-  public getDepartments(): void {
-    this.spinnerService.show();
-
-    this.departmentService
-      .getDepartments(environment.initialPageDefault, environment.totalPagesDefault)
-      .subscribe(
-        (departments: PaginatedResult<Departamento[]>) => {
-          this.departments = departments.result;
-          this.selectDepartmentId = this.departments[0].id
-          console.log('departments', this.departments)
-          this.changeSelectDepartment();
-        },
-        (error: any) => {
-          this.toastrService.error(error.error, `Erro! Status ${error.status}`)
-        }
-      )
-      .add(() => this.spinnerService.hide());
-    }
 
   public getDepartmentsByCompanyId(): void {
     this.spinnerService.show();
@@ -193,16 +167,14 @@ export class JobRoleDetailComponent implements OnInit {
       .subscribe(
         (departments: Departamento[]) => {
           this.departments = departments;
-          console.log('Departments Id', departments);
+          this.department = this.departments[0];
+
           if (this.departments.length == 0) {
-            console.log("null")
             this.ctrF.set.nomeCargo.value = null;
             this.ctrF.sigla.set.value = null;
           } else {
-            console.log("not null")
-            this.formDetail.patchValue(this.departments[0]);
-            this.selectDepartmentId = this.departments[0].id;
-            this.changeSelectDepartment();
+            this.formDetail.patchValue(this.department);
+            this.selectDepartmentId = this.department.id;
           }
         },
        (error: any) => {
@@ -237,12 +209,9 @@ export class JobRoleDetailComponent implements OnInit {
   }
 
   public createJobRole(): void {
-    console.log("Create", this.jobRole)
     this.jobRole = { ...this.formDetail.value };
     this.jobRole.empresaId = this.selectCompanyId;
     this.jobRole.departamentoId = this.selectDepartmentId;
-
-    console.log("Create", this.jobRole)
 
     this.jobRoleService
       .createJobRole(this.jobRole)
@@ -264,7 +233,6 @@ export class JobRoleDetailComponent implements OnInit {
     this.jobRole = { id: this.jobRole.id, ...this.formDetail.value };
     this.jobRole.empresaId = this.selectCompanyId;
     this.jobRole.departamentoId = this.selectDepartmentId;
-    console.log("update", this.jobRole, "form", this.ctrF.ativo.value)
 
     this.jobRoleService
       .saveJobRole(this.jobRole.id, this.jobRole)
@@ -292,19 +260,18 @@ export class JobRoleDetailComponent implements OnInit {
       .subscribe(
         (jobRole: Cargo) => {
           this.jobRole = { ...jobRole }
-          console.log("Carog Recuperado", jobRole)
           this.department = jobRole.departamento
+          this.departments[0] = jobRole.departamento
           this.company = jobRole.empresa
           this.companies[0] = jobRole.empresa
-          this.departments[0] = jobRole.departamento
           this.selectCompanyId = this.companies[0].id
           this.selectDepartmentId = this.departments[0].id
           this.formDetail.patchValue(this.jobRole)
+          this.formDetail.patchValue(this.company)
+          this.formDetail.patchValue(this.department)
           this.logoURL = (this.company.logotipo !== 'Image_not_available.png')
             ? `${environment.resourcesLogosURL}${this.company.logotipo}`
             : `../../../../assets/img/${this.company.logotipo}`;
-          this.changeSelectCompany();
-          this.changeSelectDepartment();
         },
         (error: any) => {
           this.toastrService.error(error.error, `Erro! status ${error.status}`)

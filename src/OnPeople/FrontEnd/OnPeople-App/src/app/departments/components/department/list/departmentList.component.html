@@ -1,69 +1,64 @@
 <div class="card rounded shadow-sm p-2 mt-1 bg-white">
   <div class="d-flex">
-    <div class="flex-fill pr-3">
-      <div class="input-group mb-1">
-        <div class="input-group-prepend">
-          <label class="input-group-text bg-info text-white">Filtro: </label>
-        </div>
-        <input
-          type="text"
-          class="form-control mr-2"
-          placeholder="argumento"
-          (input)="departmentFilter($event.target)">
+
+    <mat-toolbar class="bg-info">
+      <div class="flex-fill pr-3 my-1">
+        <div class="input-group ">
+          <div class="input-group-prepend">
+            <label class="input-group-text bg-info text-white">Filtro: </label>
+          </div>
+          <input type="text" class="form-control mr-2" placeholder="argumento" (input)="departmentFilter($event.target)">
         </div>
       </div>
-      <div>
-        <a class="d-flex btn btn-outline-info px-3 mx-2" ngbTooltip="Novo Departamento" routerLink="/departamentos/detail">
-          <mat-icon>addd</mat-icon>
-        </a>
-      </div>
-    </div>
-    <table class="table table-striped table-hover">
-      <thead class="table-info">
-        <tr>
-          <th class="d-none d-md-table-cell">
-            <button class="btn btn-outline-light btn-sm d-flex justify-center" (click)="changeImageState()">
-              <mat-icon>{{toggleImage ? 'visibility' : 'visibility_off'}}</mat-icon>
-              <div class="ms-2">
-                {{toggleImage ? "Ocultar" : "Mostrar"}}
-              </div>
-            </button>
-          </th>
-          <th >#Empresa</th>
-          <th >Nome Empresa</th>
-          <th class="d-none d-md-table-cell" >#Depto</th>
-          <th >Nome Departamento<mat-icon class="pt-1">filter_alt</mat-icon></th>
-          <th class="d-none d-md-table-cell" >Sigla<mat-icon class="pt-1">filter_alt</mat-icon></th>
-          <th class="d-none d-md-table-cell" >Ativo</th>
-          <th >Opções</th>
-        </tr>
-      </thead>
-      <tbody *ngIf="departments && departments.length">
-        <tr *ngFor="let department of departments" (click)="departmentDetail(department.id)" >
-          <td class="d-none d-md-table-cell">
-            <img [src]="showBranch(this.department.empresa.logotipo)" alt="" [(ngbCollapse)]="!toggleImage">
-          </td>
-          <td>{{department.empresaId}}</td>
-          <td>{{department.empresa.razaoSocial}}</td>
-          <td class="d-none d-md-table-cell">{{department.id}}</td>
-          <td>{{department.nomeDepartamento}}</td>
-          <td>{{department.sigla}}</td>
-          <td class="d-none d-md-table-cell" >{{department.ativo }} </td>
-          <td>
-            <div class="btn-group">
-              <button type="button" class="btn btn-outline-danger" ngbTooltip="Excluir" (click)="openModal($event, template, department.id, department.nomeDepartamento)">
-                <mat-icon>delete</mat-icon>
-              </button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-      <tfoot>
-        <td *ngIf="!departments.length" colspan="8" class="text-center">
-          <h4>Nenhum departamento encontrado!</h4>
+      <button mat-icon-button class="d-flex btn btn-outline-info px-2 mx-2 mt-0 text-white" routerLink="/departamentos/detail">
+        <mat-icon class="matIcon" ngbTooltip="Nova Empresa">addd</mat-icon>
+      </button>
+    </mat-toolbar>
+
+  </div>
+  <table class="table table-striped table-hover mt-1">
+    <thead class="table-info">
+      <tr>
+        <th class="d-none d-md-table-cell d-flex justify-center">
+          <a class="text-white" (click)="changeImageState()">
+            <mat-icon>{{toggleImage ? 'visibility' : 'visibility_off'}}</mat-icon>
+          </a>
+        </th>
+        <th >#Empresa</th>
+        <th >Nome Empresa</th>
+        <th class="d-none d-md-table-cell" >#Depto</th>
+        <th >Nome Departamento<mat-icon class="pt-1">filter_alt</mat-icon></th>
+        <th class="d-none d-md-table-cell" >Sigla<mat-icon class="pt-1">filter_alt</mat-icon></th>
+        <th class="d-none d-md-table-cell" >Ativo</th>
+        <th >Opções</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="departments && departments.length">
+      <tr *ngFor="let department of departments" (click)="departmentDetail(department.id)" >
+        <td class="d-none d-md-table-cell">
+          <img [src]="showBranch(this.department.empresa.logotipo)" alt="" [(ngbCollapse)]="!toggleImage">
         </td>
-      </tfoot>
-    </table>
+        <td>{{department.empresaId}}</td>
+        <td>{{department.empresa.razaoSocial}}</td>
+        <td class="d-none d-md-table-cell">{{department.id}}</td>
+        <td>{{department.nomeDepartamento}}</td>
+        <td>{{department.sigla}}</td>
+        <td class="d-none d-md-table-cell" >{{department.ativo }} </td>
+        <td>
+          <div class="btn-group">
+            <button type="button" class="btn btn-outline-danger" ngbTooltip="Excluir" (click)="openModal($event, template, department.id, department.nomeDepartamento)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <td *ngIf="!departments.length" colspan="8" class="text-center">
+        <h4>Nenhum departamento encontrado!</h4>
+      </td>
+    </tfoot>
+  </table>
   <div class="card-footer d-flex p-1 m-0 bg-info" *ngIf="departments.length">
     <div class="justify-content-center m-auto p-0 m-0 mt-3">
       <ngb-pagination

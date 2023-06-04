@@ -17,6 +17,6 @@ namespace OnPeople.Domain.Models.Funcionarios
         public string DataCriação { get; set; }
         public string DataUltimaAtualizacao { get; set; }
         public int FuncionarioId { get; set; }
-        //public Funcionario Funcionarios { get; set; }
+        public Funcionario Funcionario { get; set; }
     }
 }

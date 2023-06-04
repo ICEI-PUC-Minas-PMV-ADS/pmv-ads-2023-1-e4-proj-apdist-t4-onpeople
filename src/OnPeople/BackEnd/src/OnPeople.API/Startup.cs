@@ -113,7 +113,9 @@ namespace OnPeople.API
             services
                 .AddScoped<ICargosServices, CargosServices>()
                 .AddScoped<IDepartamentosServices, DepartamentosServices>()
+                .AddScoped<IDadosPessoaisServices, DadosPessoaisServices>()
                 .AddScoped<IEmpresasServices, EmpresasServices>()
+                .AddScoped<IEnderecosServices, EnderecosServices>()
                 .AddScoped<IFuncionarioMetaServices, FuncionarioMetaServices>()
                 .AddScoped<IFuncionariosServices, FuncionariosServices>()
                 .AddScoped<IMetasService, MetasService>()
@@ -124,7 +126,9 @@ namespace OnPeople.API
             services
                 .AddScoped<ICargosPersistence, CargosPersistence>()
                 .AddScoped<IDepartamentosPersistence, DepartamentosPersistence>()
+                .AddScoped<IDadosPessoaisPersistence, DadosPessoaisPersistence>()
                 .AddScoped<IEmpresasPersistence, EmpresasPersistence>()
+                .AddScoped<IEnderecosPersistence, EnderecosPersistence>()
                 .AddScoped<IFuncionariosPersistence, FuncionariosPersistence>()
                 .AddScoped<IFuncionarioMetaPersistence, FuncionarioMetaPersistence>()
                 .AddScoped<IMetaPersist, MetasPersist>()

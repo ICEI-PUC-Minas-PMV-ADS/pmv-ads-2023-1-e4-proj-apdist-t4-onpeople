@@ -231,7 +231,7 @@ namespace OnPeople.Persistence.Migrations
                     b.Property<string>("DataDesativacao")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Email")
+                    b.Property<string>("EmailEmpresa")
                         .HasColumnType("longtext");
 
                     b.Property<string>("Estado")
@@ -331,8 +331,8 @@ namespace OnPeople.Persistence.Migrations
                     b.Property<string>("DataExpedicao")
                         .HasColumnType("longtext");
 
-                    b.Property<DateTime>("DataExpedicaoCarteiraTrabalho")
-                        .HasColumnType("datetime(6)");
+                    b.Property<string>("DataExpedicaoCarteiraTrabalho")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("EstadoCivil")
                         .HasColumnType("longtext");
@@ -343,7 +343,7 @@ namespace OnPeople.Persistence.Migrations
                     b.Property<string>("Identidade")
                         .HasColumnType("longtext");
 
-                    b.Property<bool>("ImpedimentoEleitora")
+                    b.Property<bool>("ImpedimentoEleitoral")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("PisPasep")
@@ -444,7 +444,10 @@ namespace OnPeople.Persistence.Migrations
                     b.Property<int>("Funcao")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserId")
+                    b.Property<string>("NomeCompleto")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -507,6 +510,9 @@ namespace OnPeople.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<string>("Descricao")
+                        .HasColumnType("longtext");
+
                     b.Property<int>("DiasPlanejado")
                         .HasColumnType("int");
 
@@ -535,9 +541,6 @@ namespace OnPeople.Persistence.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("TipoMeta")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("descricao")
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
@@ -749,11 +752,21 @@ namespace OnPeople.Persistence.Migrations
 
             modelBuilder.Entity("OnPeople.Domain.Models.Cargos.Cargo", b =>
                 {
-                    b.HasOne("OnPeople.Domain.Models.Departamentos.Departamento", null)
+                    b.HasOne("OnPeople.Domain.Models.Departamentos.Departamento", "Departamento")
                         .WithMany("Cargos")
                         .HasForeignKey("DepartamentoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("OnPeople.Domain.Models.Empresas.Empresa", "Empresa")
+                        .WithMany("Cargos")
+                        .HasForeignKey("EmpresaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Departamento");
+
+                    b.Navigation("Empresa");
                 });
 
             modelBuilder.Entity("OnPeople.Domain.Models.Departamentos.Departamento", b =>
@@ -769,37 +782,41 @@ namespace OnPeople.Persistence.Migrations
 
             modelBuilder.Entity("OnPeople.Domain.Models.Funcionarios.DadoPessoal", b =>
                 {
-                    b.HasOne("OnPeople.Domain.Models.Funcionarios.Funcionario", null)
+                    b.HasOne("OnPeople.Domain.Models.Funcionarios.Funcionario", "Funcionario")
                         .WithMany("DadosPessoais")
                         .HasForeignKey("FuncionarioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Funcionario");
                 });
 
             modelBuilder.Entity("OnPeople.Domain.Models.Funcionarios.Endereco", b =>
                 {
-                    b.HasOne("OnPeople.Domain.Models.Funcionarios.Funcionario", null)
+                    b.HasOne("OnPeople.Domain.Models.Funcionarios.Funcionario", "Funcionario")
                         .WithMany("Enderecos")
                         .HasForeignKey("FuncionarioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Funcionario");
                 });
 
             modelBuilder.Entity("OnPeople.Domain.Models.Funcionarios.Funcionario", b =>
                 {
-                    b.HasOne("OnPeople.Domain.Models.Cargos.Cargo", "Cargos")
+                    b.HasOne("OnPeople.Domain.Models.Cargos.Cargo", "Cargo")
                         .WithMany("Funcionarios")
                         .HasForeignKey("CargoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("OnPeople.Domain.Models.Departamentos.Departamento", "Departamentos")
+                    b.HasOne("OnPeople.Domain.Models.Departamentos.Departamento", "Departamento")
                         .WithMany()
                         .HasForeignKey("DepartamentoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("OnPeople.Domain.Models.Empresas.Empresa", "Empresas")
+                    b.HasOne("OnPeople.Domain.Models.Empresas.Empresa", "Empresa")
                         .WithMany()
                         .HasForeignKey("EmpresaId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -807,13 +824,15 @@ namespace OnPeople.Persistence.Migrations
 
                     b.HasOne("OnPeople.Domain.Models.Users.User", "Users")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Cargos");
+                    b.Navigation("Cargo");
 
-                    b.Navigation("Departamentos");
+                    b.Navigation("Departamento");
 
-                    b.Navigation("Empresas");
+                    b.Navigation("Empresa");
 
                     b.Navigation("Users");
                 });
@@ -886,6 +905,8 @@ namespace OnPeople.Persistence.Migrations
 
             modelBuilder.Entity("OnPeople.Domain.Models.Empresas.Empresa", b =>
                 {
+                    b.Navigation("Cargos");
+
                     b.Navigation("Departamentos");
 
                     b.Navigation("Users");

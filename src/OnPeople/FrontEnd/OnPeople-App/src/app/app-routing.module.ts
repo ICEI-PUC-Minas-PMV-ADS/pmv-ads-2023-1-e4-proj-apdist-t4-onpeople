@@ -8,6 +8,7 @@ import { DashboardComponent, DashCompanyComponent } from './dashboards/component
 import { DepartmentComponent, DepartmentDetailComponent, DepartmentListComponent } from './departments/components';
 import { LoginComponent, ProfileComponent, RegisterComponent, UserComponent, } from './users/components';
 import { JobRoleComponent, JobRoleDetailComponent, JobRoleListComponent } from './jobRoles/components';
+import { EmployeeComponent, EmployeeDetailComponent, EmployeeListComponent } from './employees/components';
 
 const routes: Routes = [
   { path: '', redirectTo: 'users/profile', pathMatch: 'full' },
@@ -43,6 +44,15 @@ const routes: Routes = [
         { path: 'detail/:id', component: JobRoleDetailComponent },
         { path: 'detail', component: JobRoleDetailComponent },
         { path: 'list', component: JobRoleListComponent },
+      ]
+    },
+
+    { path: 'funcionarios', redirectTo: 'funcionarios/list', pathMatch: 'full' },
+    { path: 'funcionarios', component: EmployeeComponent,
+      children: [
+        { path: 'detail/:id', component: EmployeeDetailComponent },
+        { path: 'detail', component: EmployeeDetailComponent },
+        { path: 'list', component: EmployeeListComponent },
       ] },
 
     { path: 'dashboards', redirectTo: 'dashboards/empresa', pathMatch: 'full' },

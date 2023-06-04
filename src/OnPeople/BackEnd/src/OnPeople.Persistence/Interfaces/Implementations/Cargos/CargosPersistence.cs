@@ -12,7 +12,7 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Cargos
     public class CargosPersistence : SharedPersistence, ICargosPersistence
     {
         private readonly OnPeopleContext _context;
-        private readonly DashboardCargos _dashCargo = new DashboardCargos();
+        private readonly DashboardCargos _dashCargo = new();
 
         public CargosPersistence(OnPeopleContext context) : base(context)
         {
@@ -24,23 +24,19 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Cargos
             IQueryable<Cargo> query = _context.Cargos
                 .Include(c => c.Empresa)
                 .Include(c => c.Departamento)
-                .Include(c => c.Funcionarios);
+                .Include(c => c.Funcionarios)
+                .AsNoTracking()
+                .OrderBy(c => c.Id);
 
             if (empresaId == 0) {
                 query = query
-                    .AsNoTracking()
-                    .OrderBy(c => c.Id)
                     .Where(c => c.NomeCargo.ToLower().Contains(pageParameters.Term.ToLower()));
             } else if (departamentoId == 0) {
                 query = query
-                    .AsNoTracking()
-                    .OrderBy(c => c.Id)
                     .Where(c => c.EmpresaId == empresaId &&
                         c.NomeCargo.ToLower().Contains(pageParameters.Term.ToLower()));
             } else {
                 query = query
-                    .AsNoTracking()
-                    .OrderBy(c => c.Id)
                     .Where(c => c.EmpresaId == empresaId && c.DepartamentoId == departamentoId &&
                         c.NomeCargo.ToLower().Contains(pageParameters.Term.ToLower()));
             }

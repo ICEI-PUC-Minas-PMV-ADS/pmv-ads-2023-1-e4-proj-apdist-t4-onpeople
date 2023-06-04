@@ -13,5 +13,6 @@ namespace OnPeople.Application.Services.Contracts.Users
         Task<SignInResult> CheckUserPasswordAsync(UserUpdateDto userUpdateDto, string password);
         Task<bool> VerifyUserExistsAsync(string userName);
         Task<UserVisaoDto> GetVisaoByUserNameAsync(string userName);
+        Task<IEnumerable<UserDto>> GetAllUsersNovosAsync();
     }
 }

@@ -5,15 +5,15 @@ namespace OnPeople.Domain.Models.Funcionarios
         public int Id { get; set; }
         public string CPF { get; set; }
         public string TituloEleitor { get; set; }
-        public Boolean ImpedimentoEleitora { get; set; }
+        public Boolean ImpedimentoEleitoral { get; set; }
         public string Identidade { get; set; }
         public string DataExpedicao { get; set; }
         public string UfEmissao { get; set; }
-        public String EstadoCivil { get; set; }
+        public string EstadoCivil { get; set; }
         public string CarteiraTrabalho { get; set; }
-        public String PisPasep { get; set; }
-        public DateTime DataExpedicaoCarteiraTrabalho { get; set; }
+        public string PisPasep { get; set; }
+        public string DataExpedicaoCarteiraTrabalho { get; set; }
         public int FuncionarioId { get; set; }
-        //public Funcionario Funcionarios { get; set; }
+        public Funcionario Funcionario { get; set; }
     }
 }

@@ -99,7 +99,7 @@ public class CargosController : ControllerBase
     /// <response code="400">Parâmetros incorretos</response>
     /// <response code="500">Erro interno</response>
 
-    [HttpGet("{departamentoId}/departamento")]
+    [HttpGet("{departamentoId}/cargos")]
     public async Task<IActionResult> GetCargosByDepartamentoIdAsync(int departamentoId)
     {
         try

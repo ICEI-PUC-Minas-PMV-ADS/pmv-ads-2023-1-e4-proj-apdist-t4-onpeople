@@ -12,7 +12,7 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Empresas
     public class EmpresasPersistence : SharedPersistence, IEmpresasPersistence
     {
         private readonly OnPeopleContext _context;
-        private readonly DashboardEmpresa _dashEmpresa = new DashboardEmpresa();
+        private readonly DashboardEmpresa _dashEmpresa = new();
         public EmpresasPersistence(OnPeopleContext context) : base(context)
         {
             _context = context;
@@ -23,7 +23,8 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Empresas
             Console.WriteLine("-------------------------" + master);
             IQueryable<Empresa> query = _context.Empresas
                 .Include(e => e.Users)
-                .Include(e => e.Departamentos);
+                .Include(e => e.Departamentos)
+                .Include(e => e.Cargos);
 
             query = query
                 .AsNoTracking()

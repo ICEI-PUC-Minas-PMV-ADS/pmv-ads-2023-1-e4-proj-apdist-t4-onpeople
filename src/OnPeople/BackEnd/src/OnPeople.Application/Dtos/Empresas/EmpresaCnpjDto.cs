@@ -1,7 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-using OnPeople.Application.Dtos.Departamentos;
-using OnPeople.Domain.Models.Users;
-
 namespace OnPeople.Application.Dtos.Empresas
 {
     public class EmpresaCnpjDto

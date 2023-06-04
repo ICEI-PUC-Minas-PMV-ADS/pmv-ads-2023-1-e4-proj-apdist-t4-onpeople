@@ -6,7 +6,6 @@ import { map, Observable, take } from 'rxjs';
 import { environment } from 'src/assets/environments/environments';
 
 import { Empresa } from '../models';
-import { SetEmpresaActive } from '../models';
 
 import { PaginatedResult } from 'src/app/shared/models';
 import { DashboardCompany } from 'src/app/shared/models';

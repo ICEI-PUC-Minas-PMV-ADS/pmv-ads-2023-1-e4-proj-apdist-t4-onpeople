@@ -9,7 +9,7 @@ namespace OnPeople.Persistence.Interfaces.Contracts.Funcionarios
 {
     public interface IFuncionariosPersistence: ISharedPersistence
     {
-        Task<PageList<Funcionario>> GetAllFuncionariosAsync(PageParameters pageParameters);
+        Task<PageList<Funcionario>> GetAllFuncionariosAsync(PageParameters pageParameters, int empresaId, int departamentoId, int cargoId);
         Task<Funcionario> GetFuncionarioByIdAsync(int funcionarioId);
         
     }

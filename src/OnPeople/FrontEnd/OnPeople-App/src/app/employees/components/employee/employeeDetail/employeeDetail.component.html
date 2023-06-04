@@ -1,0 +1,312 @@
+<div class="card rounded shadow-sm p-1">
+
+  <div class="card-header text-center text-white bg-info">
+    <div class="h3">Formulário de Funcionários</div>
+  </div>
+
+  <div class="card-body p-0 mt-1">
+    <div class="row m-0 p-0">
+      <div Class="col-md-8">
+
+        <div class="h4 border-bottom ">Dados da Empresa: </div>
+
+        <div class="form-row d-md-flex">
+          <mat-form-field class="col-md-6 p-1" appearance="outline">
+            <mat-label class="text-success">Empresa</mat-label>
+            <mat-select [(ngModel)]="selectCompanyId" (selectionChange)="changeSelectCompany()"
+              placeholder="Selecione uma Empresa">
+              <mat-option class="text-success" *ngFor="let company of companies"
+                [value]="company.id">{{company.razaoSocial}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="col-md-6 p-1" appearance="outline">
+            <mat-label>CNPJ</mat-label>
+            <input matInput type="text" value="{{company.cnpj}}" readonly>
+          </mat-form-field>
+        </div>
+
+        <div class="h4 border-bottom">Dados do Departamento: </div>
+
+        <div class="form-row d-md-flex">
+          <mat-form-field class="col-md-6 p-1" appearance="outline">
+            <mat-label class="text-success">Departmaneto</mat-label>
+            <mat-select [(ngModel)]="selectDepartmentId" (selectionChange)="changeSelectDepartment()"
+              placeholder="Selecione uma Departamento">
+              <mat-option class="text-success" *ngFor="let department of departments" [value]="department.id">{{department.nomeDepartamento}} </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="col-md-6 p-1" appearance="outline">
+            <mat-label>Sigla</mat-label>
+            <input matInput type="text" value="{{department.sigla}}" readonly>
+          </mat-form-field>
+        </div>
+
+        <div class="h4 border-bottom">Dados do Cargo: </div>
+
+        <div class="form-row d-md-flex">
+          <mat-form-field class="col-md-6 p-1" appearance="outline">
+            <mat-label class="text-success">Cargo</mat-label>
+            <mat-select [(ngModel)]="selectJobRoleId" (selectionChange)="changeSelectJobRole()"
+              placeholder="Selecione um Cargo">
+              <mat-option class="text-success" *ngFor="let jobRole of jobRoles" [value]="jobRole.id">{{jobRole.nomeCargo}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+      </div>
+      <div class="col-md-4">
+
+        <div class="aligns-self-center text-center pt-1">
+          <img class="imageDetail" [src]="logoURL" alt="Card imagem upload imageDetail">
+        </div>
+
+
+      </div>
+    </div>
+
+    <form class="mt-1" [formGroup]="formDetail">
+
+        <div class="card-body p-0 mt-1">
+
+          <div class="row m-0 p-0">
+            <div>
+              <div class="h4 border-bottom ">Dados da conta: </div>
+              <mat-form-field class="col-md-3 p-1" appearance="outline">
+                <mat-label class="text-success">UserName</mat-label>
+                <mat-select class="text-success" [(ngModel)]="selectUserNameId" (selectionChange)="changeSelectUserName()" placeholder="Selecione uma Conta"
+                  formControlName="selectUserNameId" [ngClass]="fieldValidator(ctrF.selectUserNameId)">
+                  <mat-option *ngFor="let user of users" [value]="user.id">
+                    {{user.userName}}
+                  </mat-option>
+                </mat-select>
+                <mat-error class="invalid-feedback">
+                  {{messageReturned(ctrF.selectUserNameId, "")}}
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="col-md-5 p-1" appearance="outline" appearance="outline">
+                <mat-label >Nome Completo</mat-label>
+                <input matInput  type="text" formControlName="nomeCompleto"
+                  [ngClass]="fieldValidator(ctrF.nomeCompleto)" readonly>
+                <mat-error class="invalid-feedback">
+                  {{messageReturned(ctrF.nomeCompleto, "")}}
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="col-md-4 p-1" appearance="outline">
+                <mat-label >e-Mail</mat-label>
+                <input matInput type="text" formControlName="email"
+                  [ngClass]="fieldValidator(ctrF.email)" readonly>
+                <mat-error class="invalid-feedback">
+                  {{messageReturned(ctrF.email, "")}}
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="col-md-3 p-1" appearance="outline">
+                <mat-label class="text-success">Telefone</mat-label>
+                <input matInput class="text-success" type="text" formControlName="phoneNumber"
+                  [ngClass]="fieldValidator(ctrF.phoneNumber)" >
+                <mat-error class="invalid-feedback">
+                  {{messageReturned(ctrF.phoneNumber, "")}}
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="col-md-3 p-1" appearance="outline">
+                <mat-label >Visão</mat-label>
+                <mat-select [(ngModel)]="selectVisao" formControlName="selectVisao">
+                  <mat-option disabled value="Master">Gerencial</mat-option>
+                  <mat-option disabled value="Gold">Operacional</mat-option>
+                  <mat-option disabled value="Bronze">Funcionário</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row m-0 p-0">
+            <div >
+              <div class="h4 border-bottom">Dados do Funcionário: </div>
+
+              <mat-form-field class="col-md-3 p-1" appearance="outline">
+                <mat-label class="text-success">Data Admissão</mat-label>
+                <input matInput class="text-success" [matDatepicker]="dataAdmissao"
+                  formControlName="dataAdmissao"
+                  [ngClass]="fieldValidator(ctrF.dataAdmissao)">
+                <mat-datepicker-toggle matIconSuffix class="text-info" [for]="dataAdmissao"></mat-datepicker-toggle>
+                <mat-datepicker #dataAdmissao></mat-datepicker>
+                <mat-error class="invalid-feedback">
+                  {{messageReturned(ctrF.dataAdmissao, "")}}
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="col-md-3 p-1" appearance="outline">
+                <mat-label class="text-success">Data Demissão</mat-label>
+                <input matInput class="text-success" [matDatepicker]="dataDemissao" formControlName="dataDemissao"
+                  [ngClass]="fieldValidator(ctrF.dataDemissao)">
+                <mat-datepicker-toggle matIconSuffix class="text-info" [for]="dataDemissao"></mat-datepicker-toggle>
+                <mat-datepicker #dataDemissao></mat-datepicker>
+                <mat-error class="invalid-feedback">{{messageReturned(ctrF.dataDemissao, "")}}</mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="col-md-3 p-1" appearance="outline">
+                <mat-label>Funcionário</mat-label>
+                <input matInput type="text" formControlName="nomeCompleto"
+                  [ngClass]="fieldValidator(ctrF.nomeCompleto)">
+                <mat-error class="invalid-feedback">
+                  {{messageReturned(ctrF.nomeCompleto, "")}}
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="card-footer bg-info  ">
+          <div class="d-flex ">
+            <button class="btn btn-danger ms-auto mx-1" (click)="clearForm()">
+              Cancelar
+            </button>
+            <button class="btn btn-primary mx-1 px-4" [disabled]="!formDetail.valid" (click)="saveChange()">
+              {{editMode ? "Salvar" : "Criar"}}
+            </button>
+          </div>
+        </div>
+
+      </form>
+
+  </div>
+
+</div>
+
+<div class="card rounded shadow-sm p-1">
+
+  <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" *ngIf="editMode">
+    <mat-tab label="Endereços">
+      <app-address > </app-address>
+      <router-outlet></router-outlet>
+    </mat-tab>
+    <mat-tab label="Documentos Pessoais">
+      <app-personalDocuments [personalDocumentsId]="'personalDocumentsId'">
+      </app-personalDocuments>
+      <router-outlet></router-outlet>
+    </mat-tab>
+  </mat-tab-group>
+
+</div>
+
+<!--
+            <mat-form-field class="col-md-3 p-1">
+            <mat-label>CPF</mat-label>
+            <input matInput type="text" formControlName="cpf"
+              [ngClass]="fieldValidator(ctrF.cpf)" >
+            <mat-error class="invalid-feedback">{{messageReturned(ctrF.cpf, "")}}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="col-md-3 p-1">
+            <mat-label>Título Eleitor</mat-label>
+            <input matInput type="text" formControlName="tituloEleitor" [ngClass]="fieldValidator(ctrF.tituloEleitor)">
+            <mat-error class="invalid-feedback">{{messageReturned(ctrF.tituloEleitor, "")}}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="col-md-3 p-1">
+            <mat-label>Impedimento Eleitoral</mat-label>
+            <mat-select
+              formControlName="impedimentoEleitora"
+              [ngClass]="fieldValidator(ctrF.impedimentoEleitora)">
+              <mat-option [value]="0">Não</mat-option>
+              <mat-option [value]="1">Sim</mat-option>
+            </mat-select>
+            <mat-error class="invalid-feedback">
+              {{messageReturned(ctrF.impedimentoEleitora, "")}}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="col-md-3 p-1">
+            <mat-label>Número Identidade</mat-label>
+            <input matInput type="text" formControlName="identidade"
+              [ngClass]="fieldValidator(ctrF.identidade)">
+            <mat-error class="invalid-feedback m-0">
+              {{messageReturned(ctrF.identidade, "")}}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="col-md-3 p-1">
+            <mat-label>Data Expedição</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="dataExpedicao"
+              [ngClass]="fieldValidator(ctrF.dataExpedicao)">
+            <mat-datepicker-toggle matIconSuffix class="text-info" [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error class="invalid-feedback">
+              {{messageReturned(ctrF.dataExpedicao, "")}}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="col-md-3 p-1">
+            <mat-label>UF Emissão</mat-label>
+            <input matInput type="text" formControlName="ufEmissao" [ngClass]="fieldValidator(ctrF.ufEmissao)">
+            <mat-error class="invalid-feedback">
+              {{messageReturned(ctrF.ufEmissao, "")}}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="col-md-3 p-1">
+            <mat-label>Estado Civil</mat-label>
+            <mat-select formControlName="estadoCivil" [ngClass]="fieldValidator(ctrF.estadoCivil)">
+              <mat-option value="Solteiro">Solteiro</mat-option>
+              <mat-option value="Casado">Casado</mat-option>
+              <mat-option value="Divorciado">Divorciado</mat-option>
+              <mat-option value="Outro">Outro</mat-option>
+            </mat-select>
+            <mat-error class="invalid-feedback">
+              {{messageReturned(ctrF.estadoCivil, "")}}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="col-md-3 p-1">
+            <mat-label>Número da Carteira de Trabalho</mat-label>
+            <input matInput type="text" formControlName="caerteiraTrabalho" [ngClass]="fieldValidator(ctrF.caerteiraTrabalho)">
+            <mat-error class="invalid-feedback">
+              {{messageReturned(ctrF.caerteiraTrabalho, "")}}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="col-md-3 p-1">
+            <mat-label>PIS/PASEP</mat-label>
+            <input matInput type="text" formControlName="pisPasep" [ngClass]="fieldValidator(ctrF.pisPasep)">
+            <mat-error class="invalid-feedback">
+              {{messageReturned(ctrF.pisPasep, "")}}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="col-md-3 p-1">
+            <mat-label>CEP</mat-label>
+            <input matInput type="text" formControlName="cep" [ngClass]="fieldValidator(ctrF.cep)">
+            <mat-error class="invalid-feedback">
+              {{messageReturned(ctrF.cep, "")}}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="col-md-3 p-1">
+            <mat-label>Tipo Endereço</mat-label>
+            <input matInput type="text" formControlName="tipoEndereco" [ngClass]="fieldValidator(ctrF.tipoEndereco)">
+            <mat-error class="invalid-feedback">
+              {{messageReturned(ctrF.tipoEndereco, "")}}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="col-md-3 p-1">
+            <mat-label>Logradouro</mat-label>
+            <input matInput type="text" formControlName="logradouro" [ngClass]="fieldValidator(ctrF.logradouro)">
+            <mat-error class="invalid-feedback">
+              {{messageReturned(ctrF.logradouro, "")}}
+            </mat-error>
+          </mat-form-field>
+-->
+
+<p>Form Value: {{formDetail.value | json}}</p>
+<p>Form Status: {{formDetail.status | json}}</p>
+
+<ngx-spinner type="ball-scale-multiple" bdColor="rgba(51,51,51,0.8)" size="medium" color="blue">
+  <p style="font-size:20px; color: white;">Carregando...</p>
+</ngx-spinner>

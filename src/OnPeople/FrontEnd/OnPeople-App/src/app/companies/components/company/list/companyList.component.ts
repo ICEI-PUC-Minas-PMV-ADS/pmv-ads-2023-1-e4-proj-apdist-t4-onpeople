@@ -107,12 +107,10 @@ export class CompanyListComponent implements OnInit {
     this.spinnerService.show();
 
     this.modalRef?.hide();
-    console.log("companyId ", this.companyId)
     this.companyService
       .deleteCompany(this.companyId)
       .subscribe(
         (result: any ) => {
-          console.log(result);
           if (result == null)
             this.toastrService.error('Empresa não pode se excluída.', "Erro!");
 

@@ -74,7 +74,7 @@ export class DepartmentDetailComponent implements OnInit {
       cnpj: [''],
       nomeDepartamento: ['', [ Validators.required, Validators.minLength(4), Validators.maxLength(200)]],
       sigla: ['', [ Validators.required, Validators.minLength(1), Validators.maxLength(20)]],
-      ativo: ["true",  [ Validators.required,]],
+      ativo: [true,  [ Validators.required,]],
       diretorId: [0],
       gerenteId: [0],
       supervisorId: [0],
@@ -102,16 +102,17 @@ export class DepartmentDetailComponent implements OnInit {
       .getDepartmentById(this.departmentParm)
       .subscribe(
         (department: Departamento) => {
-          console.log("Depto Recuperado", department)
-          this.department = {...department}
-          this.company = department.empresa
-          this.companies[0] = department.empresa
-          this.selectCompanyId = this.companies[0].id
+          this.department = department;
           this.formDetail.patchValue(this.department)
+
+          this.company = { ...department.empresa };
+          this.companies[0] = { ...department.empresa };
+          this.selectCompanyId = this.company.id;
+          this.formDetail.patchValue(this.company)
+
           this.logoURL = (this.company.logotipo !== 'Image_not_available.png')
           ? `${environment.resourcesLogosURL}${this.company.logotipo}`
             : `../../../../assets/img/${this.company.logotipo}`;
-          this.changeSelectCompany();
         },
         (error: any) => {
           this.toastrService.error(error.error, `Erro! status ${error.status}`)
@@ -128,9 +129,12 @@ export class DepartmentDetailComponent implements OnInit {
       .subscribe(
         (companies: PaginatedResult<Empresa[]>) => {
           this.companies = companies.result;
-          console.log('Companies', companies)
+          this.company = this.companies[0];
           this.selectCompanyId = this.companies[0].id;
-          this.changeSelectCompany();
+          this.formDetail.patchValue(this.company)
+            this.logoURL = (this.company.logotipo !== 'Image_not_available.png')
+          ? `${environment.resourcesLogosURL}${this.company.logotipo}`
+            : `../../../../assets/img/${this.company.logotipo}`;
         },
         (error: any) => {
           this.toastrService.error(error.error, `Erro! Status ${error.status}`)
@@ -156,8 +160,6 @@ export class DepartmentDetailComponent implements OnInit {
     this.department = { ...this.formDetail.value };
     this.department.empresaId = this.selectCompanyId;
 
-    console.log("Create", this.department)
-
     this.departmentService
       .createDepartment(this.department)
       .subscribe(
@@ -177,7 +179,6 @@ export class DepartmentDetailComponent implements OnInit {
   public updateDepartment(): void {
     this.department = { id: this.department.id, ...this.formDetail.value };
     this.department.empresaId = this.selectCompanyId;
-    console.log("update", this.department, "form", this.ctrF.ativo.value)
 
     this.departmentService
       .saveDepartment(this.department.id, this.department)
@@ -199,7 +200,7 @@ export class DepartmentDetailComponent implements OnInit {
 
   public changeSelectCompany(): void {
     this.spinnerService.show()
-    console.log(this.selectCompanyId)
+
     var id: number = 0;
 
     if (this.selectCompanyId != null)
@@ -211,7 +212,6 @@ export class DepartmentDetailComponent implements OnInit {
         (company: Empresa) => {
           this.company = { ...company }
           this.formDetail.patchValue(this.company)
-          console.log(this.company)
           this.logoURL = (this.company.logotipo !== 'Image_not_available.png')
           ? `${environment.resourcesLogosURL}${this.company.logotipo}`
           : `../../../../assets/img/${this.company.logotipo }`;
@@ -219,7 +219,7 @@ export class DepartmentDetailComponent implements OnInit {
         (error: any) => {
           this.logoURL = "../../../../assets/img/Image_not_available.png";
           this.toastrService.error(error.error, `Erro! Status ${error.status}`)
-          console.log(error)
+          console.error(error)
         }
       )
       .add(() => this.spinnerService.hide());

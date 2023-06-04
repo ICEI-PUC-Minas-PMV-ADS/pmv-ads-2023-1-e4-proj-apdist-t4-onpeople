@@ -1,14 +1,16 @@
 ﻿using Bogus;
 using OnPeople.Application.Dtos.Cargos;
 using OnPeople.Domain.Models.Cargos;
+using OnPeople.Integration.Models.Pages.Page;
+using OnPeople.Integration.Models.Pages.Config;
 
 namespace OnPeople.Tests.Cargos
 {
     internal class CargosFixture
     {
-        public IEnumerable<Cargo> ObterCargosMock()
+        public PageList<Cargo> ObterCargosMock()
         {
-            return new List<Cargo>
+            return new PageList<Cargo>
             {
                 new Cargo
                 {
@@ -74,9 +76,9 @@ namespace OnPeople.Tests.Cargos
             return null;
         }
 
-        public IEnumerable<Cargo> ObterListaVaziaDeCargosMock()
+        public PageList<Cargo> ObterListaVaziaDeCargosMock()
         {
-            return new List<Cargo> { };
+            return new PageList<Cargo> { };
         }
 
         public Cargo CriarCargoValidoMock()
@@ -94,6 +96,17 @@ namespace OnPeople.Tests.Cargos
             };
 
         }
+
+        public PageParameters ObterPageParametersMock()
+        {
+            return
+                new PageParameters
+                {
+                    PageSize = 10,
+                    PageNumber = 1
+                };
+        }
+
         public IEnumerable<Cargo> ObterCargosPorDepartamentoIdMock(int departamentoId)
         {
             if (departamentoId == 227)

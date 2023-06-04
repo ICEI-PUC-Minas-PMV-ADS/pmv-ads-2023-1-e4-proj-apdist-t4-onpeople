@@ -166,13 +166,14 @@ public class UsersController : ControllerBase
             if (claimUser == null) 
                 return Unauthorized();
 
-            if (userUpdateDto.UserName != claimUser.UserName) {
-                return Unauthorized("Conta inválida para atualização.");
-            } 
+    //        if (userUpdateDto.UserName != claimUser.UserName) {
+    //            return Unauthorized("Conta inválida para atualização.");
+    //        } 
                 
             var user = await _usersServices.GetUserByUserNameAsync(claimUser.UserName);
 
-            if (user == null || (userUpdateDto.Id != user.Id))
+            if (user == null)
+ //            if (user == null || (userUpdateDto.Id != user.Id))
                 return Unauthorized("Conta inválida para atualização.");
 
             var userChanged = await _usersServices.UpdateUserTokenAsync(userUpdateDto);
@@ -251,5 +252,28 @@ public class UsersController : ControllerBase
             
             return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao recuperar conta. Erro: {e.Message}");
         }
-    }      
+    }    
+
+    [HttpGet("novos")]
+    public async Task<IActionResult> GetAllUsersNovos()
+    {
+        try
+        {
+            var claimUserName = User.GetUserNameClaim();
+            
+           if (claimUserName == null)
+                return Unauthorized();
+
+            var users = await _usersServices.GetAllUsersNovosAsync();
+
+            if (users == null) return NoContent();
+
+            return Ok(users);
+        }
+        catch (Exception e)
+        {
+            
+            return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao recuperar conta. Erro: {e.Message}");
+        }
+    }  
 }
