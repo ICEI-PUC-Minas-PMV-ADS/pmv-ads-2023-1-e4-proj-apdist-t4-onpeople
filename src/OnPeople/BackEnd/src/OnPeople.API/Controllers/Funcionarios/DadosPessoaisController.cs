@@ -62,6 +62,40 @@ public class DadosPessoaisController : ControllerBase
     }
 
     /// <summary>
+    /// Obtém os dados de todos os Dados Pessoais cadastrados
+    /// </summary>
+    /// <param name="funcionarioId">Identificador do funcionário</param>
+    /// <response code="200">Dados Pessoais cadastrados</response>
+    /// <response code="400">Parâmetros incorretos</response>
+    /// <response code="500">Erro interno</response>
+    [HttpGet("{funcionarioId}/funcionario")]
+    public async Task<IActionResult> GetAllDadosPessoaisByFuncionarioId(int funcionarioId)
+    {
+        try
+        {
+            var claimUser = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());
+
+            if (claimUser == null) 
+               return Unauthorized();
+
+
+            var userLogged = await _usersServices.GetUserByUserNameAsync(User.GetUserNameClaim());
+
+            if (userLogged == null)
+                return Unauthorized();
+
+            var dadosPessoais = await _dadosPessoaisServices.GetAllDadosPessoaisByFuncionarioId(funcionarioId);
+
+            if (dadosPessoais == null) return NotFound("Nenhum dado pessoal foi encontrado.");
+            
+            return Ok(dadosPessoais);
+        }
+        catch (Exception e)
+        {
+            return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao recuperar dados pessoais. Erro: {e.Message}");
+        }
+    }
+    /// <summary>
     /// Obtém os Dados Pessoais específico
     /// </summary>
     /// <param name="dadoPessoalId">Identificador do departamento</param>

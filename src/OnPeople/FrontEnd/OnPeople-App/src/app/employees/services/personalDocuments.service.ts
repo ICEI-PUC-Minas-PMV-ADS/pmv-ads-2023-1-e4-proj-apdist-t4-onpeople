@@ -28,6 +28,11 @@ export class PersonalDocumentsService {
       .pipe(take(3));
   }
 
+  public getAllPersonalDocumentsByEmployeeId(employeeId: number): Observable<DadoPessoal[]> {
+    return this.http.get<DadoPessoal[]>(`${this.baseURL}${employeeId}/funcionario`)
+      .pipe(take(3));
+  }
+
   public createPersonalDocument(personalDocumentId: DadoPessoal): Observable<DadoPessoal> {
     return this.http.post<DadoPessoal>(this.baseURL, personalDocumentId)
     .pipe(take(3));

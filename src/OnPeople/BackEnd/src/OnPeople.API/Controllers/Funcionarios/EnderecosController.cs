@@ -164,12 +164,13 @@ public class EnderecosController : ControllerBase
     /// <response code="200">Funcionário atualizado com sucesso</response>
     /// <response code="400">Parâmetros incorretos</response>
     /// <response code="500">Erro interno</response>
-    [HttpPut("{id}")]
+    [HttpPut("{enderecoId}")]
     public async Task<IActionResult> UpdateEndereco(int enderecoId, EnderecoDto enderecoDto)
     {
         try
         {
-            var claimUser = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());   
+            Console.WriteLine("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- " + enderecoId);
+            var claimUser = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());
 
             if (claimUser == null) 
                 return Unauthorized();
@@ -243,7 +244,7 @@ public class EnderecosController : ControllerBase
             if (claimUser == null) 
                 return Unauthorized();
                     
-            var url = $"viacep.com.br/ws/{cep}/json/";
+            var url = $"//viacep.com.br/ws/{cep}/json";
 
             Console.WriteLine(url);
 

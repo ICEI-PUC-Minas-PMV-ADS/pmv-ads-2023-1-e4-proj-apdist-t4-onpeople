@@ -121,7 +121,26 @@ namespace OnPeople.Application.Services.Implementations.Funcionarios
 
                 _dadosPessoaisPersistence.Delete<DadoPessoal>(dadoPesoal);
 
-                return await _sharedPersistence.SaveChangesAsync();
+                return await _dadosPessoaisPersistence.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                
+                throw new Exception(e.Message);
+            }
+        }
+
+        public async Task<IEnumerable<DadoPessoalDto>> GetAllDadosPessoaisByFuncionarioId(int funcionarioId)
+        {
+            try
+            {
+                var dadosPessoais = await _dadosPessoaisPersistence.GetAllDadosPessoaisByFuncionarioIdAsync(funcionarioId);
+
+                if (dadosPessoais == null) return null;
+
+                var dadosPessoaisMapper = _mapper.Map<IEnumerable<DadoPessoalDto>>(dadosPessoais);
+
+                return dadosPessoaisMapper;
             }
             catch (Exception e)
             {

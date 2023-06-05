@@ -37,5 +37,17 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Funcionarios
 
             return await query.FirstOrDefaultAsync();
         }
+        
+        public async Task<IEnumerable<DadoPessoal>> GetAllDadosPessoaisByFuncionarioIdAsync(int funcionarioId)
+        {
+            // Console.WriteLine("-------------------------" + master);
+            IQueryable<DadoPessoal> query = _context.DadosPessoais
+                .Include(f => f.Funcionario)
+                .AsNoTracking()
+                .Where(e => e.FuncionarioId == funcionarioId)
+                .OrderBy(e => e.Id);
+
+            return await query.ToListAsync();
+        }
     }
 }

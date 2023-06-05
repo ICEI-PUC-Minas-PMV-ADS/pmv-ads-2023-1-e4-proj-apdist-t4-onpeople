@@ -1,4 +1,5 @@
 import { AppRoutingModule } from 'src/app/app-routing.module';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -10,11 +11,18 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NgModule } from '@angular/core';
-
-import { AddressComponent, EmployeeComponent, EmployeeDetailComponent, EmployeeListComponent, PersonalDocumentsComponent } from '../../components';
-import { TitlebarModule } from 'src/app/shared/modules';
 import { NgbCollapseModule, NgbPaginationModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+
+import {
+  AddressComponent,
+  EmployeeComponent,
+  EmployeeDetailComponent,
+  EmployeeListComponent,
+  PersonalDocumentsComponent
+} from '../../components';
+import { TitlebarModule } from 'src/app/shared/modules';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { NgxViacepModule } from "@brunoc/ngx-viacep";
 
 @NgModule({
   imports: [
@@ -33,6 +41,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     NgbPaginationModule,
     NgbTooltipModule,
     NgxSpinnerModule,
+    NgxViacepModule,
     ReactiveFormsModule,
     TitlebarModule,
   ],

@@ -6,7 +6,9 @@ import { ToastrService } from 'ngx-toastr';
 import { Endereco } from 'src/app/employees/models';
 import { AddressService } from 'src/app/employees/services/address.service';
 import { FormValidator } from 'src/app/shared/models';
-import { consultarCep} from 'correios-brasil';
+import { CEPError, NgxViacepService } from "@brunoc/ngx-viacep";
+import { HttpClient } from '@angular/common/http';
+import { EMPTY, catchError } from 'rxjs';
 
 @Component({
   selector: 'app-address',
@@ -14,11 +16,9 @@ import { consultarCep} from 'correios-brasil';
   styleUrls: ['./address.component.scss']
 })
 export class AddressComponent implements OnInit {
-  @Input() addressId: any;
-
   public formAddress: FormGroup;
 
-  public selectAddressId = 0;
+  public id = 0;
 
   public employeeParm: any = "";
 
@@ -39,6 +39,7 @@ export class AddressComponent implements OnInit {
     private formBuilder: FormBuilder,
     private spinnerService: NgxSpinnerService,
     private toastrService: ToastrService,
+    private viacep: NgxViacepService,
   ) { }
 
   ngOnInit() {
@@ -51,9 +52,15 @@ export class AddressComponent implements OnInit {
 
   public formValidator(): void {
     this.formAddress = this.formBuilder.group({
-      selectAddressId: [0, Validators.required],
+      id: [0, Validators.required],
       tipoEndereco: [""],
-      cep: ['', Validators.required]
+      cep: ['', Validators.required],
+      logradouro: ['', Validators.required],
+      numero: ['', Validators.required],
+      complemento: ['', Validators.required],
+      bairro: ['', Validators.required],
+      cidade: ['', Validators.required],
+      uf: ['', Validators.required]
     });
   }
 
@@ -65,12 +72,6 @@ export class AddressComponent implements OnInit {
     return FormValidator.returnMessage(nomeCampo, nomeElemento);
   }
 
-  public clearForm(): void {
-    this.formAddress.reset();
-  }
-  public changeSelectAddress(): void {
-  }
-
   public getAddresses(): void {
     this.spinnerService.show();
 
@@ -80,7 +81,7 @@ export class AddressComponent implements OnInit {
         (addresses: Endereco[]) => {
           this.addresses = addresses;
           this.address = this.addresses[0]
-          this.selectAddressId = this.address.id;
+          this.id = this.address.id;
           this.formAddress.patchValue(this.address);
         },
         (error: any) => {
@@ -90,22 +91,47 @@ export class AddressComponent implements OnInit {
       .add(() => this.spinnerService.hide());
   }
 
-  public getCEP(): void {
+  public getCEP(): any {
     this.spinnerService.show();
 
-    //const { consultarCep } = require('correios-brasil');
-
      console.log (this.cep)
-    this.addressService
-      .getCEP(this.cep)
-      .subscribe(
-        (cep: any) => {
-          console.log(cep)
+    this.viacep
+      .buscarPorCep(this.cep)
+      .subscribe((address: any) => {
+        this.address = { ...address }
+        this.formAddress.patchValue(this.address)
+        this.address.cidade = address.localidade
+        this.formAddress.controls['cidade'].setValue(this.address.cidade);
+        console.log(this.address);
         },
         (error: any) => {
-          this.toastrService.error(error.error, `Erro! stats ${error.status}`)
+          this.toastrService.error(error, `Erro!`)
+          console.error()
         }
       )
       .add(() => this.spinnerService.hide());
+
+  }
+
+  public saveChange(): void {
+    this.spinnerService.show();
+
+    this.address = { ...this.formAddress.value }
+    this.address.funcionarioId = this.employeeParm;
+
+    console.log("Address", this.address)
+
+    this.addressService
+      .saveAddress(this.address.id, this.address)
+      .subscribe(
+        (address: Endereco) => {
+          this.toastrService.success('Endereço ataulizado!', "Sucesso")
+
+        },
+        (error: any) => {
+          this.toastrService.error(error.error, `Erro! Status ${error.status} `)
+        }
+      )
+      .add(() => this.spinnerService.hide())
   }
 }
