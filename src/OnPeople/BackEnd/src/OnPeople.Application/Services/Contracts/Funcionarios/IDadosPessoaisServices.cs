@@ -10,5 +10,6 @@ namespace OnPeople.Application.Services.Contracts.Funcionarios
         Task<DadoPessoalDto> GetDadoPessoalById(int dadoPessoalId);
         Task<DadoPessoal> UpdateDadoPessoal(int id, DadoPessoalDto model);
         Task<bool> DeleteDadoPessoal(int id);
+        Task<IEnumerable<DadoPessoalDto>> GetAllDadosPessoaisByFuncionarioId(int funcionarioId);
     }
 }

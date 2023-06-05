@@ -8,6 +8,6 @@ namespace OnPeople.Persistence.Interfaces.Contracts.Funcionarios
     {
         Task<IEnumerable<DadoPessoal>> GetAllDadosPessoaisAsync();
         Task<DadoPessoal> GetDadoPessoalByIdAsync(int dadoPessoalId);
-        
+        Task<IEnumerable<DadoPessoal>> GetAllDadosPessoaisByFuncionarioIdAsync(int funcionarioId);
     }
 }
