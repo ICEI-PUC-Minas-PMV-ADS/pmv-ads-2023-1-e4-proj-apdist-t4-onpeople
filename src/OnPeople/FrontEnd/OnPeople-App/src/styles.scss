@@ -33,28 +33,10 @@ $OnPeople-App-theme: mat.define-light-theme((color: (primary: $OnPeople-App-prim
 
 /* Importing Bootstrap SCSS file. */
 
-/* Importing Bootstrap SCSS file. */
-@import "~@ng-select/ng-select/themes/default.theme.css";
-
-/* Importing Datepicker SCSS file. */
-@import "node_modules/ngx-bootstrap/datepicker/bs-datepicker";
-
 @import "../node_modules/bootswatch/dist/flatly/bootstrap.min.css";
 
 
 /* Importing Bootstrap SCSS file. */
-
-
-html,
-body {
-  height: 100%;
-}
-
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-}
-
 
 
 //Configurações personalizadas
@@ -72,8 +54,8 @@ body {
 }
 
 .imageLateral {
-  width: 102%;
-  margin-top: 100px;
+  width: 100%;
+  margin-top: 50px;
 }
 
 .titulo {
@@ -81,7 +63,7 @@ body {
 }
 
 .imageDetail {
-  width: 280px;
+  width: 200px;
 }
 
 .rounded-circle {
@@ -106,8 +88,3 @@ body {
   ;
 }
 
-
-.img-forgot-pwd {
-  margin-top: 0% !important;
-  width: 100.5% !important;
-}

@@ -1,0 +1,97 @@
+<form class="mt-1" [formGroup]="formAddress">
+  <div class="card rounded shadow-sm p-0">
+
+    <div class="card-body p-0 m-0">
+      <div class="row m-0 p-0">
+        <div Class="col-md-12">
+
+          <div class="h4 border-bottom ">Dados do Endereço: </div>
+
+          <div class="form-row d-md-flex">
+            <mat-form-field class="col-md-2 p-1" appearance="outline">
+              <mat-label ># id</mat-label>
+              <input matInput formControlName="id" value="{{id}}" readonly>
+              <mat-error class="invalid-feedback">
+                {{messageReturned(ctrF.id, "")}}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-2 p-1" appearance="outline">
+              <mat-label class="text-info">CEP</mat-label>
+              <input matInput [(ngModel)]="cep" formControlName="cep" [ngClass]="fieldValidator(ctrF.cep)"
+                (change)="getCEP()">
+              <mat-error class="invalid-feedback">{{messageReturned(ctrF.cep, "")}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-3 p-1" appearance="outline">
+              <mat-label class="text-info">Tipo Endereço </mat-label>
+              <mat-select formControlName="tipoEndereco"
+                [ngClass]="fieldValidator(ctrF.tipoEndereco)">
+                <mat-option value="Avenida">Avenida</mat-option>
+                <mat-option value="Estrada">Estrada</mat-option>
+                <mat-option value="Rua">Rua</mat-option>
+              </mat-select>
+              <mat-error class="invalid-feedback">{{messageReturned(ctrF.tipoEndereco, "")}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-5 p-1" appearance="outline">
+              <mat-label class="text-info">Logradouro</mat-label>
+              <input matInput formControlName="logradouro" [ngClass]="fieldValidator(ctrF.logradouro)">
+              <mat-error class="invalid-feedback">{{messageReturned(ctrF.logradouro, "")}}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row d-md-flex">
+            <mat-form-field class="col-md-2 p-1" appearance="outline">
+              <mat-label class="text-info">Número</mat-label>
+              <input matInput formControlName="numero" [ngClass]="fieldValidator(ctrF.numero)">
+              <mat-error class="invalid-feedback">{{messageReturned(ctrF.numero, "")}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-5 p-1" appearance="outline">
+              <mat-label class="text-info">Complemento</mat-label>
+              <input matInput formControlName="complemento" [ngClass]="fieldValidator(ctrF.complemento)">
+              <mat-error class="invalid-feedback">{{messageReturned(ctrF.complemento, "")}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-5 p-1" appearance="outline">
+              <mat-label class="text-info">Bairro</mat-label>
+              <input matInput formControlName="bairro" [ngClass]="fieldValidator(ctrF.bairro)">
+              <mat-error class="invalid-feedback">{{messageReturned(ctrF.bairro, "")}}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row d-md-flex">
+            <mat-form-field class="col-md-5 p-1" appearance="outline">
+              <mat-label class="text-info">Cidade</mat-label>
+              <input matInput  formControlName="cidade" [ngClass]="fieldValidator(ctrF.cidade)">
+              <mat-error class="invalid-feedback">{{messageReturned(ctrF.cidade, "")}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-2 p-1" appearance="outline">
+              <mat-label class="text-info">UF</mat-label>
+              <input matInput  formControlName="uf" [ngClass]="fieldValidator(ctrF.uf)">
+              <mat-error class="invalid-feedback">{{messageReturned(ctrF.uf, "")}}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="card-footer bg-info  ">
+      <div class="d-flex ">
+        <button class="btn btn-primary ms-auto mx-1 px-4" [disabled]="!formAddress.valid" (click)="saveChange()">
+          Salvar
+        </button>
+      </div>
+    </div>
+  </div>
+
+</form>
+
+<!--
+
+  <p>Form Value: {{formAddress.value | json}}</p>
+  <p>Form Status: {{formAddress.status | json}}</p>
+-->

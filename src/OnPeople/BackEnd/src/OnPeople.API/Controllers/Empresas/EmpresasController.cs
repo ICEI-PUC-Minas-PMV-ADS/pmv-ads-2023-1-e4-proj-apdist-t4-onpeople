@@ -54,7 +54,7 @@ public class EmpresasController : ControllerBase
 
             if (claimUser == null) 
                 return Unauthorized();
-            
+
             var empresas = await _empresasServices.GetAllEmpresasAsync(pageParameters, claimUser.CodEmpresa, claimUser.Master);
 
             if (empresas == null) return NoContent();
@@ -180,7 +180,6 @@ public class EmpresasController : ControllerBase
     {
         try
         {
-            Console.WriteLine("==============================================");
             var claimUser = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());   
 
             if (claimUser == null) 
@@ -350,8 +349,6 @@ public class EmpresasController : ControllerBase
                 return Unauthorized();
                     
             var url = $"https://publica.cnpj.ws/cnpj/{cnpj}";
-
-            Console.WriteLine(url);
 
             _httpClient.BaseAddress = new Uri(url);
 

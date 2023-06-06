@@ -18,9 +18,8 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Empresas
             _context = context;
 
         }
-        public async Task<PageList<Empresa>> GetAllEmpresasAsync(PageParameters pageParameters, int empresaId, Boolean master)
+        public async Task<PageList<Empresa>> GetAllEmpresasAsync(PageParameters pageParameters, int empresaId, Boolean Master)
         {
-            Console.WriteLine("-------------------------" + master);
             IQueryable<Empresa> query = _context.Empresas
                 .Include(e => e.Users)
                 .Include(e => e.Departamentos)
@@ -28,16 +27,27 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Empresas
 
             query = query
                 .AsNoTracking()
-                .OrderBy(e => e.Id)
-                .Where(e => master && ( 
+                .OrderBy(e => e.Id);
+                
+            if (empresaId == 0 && Master) {
+                query = query
+                    .Where(e =>  
+                        e.RazaoSocial.ToLower().Contains(pageParameters.Term.ToLower()) ||
+                        e.RazaoSocial.ToLower().Contains(pageParameters.Term.ToLower()) ||
+                        e.SiglaEmpresa.ToLower().Contains(pageParameters.Term.ToLower()));
+            } else {
+                query = query
+                .Where(e => e.Id == empresaId && ( 
                     e.RazaoSocial.ToLower().Contains(pageParameters.Term.ToLower()) ||
                     e.RazaoSocial.ToLower().Contains(pageParameters.Term.ToLower()) ||
                     e.SiglaEmpresa.ToLower().Contains(pageParameters.Term.ToLower())));
+            }
 
             return await PageList<Empresa>.CreatePageAsync(query, pageParameters.PageNumber, pageParameters.PageSize);
         }
         public async Task<PageList<Empresa>> GetAllEmpresasAtivasAsync(PageParameters pageParameters, int empresaId, Boolean master)
         {
+            Console.WriteLine("Ativas /////////////////////////////////////// " + empresaId);
             IQueryable<Empresa> query = _context.Empresas 
                 .Include(e => e.Users)
                 .Include(e => e.Departamentos);
@@ -50,8 +60,9 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Empresas
             return await PageList<Empresa>.CreatePageAsync(query, pageParameters.PageNumber, pageParameters.PageSize);
         }
 
-        public async Task<PageList<Empresa>> GetAllEmpresasFiliaisAsync(PageParameters pageParameters, int empreaId, Boolean master)
+        public async Task<PageList<Empresa>> GetAllEmpresasFiliaisAsync(PageParameters pageParameters, int empresaId, Boolean master)
         {
+            Console.WriteLine("filiais /////////////////////////////////////// " + empresaId);
             IQueryable<Empresa> query = _context.Empresas
                 .Include(e => e.Users)
                 .Include(e => e.Departamentos);
@@ -67,6 +78,7 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Empresas
 
         public async Task<Empresa> GetEmpresaMatrizAsync()
         {
+            Console.WriteLine("matriz /////////////////////////////////////// " );
             IQueryable<Empresa> query = _context.Empresas
                 .Include(e => e.Users)
                 .Include(e => e.Departamentos);
@@ -134,7 +146,6 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Empresas
                     .Where(e => e.Filial && e.Id == empresaId );
 
             _dashEmpresa.CountFiliais = queryFiliais.Count<Empresa>();
-            Console.WriteLine("--------------------------------- Empresa " + _dashEmpresa.CountFiliais);
 
             IQueryable<Empresa> queryEmpresaAtivas = _context.Empresas;
 

@@ -26,11 +26,11 @@ namespace OnPeople.Application.Services.Implementations.Departamentos
 
         }
 
-        public async Task<PageList<DepartamentoDto>> GetAllDepartamentosAsync(PageParameters pageParameters, int empresaId)
+        public async Task<PageList<DepartamentoDto>> GetAllDepartamentosAsync(PageParameters pageParameters, int empresaId, bool Master)
         {
             try
             {
-                var departamentos = await _departamentosPersistence.GetAllDepartamentosAsync(pageParameters, empresaId);
+                var departamentos = await _departamentosPersistence.GetAllDepartamentosAsync(pageParameters, empresaId, Master);
 
                 if (departamentos == null) return null;
 

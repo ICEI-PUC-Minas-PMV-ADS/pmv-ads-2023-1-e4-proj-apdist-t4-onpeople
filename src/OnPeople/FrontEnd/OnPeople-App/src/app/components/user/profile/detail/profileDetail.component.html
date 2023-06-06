@@ -1,0 +1,84 @@
+<div class="card bg-white d-flex p-2" >
+  <form [formGroup]="formDetail" (submit)="onSubmit()">
+    <div class="form-row">
+      <div class="form-group col-12 p-1 m-0">
+        <div class="h5 pt-3 border-bottom">Detalhe Perfil</div>
+      </div>
+
+      <div class="form-row d-md-flex">
+        <mat-form-field class=" col-md-6 col-12 p-1 m-0" appearance="outline">
+          <mat-label>Empresa</mat-label>
+          <input type="text" matInput formControlName="nomeEmpresa" readonly>
+        </mat-form-field>
+
+        <mat-form-field class=" col-md-6 col-12 p-1 m-0" appearance="outline">
+          <mat-label>Conta</mat-label>
+          <input type="text" matInput formControlName="userName" readonly>
+        </mat-form-field>
+      </div>
+
+      <div class="form-row d-md-flex">
+        <mat-form-field class="col-6 p-1" appearance="outline">
+          <mat-label class="text-info">Nome Completo</mat-label>
+          <input matInput type="text" formControlName="nomeCompleto" [ngClass]="fieldValidator(ctrF.nomeCompleto)">
+          <mat-error class="invalid-feedback">
+            {{messageReturned(ctrF.nomeCompleto, "")}}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class=" col-md-6 col-12 p-1 m-0" appearance="outline">
+          <mat-label>e-mail</mat-label>
+          <input type="text" matInput formControlName="email" readonly>
+        </mat-form-field>
+      </div>
+
+      <div class="form-row d-flex">
+        <mat-form-field class="col-6 p-1" appearance="outline">
+          <mat-label class="text-info">Telefone</mat-label>
+          <input matInput type="text" formControlName="phoneNumber"
+            [ngClass]="fieldValidator(ctrF.phoneNumber)">
+          <mat-error class="invalid-feedback">
+            {{messageReturned(ctrF.phoneNumber, "")}}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-3 p-1" appearance="outline">
+          <mat-label>Visão</mat-label>
+          <mat-select formControlName="visao">
+            <mat-option disabled value="Master">Gerencial</mat-option>
+            <mat-option disabled value="Gold">Operacional</mat-option>
+            <mat-option disabled value="Bronze">Funcional</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="col-3 p-1" appearance="outline">
+          <mat-label>Conta Ativa?</mat-label>
+          <mat-select formControlName="ativa">
+            <mat-option disabled [value]="false">Não</mat-option>
+            <mat-option disabled [value]="true">Sim</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="form-row d-flex">
+
+        <mat-form-field class="example-form-field" appearance="outline">
+          <mat-label>Data Cadastro</mat-label>
+          <input matInput [matDatepicker]="dataCadastro" formControlName="dataCadastro" readonly>
+          <mat-datepicker-toggle disabled class="text-info" matIconSuffix [for]="dataCadastro"></mat-datepicker-toggle>
+          <mat-datepicker #dataCadastro>
+          </mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="d-grid mt-2 p-1 ">
+      <button class="btn btn-info btn-block " [disabled]="!formDetail.valid" type="submit" >Salvar</button>
+    </div>
+  </form>
+</div>
+
+<!--
+
+  <p>Form Value: {{formDetail.value | json}}</p>
+  <p>Form Status: {{formDetail.status | json}}</p>
+-->

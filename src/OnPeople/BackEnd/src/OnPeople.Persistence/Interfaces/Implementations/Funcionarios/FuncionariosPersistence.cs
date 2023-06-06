@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using OnPeople.Domain.Models.Funcionarios;
+using OnPeople.Integration.Models.Dashboard;
 using OnPeople.Integration.Models.Pages.Config;
 using OnPeople.Integration.Models.Pages.Page;
 using OnPeople.Persistence.Interfaces.Contexts;
@@ -11,6 +12,7 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Funcionarios
     public class FuncionariosPersistence : SharedPersistence, IFuncionariosPersistence
     {
         private readonly OnPeopleContext _context;
+        private readonly DashboardFuncionarios _dashFuncionario = new();
 
         public FuncionariosPersistence(OnPeopleContext context) : base(context)
         {
@@ -29,7 +31,7 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Funcionarios
                 .Include(f => f.FuncionariosMetas)
                 .Include(f => f.Users)
                 .AsNoTracking();
-
+            Console.WriteLine("empresa" + empresaId + " departamento "+ departamentoId);
             if (empresaId == 0) {
                 query = query
                     .Where(f => f.Users.NomeCompleto.ToLower().Contains(pageParameters.Term.ToLower()));
@@ -37,13 +39,9 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Funcionarios
                 query = query
                     .Where(f => f.EmpresaId == empresaId &&
                        f.Users.NomeCompleto.ToLower().Contains(pageParameters.Term.ToLower()));
-            } else if (cargoId == 0) {
-                query = query
-                    .Where(f => f.EmpresaId == empresaId && f.DepartamentoId == departamentoId &&
-                        f.Users.NomeCompleto.ToLower().Contains(pageParameters.Term.ToLower()));
             } else {
                 query = query
-                    .Where(f => f.EmpresaId == empresaId && f.DepartamentoId == departamentoId && f.CargoId == cargoId &&
+                    .Where(f => f.EmpresaId == empresaId && f.DepartamentoId == departamentoId &&
                         f.Users.NomeCompleto.ToLower().Contains(pageParameters.Term.ToLower()));
             }
             return await PageList<Funcionario>.CreatePageAsync(query, pageParameters.PageNumber, pageParameters.PageSize);
@@ -64,6 +62,52 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Funcionarios
             Console.WriteLine("id " + funcionarioId);
 
             return await query.FirstOrDefaultAsync();
+        }
+
+        public async Task<IEnumerable<Funcionario>> GetFuncionariosChefesByDepartamentoId(int departamentoId)
+        {
+            IQueryable<Funcionario> query = _context.Funcionarios
+                .Include(f => f.Cargo)
+                .AsNoTracking()
+                .Where(f => f.DepartamentoId == departamentoId &&
+                            (f.Cargo.NomeCargo.ToLower().Contains("diretor") ||
+                             f.Cargo.NomeCargo.ToLower().Contains("gerente") ||
+                             f.Cargo.NomeCargo.ToLower().Contains("supervisor")));
+
+            return await query.ToArrayAsync();
+        }
+
+        public DashboardFuncionarios GetDashboard(int empresaId, int departamentoId, int cargoId, int funcionarioId)
+        {
+            IQueryable<Funcionario> query = _context.Funcionarios
+                .Include(c => c.Empresa)
+                .Include(c => c.Departamento)
+                .Include(c => c.Cargo);
+            Console.WriteLine(empresaId + " " + departamentoId + " " + cargoId + " " + funcionarioId);
+            if (empresaId == 0) {
+                query = query
+                    .AsNoTracking();
+            } else if (departamentoId == 0) {
+                query = query
+                    .AsNoTracking()
+                    .Where(c => c.EmpresaId == empresaId);
+            } else if (cargoId == 0) {
+                query = query 
+                    .AsNoTracking()
+                    .Where(c => c.EmpresaId == empresaId &&  c.DepartamentoId == departamentoId);
+             } else if (funcionarioId == 0) {
+                query = query 
+                    .AsNoTracking()
+                    .Where(c => c.EmpresaId == empresaId &&  c.DepartamentoId == departamentoId && c.Id == cargoId);
+            } else {
+                                query = query 
+                    .AsNoTracking()
+                    .Where(c => c.EmpresaId == empresaId &&  c.DepartamentoId == departamentoId && c.CargoId == cargoId && c.Id == funcionarioId) ;
+            }
+
+            _dashFuncionario.CountFuncionarios = query.Count<Funcionario>();
+
+            return _dashFuncionario;
         }
     }
 }

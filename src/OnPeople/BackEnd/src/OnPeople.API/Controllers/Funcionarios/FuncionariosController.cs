@@ -8,6 +8,7 @@ using OnPeople.API.Extensions.Pages;
 using OnPeople.Application.Services.Contracts.Funcionarios;
 using OnPeople.Application.Dtos.Funcionarios;
 using OnPeople.Application.Services.Contracts.FuncionariosMetas;
+using OnPeople.Integration.Models.Dashboard;
 
 namespace OnPeople.API.Controllers.Funcionarios;
 
@@ -16,7 +17,7 @@ namespace OnPeople.API.Controllers.Funcionarios;
 [Route("api/[controller]")]
 public class FuncionariosController : ControllerBase
 {
-    private readonly IFuncionariosServices _funcionariosservices;
+    private readonly IFuncionariosServices _funcionariosServices;
     private readonly IFuncionarioMetaServices _funcionarioMetaservices;
     private readonly IUsersServices _usersServices;
     public FuncionariosController(
@@ -25,7 +26,7 @@ public class FuncionariosController : ControllerBase
         IUsersServices usersServices
         )
     {
-        _funcionariosservices = funcionariosservices;
+        _funcionariosServices = funcionariosservices;
         _funcionarioMetaservices = funcionarioMetaservices;
         _usersServices = usersServices;
     }
@@ -52,7 +53,7 @@ public class FuncionariosController : ControllerBase
             if (userLogged == null)
                 return Unauthorized();
 
-            var funcionarios = await _funcionariosservices.GetAllFuncionarios(pageParameters, userLogged.CodEmpresa, userLogged.CodDepartamento, userLogged.CodCargo);
+            var funcionarios = await _funcionariosServices.GetAllFuncionarios(pageParameters, userLogged.CodEmpresa, userLogged.CodDepartamento, userLogged.CodCargo);
 
             if (funcionarios == null) return NotFound("Nenhum funcionário foi encontrado.");
             
@@ -84,7 +85,7 @@ public class FuncionariosController : ControllerBase
             if (claimUser == null) 
                 return Unauthorized();
 
-            var funcionario = await _funcionariosservices.GetFuncionarioById(funcionarioId);
+            var funcionario = await _funcionariosServices.GetFuncionarioById(funcionarioId);
 
             if (funcionario == null) return NotFound("Funcionário não encontrado.");
 
@@ -115,7 +116,7 @@ public class FuncionariosController : ControllerBase
             if (!claimUser.Master)
                 return Unauthorized();
 
-            var createdFuncionario = await _funcionariosservices.CreateFuncionario(funcionarioDto);
+            var createdFuncionario = await _funcionariosServices.CreateFuncionario(funcionarioDto);
 
             if (createdFuncionario != null) return Ok(createdFuncionario);
 
@@ -148,8 +149,7 @@ public class FuncionariosController : ControllerBase
             if (funcionarioDto.Id != id)
                 return Unauthorized();
 
-            Console.WriteLine("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= " + funcionarioDto.Id);
-            var funcionario  = await _funcionariosservices.UpdateFuncionario(id, funcionarioDto);
+            var funcionario  = await _funcionariosServices.UpdateFuncionario(id, funcionarioDto);
 
             if (funcionario == null) return NoContent();
 
@@ -181,12 +181,12 @@ public class FuncionariosController : ControllerBase
             // if (!claimUser.Master)
             //     return Unauthorized();
 
-            var funcionario = await _funcionariosservices.GetFuncionarioById(funcionarioId);
+            var funcionario = await _funcionariosServices.GetFuncionarioById(funcionarioId);
 
             if (funcionario == null) 
                 return NoContent();
  
-            if (await _funcionariosservices.DeleteFuncionario(funcionarioId)){
+            if (await _funcionariosServices.DeleteFuncionario(funcionarioId)){
                 return Ok( new { message = "Funcionário excluído com sucesso!"});
             } else {
                 return BadRequest("Falha na exclusão do funcionário.");
@@ -224,4 +224,52 @@ public class FuncionariosController : ControllerBase
         }
         
     } 
+   /// <summary>
+    /// Obtém os dados de funcionários na funcao de diretor, supervisor e gerente
+    /// </summary>
+    /// <param name="departamentoId">Identificador do departamento</param>
+    /// <response code="200">Dados do funcionarios consultado</response>
+    /// <response code="400">Parâmetros incorretos</response>
+    /// <response code="500">Erro interno</response>
+    [HttpGet("{departamentoId}/chefes")]
+    public async Task<IActionResult> GetFuncionariosChefesBydepartamentoId(int departamentoId)
+    {
+        try
+        {
+            var claimUser = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());
+            
+            if (claimUser == null) 
+                return Unauthorized();
+
+            var funcionario = await _funcionariosServices.GetFuncionariosChefesByDepartamentoId(departamentoId);
+
+            if (funcionario == null) return NotFound("Funcionário não encontrado.");
+
+            return Ok(funcionario);
+        }
+        catch (Exception e)
+        {
+            return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao recuperar funcionário por Id. Erro: {e.Message}");
+        }
+    }
+
+    /// <summary>
+    /// Realiza a consulta estatística de funcionários
+    /// </summary>
+    /// <param name="empresaId">Identificador da empresa (pode zero para buscar todas)</param>
+    /// <param name="departamentoId">Identificador de departamento</param>
+    /// <param name="cargoId">Identificador de cargo</param>
+    /// <param name="funcionarioId">Identificador de funcionario</param>
+    /// <response code="200">Dashboard de funcionarios consultado</response>
+    /// <response code="400">Parâmetros incorretos</response>
+    /// <response code="500">Erro interno</response>
+    
+    [HttpGet("{empresaId}/{departamentoId}/{cargoId}/{funcionarioId}/Dashboard")]
+    public DashboardFuncionarios GetDashboard(int empresaId, int departamentoId, int cargoId, int funcionarioId)
+    {     
+        var dashboardFuncionarios = _funcionariosServices.GetDashboard(empresaId, departamentoId, cargoId, funcionarioId);
+
+        return dashboardFuncionarios;
+    }    
 }
+
