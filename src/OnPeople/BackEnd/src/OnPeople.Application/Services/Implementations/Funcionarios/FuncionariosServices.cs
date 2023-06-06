@@ -135,5 +135,35 @@ namespace OnPeople.Application.Services.Implementations.Funcionarios
                 throw new Exception(e.Message);
             }
         }
+
+        public async Task<IEnumerable<ReadFuncionarioDto>> GetFuncionariosChefesByDepartamentoId(int departamentoId)
+        {
+            try
+            {
+                var funcionarios = await _funcionariosPersistence.GetFuncionariosChefesByDepartamentoId(departamentoId);
+
+                if (funcionarios == null) return null;
+
+                var funcionarioMapper = _mapper.Map<ReadFuncionarioDto[]>(funcionarios);
+
+                return funcionarioMapper;
+            }
+            catch (Exception e)
+            { 
+                throw new Exception(e.Message);
+            }
+        }
+        public DashboardFuncionarios GetDashboard(int empresaId, int departamentoId, int cargoId, int funcionarioId) 
+        {
+            try
+            {
+                return _funcionariosPersistence.GetDashboard(empresaId, departamentoId, cargoId, funcionarioId);
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
+        }        
     }
 }

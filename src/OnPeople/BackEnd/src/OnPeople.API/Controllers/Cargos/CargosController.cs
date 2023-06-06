@@ -199,6 +199,14 @@ public class CargosController : ControllerBase
     {
         try
         {
+            var claimUser = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());   
+
+            if (claimUser == null) 
+                return Unauthorized();
+
+            if (!claimUser.Master)
+                return Unauthorized();
+
             var cargo = await _cargosServices.GetCargoByIdAsync(cargoId);
 
             if (cargo.Ativo) return BadRequest("Cargos ativos não podem ser excluídos. Inative o cargo e tente novamente.");
@@ -222,13 +230,13 @@ public class CargosController : ControllerBase
     /// Realiza a consulta estatística de departamento
     /// </summary>
     /// <param name="empresaId">Identificador da empresa (pode zero para buscar todas)</param>
-    /// <param name="departamentoId">Identificador de departmaneto</param>
+    /// <param name="departamentoId">Identificador de departamento</param>
     /// <param name="cargoId">Identificador de cargo</param>
     /// <response code="200">Dashboard de empresas consultado</response>
     /// <response code="400">Parâmetros incorretos</response>
     /// <response code="500">Erro interno</response>
     
-    [HttpGet("{empresaId}/{departmaneotId}/{cargoId}/Dashboard")]
+    [HttpGet("{empresaId}/{departamentoId}/{cargoId}/Dashboard")]
     public DashboardCargos GetDashboard(int empresaId, int departamentoId, int cargoId)
     {     
         var dashboardCargo = _cargosServices.GetDashboard(empresaId, departamentoId, cargoId);

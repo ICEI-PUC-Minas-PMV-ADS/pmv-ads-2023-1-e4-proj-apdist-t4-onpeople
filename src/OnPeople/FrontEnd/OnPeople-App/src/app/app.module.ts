@@ -1,20 +1,19 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
-
-import { defineLocale } from 'ngx-bootstrap/chronos';
-import { ptBrLocale } from 'ngx-bootstrap/locale';
+import { BrowserModule } from "@angular/platform-browser";
 
 import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
 
-import { NavbarModule } from './shared/modules';
-import { CompanyModule } from './companies/modules';
-import { DepartmentModule } from "./departments/modules";
-import { UsersAccountModule } from "./users/modules";
-import { DashboardModule } from "./dashboards/modules";
-import { JobRoleModule } from "./jobRoles/modules";
-import { EmployeeModule } from "./employees/modules";
-
-defineLocale('pt-br', ptBrLocale);
+import {
+  CompanyModule,
+  DashboardModule,
+  DepartmentModule,
+  EmployeeModule,
+  JobRoleModule,
+  NavbarModule,
+  UsersAccountModule
+} from "./modules";
 
 @NgModule({
   declarations: [
@@ -22,6 +21,7 @@ defineLocale('pt-br', ptBrLocale);
    ],
   imports: [
     AppRoutingModule,
+    BrowserModule,
     CompanyModule,
     DashboardModule,
     DepartmentModule,
@@ -30,8 +30,10 @@ defineLocale('pt-br', ptBrLocale);
     NavbarModule,
     UsersAccountModule,
   ],
+
   providers: [
   ],
+
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

@@ -1,14 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
-import { AuthGuard } from './shared/security';
-
-import { CompanyComponent, CompanyDetailComponent, CompanyListComponent } from './companies/components';
-import { DashboardComponent, DashCompanyComponent } from './dashboards/components';
-import { DepartmentComponent, DepartmentDetailComponent, DepartmentListComponent } from './departments/components';
-import { LoginComponent, ProfileComponent, RegisterComponent, UserComponent, } from './users/components';
-import { JobRoleComponent, JobRoleDetailComponent, JobRoleListComponent } from './jobRoles/components';
-import { EmployeeComponent, EmployeeDetailComponent, EmployeeListComponent } from './employees/components';
+import { AuthGuard } from './shared/security/guard';
+import { CompanyComponent, CompanyDetailComponent, CompanyListComponent, DashCompanyComponent, DashboardComponent, DepartmentComponent, DepartmentDetailComponent, DepartmentListComponent, EmployeeComponent, EmployeeDetailComponent, EmployeeListComponent, JobRoleComponent, JobRoleDetailComponent, JobRoleListComponent, LoginComponent, ProfileComponent, RegisterComponent, UserComponent } from './components';
 
 const routes: Routes = [
   { path: '', redirectTo: 'users/profile', pathMatch: 'full' },

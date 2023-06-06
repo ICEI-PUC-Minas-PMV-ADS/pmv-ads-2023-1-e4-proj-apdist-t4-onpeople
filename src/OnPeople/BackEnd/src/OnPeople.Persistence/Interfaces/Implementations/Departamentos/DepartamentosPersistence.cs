@@ -19,14 +19,13 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Departamentos
             _context = context;
 
         }
-        public async Task<PageList<Departamento>> GetAllDepartamentosAsync(PageParameters pageParameters, int empresaId)
+        public async Task<PageList<Departamento>> GetAllDepartamentosAsync(PageParameters pageParameters, int empresaId, bool Master)
         {
-            Console.WriteLine("************PageParameters  " + pageParameters.PageNumber + " " + pageParameters.PageSize);
             IQueryable<Departamento> query = _context.Departamentos
             .Include(d => d.Empresa)
             .Include(d => d.Cargos);
 
-            if (empresaId == 0) {
+            if (empresaId == 0 && Master) {
                 query = query
                     .AsNoTracking()
                     .OrderBy(d => d.Id)
@@ -92,7 +91,6 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Departamentos
                     .AsNoTracking()
                     .Where(d => d.EmpresaId == empresaId &&  d.Id == departamentoId);
             }
-
 
             _dashDepartamento.CountDepartamentos = query.Count<Departamento>();
             

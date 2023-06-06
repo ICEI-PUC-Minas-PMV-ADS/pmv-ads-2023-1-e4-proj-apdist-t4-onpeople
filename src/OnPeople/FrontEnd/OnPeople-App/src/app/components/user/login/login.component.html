@@ -1,0 +1,105 @@
+<div class="row g-0 mt-1 ">
+
+  <div class="titulo shadow bd-primary text-center">Login</div>
+
+  <div class="col-md-6 col-sm-12 mt-5 ps-1">
+
+    <div class="card bg-primary mt-2">
+
+      <div class="card-header">
+
+        <div class="text-center col-md-12">
+
+          <div class="titulo shadow text-white ">
+            OnPeople Services New Generation
+          </div>
+        </div>
+
+      </div>
+
+      <div class="card-body bg-white mx-2">
+
+        <form class="row p-0" [formGroup]="formLogin" (submit)="login()">
+
+          <div class="pb-1 d-block d-md-none">
+            <div class="h4 border-bottom">Login</div>
+          </div>
+
+          <div class="p-1">
+            <div class="h1 text-center text-info">
+              <mat-icon class="iconBadge">lock</mat-icon>
+            </div>
+          </div>
+
+          <div class="form-row d-md-flex p-0 pt-2">
+            <mat-form-field class="col-12 p-1" appearance="outline">
+              <mat-label class="text-info">Conta</mat-label>
+              <mat-icon matPrefix class="iconDash text-info">person</mat-icon>
+              <input matInput type="text" formControlName="userName"
+                [ngClass]="fieldValidator(ctrF.userName)">
+              <mat-error class="invalid-feedback">
+                {{messageReturned(ctrF.userName, "")}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row d-md-flex p-1">
+            <mat-form-field class="form-group col-12 p-1" appearance="outline">
+              <mat-label class="text-info">Senha</mat-label>
+              <mat-icon matPrefix class="iconDash text-info">key</mat-icon>
+              <input matInput type="password" formControlName="password"
+                [ngClass]="fieldValidator(ctrF.password)">
+              <mat-error class="invalid-feedback">
+                {{messageReturned(ctrF.password, "")}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+
+          <div class="row g-0">
+            <div class="d-flex col-12 p-1">
+              <button class="btn btn-info col-12"
+                [disabled]="!formLogin.valid" type="submit">
+                Entrar
+              </button>
+            </div>
+          </div>
+
+        </form>
+
+      </div>
+      <div class="card-footer bg-primary">
+        <div class="pt-0">
+          <div class="row">
+            <div class="d-sm-flex">
+              <div class="custom-control custom-check-box">
+                <a class="btn btn-link btn-block text-white"
+                  routerLink="/users/register">
+                  Esqueci minha senha
+                </a>
+              </div>
+              <div class="custom-control custom-check-box ms-auto">
+                <a class="btn btn-link btn-block text-white"
+                  routerLink="/users/register">
+                  Quero me cadastrar
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="col-md-6 d-none d-md-block p-1 mt-5">
+    <div class="text-center col-md-12 my-auto side-header">
+      <img class="imageLateral img-forgot-pwd"
+        src="../../../../../assets/img/istockphoto-1281150061-612x612.jpg">
+    </div>
+  </div>
+
+</div>
+
+<!-- <p>Form Value: {{formLogin.value | json}}</p>
+<p>Form Status: {{formLogin.status | json}}</p> -->

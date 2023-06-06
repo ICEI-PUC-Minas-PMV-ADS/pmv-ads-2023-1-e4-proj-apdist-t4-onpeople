@@ -1,0 +1,91 @@
+<div class="card rounded shadow p-1 bg-light">
+
+  <div class="card-header text-center bg-info text-white ">
+    <div class="h3">Formulário de Perfil</div>
+  </div>
+
+  <div class="card-body mt-1 p-0">
+
+    <div class="row m-0 p-0">
+
+      <div class="col-sm-12 col-md-4 p-0">
+
+        <div class="card bg-ligth">
+
+          <div class="card-header bg-primary">
+            <input type="file" #file (change)="changePhoto($event)"
+              style="display: none">
+            <div class="align-self-center text-center pt-1">
+              <img class="rounded-circle" [src]="fotoURL" (click)="file.click()"
+                alt="Foto do perfil">
+              <div class="h5 text-center text-white">
+                {{users.email}}
+              </div>
+            </div>
+          </div>
+
+          <div class="card-body g-0 m-0">
+            <div class="mb-3">
+              <span class="h6 fw-bold p-0">Nome: </span>
+              <span class="h6">{{users.nomeCompleto}}</span>
+            </div>
+            <div class="mb-3">
+              <span class="h6 fw-bold p-0">e-mail: </span>
+              <span class="h6">{{users.email}}</span>
+            </div>
+            <div class="mb-3">
+              <span class="h6 fw-bold p-0">Telefone: </span>
+              <span class="h6">{{users.phoneNumber}}</span>
+            </div>
+            <div class="mb-3">
+              <span class="h6 fw-bold p-0">Data Cadastro: </span>
+              <span class="h6">{{users.dataCadastro | date}}</span>
+            </div>
+            <div class="mb-3">
+              <span class="h6 fw-bold p-0">Conta Ativa: </span>
+              <span class="h6">{{(users.ativa) ? "Sim" : "Não"}}</span>
+            </div>
+            <div class="mb-3">
+              <span class="h6 fw-bold p-0">Empresa: </span>
+              <span class="h6">{{users.nomeEmpresa}}</span>
+            </div>
+          </div>
+
+          <div class="card-footer bg-primary text-white p-1 m-0">
+            <div  class="card d-flex bg-primary g-0 m-0 p-0">
+              <div  class="card-header text-center shadow">
+                Metas
+              </div>
+              <div  class="card-body row g-0 m-0 p-0">
+                <div  class="col-md-4 shadow">
+                  <div class="h7 text-center p-0 mb-3">Total</div>
+                  <div class="h3 text-center p-0">0</div>
+
+                </div>
+
+                <div class="col-md-4 shadow">
+                  <div class="h7 text-center p-0 mb-3">Cumpridas: </div>
+                  <div class="h3 text-center p-0">0</div>
+                </div>
+
+                <div class="col-md-4 shadow">
+                  <div class="h7 text-center p-0 mb-3">Pendentes: </div>
+                  <div class="h3 text-center p-0">0</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="col-md-8 m-0 p-1">
+        <app-profileDetalhe (changeFormValue)="getDataLoged($event)"></app-profileDetalhe>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

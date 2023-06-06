@@ -1,0 +1,123 @@
+<form class="mt-1" [formGroup]="formDetail">
+  <div class="card rounded shadow-sm p-1">
+
+    <div class="card-header text-center text-white bg-info">
+      <div class="h3">Formulário de Cargos</div>
+    </div>
+
+    <div class="card-body p-0 mt-1">
+      <div class="row m-0 p-0">
+        <div Class="col-md-8">
+
+          <div class="h4 border-bottom">Dados da Empresa: </div>
+
+          <div class="form-row d-md-flex">
+            <mat-form-field class="col-md-6 p-1" appearance="outline">
+              <mat-label class="text-info">Empresa</mat-label>
+              <mat-select [(ngModel)]="selectCompanyId" (selectionChange)="changeSelectCompany()"
+                placeholder="Selecione uma Empresa" formControlName="selectCompanyId"
+                [ngClass]="fieldValidator(ctrF.selectCompanyId)">
+                <mat-option *ngFor="let company of companies" [value]="company.id">{{company.razaoSocial}} </mat-option>
+              </mat-select>
+              <mat-error class="invalid-feedback">
+                {{messageReturned(ctrF.selectCompanyId, "")}}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-6 p-1" appearance="outline">
+              <mat-label>CNPJ</mat-label>
+              <input matInput type="text" class="form-control" formControlName="cnpj" [ngClass]="fieldValidator(ctrF.cnpj)"
+                readonly>
+              <mat-error class="invalid-feedback">
+                {{messageReturned(ctrF.cnpj, "")}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="h4 border-bottom">Dados do Departamento: </div>
+
+          <div class="form-row d-md-flex">
+            <mat-form-field class="col-md-6 p-1" appearance="outline">
+              <mat-label class="text-info">Departmaneto</mat-label>
+              <mat-select [(ngModel)]="selectDepartmentId" (selectionChange)="changeSelectDepartment()"
+                placeholder="Selecione uma Departamento" formControlName="selectDepartmentId"
+                [ngClass]="fieldValidator(ctrF.selectDepartmentId)">
+                <mat-option *ngFor="let department of departments" [value]="department.id">{{department.nomeDepartamento}} </mat-option>
+              </mat-select>
+              <mat-error class="invalid-feedback">
+                {{messageReturned(ctrF.selectDepartmentId, "")}}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-6 p-1" appearance="outline">
+              <mat-label >Sigla</mat-label>
+              <input matInput type="text" class="form-control" formControlName="sigla" [ngClass]="fieldValidator(ctrF.sigla)"
+                readonly>
+              <mat-error class="invalid-feedback">
+                {{messageReturned(ctrF.sigla, "")}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="h4 border-bottom text-white">Dados do Cargo: </div>
+
+          <div class="form-row d-md-flex">
+            <mat-form-field class="col-md-6 p-1" appearance="outline">
+              <mat-label class="text-info">Cargo</mat-label>
+              <input matInput type="text" class="form-control" formControlName="nomeCargo" [ngClass]="fieldValidator(ctrF.nomeCargo)">
+              <mat-error class="invalid-feedback">
+                {{messageReturned(ctrF.nomeCargo, "")}}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-2 p-1" appearance="outline">
+              <mat-label class="text-info">Ativo</mat-label>
+              <mat-select placeholder="Selecione uma Empresa" formControlName="ativo" [ngClass]="fieldValidator(ctrF.ativo)">
+                <mat-option [value]="false">Não</mat-option>
+                <mat-option [value]="true">Sim</mat-option>
+              </mat-select>
+              <mat-error class="invalid-feedback">
+                {{messageReturned(ctrF.ativo, "")}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+          <div class="aligns-self-center text-center pt-1">
+            <img class="imageDetail" [src]="logoURL" alt="Card imagem upload imageDetail">
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="card-footer bg-info  mt-1">
+      <div class="d-flex ">
+        <button class="btn btn-danger ms-auto mx-1" (click)="clearForm()">
+          Cancelar
+        </button>
+        <button class="btn btn-primary mx-1 px-4" [disabled]="!formDetail.valid" (click)="saveChange()">
+          {{editMode ? "Salvar" : "Criar"}}
+        </button>
+      </div>
+    </div>
+
+  </div>
+</form>
+
+<!--
+
+  <p>Form Value: {{formDetail.value | json}}</p>
+  <p>Form Status: {{formDetail.status | json}}</p>
+-->
+
+<ngx-spinner type="ball-scale-multiple"
+bdColor="rgba(51,51,51,0.8)"
+size="medium"
+color="blue"
+>
+<p style="font-size:20px; color: white;">Carregando...</p>
+</ngx-spinner>

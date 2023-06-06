@@ -1,0 +1,98 @@
+<form class="mt-1" [formGroup]="formPersonalDocuments">
+  <div class="card rounded shadow-sm p-0">
+
+    <div class="card-body p-0 m-0">
+      <div class="row m-0 p-0">
+        <div Class="col-md-12">
+
+          <div class="h4 border-bottom ">Dados Pessoais: </div>
+
+          <div class="form-row d-md-flex">
+            <mat-form-field class="col-md-2 p-1" appearance="outline">
+              <mat-label># id</mat-label>
+              <input matInput formControlName="id" value="{{id}}" readonly>
+              <mat-error class="invalid-feedback">{{messageReturned(ctrF.id, "")}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-3 p-1" appearance="outline">
+              <mat-label class="text-info">CPF</mat-label>
+              <input matInput formControlName="cpf" [ngClass]="fieldValidator(ctrF.cpf)">
+              <mat-error class="invalid-feedback">{{messageReturned(ctrF.cpf, "")}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-3 p-1" appearance="outline">
+              <mat-label class="text-info">Título de Eleitor  </mat-label>
+              <input matInput formControlName="tituloEleitor" [ngClass]="fieldValidator(ctrF.tituloEleitor)">
+              <mat-error class="invalid-feedback">{{messageReturned(ctrF.tituloEleitor, "")}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-4 p-1" appearance="outline">
+              <mat-label class="text-info">Impedimento Eleitoral </mat-label>
+              <mat-select formControlName="impedimentoEleitoral" [ngClass]="fieldValidator(ctrF.impedimentoEleitoral)">
+                <mat-option value="true">Sim</mat-option>
+                <mat-option value="false">Não</mat-option>
+              </mat-select>
+              <mat-error class="invalid-feedback">{{messageReturned(ctrF.impedimentoEleitoral, "")}}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row d-md-flex">
+            <mat-form-field class="col-md-3 p-1" appearance="outline">
+              <mat-label class="text-info">Número Identidade</mat-label>
+              <input matInput formControlName="identidade"
+                [ngClass]="fieldValidator(ctrF.identidade)">
+              <mat-error class="invalid-feedback">{{messageReturned(ctrF.identidade, "")}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-3 p-1" appearance="outline">
+              <mat-label class="text-info">Data Expedição</mat-label>
+              <input matInput formControlName="dataExpedicao" [ngClass]="fieldValidator(ctrF.dataExpedicao)">
+              <mat-error class="invalid-feedback">{{messageReturned(ctrF.dataExpedicao, "")}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-2 p-1" appearance="outline">
+              <mat-label class="text-info">UF Emissão</mat-label>
+              <input matInput formControlName="ufEmissao"
+                [ngClass]="fieldValidator(ctrF.ufEmissao)">
+              <mat-error class="invalid-feedback">{{messageReturned(ctrF.ufEmissao, "")}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-4 p-1" appearance="outline">
+              <mat-label class="text-info">Estado Civil</mat-label>
+              <input matInput  formControlName="estadoCivil" [ngClass]="fieldValidator(ctrF.estadoCivil)">
+              <mat-error class="invalid-feedback">{{messageReturned(ctrF.estadoCivil, "")}}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row d-md-flex">
+
+            <mat-form-field class="col-md-3 p-1" appearance="outline">
+              <mat-label class="text-info">Número Carteira Trabalho</mat-label>
+              <input matInput  formControlName="carteiraTrabalho" [ngClass]="fieldValidator(ctrF.carteiraTrabalho)">
+              <mat-error class="invalid-feedback">{{messageReturned(ctrF.carteiraTrabalho, "")}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-3 p-1" appearance="outline">
+              <mat-label class="text-info">PIS/PASEP</mat-label>
+              <input matInput  formControlName="pisPasep" [ngClass]="fieldValidator(ctrF.pisPasep)">
+              <mat-error class="invalid-feedback">{{messageReturned(ctrF.pisPasep, "")}}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="card-footer bg-info  ">
+      <div class="d-flex ">
+        <button class="btn btn-primary ms-auto mx-1 px-4" [disabled]="!formPersonalDocuments.valid" (click)="saveChange()">
+          Salvar
+        </button>
+      </div>
+    </div>
+  </div>
+
+</form>
+
+<p>Form Value: {{formPersonalDocuments.value | json}}</p>
+<p>Form Status: {{formPersonalDocuments.status | json}}</p>

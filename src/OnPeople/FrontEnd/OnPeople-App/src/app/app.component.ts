@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { Constants } from './shared/models/constants/constants';
+import { Constants } from './shared/constants/constants';
 
-import { Users } from './users/models';
+import { Users } from './models/user';
 
-import { LoginLogoutService } from './users/services';
+import { LoginLogoutService } from './services';
 
 @Component({
   selector: 'app-root',

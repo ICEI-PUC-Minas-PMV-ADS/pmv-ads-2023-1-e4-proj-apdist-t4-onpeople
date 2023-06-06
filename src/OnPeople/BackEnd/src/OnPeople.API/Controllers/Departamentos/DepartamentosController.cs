@@ -40,6 +40,16 @@ public class DepartamentosController : ControllerBase
     {
         try
         {
+            var claimUser = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());
+
+            if (claimUser == null) 
+                return Unauthorized();
+
+            var userLogged = await _usersServices.GetUserByUserNameAsync(User.GetUserNameClaim());
+
+            if (userLogged == null)
+                return Unauthorized();
+
             var departamento = await _departamentosServices.GetDepartamentoByIdAsync(departamentoId);
 
             if (departamento == null) return NotFound("Departamento não encontrado.");
@@ -76,7 +86,7 @@ public class DepartamentosController : ControllerBase
             if (userLogged == null)
                 return Unauthorized();
 
-            var departamentos = await _departamentosServices.GetAllDepartamentosAsync(pageParameters, userLogged.CodEmpresa);
+            var departamentos = await _departamentosServices.GetAllDepartamentosAsync(pageParameters, userLogged.CodEmpresa, userLogged.Master);
 
             if (departamentos == null) return NotFound("A empresa informada não possui departamentos cadastrados.");
 
@@ -204,6 +214,16 @@ public class DepartamentosController : ControllerBase
     {
         try
         {
+            var claimUser = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());
+
+            if (claimUser == null) 
+                return Unauthorized();
+
+            var userLogged = await _usersServices.GetUserByUserNameAsync(User.GetUserNameClaim());
+
+            if (userLogged == null)
+                return Unauthorized();
+
             var departamento = await _departamentosServices.GetDepartamentoByIdAsync(departamentoId);
 
             if (departamento.Ativo) return BadRequest("Departamentos ativos não podem ser excluídos. Inative o departamento e tente novamente.");
