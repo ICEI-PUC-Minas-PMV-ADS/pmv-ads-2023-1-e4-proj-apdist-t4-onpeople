@@ -1,6 +1,9 @@
 
 
 using OnPeople.Domain.Models.Metas;
+using OnPeople.Integration.Models.Dashboard;
+using OnPeople.Integration.Models.Pages.Config;
+using OnPeople.Integration.Models.Pages.Page;
 
 namespace OnPeople.Application.Services.Contracts.Metas
 {
@@ -10,8 +13,9 @@ namespace OnPeople.Application.Services.Contracts.Metas
         Task<MetaDto> UpdateMeta(int metaId, MetaDto model);
         Task<bool> DeleteMeta(int metaId);
 
-        Task<MetaDto[]> GetAllMetasAsync();
-        Task<MetaDto[]> GetAllMetasByTipoAsync(string tipoMeta);
+        Task<PageList<MetaDto>> GetAllMetasAsync(PageParameters pageParameters, int empresaId);
+       Task<IEnumerable<MetaDto>> GetAllMetasByTipoAsync(string tipoMeta);
         Task<MetaDto> GetMetaByIdAsync(int metaId);
+        DashboardMetas GetDashboard(int empresaId);
     }
 }

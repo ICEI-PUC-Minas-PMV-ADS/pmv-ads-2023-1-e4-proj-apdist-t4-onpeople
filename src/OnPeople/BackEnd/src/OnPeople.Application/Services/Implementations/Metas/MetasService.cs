@@ -1,23 +1,27 @@
-using System;
-using System.Threading.Tasks;
 using AutoMapper;
 using OnPeople.Application.Services.Contracts.Metas;
 using OnPeople.Domain.Models.Metas;
+using OnPeople.Integration.Models.Dashboard;
+using OnPeople.Integration.Models.Pages.Config;
+using OnPeople.Integration.Models.Pages.Page;
 using OnPeople.Persistence.Interfaces.Contracts.Metas;
+using OnPeople.Persistence.Interfaces.Contracts.Shared;
 
 namespace OnPeople.Application.Services.Implementations.Metas
 {
     public class MetasService : IMetasService
     {
-
+        private readonly ISharedPersistence _sharedPersistence;
         private readonly IMetaPersistence _metasPersistence;
         private readonly IMapper _mapper;
 
         public MetasService(
+            ISharedPersistence sharedPersistence,
             IMetaPersistence metasPersistence, 
             IMapper mapper)
         {
             _metasPersistence = metasPersistence;
+            _sharedPersistence = sharedPersistence;
             _mapper = mapper;
         }
 
@@ -88,14 +92,19 @@ namespace OnPeople.Application.Services.Implementations.Metas
         }
 
 
-        public async Task<MetaDto[]> GetAllMetasAsync()
+        public async Task<PageList<MetaDto>> GetAllMetasAsync(PageParameters pageParameters, int empresaId)
         {
             try
             {
-                var metas = await _metasPersistence.GetAllMetasAsync();
+                var metas = await _metasPersistence.GetAllMetasAsync(pageParameters, empresaId);
                 if (metas == null) return null;
 
-                var resultado = _mapper.Map<MetaDto[]>(metas);
+                var resultado = _mapper.Map<PageList<MetaDto>>(metas);
+
+                resultado.CurrentPage = metas.CurrentPage;
+                resultado.TotalPages = metas.TotalPages;
+                resultado.PageSize = metas.PageSize;
+                resultado.TotalCounter = metas.TotalCounter;
 
                 return resultado;
             }
@@ -105,7 +114,7 @@ namespace OnPeople.Application.Services.Implementations.Metas
             }
         }
 
-        public async Task<MetaDto[]> GetAllMetasByTipoAsync(string tipoMeta)
+        public async Task<IEnumerable<MetaDto>> GetAllMetasByTipoAsync(string tipoMeta)
         {
             try
             {
@@ -136,6 +145,19 @@ namespace OnPeople.Application.Services.Implementations.Metas
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
+            }
+        }
+
+        public DashboardMetas GetDashboard(int empresaId) 
+        {       
+            try
+            {
+                return _metasPersistence.GetDashboard(empresaId);
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
             }
         }
     }

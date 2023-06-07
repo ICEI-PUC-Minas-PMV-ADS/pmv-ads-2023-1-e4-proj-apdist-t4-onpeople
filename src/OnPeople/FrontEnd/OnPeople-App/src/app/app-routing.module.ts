@@ -1,7 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './shared/security/guard';
-import { CompanyComponent, CompanyDetailComponent, CompanyListComponent, DashCompanyComponent, DashboardComponent, DepartmentComponent, DepartmentDetailComponent, DepartmentListComponent, EmployeeComponent, EmployeeDetailComponent, EmployeeListComponent, JobRoleComponent, JobRoleDetailComponent, JobRoleListComponent, LoginComponent, ProfileComponent, RegisterComponent, UserComponent } from './components';
+import {
+  CompanyComponent, CompanyDetailComponent, CompanyListComponent,
+  DashCompanyComponent, DashboardComponent,
+  DepartmentComponent, DepartmentDetailComponent, DepartmentListComponent,
+  EmployeeComponent, EmployeeDetailComponent, EmployeeListComponent,
+  JobRoleComponent, JobRoleDetailComponent, JobRoleListComponent,
+  LoginComponent,
+  MetaComponent,
+  MetaListComponent,
+  ProfileComponent,
+  RegisterComponent,
+  UserComponent
+} from './components';
 
 const routes: Routes = [
   { path: '', redirectTo: 'users/profile', pathMatch: 'full' },
@@ -46,6 +58,14 @@ const routes: Routes = [
         { path: 'detail/:id', component: EmployeeDetailComponent },
         { path: 'detail', component: EmployeeDetailComponent },
         { path: 'list', component: EmployeeListComponent },
+      ] },
+
+    { path: 'metas', redirectTo: 'metas/list', pathMatch: 'full' },
+    { path: 'metas', component: MetaComponent,
+      children: [
+        { path: 'detail/:id', component: EmployeeDetailComponent },
+        { path: 'detail', component: EmployeeDetailComponent },
+        { path: 'list', component: MetaListComponent },
       ] },
 
     { path: 'dashboards', redirectTo: 'dashboards/empresa', pathMatch: 'full' },

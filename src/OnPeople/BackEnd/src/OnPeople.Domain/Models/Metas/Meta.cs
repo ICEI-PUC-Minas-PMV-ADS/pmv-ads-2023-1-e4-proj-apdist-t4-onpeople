@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using OnPeople.Domain.Models.Empresas;
 using OnPeople.Domain.Models.Funcionarios;
 
 namespace OnPeople.Domain.Models.Metas
@@ -20,8 +21,7 @@ namespace OnPeople.Domain.Models.Metas
         public string InicioOficial { get; set; }
         public string FimOficial { get; set; }
         public int EmpresaId { get; set; }
-        
-        //public Empresa Empresas { get; set; }
+        public Empresa Empresa { get; set; }
         public IEnumerable<FuncionarioMeta> FuncionariosMetas { get; set; }
     }
 }

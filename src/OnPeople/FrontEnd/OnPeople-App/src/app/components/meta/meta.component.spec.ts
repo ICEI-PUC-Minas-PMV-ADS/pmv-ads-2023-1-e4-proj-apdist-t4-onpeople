@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { MetasComponent } from './metas.component';
+import { MetaComponent } from './meta.component';
 
-describe('MetasComponent', () => {
-  let component: MetasComponent;
-  let fixture: ComponentFixture<MetasComponent>;
+describe('MetaComponent', () => {
+  let component: MetaComponent;
+  let fixture: ComponentFixture<MetaComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MetasComponent ]
+      declarations: [ MetaComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MetasComponent);
+    fixture = TestBed.createComponent(MetaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

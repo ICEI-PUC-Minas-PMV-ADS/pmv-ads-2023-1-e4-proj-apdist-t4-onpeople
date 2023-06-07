@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Constants } from '../../constants';
 
-import { Constants } from 'src/app/shared/constants';
+
 
 @Injectable()
 export class AuthGuard implements CanActivate {
