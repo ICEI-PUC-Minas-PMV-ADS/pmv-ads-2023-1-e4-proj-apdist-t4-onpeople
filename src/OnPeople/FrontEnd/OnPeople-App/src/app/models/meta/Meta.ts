@@ -1,3 +1,5 @@
+import { Empresa } from "../company";
+
 export interface Meta {
 
   id: number;
@@ -12,8 +14,6 @@ export interface Meta {
   inicioOficial: Date;
   fimOficial: Date;
   empresaId: number;
-
-  // public Empresa Empresas { get; set; }
-  // public IEnumerable<FuncionarioMeta> FuncionariosMetas { get; set; }
-
+  empresa: Empresa;
+  //ublic IEnumerable<FuncionarioMeta> FuncionariosMetas { get; set; }
 }
