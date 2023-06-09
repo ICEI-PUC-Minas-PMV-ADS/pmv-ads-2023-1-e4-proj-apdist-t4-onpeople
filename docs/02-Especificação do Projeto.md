@@ -58,12 +58,16 @@ Atualmente o processos funcionam assim, sem realizar nenhuma análise crítica e
 ![Gestão RH](img/02-bpmn-gestao-rh.png)
 ## Indicadores de Desempenho
 
-Apresente aqui os principais indicadores de desempenho e algumas metas para o processo. Atenção: as informações necessárias para gerar os indicadores devem estar contempladas no diagrama de classe. Colocar no mínimo 5 indicadores. 
-
-Usar o seguinte modelo: 
-
-![Indicadores de Desempenho](img/02-indic-desemp.png)
-Obs.: todas as informações para gerar os indicadores devem estar no diagrama de classe a ser apresentado a posteriori. 
+| | Indicador | Objetivo | Descrição | Cálculo | Fonte de Dados | Perspectiva
+|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|
+| 0	| Total de usuários cadastrados | Analisar crescimento da plataforma | Quantidade de usuários registrados no banco de dados | Qtde. absoluta de registros  | Tabela aspnetusers | Solidez no mercado |
+| 2	| Total de empresas cadastradas | Analisar crescimento da plataforma | Quantidade de empresas registradas no banco de dados | Qtde. absoluta de registros | Tabela empresas | Solidez no mercado |
+| 3	| Total de funcionários cadastrados | Avaliar porte das empresas que utilizam a aplicação | Quantidade de funcionários registrados no banco de dados | Qtde. absoluta de registros | Tabela funcionarios | Análise dos perfis de clientes |
+| 4	| Total de departamentos cadastrados | Avaliar porte das empresas que utilizam a aplicação | Quantidade de departamentos registrados no banco de dados | Qtde. absoluta de registros | Tabela departamentos | Análise dos perfis de clientes |
+| 5	| Total de metas cadastradas | Avaliar uso pelas empresas | Quantidade de metas registradas no banco de dados | Qtde. absoluta de registros | Tabela metas | Avaliar uso da aplicação pelas empresas |
+| 6	| Total de associações metas x funcionários | Avaliar uso pelas empresas | Quantidade de funcionariosmetas registrados no banco de dados | Qtde. absoluta de registros | Tabela funcionariosmetas | Avaliar uso da aplicação pelas empresas |
+| 7	| Total de bugs encontrados (web) | Analisar qualitativamente os ciclos de desenvolvimento e teste do produto | Quantidade de metas registradas no banco de dados | Qtde. absoluta de registros | | Processos internos |
+| 8	| Total de bugs encontrados (mobile) | Analisar qualitativamente os ciclos de desenvolvimento e teste do produto | Quantidade de metas registradas no banco de dados | Qtde. absoluta de registros | | Processos internos |
 
 ## Requisitos
 
