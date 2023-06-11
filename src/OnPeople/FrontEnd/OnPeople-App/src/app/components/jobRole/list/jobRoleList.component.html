@@ -36,9 +36,9 @@
         <td class="d-none d-md-table-cell" >{{jobRole.ativo }} </td>
         <td>
           <div class="btn-group">
-            <button type="button" class="btn btn-outline-danger" ngbTooltip="Excluir" (click)="openModal($event, template, jobRole.id, jobRole.nomeCargo)">
+            <a class="text-danger" ngbTooltip="Excluir" (click)="openModal($event, template, jobRole.id, jobRole.nomeCargo)">
               <mat-icon>delete</mat-icon>
-            </button>
+            </a>
           </div>
         </td>
       </tr>

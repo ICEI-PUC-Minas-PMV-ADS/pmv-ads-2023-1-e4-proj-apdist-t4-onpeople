@@ -23,7 +23,8 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Empresas
             IQueryable<Empresa> query = _context.Empresas
                 .Include(e => e.Users)
                 .Include(e => e.Departamentos)
-                .Include(e => e.Cargos);
+                .Include(e => e.Cargos)
+                .Include(e => e.Funcionarios);
 
             query = query
                 .AsNoTracking()

@@ -15,14 +15,13 @@ using OnPeople.Application.Services.Contracts.Cargos;
 using OnPeople.Application.Services.Contracts.Departamentos;
 using OnPeople.Application.Services.Contracts.Empresas;
 using OnPeople.Application.Services.Contracts.Funcionarios;
-using OnPeople.Application.Services.Contracts.FuncionariosMetas;
 using OnPeople.Application.Services.Contracts.Metas;
 using OnPeople.Application.Services.Contracts.Users;
 using OnPeople.Application.Services.Implementations.Cargos;
 using OnPeople.Application.Services.Implementations.Departamentos;
 using OnPeople.Application.Services.Implementations.Empresas;
 using OnPeople.Application.Services.Implementations.Funcionarios;
-using OnPeople.Application.Services.Implementations.FuncionariosMetas;
+
 using OnPeople.Application.Services.Implementations.Metas;
 using OnPeople.Application.Services.Implementations.Users;
 
@@ -33,7 +32,6 @@ using OnPeople.Persistence.Interfaces.Contracts.Cargos;
 using OnPeople.Persistence.Interfaces.Contracts.Departamentos;
 using OnPeople.Persistence.Interfaces.Contracts.Empresas;
 using OnPeople.Persistence.Interfaces.Contracts.Funcionarios;
-using OnPeople.Persistence.Interfaces.Contracts.FuncionariosMetas;
 using OnPeople.Persistence.Interfaces.Contracts.Metas;
 using OnPeople.Persistence.Interfaces.Contracts.Shared;
 using OnPeople.Persistence.Interfaces.Contracts.Users;
@@ -41,7 +39,6 @@ using OnPeople.Persistence.Interfaces.Implementations.Cargos;
 using OnPeople.Persistence.Interfaces.Implementations.Departamentos;
 using OnPeople.Persistence.Interfaces.Implementations.Empresas;
 using OnPeople.Persistence.Interfaces.Implementations.Funcionarios;
-using OnPeople.Persistence.Interfaces.Implementations.FuncionariosMetas;
 using OnPeople.Persistence.Interfaces.Implementations.Metas;
 using OnPeople.Persistence.Interfaces.Implementations.Shared;
 using OnPeople.Persistence.Interfaces.Implementations.Users;
@@ -116,7 +113,7 @@ namespace OnPeople.API
                 .AddScoped<IDadosPessoaisServices, DadosPessoaisServices>()
                 .AddScoped<IEmpresasServices, EmpresasServices>()
                 .AddScoped<IEnderecosServices, EnderecosServices>()
-                .AddScoped<IFuncionarioMetaServices, FuncionarioMetaServices>()
+                .AddScoped<IFuncionariosMetasServices, FuncionariosMetasServices>()
                 .AddScoped<IFuncionariosServices, FuncionariosServices>()
                 .AddScoped<IMetasService, MetasService>()
                 .AddScoped<ITokenServices, TokenServices>()
@@ -130,7 +127,7 @@ namespace OnPeople.API
                 .AddScoped<IEmpresasPersistence, EmpresasPersistence>()
                 .AddScoped<IEnderecosPersistence, EnderecosPersistence>()
                 .AddScoped<IFuncionariosPersistence, FuncionariosPersistence>()
-                .AddScoped<IFuncionarioMetaPersistence, FuncionarioMetaPersistence>()
+                .AddScoped<IFuncionariosMetasPersistence, FuncionariosMetasPersistence>()
                 .AddScoped<IMetaPersistence, MetasPersistence>()
                 .AddScoped<ISharedPersistence, SharedPersistence>()
                 .AddScoped<IUsersPersistence, UsersPersistence>();

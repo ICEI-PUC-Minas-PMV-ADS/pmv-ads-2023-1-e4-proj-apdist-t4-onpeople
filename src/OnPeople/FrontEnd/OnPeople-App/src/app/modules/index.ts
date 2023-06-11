@@ -3,7 +3,7 @@ export * from './dashboard';
 export * from './department';
 export * from './employee';
 export * from './jobRole'
-export * from './meta';
+export * from './goal';
 export * from './navbar';
 export * from './titlebar';
 export * from './usersAccount';

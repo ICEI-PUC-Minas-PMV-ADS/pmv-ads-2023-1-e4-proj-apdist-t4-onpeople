@@ -1,0 +1,78 @@
+<div class="card rounded shadow-sm p-2 mt-1 bg-white">
+  <div class="d-flex">
+
+    <mat-toolbar class="bg-info">
+      <div class="flex-fill pr-3 my-1">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <label class="input-group-text bg-info text-white ">Filtro: </label>
+          </div>
+          <input type="text" class="form-control mr-2" placeholder="argumento" (input)="goalFilter($event.target)">
+        </div>
+      </div>
+      <button mat-icon-button class="d-flex btn btn-outline-info px-2 mx-2 mt-0 text-white" routerLink="/metas/detail">
+        <mat-icon class="matIcon" ngbTooltip="Nova Meta">addd</mat-icon>
+        <i class="fa fa-plus-circle my-1"></i>
+      </button>
+    </mat-toolbar>
+
+  </div>
+
+  <table class="table table-striped table-hover mt-1">
+    <thead class="table-info">
+      <tr>
+        <th>Empresa</th>
+        <th>#Meta</th>
+        <th>Tipo<mat-icon class="pt-1">filter_alt</mat-icon></th>
+        <th>Nome Meta<mat-icon class="pt-1">filter_alt</mat-icon></th>
+        <th>Opções</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="goals && goals.length">
+      <tr *ngFor="let goal of goals" (click)="metaDetail(goal.id)">
+        <td>{{goal.empresa.razaoSocial}}</td>
+        <td>{{goal.id}}</td>
+        <td>{{goal.tipoMeta}}</td>
+        <td>{{goal.nomeMeta}}</td>
+        <td>
+          <div class="btn-group">
+            <a class="text-danger" tooltip="Excluir"
+              (click)="openModal($event, template, goal.id, goal.nomeMeta)">
+              <mat-icon>delete</mat-icon>
+            </a>
+
+          </div>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot *ngIf="!goals.length">
+        <td colspan="8" class="text-center">
+          <h4>Nenhuma meta encontrada!</h4>
+        </td>
+    </tfoot>
+  </table>
+
+</div>
+
+<!-- {{eventos | json}} -->
+
+<ng-template #template>
+  <div class="modal-body text-center">
+    <div class="card">
+      <div class="card-header bg-primary text-white">
+        <p>Exclusão de dados de meta, confirma?</p>
+      </div>
+    </div>
+    <div class="card-body">
+      <p>#{{goalId}} - {{goalName}}?</p>
+    </div>
+    <div class="card-foorter ms-auto">
+    </div>
+    <button type="button" class="btn btn-danger" (click)="backOff()">Não</button>
+    <button type="button" class="btn btn-info" (click)="confirmDeletion()">Sim</button>
+  </div>
+</ng-template>
+
+<ngx-spinner type="ball-scale-multiple" bdColor="rgba(51,51,51,0.8)" size="medium" color="blue">
+  <p style="font-size:20px; color: white;">Carregando...</p>
+</ngx-spinner>

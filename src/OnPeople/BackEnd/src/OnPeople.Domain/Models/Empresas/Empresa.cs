@@ -1,5 +1,6 @@
 using OnPeople.Domain.Models.Cargos;
 using OnPeople.Domain.Models.Departamentos;
+using OnPeople.Domain.Models.Funcionarios;
 using OnPeople.Domain.Models.Users;
 
 namespace OnPeople.Domain.Models.Empresas
@@ -47,5 +48,6 @@ namespace OnPeople.Domain.Models.Empresas
         public IEnumerable<User> Users { get; set; }
         public IEnumerable<Departamento> Departamentos { get; set; }
         public IEnumerable<Cargo> Cargos { get; set; }
+        public IEnumerable<Funcionario> Funcionarios { get; set; }
     }
 }

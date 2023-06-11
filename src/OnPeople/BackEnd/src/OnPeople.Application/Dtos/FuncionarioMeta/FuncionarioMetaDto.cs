@@ -2,7 +2,7 @@ using OnPeople.Domain.Models.Metas;
 
 namespace OnPeople.Domain.Models.Funcionarios
 {
-    public class FuncionarioMeta
+    public class FuncionarioMetaDto
     {
         public int Id { get; set; }
         public int MetaId { get; set; }

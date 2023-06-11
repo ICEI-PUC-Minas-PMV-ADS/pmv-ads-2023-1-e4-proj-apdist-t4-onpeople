@@ -1,0 +1,172 @@
+<form class="m-1" [formGroup]="formGoal">
+  <div class="card rounded shadow-sm p-1">
+
+    <div class="card-header text-center text-white bg-info">
+      <div class="h3">Formulário de Metas</div>
+    </div>
+
+    <div class="card-body p-0 mt-1">
+      <div class="row m-0 p-0">
+        <div Class="col-md-8">
+
+          <div class="h4 border-bottom">Dados da Empresa: </div>
+
+          <div class="form-row d-md-flex">
+            <mat-form-field class="col-md-6 p-1" appearance="outline">
+              <mat-label class="text-info">Empresa</mat-label>
+              <mat-select [(ngModel)]="selectCompanyId" (selectionChange)="changeSelectCompany()"
+                placeholder="Selecione uma Empresa" formControlName="selectCompanyId"
+                [ngClass]="fieldValidator(ctrF.selectCompanyId)">
+                <mat-option *ngFor="let company of companies" [value]="company.id">{{company.razaoSocial}} </mat-option>
+              </mat-select>
+              <mat-error class="invalid-feedback">
+                {{messageReturned(ctrF.selectCompanyId, "")}}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-6 p-1" appearance="outline">
+              <mat-label>CNPJ</mat-label>
+              <input matInput type="text" class="form-control" formControlName="cnpj" [ngClass]="fieldValidator(ctrF.cnpj)"
+                readonly>
+              <mat-error class="invalid-feedback">
+                {{messageReturned(ctrF.cnpj, "")}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="h4 border-bottom">Dados da Meta: </div>
+
+          <div class="form-row d-md-flex">
+            <mat-form-field class="col-md-4 p-1" appearance="outline">
+              <mat-label class="text-info">Tipo Meta</mat-label>
+              <mat-select placeholder="Selecione uma meta" formControlName="tipoMeta" [ngClass]="fieldValidator(ctrF.tipoMeta)">
+                <mat-option value="Departamento">Departamento</mat-option>
+                <mat-option value="Equipe">Equipe</mat-option>
+                <mat-option value="Pessoal">Pessoal</mat-option>
+                <mat-option value="Profissional">Profissonal</mat-option>
+              </mat-select>
+              <mat-error class="invalid-feedback">{{messageReturned(ctrF.tipoMeta, "")}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-8 p-1" appearance="outline">
+              <mat-label class="text-info">Nome Meta</mat-label>
+              <input matInput type="text" formControlName="nomeMeta"  [ngClass]="fieldValidator(ctrF.nomeMeta)">
+              <mat-error class="invalid-feedback">
+                {{messageReturned(ctrF.nomeMeta, "")}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row d-md-flex">
+            <mat-form-field class="col-md-4 p-1" appearance="outline">
+              <mat-label class="text-info">Cumprida?</mat-label>
+              <mat-select formControlName="metaCumprida" [ngClass]="fieldValidator(ctrF.metaCumprida)">
+                <mat-option [value]="false">Não</mat-option>
+                <mat-option [value]="true">Sim</mat-option>
+              </mat-select>
+              <mat-error class="invalid-feedback">{{messageReturned(ctrF.metaCumprida, "")}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-4 p-1" appearance="outline">
+              <mat-label class="text-info">Meta Aprovada?</mat-label>
+              <mat-select formControlName="metaAprovada" [ngClass]="fieldValidator(ctrF.metaAprovada)">
+                <mat-option [value]="false">Não</mat-option>
+                <mat-option [value]="true">Sim</mat-option>
+              </mat-select>
+              <mat-error class="invalid-feedback">{{messageReturned(ctrF.metaAprovada, "")}}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row d-md-flex" >
+            <mat-form-field class="col-md-12 p-1" appearance="outline">
+              <mat-label class="text-info">Descrição da Meta</mat-label>
+              <textarea matInput type="text" formControlName="descricao"  [ngClass]="fieldValidator(ctrF.descricao)"></textarea>
+              <mat-error class="invalid-feedback">{{messageReturned(ctrF.descricao, "")}}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+
+
+        </div>
+
+        <div class="col-md-4">
+
+          <div class="aligns-self-center text-center pt-1">
+            <img class="imageDetail" [src]="logoURL" alt="Card imagem upload imageDetail">
+          </div>
+
+        </div>
+
+      </div>
+
+      <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+        <mat-tab label="Planejamento">
+          <div class="row m-0 p-0 mt-2">
+
+            <mat-form-field class="col-md-4 p-1" appearance="outline">
+              <mat-label class="text-info">Intervalo Planejado</mat-label>
+              <mat-date-range-input [rangePicker]="planejamento"  >
+                <input matStartDate formControlName="inicioPlanejado"  >
+                <input matEndDate formControlName="fimPlanejado" (dateChange)="calculateIntervalPlanned(ctrF.inicioPlanejado.value, ctrF.fimPlanejado.value)" >
+              </mat-date-range-input>
+              <mat-datepicker-toggle matIconSuffix class="text-info" [for]="planejamento"></mat-datepicker-toggle>
+              <mat-date-range-picker #planejamento></mat-date-range-picker>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-4 p-1" appearance="outline">
+              <mat-label >Dias Planejado</mat-label>
+              <input matInput type="text" formControlName="diasPlanejado" [ngClass]="fieldValidator(ctrF.diasPlanejado)" readonly>
+              <mat-error class="invalid-feedback">
+                {{messageReturned(ctrF.diasPlanejado, "")}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="row m-0 p-0 ">
+            <mat-form-field class="col-md-4 p-1" appearance="outline">
+              <mat-label class="text-info">Intervalo Efetivo</mat-label>
+              <mat-date-range-input [rangePicker]="efetivo">
+                <input matStartDate formControlName="inicioOficial">
+                <input matEndDate formControlName="fimOficial"
+                  (dateChange)="calculateIntervalEffective(ctrF.inicioOficial.value, ctrF.fimOficial.value)">
+              </mat-date-range-input>
+              <mat-datepicker-toggle matIconSuffix class="text-info" [for]="efetivo"></mat-datepicker-toggle>
+              <mat-date-range-picker #efetivo></mat-date-range-picker>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-4 p-1" appearance="outline">
+              <mat-label>Dias Efetivos</mat-label>
+              <input matInput type="text" formControlName="diasOficial" [ngClass]="fieldValidator(ctrF.diasOficial)" readonly>
+              <mat-error class="invalid-feedback">
+                {{messageReturned(ctrF.diasOficial, "")}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+
+    </div>
+
+    <div class="card-footer bg-info  mt-1">
+      <div class="d-flex ">
+        <button class="btn btn-danger ms-auto mx-1" (click)="clearForm()">
+          Cancelar
+        </button>
+        <button class="btn btn-primary mx-1 px-4" [disabled]="!formGoal.valid" (click)="saveChange()">
+          {{editMode ? "Salvar" : "Criar"}}
+        </button>
+      </div>
+    </div>
+
+  </div>
+</form>
+<!--
+
+
+
+-->
+
+<p>Form value: {{formGoal.value | json}}</p>
+<p>Form valid: {{formGoal.status | json}}</p>
+
