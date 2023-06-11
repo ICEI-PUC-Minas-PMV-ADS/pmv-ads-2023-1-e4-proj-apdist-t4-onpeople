@@ -29,6 +29,7 @@
     "bootswatch": "^5.2.3",
     "correios-brasil": "^3.0.4",
     "font-awesome": "^4.7.0",
+    "moment": "^2.29.4",
     "ngx-bootstrap": "^10.2.0",
     "ngx-filter-pipe": "^2.1.2",
     "ngx-spinner": "^15.0.1",

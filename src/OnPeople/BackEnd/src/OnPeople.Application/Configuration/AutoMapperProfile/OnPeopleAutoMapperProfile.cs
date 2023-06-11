@@ -8,6 +8,7 @@ using OnPeople.Domain.Models.Cargos;
 using OnPeople.Domain.Models.Departamentos;
 using OnPeople.Domain.Models.Empresas;
 using OnPeople.Domain.Models.Funcionarios;
+using OnPeople.Domain.Models.Metas;
 using OnPeople.Domain.Models.Users;
 
 namespace OnPeople.Application.Configuration.AutoMapperProfile
@@ -33,6 +34,8 @@ namespace OnPeople.Application.Configuration.AutoMapperProfile
             CreateMap<Endereco, EnderecoDto>().ReverseMap();
 
             CreateMap<DadoPessoal, DadoPessoalDto>().ReverseMap();
+
+            CreateMap<Meta, MetaDto>().ReverseMap();
         }
     }
 }

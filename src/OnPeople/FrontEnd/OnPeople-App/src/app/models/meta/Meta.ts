@@ -8,8 +8,8 @@ export interface Meta {
   descricao: string;
   metaCumprida: boolean;
   metaAprovada: boolean;
-  inicioPlanejado: Date;
-  Fimplanejado: Date;
+  inicioPlaIninejado: Date;
+  fimPlanejado: Date;
   diasPlanejado: number;
   inicioOficial: Date;
   fimOficial: Date;

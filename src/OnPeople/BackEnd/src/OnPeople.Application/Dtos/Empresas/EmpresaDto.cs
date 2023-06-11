@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using OnPeople.Application.Dtos.Cargos;
 using OnPeople.Application.Dtos.Departamentos;
+using OnPeople.Application.Dtos.Funcionarios;
 using OnPeople.Application.Dtos.Users;
 using OnPeople.Integration.Models.Links;
 
@@ -98,5 +99,6 @@ namespace OnPeople.Application.Dtos.Empresas
 
         public IEnumerable<UserDto> Users { get; set; }
         public IEnumerable<CargoDto> Cargos { get; set; }
+        public IEnumerable<ReadFuncionarioDto> Funcioanrios { get; set; }
     }
 }

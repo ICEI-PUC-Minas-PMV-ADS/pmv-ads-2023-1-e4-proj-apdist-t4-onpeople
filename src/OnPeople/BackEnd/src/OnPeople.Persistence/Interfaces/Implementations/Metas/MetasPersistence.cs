@@ -32,14 +32,12 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Metas
              if (empresaId == 0) {
                 query = query
                     .Where(m => m.NomeMeta.ToLower().Contains(pageParameters.Term.ToLower()) ||
-                                m.TipoMeta.ToLower().Contains(pageParameters.Term.ToLower()) ||
-                                m.Descricao.ToLower().Contains(pageParameters.Term.ToLower()));
+                                m.TipoMeta.ToLower().Contains(pageParameters.Term.ToLower()) );
             } else {
                 query = query
                     .Where(m => m.EmpresaId == empresaId && 
                                 (m.NomeMeta.ToLower().Contains(pageParameters.Term.ToLower()) ||
-                                m.TipoMeta.ToLower().Contains(pageParameters.Term.ToLower()) ||
-                                m.Descricao.ToLower().Contains(pageParameters.Term.ToLower())));
+                                m.TipoMeta.ToLower().Contains(pageParameters.Term.ToLower()) ));
             }
 
             return await PageList<Meta>.CreatePageAsync(query, pageParameters.PageNumber, pageParameters.PageSize);

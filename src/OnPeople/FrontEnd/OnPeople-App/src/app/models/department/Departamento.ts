@@ -1,4 +1,4 @@
-import { Cargo } from "../cargo";
+import { Cargo } from "../jobRole";
 import { Empresa } from "../company";
 
 export interface Departamento {

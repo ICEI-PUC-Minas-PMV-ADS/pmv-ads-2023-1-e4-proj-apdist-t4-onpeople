@@ -11,7 +11,7 @@ import {
   DepartmentModule,
   EmployeeModule,
   JobRoleModule,
-  MetaModule,
+  GoalModule,
   NavbarModule,
   UsersAccountModule
 } from "./modules";
@@ -28,7 +28,7 @@ import {
     DepartmentModule,
     EmployeeModule,
     JobRoleModule,
-    MetaModule,
+    GoalModule,
     NavbarModule,
     UsersAccountModule,
   ],

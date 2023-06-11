@@ -513,6 +513,9 @@ namespace OnPeople.Persistence.Migrations
                     b.Property<string>("Descricao")
                         .HasColumnType("longtext");
 
+                    b.Property<int>("DiasOficial")
+                        .HasColumnType("int");
+
                     b.Property<int>("DiasPlanejado")
                         .HasColumnType("int");
 
@@ -522,7 +525,7 @@ namespace OnPeople.Persistence.Migrations
                     b.Property<string>("FimOficial")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("FumPlanejado")
+                    b.Property<string>("FimPlanejado")
                         .HasColumnType("longtext");
 
                     b.Property<string>("InicioOficial")
@@ -817,7 +820,7 @@ namespace OnPeople.Persistence.Migrations
                         .IsRequired();
 
                     b.HasOne("OnPeople.Domain.Models.Empresas.Empresa", "Empresa")
-                        .WithMany()
+                        .WithMany("Funcionarios")
                         .HasForeignKey("EmpresaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -858,13 +861,13 @@ namespace OnPeople.Persistence.Migrations
 
             modelBuilder.Entity("OnPeople.Domain.Models.Metas.Meta", b =>
                 {
-                    b.HasOne("OnPeople.Domain.Models.Empresas.Empresa", "Empresas")
+                    b.HasOne("OnPeople.Domain.Models.Empresas.Empresa", "Empresa")
                         .WithMany()
                         .HasForeignKey("EmpresaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Empresas");
+                    b.Navigation("Empresa");
                 });
 
             modelBuilder.Entity("OnPeople.Domain.Models.Users.User", b =>
@@ -908,6 +911,8 @@ namespace OnPeople.Persistence.Migrations
                     b.Navigation("Cargos");
 
                     b.Navigation("Departamentos");
+
+                    b.Navigation("Funcionarios");
 
                     b.Navigation("Users");
                 });

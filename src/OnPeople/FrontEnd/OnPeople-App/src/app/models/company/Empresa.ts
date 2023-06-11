@@ -1,6 +1,7 @@
 
-import { Cargo } from "../cargo";
+import { Cargo } from "../jobRole";
 import { Departamento } from "../department";
+import { Funcionario } from "../employee";
 
 
 export interface Empresa {
@@ -45,4 +46,5 @@ export interface Empresa {
   cidadeSiafiId: string;
   departamentos: Departamento[];
   cargos: Cargo[];
+  funcionarios: Funcionario[];
 }

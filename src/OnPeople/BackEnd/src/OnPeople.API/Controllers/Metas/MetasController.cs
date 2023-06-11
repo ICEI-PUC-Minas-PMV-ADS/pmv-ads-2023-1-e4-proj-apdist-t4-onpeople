@@ -72,8 +72,8 @@ namespace OnPeople.API.Controllers.Metas
         /// <response code="200">Dados do cargo consultado</response>
         /// <response code="400">Parâmetros incorretos</response>
         /// <response code="500">Erro interno</response>
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int metaId)
+        [HttpGet("{metaId}")]
+        public async Task<IActionResult> GetMetaById(int metaId)
         {
             try
             {
@@ -97,7 +97,7 @@ namespace OnPeople.API.Controllers.Metas
         /// <response code="400">Parâmetros incorretos</response>
         /// <response code="500">Erro interno</response>
         [HttpGet("{tipoMeta}/tipo")]
-        public async Task<IActionResult> GetByTipo(string tipoMeta)
+        public async Task<IActionResult> GetMetaByTipo(string tipoMeta)
         {
             try
             {
@@ -152,7 +152,7 @@ namespace OnPeople.API.Controllers.Metas
         /// <response code="200">Meta atualizado com sucesso</response>
         /// <response code="400">Parâmetros incorretos</response>
         /// <response code="500">Erro interno</response>
-        [HttpPut("{id}")]
+        [HttpPut("{metaId}")]
         public async Task<IActionResult> Put(int metaId, MetaDto metaDto)
         {
             try
@@ -162,9 +162,7 @@ namespace OnPeople.API.Controllers.Metas
                 if (claimUser == null)
                     return Unauthorized();
 
-                if (!claimUser.Master)
-                    return Unauthorized();
-
+                Console.WriteLine("Aqui");
                 if (metaDto.Id != metaId)
                     return Unauthorized();
 

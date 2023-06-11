@@ -127,7 +127,7 @@ namespace OnPeople.Application.Services.Implementations.Funcionarios
 
                 _funcionariosPersistence.Delete<Funcionario>(funcionario);
 
-                return await _sharedPersistence.SaveChangesAsync();
+                return await _funcionariosPersistence.SaveChangesAsync();
             }
             catch (Exception e)
             {

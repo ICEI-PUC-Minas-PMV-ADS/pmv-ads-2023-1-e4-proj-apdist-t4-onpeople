@@ -45,10 +45,10 @@
         <td>{{department.sigla}}</td>
         <td class="d-none d-md-table-cell" >{{department.ativo }} </td>
         <td>
-          <div class="btn-group">
-            <button type="button" class="btn btn-outline-danger" ngbTooltip="Excluir" (click)="openModal($event, template, department.id, department.nomeDepartamento)">
+          <div class="btn-group mx-1">
+            <a class="text-danger" ngbTooltip="Excluir" (click)="openModal($event, template, department.id, department.nomeDepartamento)">
               <mat-icon>delete</mat-icon>
-            </button>
+            </a>
           </div>
         </td>
       </tr>

@@ -38,9 +38,9 @@
         <td class="d-none d-md-table-cell" >{{employee.ativo }} </td>
         <td>
           <div class="btn-group">
-            <button type="button" class="btn btn-outline-danger" ngbTooltip="Excluir" (click)="openModal($event, template, employee.id, employee.user.nomeCompleto)">
+            <a class="text-danger" ngbTooltip="Excluir" (click)="openModal($event, template, employee.id, employee.user.nomeCompleto)">
               <mat-icon>delete</mat-icon>
-            </button>
+            </a>
           </div>
         </td>
       </tr>

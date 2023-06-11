@@ -4,7 +4,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { Subject, debounceTime } from 'rxjs';
-import { Cargo } from 'src/app/models/cargo/Cargo';
+import { Cargo } from 'src/app/models/jobRole/Cargo';
 import { JobRoleService } from 'src/app/services/jobRole';
 
 import { PaginatedResult, Pagination } from 'src/app/shared/class/paginator';

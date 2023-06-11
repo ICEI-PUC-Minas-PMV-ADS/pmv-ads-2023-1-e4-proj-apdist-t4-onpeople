@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using OnPeople.Domain.Models.Empresas;
 
 namespace OnPeople.Domain.Models.Metas
 {
@@ -15,10 +16,12 @@ namespace OnPeople.Domain.Models.Metas
         public Boolean MetaCumprida { get; set; }
         public Boolean MetaAprovada { get; set; }
         public string InicioPlanejado { get; set; }
-        public string FumPlanejado { get; set; }
+        public string FimPlanejado { get; set; }
         public int DiasPlanejado { get; set; }
         public string InicioOficial { get; set; }
         public string FimOficial { get; set; }
+        public int DiasOficial { get; set; }
         public int EmpresaId { get; set; }
+        public Empresa Empresa { get; set; }
     }
 }

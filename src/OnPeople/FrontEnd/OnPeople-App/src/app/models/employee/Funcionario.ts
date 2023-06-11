@@ -3,7 +3,7 @@ import { Users } from "src/app/models/user";
 import { DadoPessoal } from "./DadoPessoal";
 import { Endereco } from "./Endereco";
 import { FuncionarioMeta } from "./FuncionarioMeta";
-import { Cargo } from "../cargo";
+import { Cargo } from "../jobRole";
 import { Departamento } from "../department";
 
 export interface Funcionario {

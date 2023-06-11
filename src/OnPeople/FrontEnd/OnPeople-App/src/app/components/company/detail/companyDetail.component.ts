@@ -2,7 +2,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
-import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 
@@ -35,15 +34,6 @@ export class CompanyDetailComponent implements OnInit {
   public logoURL: string = "../../../../assets/img/upload1-325x300-1.jpg";
   public file: File[];
 
-  public get bsConfig(): any {
-    return {
-      isAnimated: true,
-      adaptivePosition: true,
-      dateInputFormat: 'DD/MM/YYYY h:mm:ss a',
-      containerClass: 'theme-blue'
-    }
-  }
-
   public get ctrF(): any {
     return this.formDetail.controls;
   }
@@ -52,15 +42,11 @@ export class CompanyDetailComponent implements OnInit {
     private activevateRouter: ActivatedRoute,
     private companyService: CompanyService,
     private formBuilder: FormBuilder,
-    private localService: BsLocaleService,
     private router: Router,
     private spinnerService: NgxSpinnerService,
     private toastrService: ToastrService,
     private uploadService: UploadService,
-    )
-  {
-    this.localService.use('pt-br')
-  }
+    ) {  }
 
   ngOnInit() {
     this.companyParam = this.activevateRouter.snapshot.paramMap.get('id');

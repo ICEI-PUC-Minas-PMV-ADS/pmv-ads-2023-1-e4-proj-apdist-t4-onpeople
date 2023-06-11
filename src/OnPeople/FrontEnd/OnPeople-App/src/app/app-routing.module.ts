@@ -6,10 +6,9 @@ import {
   DashCompanyComponent, DashboardComponent,
   DepartmentComponent, DepartmentDetailComponent, DepartmentListComponent,
   EmployeeComponent, EmployeeDetailComponent, EmployeeListComponent,
+  GoalComponent, GoalDetailComponent, GoalListComponent,
   JobRoleComponent, JobRoleDetailComponent, JobRoleListComponent,
   LoginComponent,
-  MetaComponent,
-  MetaListComponent,
   ProfileComponent,
   RegisterComponent,
   UserComponent
@@ -61,11 +60,11 @@ const routes: Routes = [
       ] },
 
     { path: 'metas', redirectTo: 'metas/list', pathMatch: 'full' },
-    { path: 'metas', component: MetaComponent,
+    { path: 'metas', component: GoalComponent,
       children: [
-        { path: 'detail/:id', component: EmployeeDetailComponent },
-        { path: 'detail', component: EmployeeDetailComponent },
-        { path: 'list', component: MetaListComponent },
+        { path: 'detail/:id', component: GoalDetailComponent },
+        { path: 'detail', component: GoalDetailComponent },
+        { path: 'list', component: GoalListComponent },
       ] },
 
     { path: 'dashboards', redirectTo: 'dashboards/empresa', pathMatch: 'full' },

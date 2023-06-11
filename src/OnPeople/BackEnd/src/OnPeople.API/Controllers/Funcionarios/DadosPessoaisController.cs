@@ -3,11 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 
 using OnPeople.API.Extensions.Users;
 using OnPeople.Application.Services.Contracts.Users;
-using OnPeople.Integration.Models.Pages.Config;
-using OnPeople.API.Extensions.Pages;
 using OnPeople.Application.Services.Contracts.Funcionarios;
 using OnPeople.Application.Dtos.Funcionarios;
-using OnPeople.Application.Services.Contracts.FuncionariosMetas;
 
 namespace OnPeople.API.Controllers.Funcionarios;
 
