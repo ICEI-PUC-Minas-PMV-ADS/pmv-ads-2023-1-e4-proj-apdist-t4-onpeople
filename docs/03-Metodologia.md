@@ -60,11 +60,11 @@ etiquetas:
 #### Equipe de Desenvolvimento Frontend: 
  - Alex de Souza Galdino
  - Isabella Carolina de Almeida Siqueira Damião 
- - Vitória Gabriella Maffei Corrêa Rocha.
+ - Vitória Gabriella Maffei Corrêa Rocha
 
 #### Equipe de Desenvolvimento Mobile:
  - Isabella Carolina de Almeida Siqueira Damião 
- - Vitória Gabriella Maffei Corrêa Rocha.
+ - Vitória Gabriella Maffei Corrêa Rocha
 
 ### Processo
 
