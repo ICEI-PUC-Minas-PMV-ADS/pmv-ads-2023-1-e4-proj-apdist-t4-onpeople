@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './shared/security/guard';
 import {
   CompanyComponent, CompanyDetailComponent, CompanyListComponent,
-  DashCompanyComponent, DashboardComponent,
+  DashboardComponent,
   DepartmentComponent, DepartmentDetailComponent, DepartmentListComponent,
   EmployeeComponent, EmployeeDetailComponent, EmployeeListComponent,
   GoalComponent, GoalDetailComponent, GoalListComponent,
@@ -69,9 +69,7 @@ const routes: Routes = [
 
     { path: 'dashboards', redirectTo: 'dashboards/empresa', pathMatch: 'full' },
     { path: 'dashboards', component: DashboardComponent,
-      children: [
-        { path: 'empresa', component: DashCompanyComponent },
-      ] },
+ },
 
   ] },
 

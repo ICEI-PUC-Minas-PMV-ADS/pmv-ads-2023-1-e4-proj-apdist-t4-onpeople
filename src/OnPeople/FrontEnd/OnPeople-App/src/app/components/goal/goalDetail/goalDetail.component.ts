@@ -128,7 +128,6 @@ export class GoalDetailComponent implements OnInit {
       .subscribe(
         (companies: PaginatedResult<Empresa[]>) => {
          this.companies = companies.result.filter(c => c.cargos.length > 0);
-          console.log("Companies", this.companies)
           this.company = this.companies[0];
           this.selectCompanyId = this.company.id;
           this.formGoal.patchValue(this.company);
@@ -199,8 +198,6 @@ export class GoalDetailComponent implements OnInit {
     this.goal = { id: this.goal.id, ...this.formGoal.value };
     this.goal.empresaId = this.selectCompanyId;
 
-    console.log("Update Meta", this.goal)
-
     this.goalService
       .saveGoal(this.goal.id, this.goal)
       .subscribe(
@@ -225,7 +222,6 @@ export class GoalDetailComponent implements OnInit {
           this.goal = goal;
           this.company = this.goal.empresa;
           this.companies[0] = this.company;
-          console.log("Meta", this.goal);
           this.formGoal.patchValue(this.goal);
           this.selectCompanyId = this.goal.empresaId;
           this.formGoal.patchValue(this.company);

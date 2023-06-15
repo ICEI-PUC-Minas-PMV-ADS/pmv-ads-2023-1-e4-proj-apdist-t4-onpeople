@@ -247,15 +247,14 @@ public class DepartamentosController : ControllerBase
     /// Realiza a consulta estatística de departamento
     /// </summary>
     /// <param name="empresaId">Identificador da empresa (pode zero para buscar todas)</param>
-    /// <param name="departamentoId">Identificador de departmaneto</param>
     /// <response code="200">Dashboard de empresas consultado</response>
     /// <response code="400">Parâmetros incorretos</response>
     /// <response code="500">Erro interno</response>
     
-    [HttpGet("{empresaId}/{departmaneotId}/Dashboard")]
-    public DashboardDepartamento GetDashboard(int empresaId, int departamentoId)
+    [HttpGet("{empresaId}/Dashboard")]
+    public DashboardDepartamento GetDashboard(int empresaId)
     {     
-        var dashboardDepartamento = _departamentosServices.GetDashboard(empresaId, departamentoId);
+        var dashboardDepartamento = _departamentosServices.GetDashboard(empresaId);
 
         return dashboardDepartamento;
     }

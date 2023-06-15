@@ -1,13 +1,15 @@
-import { Funcionario } from "./Funcionario";
+import { Funcionario } from ".";
+import { Meta } from "../goal";
+
+
 
 export interface FuncionarioMeta {
   id: number;
   metaId: number;
-  //meta: Meta;
+  meta: Meta;
   funcionarioId: number;
   funcionario: Funcionario;
   metaCumprida: Boolean;
-  dataExpedicao: string;
   inicioEfetivo: string;
   fimEfetivo: string;
   diasEfetivo: number;

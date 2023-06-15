@@ -3,10 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 using OnPeople.API.Extensions.Users;
 using OnPeople.Application.Services.Contracts.Users;
-using OnPeople.Integration.Models.Pages.Config;
-using OnPeople.API.Extensions.Pages;
 using OnPeople.Application.Services.Contracts.Funcionarios;
-using OnPeople.Application.Dtos.Funcionarios;
 using OnPeople.Integration.Models.Dashboard;
 using OnPeople.Domain.Models.Funcionarios;
 
@@ -58,7 +55,7 @@ public class FuncionariosMetasController : ControllerBase
     }
 
     /// <summary>
-    /// Obtém os dados de todos os funcionários que possuem uma mesma meta
+    /// Obtém os dados de todos as metas de um funcionario
     /// </summary>
     /// <param name="funcionarioId">Identificador do funcionario</param>
     /// <response code="200">Dados dos metas/funcionario cadastrados</response>
@@ -86,6 +83,53 @@ public class FuncionariosMetasController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Obtém os dados de de um funcionário e uma meta específica
+    /// </summary>
+    /// <param name="funcionarioId">Identificador do funcionario</param>
+    /// <param name="metaId">Identificador dA meta</param>
+     /// <response code="200">Dados dos metas/funcionario encontrados</response>
+    /// <response code="400">Parâmetros incorretos</response>
+    /// <response code="500">Erro interno</response>
+    [HttpGet("{funcionarioId}/{metaId}/funcionarioMeta")]
+    public async Task<IActionResult> GetFuncionarioMetaByIdsAsync(int funcionarioId, int metaId)
+    {
+        try
+        {
+            var claimUser = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());
+
+            if (claimUser == null) 
+               return Unauthorized();
+
+            var funcionarioMeta = await _funcionariosMetasServices.GetFuncionarioMetaByIdsAsync(funcionarioId, metaId);
+
+            if (funcionarioMeta == null) {
+                return NotFound("Nenhum funcionario/meta foi encontrado.");
+            } 
+
+            return Ok(funcionarioMeta);
+        }
+        catch (Exception e)
+        {
+            return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao recuperar funcionários. Erro: {e.Message}");
+        }
+    }
+
+   /// <summary>
+    /// verificar se determina meta foi atribuida ao funcionario
+    /// </summary>
+    /// <param name="funcionarioId">Identificador do funcionario</param>
+    /// <param name="metaId">Identificador dA meta</param>
+     /// <response code="200">Dados dos metas/funcionario encontrados</response>
+    /// <response code="400">Parâmetros incorretos</response>
+    /// <response code="500">Erro interno</response>
+    [HttpGet("{funcionarioId}/{metaId}/verifyExists")]
+    public async Task<bool> VerifyFuncionarioMetaExists(int funcionarioId, int metaId)
+    {
+
+        return await _funcionariosMetasServices.VerifyFuncionarioMetaExistsAsync(funcionarioId, metaId);
+
+    }
     /// <summary>
     /// Realiza a inclusão de um novo funcionário
     /// </summary>
@@ -182,18 +226,15 @@ public class FuncionariosMetasController : ControllerBase
     /// <summary>
     /// Realiza a consulta estatística de funcionários/metas
     /// </summary>
-    /// <param name="empresaId">Identificador da empresa (pode zero para buscar todas)</param>
-    /// <param name="departamentoId">Identificador de departamento</param>
-    /// <param name="metaId">Identificador de metas</param>
     /// <param name="funcionarioId">Identificador de funcionario</param>
     /// <response code="200">Dashboard de funcionarios consultado</response>
     /// <response code="400">Parâmetros incorretos</response>
     /// <response code="500">Erro interno</response>
     
-    [HttpGet("{funcionarioId}/{metaId}/dashboard")]
-    public DashboardFuncionariosMetas GetDashboard(int funcionarioId, int metaId)
+    [HttpGet("{funcionarioId}/dashboard")]
+    public DashboardFuncionariosMetas GetDashboard(int funcionarioId)
     {     
-        var dashboardFuncionariosMetas = _funcionariosMetasServices.GetDashboard(funcionarioId, metaId);
+        var dashboardFuncionariosMetas = _funcionariosMetasServices.GetDashboard(funcionarioId);
 
         return dashboardFuncionariosMetas;
     }    

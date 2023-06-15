@@ -104,7 +104,7 @@ export class RegisterComponent implements OnInit {
     this.spinnerService.show();
 
     this.newUser = { ...this.formRegister.value };
-    console.log(this.newUser);
+
     if (this.newUser.userName.toLowerCase().includes('@')) {
       this.toastrService.warning("Conta inválida para cadastro!")
       this.spinnerService.hide();

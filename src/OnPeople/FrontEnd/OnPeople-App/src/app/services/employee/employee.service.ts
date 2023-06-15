@@ -72,13 +72,18 @@ export class EmployeeService {
     .pipe(take(3));
   }
 
-  public getEmployeesBossesBydepartmentId(departmentId: number): Observable<Funcionario[]> {
+  public getEmployeesBossesByDepartmentId(departmentId: number): Observable<Funcionario[]> {
     return this.http.get<Funcionario[]>(`${this.baseURL}${departmentId}/chefes`)
       .pipe(take(3));
   }
 
-  public countEmployee(companyId: number, departmentId: number, jobRoleId: number, employeeId: number ): Observable<DashboardEmployee> {
-    return this.http.get<DashboardEmployee>(`${this.baseURL}${companyId}/${departmentId}/${jobRoleId}/${employeeId}/Dashboard`)
+  public getEmployeesByJobRoleId(jobRoleId: number): Observable<Funcionario[]> {
+    return this.http.get<Funcionario[]>(`${this.baseURL}${jobRoleId}/cargo`)
+      .pipe(take(3));
+  }
+
+  public countEmployee(jobRoleId: number): Observable<DashboardEmployee> {
+    return this.http.get<DashboardEmployee>(`${this.baseURL}${jobRoleId}/Dashboard`)
     .pipe(take(3));
   }
 }

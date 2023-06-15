@@ -17,7 +17,6 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Funcionarios
 
         public async Task<IEnumerable<Endereco>> GetAllEnderecosAsync()
         {
-            // Console.WriteLine("-------------------------" + master);
             IQueryable<Endereco> query = _context.Enderecos
                 .Include(f => f.Funcionario)
                 .AsNoTracking();
@@ -27,7 +26,6 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Funcionarios
 
         public async Task<Endereco> GetEnderecoByIdAsync(int enderecoId)
         {
-            Console.WriteLine("id" + enderecoId);
             IQueryable<Endereco> query = _context.Enderecos
             .Include(e => e.Funcionario);
 
@@ -40,7 +38,6 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Funcionarios
 
         public async Task<IEnumerable<Endereco>> GetAllEnderecosByFuncionarioIdAsync(int funcionarioId)
         {
-            // Console.WriteLine("-------------------------" + master);
             IQueryable<Endereco> query = _context.Enderecos
                 .Include(f => f.Funcionario)
                 .AsNoTracking()

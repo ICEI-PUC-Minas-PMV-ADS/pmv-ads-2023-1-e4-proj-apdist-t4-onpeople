@@ -79,7 +79,6 @@ export class GoalListComponent implements OnInit {
       .subscribe(
         (goals: PaginatedResult<Meta[]>) => {
           this.goals = goals.result
-          console.log(this.goals);
           this.pagination = goals.pagination;
         },
         (error: any) => {
@@ -101,13 +100,11 @@ export class GoalListComponent implements OnInit {
     this.spinnerService.show();
 
     this.modalRef?.hide();
-    console.log("companyId ", this.goalId)
     this.goalService
       .deleteGoal(this.goalId)
       .subscribe(
         (result: any ) => {
-          console.log(result);
-          if (result == null)
+            if (result == null)
             this.toastrService.error('Meta não pode se excluída.', "Erro!");
 
           if (result.message == 'OK') {

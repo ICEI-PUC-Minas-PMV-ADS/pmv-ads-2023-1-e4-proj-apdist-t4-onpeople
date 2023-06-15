@@ -222,22 +222,47 @@ public class FuncionariosController : ControllerBase
             return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao recuperar funcionário por Id. Erro: {e.Message}");
         }
     }
+ 
+     /// <summary>
+    /// Obtém os dados de todos os funcionários de um cargo determinado
+    /// </summary>
+    /// <param name="cargoId">Identificador do cargo</param>
+    /// <response code="200">Dados do funcionarios consultado</response>
+    /// <response code="400">Parâmetros incorretos</response>
+    /// <response code="500">Erro interno</response>
+    [HttpGet("{cargoId}/cargo")]
+    public async Task<IActionResult> GetFuncionarioByCargoId(int cargoId)
+    {
+        try
+        {
+            var claimUser = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());
+            
+            if (claimUser == null) 
+                return Unauthorized();
 
+            var funcionario = await _funcionariosServices.GetFuncionariosByCargoId(cargoId);
+
+            if (funcionario == null) return NotFound("Funcionários não encontrado.");
+
+            return Ok(funcionario);
+        }
+        catch (Exception e)
+        {
+            return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao recuperar funcionário por Id. Erro: {e.Message}");
+        }
+    }
     /// <summary>
     /// Realiza a consulta estatística de funcionários
     /// </summary>
-    /// <param name="empresaId">Identificador da empresa (pode zero para buscar todas)</param>
-    /// <param name="departamentoId">Identificador de departamento</param>
     /// <param name="cargoId">Identificador de cargo</param>
-    /// <param name="funcionarioId">Identificador de funcionario</param>
     /// <response code="200">Dashboard de funcionarios consultado</response>
     /// <response code="400">Parâmetros incorretos</response>
     /// <response code="500">Erro interno</response>
     
-    [HttpGet("{empresaId}/{departamentoId}/{cargoId}/{funcionarioId}/Dashboard")]
-    public DashboardFuncionarios GetDashboard(int empresaId, int departamentoId, int cargoId, int funcionarioId)
+    [HttpGet("{cargoId}/Dashboard")]
+    public DashboardFuncionarios GetDashboard(int cargoId)
     {     
-        var dashboardFuncionarios = _funcionariosServices.GetDashboard(empresaId, departamentoId, cargoId, funcionarioId);
+        var dashboardFuncionarios = _funcionariosServices.GetDashboard(cargoId);
 
         return dashboardFuncionarios;
     }    

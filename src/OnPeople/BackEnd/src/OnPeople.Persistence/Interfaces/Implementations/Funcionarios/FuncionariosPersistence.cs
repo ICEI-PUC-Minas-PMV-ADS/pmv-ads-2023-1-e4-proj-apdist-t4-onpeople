@@ -21,7 +21,6 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Funcionarios
 
         public async Task<PageList<Funcionario>> GetAllFuncionariosAsync(PageParameters pageParameters, int empresaId, int departamentoId, int cargoId)
         {
-            // Console.WriteLine("-------------------------" + master);
             IQueryable<Funcionario> query = _context.Funcionarios
                 .Include(f => f.Empresa)
                 .Include(f => f.Departamento)
@@ -31,7 +30,7 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Funcionarios
                 .Include(f => f.FuncionariosMetas)
                 .Include(f => f.Users)
                 .AsNoTracking();
-            Console.WriteLine("empresa" + empresaId + " departamento "+ departamentoId);
+
             if (empresaId == 0) {
                 query = query
                     .Where(f => f.Users.NomeCompleto.ToLower().Contains(pageParameters.Term.ToLower()));
@@ -59,7 +58,6 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Funcionarios
                 .Include(f => f.FuncionariosMetas)
                 .AsNoTracking()
                 .Where(f => f.Id == funcionarioId);
-            Console.WriteLine("id " + funcionarioId);
 
             return await query.FirstOrDefaultAsync();
         }
@@ -76,34 +74,35 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Funcionarios
 
             return await query.ToArrayAsync();
         }
+                
+        public async Task<IEnumerable<Funcionario>> GetAllFuncionariosByCargoIdAsync(int cargoId)
+        {
+            IQueryable<Funcionario> query = _context.Funcionarios
+                .Include(f => f.Cargo)
+                .AsNoTracking();
 
-        public DashboardFuncionarios GetDashboard(int empresaId, int departamentoId, int cargoId, int funcionarioId)
+            if (cargoId != 0)
+                query = query
+                    .Where(f => f.CargoId == cargoId );
+
+            return await query.ToArrayAsync();
+        }
+
+        public DashboardFuncionarios GetDashboard(int cargoId)
         {
             IQueryable<Funcionario> query = _context.Funcionarios
                 .Include(c => c.Empresa)
                 .Include(c => c.Departamento)
                 .Include(c => c.Cargo);
-            Console.WriteLine(empresaId + " " + departamentoId + " " + cargoId + " " + funcionarioId);
-            if (empresaId == 0) {
+
+            if (cargoId == 0) {
                 query = query
                     .AsNoTracking();
-            } else if (departamentoId == 0) {
-                query = query
-                    .AsNoTracking()
-                    .Where(c => c.EmpresaId == empresaId);
-            } else if (cargoId == 0) {
-                query = query 
-                    .AsNoTracking()
-                    .Where(c => c.EmpresaId == empresaId &&  c.DepartamentoId == departamentoId);
-             } else if (funcionarioId == 0) {
-                query = query 
-                    .AsNoTracking()
-                    .Where(c => c.EmpresaId == empresaId &&  c.DepartamentoId == departamentoId && c.Id == cargoId);
             } else {
-                                query = query 
+                query = query 
                     .AsNoTracking()
-                    .Where(c => c.EmpresaId == empresaId &&  c.DepartamentoId == departamentoId && c.CargoId == cargoId && c.Id == funcionarioId) ;
-            }
+                    .Where(c => c.CargoId == cargoId);
+            } 
 
             _dashFuncionario.CountFuncionarios = query.Count<Funcionario>();
 

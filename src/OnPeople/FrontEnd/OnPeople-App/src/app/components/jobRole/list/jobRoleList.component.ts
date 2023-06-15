@@ -75,7 +75,6 @@ export class JobRoleListComponent implements OnInit {
       .subscribe(
         (jobRoles: PaginatedResult<Cargo[]>) => {
           this.jobRoles = jobRoles.result
-          console.log(this.jobRoles);
           this.pagination = jobRoles.pagination;
         },
         (error: any) => {
@@ -97,12 +96,10 @@ export class JobRoleListComponent implements OnInit {
     this.spinnerService.show();
 
     this.modalRef?.hide();
-    console.log("companyId ", this.cargoId)
     this.jobRoleService
       .deleteJobRole(this.cargoId)
       .subscribe(
         (result: any ) => {
-          console.log(result);
           if (result == null)
             this.toastrService.error('Cargo não pode se excluído.', "Erro!");
 
@@ -127,7 +124,6 @@ export class JobRoleListComponent implements OnInit {
   }
 
   public pageChanged(event: any): void {
-    console.log(event.currentPage)
 //    this.pagination.currentPage = event.currentPage
     this.getJobRoles();
   }

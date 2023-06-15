@@ -1,0 +1,164 @@
+<div class="d-flex flex-wrap m-0">
+  <ng-container *ngIf="employeeGoals && employeeGoals.length">
+    <ng-container *ngFor="let employeeGoal of employeeGoals">
+      <div class="col-4 p-1 m-0 g-0">
+        <div class="card rounded shadow p-1 bg-info">
+          <div class="card-header bg-light m-0 p-0">
+            <div class="align-self-stretch text-center pt-1 m-0 ">
+              <ng-container *ngIf="employeeGoal.meta.tipoMeta === 'Pessoal'">
+                <img src="../../../../assets/img/metasPessoais.jpeg" alt="Imagens de metas">
+                <div class="h4 p-1">Pessoal</div>
+              </ng-container>
+              <ng-container *ngIf="employeeGoal.meta.tipoMeta === 'Departamento'">
+                <img src="../../../../assets/img/metasDepartamentais.jpeg" alt="Imagens de metas">
+                <div class="h4 p-1">Departamento</div>
+              </ng-container>
+              <ng-container *ngIf="employeeGoal.meta.tipoMeta === 'Equipe'">
+                <img src="../../../../assets/img/metasEquipe.jpeg" alt="Imagens de metas">
+                <div class="h4 p-1">Equipe</div>
+              </ng-container>
+              <ng-container *ngIf="employeeGoal.meta.tipoMeta === 'Profissional'">
+                <img src="../../../../assets/img/metasProfissionais.png" alt="Imagens de metas">
+                <div class="h4 p-1">Profissional</div>
+              </ng-container>
+            </div>
+          </div>
+          <div class="card-body bg-white m-0 p-1">
+            <div class="mb-3">
+              <span class="h6 fw-bold p-0">Nome: </span>
+              <span class="h6">{{employee.nomeCompleto}}</span>
+            </div>
+            <div class="mb-3">
+              <span class="h6 fw-bold p-0">e-mail: </span>
+              <span class="h6">{{user.email}}</span>
+            </div>
+            <div class="mb-3">
+              <span class="h6 fw-bold p-0">Contato: </span>
+              <span class="h6">{{user.phoneNumber}}</span>
+            </div>
+            <div class="mb-3">
+              <span class="h6 fw-bold p-0">Departamento: </span>
+              <span class="h6">{{employee.departamento.nomeDepartamento}}</span>
+            </div>
+            <div class="mb-3">
+              <span class="h6 fw-bold p-0">Cargo: </span>
+              <span class="h6">{{employee.cargo.nomeCargo}}</span>
+            </div>
+          </div>
+          <div class="card-footer bg-primary text-white m-0 p-1">
+            <div class="mb-3">
+              <span class="h6 fw-bold p-0">Nome Meta: </span>
+              <span class="h6">{{employeeGoal.meta.nomeMeta}}</span>
+            </div>
+            <div class="mb-3">
+              <span class="h6 fw-bold p-0">Descrição: </span>
+              <span class="h6">{{employeeGoal.meta.descricao}}</span>
+            </div>
+
+            <div class="card-footer bg-primary text-white p-1 m-0">
+              <div class="card d-flex bg-primary g-0 m-0 p-0">
+                <div class="card-header text-center shadow">
+                  Meta
+                </div>
+                <div class="card-body row g-0 m-0 p-0">
+                  <div class="col-md-4 shadow" ngClass="{{(employeeGoal.metaCumprida) ? 'bg-success' : 'bg-danger'}}">
+                    <div class="h7 text-center p-0 mb-3">Cumprida?</div>
+                    <div class="h5 text-center p-0">{{(employeeGoal.metaCumprida) ? 'Sim' : 'Não'}}</div>
+
+                  </div>
+
+                  <div class="col-md-8 shadow">
+                    <div class="h7 text-center p-0 mb-3">Acordado </div>
+                    <div class="h6 text-center p-0">{{employeeGoal.inicioAcordado | date}} a {{employeeGoal.fimAcordado | date}}</div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </ng-container>
+  <div *ngIf="!employeeGoals.length">
+    <div colspan="8" class="text-center">
+      <h4>Nenhuma meta foi associada ao funcionário!</h4>
+    </div>
+  </div>
+</div>
+
+
+<!--
+
+
+
+
+
+
+          <div class="card-body g-0 m-0">
+            <div class="mb-3">
+              <span class="h6 fw-bold p-0">Nome: </span>
+              <span class="h6">{{users.nomeCompleto}}</span>
+            </div>
+            <div class="mb-3">
+              <span class="h6 fw-bold p-0">e-mail: </span>
+              <span class="h6">{{users.email}}</span>
+            </div>
+            <div class="mb-3">
+              <span class="h6 fw-bold p-0">Telefone: </span>
+              <span class="h6">{{users.phoneNumber}}</span>
+            </div>
+            <div class="mb-3">
+              <span class="h6 fw-bold p-0">Data Cadastro: </span>
+              <span class="h6">{{users.dataCadastro | date}}</span>
+            </div>
+            <div class="mb-3">
+              <span class="h6 fw-bold p-0">Conta Ativa: </span>
+              <span class="h6">{{(users.ativa) ? "Sim" : "Não"}}</span>
+            </div>
+            <div class="mb-3">
+              <span class="h6 fw-bold p-0">Empresa: </span>
+              <span class="h6">{{users.nomeEmpresa}}</span>
+            </div>
+          </div>
+
+          <div class="card-footer bg-primary text-white p-1 m-0">
+            <div  class="card d-flex bg-primary g-0 m-0 p-0">
+              <div  class="card-header text-center shadow">
+                Metas
+              </div>
+              <div  class="card-body row g-0 m-0 p-0">
+                <div  class="col-md-4 shadow">
+                  <div class="h7 text-center p-0 mb-3">Total</div>
+                  <div class="h3 text-center p-0">0</div>
+
+                </div>
+
+                <div class="col-md-4 shadow">
+                  <div class="h7 text-center p-0 mb-3">Cumpridas: </div>
+                  <div class="h3 text-center p-0">0</div>
+                </div>
+
+                <div class="col-md-4 shadow">
+                  <div class="h7 text-center p-0 mb-3">Pendentes: </div>
+                  <div class="h3 text-center p-0">0</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="col-md-8 m-0 p-1">
+        <app-profileDetalhe (changeFormValue)="getDataLoged($event)"></app-profileDetalhe>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+-->

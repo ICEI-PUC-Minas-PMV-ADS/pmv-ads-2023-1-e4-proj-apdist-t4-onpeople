@@ -103,7 +103,6 @@ namespace OnPeople.Application.Services.Implementations.Funcionarios
 
                 if (await _funcionariosPersistence.SaveChangesAsync())
                 {
-                Console.WriteLine("funcionarioId " + funcionarioId);
                     var funcionarioMapper =  await _funcionariosPersistence.GetFuncionarioByIdAsync(funcionarioUpdate.Id);
                     return _mapper.Map<Funcionario>(funcionarioMapper);
                 }
@@ -153,11 +152,29 @@ namespace OnPeople.Application.Services.Implementations.Funcionarios
                 throw new Exception(e.Message);
             }
         }
-        public DashboardFuncionarios GetDashboard(int empresaId, int departamentoId, int cargoId, int funcionarioId) 
+
+        public async Task<IEnumerable<ReadFuncionarioDto>> GetFuncionariosByCargoId(int cargoId)
         {
             try
             {
-                return _funcionariosPersistence.GetDashboard(empresaId, departamentoId, cargoId, funcionarioId);
+                var funcionarios = await _funcionariosPersistence.GetAllFuncionariosByCargoIdAsync(cargoId);
+
+                if (funcionarios == null) return null;
+
+                var funcionarioMapper = _mapper.Map<ReadFuncionarioDto[]>(funcionarios);
+
+                return funcionarioMapper;
+            }
+            catch (Exception e)
+            { 
+                throw new Exception(e.Message);
+            }
+        }
+        public DashboardFuncionarios GetDashboard(int departamentoId) 
+        {
+            try
+            {
+                return _funcionariosPersistence.GetDashboard(departamentoId);
             }
             catch (Exception e)
             {
