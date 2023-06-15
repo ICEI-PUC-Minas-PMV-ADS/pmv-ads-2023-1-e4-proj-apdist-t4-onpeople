@@ -20,9 +20,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = ({ navigation }) => {
   const [message, setMessage] = useState('');
-  const [email, setEmail] = useState('');
+  const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
-  const [tipoConta, setTipoConta] = useState('');
+
 
   const [isSuccessMessage, setIsSuccessMessage] = useState(false);
 
@@ -32,44 +32,22 @@ const Login = ({ navigation }) => {
 
   const handleLogin = async (values, setSubmitting) => {
     try {
-      const { email, password, tipoConta } = values;
+      const { userName, password } = values;
 
-      const token = await AsyncStorage.getItem('token');
-      console.log(token)
       const response = await api.post('Users/Login', {
-        email,
+        userName,
         password,
-        tipoConta,
-        headers: {
-
-          Authorization: `Bearer ${token}`,
-        },
       });
 
-
-      // Armazena o token no AsyncStorage
-      await AsyncStorage.setItem('token', token);
-
-      const userData = response.data;
-
-      if (userData != null && tipoConta === 'Funcionario') {
-        navigation.navigate('DashboardMetas', 'UserPerfil', { userData });
-      } else if (tipoConta === 'OperacionalRH') {
-        navigation.navigate('DashboardFuncionario', 'DashboardMetas', 'DashboardCargos', 'DashboardDepartamentos', { userData });
-      } else if (tipoConta === 'GestaoRH') {
-        navigation.navigate('DashboardFuncionario', 'DashboardMetas', 'DashboardCargos', 'DashboardDepartamentos', 'DashboardEmpresas', { userData });
-      } else {
-        throw new Error('Tipo de conta inválido');
-      }
     } catch (error) {
     }
   };
 
 
   const validationSchema = yup.object().shape({
-    email: yup.string().required('Usuário é obrigatório'),
+    userName: yup.string().required('Usuário é obrigatório'),
     password: yup.string().required('Senha é obrigatória'),
-    tipoConta: yup.string().required('Campo obrigatório'),
+
   });
 
   return (
@@ -78,10 +56,10 @@ const Login = ({ navigation }) => {
         <StyledLogotipo />
 
         <Formik
-          initialValues={{ email: '', password: '', tipoConta: '' }}
+          initialValues={{ userName: '', password: '' }}
           validationSchema={validationSchema}
           onSubmit={(values, { setSubmitting }) => {
-            if (values.email == '' || values.email == '' || values.password == '') {
+            if (values.userName == '' || values.userName == '' || values.password == '') {
               setMessage('Por favor, preencha todos os campos!');
               setSubmitting(false);
             } else {
@@ -91,19 +69,14 @@ const Login = ({ navigation }) => {
         >
           {({ handleChange, handleBlur, handleSubmit, values, isSubmitting }) => (
             <>
-              <StyledTextInput
-                icon="account-key"
-                field={{ name: 'tipoConta', value: values.tipoConta, onChange: handleChange, onBlur: handleBlur }}
-                placeholder="Tipo de Conta"
-                onChangeText={handleChange('tipoConta')}
-              />
+
               <StyledTextInput
                 icon="email-variant"
-                placeholder="usuario@gmail.com"
+                placeholder="Digite seu usuário"
                 keyboardType="email-address"
-                onChangeText={handleChange('email')}
-                onBlur={handleBlur('email')}
-                value={values.email}
+                onChangeText={handleChange('userName')}
+                onBlur={handleBlur('userName')}
+                value={values.userName}
                 style={{ marginBottom: 15 }}
               />
 
