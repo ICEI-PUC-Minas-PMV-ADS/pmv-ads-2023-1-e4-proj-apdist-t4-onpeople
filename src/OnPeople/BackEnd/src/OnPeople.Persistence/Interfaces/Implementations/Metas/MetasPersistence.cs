@@ -68,22 +68,72 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Metas
             return await query.FirstOrDefaultAsync();
         }
 
-        public DashboardMetas GetDashboard(int empresaId)
+        public async Task<IEnumerable<Meta>> GetAllMetasByEmpresaIdAsync(int empresaId)
         {
             IQueryable<Meta> query = _context.Metas
                 .Include(m => m.Empresa)
                 .Include(m => m.FuncionariosMetas);
-            
-            if (empresaId == 0) {
-                query = query
-                    .AsNoTracking();
-            } else {
+
+            if (empresaId == 0)
                 query = query
                     .AsNoTracking()
-                    .Where(c => c.EmpresaId == empresaId);
+                    .OrderBy(m => m.Id);
+            else        
+                query = query
+                    .AsNoTracking()
+                    .OrderBy(m => m.Id)
+                    .Where(m => m.EmpresaId == empresaId);
+
+            return await query.ToArrayAsync();
+        }
+        public DashboardMetas GetDashboard(int empresaId)
+        {
+            IQueryable<Meta> query1 = _context.Metas
+                .Include(m => m.Empresa)
+                .Include(m => m.FuncionariosMetas);
+
+              if (empresaId == 0) {
+                query1 = query1
+                    .AsNoTracking();
+            } else {
+                query1 = query1
+                    .AsNoTracking()
+                    .Where(m => m.EmpresaId == empresaId);
             }
 
-            _dashMeta.CountMetas = query.Count<Meta>();
+            _dashMeta.CountMetas = query1.Count<Meta>();
+
+            IQueryable<Meta> query2 = _context.Metas
+                .Include(m => m.Empresa)
+                .Include(m => m.FuncionariosMetas);
+            
+            if (empresaId == 0) {
+                query2 = query2
+                    .AsNoTracking()
+                    .Where(m => m.MetaCumprida);
+            } else {
+                query2 = query2
+                    .AsNoTracking()
+                    .Where(m => m.MetaCumprida && m.EmpresaId == empresaId);
+            }
+
+            _dashMeta.CountMetasCumpridas = query2.Count<Meta>();
+
+            IQueryable<Meta> query3 = _context.Metas
+                .Include(m => m.Empresa)
+                .Include(m => m.FuncionariosMetas);
+            
+            if (empresaId == 0) {
+                query3 = query3
+                    .AsNoTracking()
+                    .Where(m => m.MetaAprovada);
+            } else {
+                query3 = query3
+                    .AsNoTracking()
+                    .Where(m => m.MetaAprovada && m.EmpresaId == empresaId);
+            }
+
+            _dashMeta.CountMetasAprovadas = query3.Count<Meta>();
 
             return _dashMeta;
         }

@@ -4,5 +4,16 @@
   [iconTitlebar]="'network_check'"
 ></app-titlebar>
 
+<div class="card rounded shadow-sm p-1 mt-1">
+  <div class="card-header text-center text-white  bg-info">
+    <div class="h3">Global Dashboard</div>
+  </div>
+  <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" >
+    <mat-tab label="Global">
+      <app-dashGlobal> </app-dashGlobal>
+      <router-outlet></router-outlet>
+    </mat-tab>
+  </mat-tab-group>
+</div>
 <router-outlet></router-outlet>
 

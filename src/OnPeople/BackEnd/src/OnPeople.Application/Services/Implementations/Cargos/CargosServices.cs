@@ -156,11 +156,11 @@ namespace OnPeople.Application.Services.Implementations.Cargos
             }
         }
 
-        public DashboardCargos GetDashboard(int empresaId, int departamentoId, int cargoId) 
+        public DashboardCargos GetDashboard(int departamentoId) 
         {
             try
             {
-                return _cargosPersistence.GetDashboard(empresaId, departamentoId, cargoId);
+                return _cargosPersistence.GetDashboard(departamentoId);
             }
             catch (Exception e)
             {

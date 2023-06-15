@@ -5,6 +5,7 @@ import { Endereco } from "./Endereco";
 import { FuncionarioMeta } from "./FuncionarioMeta";
 import { Cargo } from "../jobRole";
 import { Departamento } from "../department";
+import { Meta } from "../goal";
 
 export interface Funcionario {
   id: number;
@@ -24,4 +25,5 @@ export interface Funcionario {
   dadosPessoais: DadoPessoal[];
   enderecos: Endereco[];
   funcionariosmetas: FuncionarioMeta[];
+  metas: Meta[];
 }

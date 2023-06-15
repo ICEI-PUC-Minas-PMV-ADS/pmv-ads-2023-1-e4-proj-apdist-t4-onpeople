@@ -157,11 +157,11 @@ namespace OnPeople.Application.Services.Implementations.Departamentos
             }
         }
 
-        public DashboardDepartamento GetDashboard(int empresaId, int departamentoId)
+        public DashboardDepartamento GetDashboard(int empresaId)
         {
             try
             {
-                return _departamentosPersistence.GetDashboard(empresaId, departamentoId);
+                return _departamentosPersistence.GetDashboard(empresaId);
             }
             catch (Exception e)
             {

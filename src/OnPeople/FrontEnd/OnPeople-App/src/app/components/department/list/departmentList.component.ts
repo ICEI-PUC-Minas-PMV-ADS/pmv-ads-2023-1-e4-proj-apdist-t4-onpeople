@@ -44,7 +44,6 @@ export class DepartmentListComponent implements OnInit {
               .getDepartments(this.pagination.currentPage, this.pagination.itemsPage, filterBy)
               .subscribe(
                 (departments: PaginatedResult<Departamento[]>) => {
-                  console.log("filter", departments)
                   this.departments = departments.result;
                   this.pagination = departments.pagination;
                 },
@@ -78,13 +77,11 @@ export class DepartmentListComponent implements OnInit {
   public getDepartments(): void {
     this.spinnerService.show;
 
-    console.log("this.pagination.itemsPage,", this.pagination.itemsPage)
     this.departmentService
       .getDepartments(this.pagination.currentPage, this.pagination.itemsPage)
       .subscribe(
         (departments: PaginatedResult<Departamento[]>) => {
           this.departments = departments.result
-          console.log("Departments", this.departments);
           this.pagination = departments.pagination;
         },
         (error: any) => {
@@ -106,12 +103,10 @@ export class DepartmentListComponent implements OnInit {
     this.spinnerService.show();
 
     this.modalRef?.hide();
-    console.log("departmentId ", this.departmentId)
     this.departmentService
       .deleteDepartment(this.departmentId)
       .subscribe(
         (result: any ) => {
-          console.log(result);
           if (result == null)
             this.toastrService.error('Empresa não pode se excluída.', "Erro!");
 
@@ -142,7 +137,6 @@ export class DepartmentListComponent implements OnInit {
   }
 
   public pageChanged(event: any): void {
-    console.log(event.currentPage)
     //this.pagination.currentPage = event.currentPage
     this.getDepartments();
   }

@@ -78,7 +78,6 @@ export class EmployeeListComponent implements OnInit {
       .subscribe(
         (employees: PaginatedResult<Funcionario[]>) => {
           this.employees = employees.result
-          console.log("Employees List", this.employees);
           this.pagination = employees.pagination;
         },
         (error: any) => {
@@ -101,12 +100,10 @@ export class EmployeeListComponent implements OnInit {
     this.spinnerService.show();
 
     this.modalRef?.hide();
-    console.log("companyId ", this.employeeId)
     this.employeeService
       .deleteEmployee(this.employeeId)
       .subscribe(
         (result: any ) => {
-          console.log(result);
           if (result == null)
             this.toastrService.error('Funcionário não pode se excluído.', "Erro!");
 
@@ -132,7 +129,6 @@ export class EmployeeListComponent implements OnInit {
   }
 
   public pageChanged(event: any): void {
-    console.log(event.currentPage)
 //    this.pagination.currentPage = event.currentPage
     this.getEmployees();
   }

@@ -99,6 +99,40 @@ namespace OnPeople.Application.Services.Implementations.Funcionarios
                 throw new Exception(e.Message);
             }
         }
+
+        public async Task<FuncionarioMetaDto> GetFuncionarioMetaByIdsAsync(int funcionarioId, int metaId)
+        {
+            try
+            {
+                var funcionarioMeta = await _funcionariosMetasPersistence.GetFuncionarioMetaByIdsAsync(funcionarioId, metaId);
+
+                if (funcionarioMeta == null) return null;
+
+                var funcionarioMapper = _mapper.Map<FuncionarioMetaDto>(funcionarioMeta);
+
+                return funcionarioMapper;
+            }
+            catch (Exception e)
+            {
+                
+                throw new Exception(e.Message);
+            }
+        }
+
+        public async Task<bool> VerifyFuncionarioMetaExistsAsync(int funcionarioId, int metaId)
+        {
+            try
+            {
+                var funcionarioMeta = await _funcionariosMetasPersistence.GetFuncionarioMetaByIdsAsync(funcionarioId, metaId);
+
+                return funcionarioMeta != null;
+            }
+            catch (Exception e)
+            {
+                
+                throw new Exception(e.Message);
+            }
+        }
         public async Task<FuncionarioMeta> UpdateFuncionarioMeta(int funcionarioMetaId, FuncionarioMetaDto funcionarioMetaDto)
         {
             try
@@ -113,7 +147,6 @@ namespace OnPeople.Application.Services.Implementations.Funcionarios
 
                 if (await _funcionariosMetasPersistence.SaveChangesAsync())
                 {
-                Console.WriteLine("funcionarioMetaId " + funcionarioMetaId);
                     var funcionarioMetaMapper =  await _funcionariosMetasPersistence.GetFuncionarioMetaByIdAsync(funcionarioMetaUpdate.Id);
                     return _mapper.Map<FuncionarioMeta>(funcionarioMetaMapper);
                 }
@@ -146,11 +179,11 @@ namespace OnPeople.Application.Services.Implementations.Funcionarios
             }
         }
 
-        public DashboardFuncionariosMetas GetDashboard(int funcionarioId, int metaId)
+        public DashboardFuncionariosMetas GetDashboard(int funcionarioId)
         {
             try
             {
-                return _funcionariosMetasPersistence.GetDashboard(funcionarioId, metaId);
+                return _funcionariosMetasPersistence.GetDashboard(funcionarioId);
             }
             catch (Exception e)
             { 

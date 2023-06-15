@@ -51,10 +51,17 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Departamentos
             .Include(d => d.Empresa)
             .Include(d => d.Cargos);
 
-            query = query
-                .AsNoTracking()
-                .OrderBy(d => d.Id)
-                .Where(d => d.EmpresaId == empresaId);
+            if (empresaId == 0 ){
+                query = query
+                    .AsNoTracking()
+                    .OrderBy(d => d.Id);
+            } else {
+                query = query
+                    .AsNoTracking()
+                    .OrderBy(d => d.Id)
+                    .Where(d => d.EmpresaId == empresaId);
+
+            }
 
             return await query.ToArrayAsync();
         }
@@ -72,7 +79,7 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Departamentos
             return await query.FirstOrDefaultAsync();
         }
 
-        public DashboardDepartamento GetDashboard(int empresaId, int departamentoId)
+        public DashboardDepartamento GetDashboard(int empresaId)
         {       
             IQueryable<Departamento> query = _context.Departamentos
                 .Include(d => d.Cargos)
@@ -81,19 +88,25 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Departamentos
             if (empresaId == 0) {
                 query = query
                     .AsNoTracking();
-            } else if (departamentoId == 0) {
-
+            } else {
                 query = query
                     .AsNoTracking()
                     .Where(d => d.EmpresaId == empresaId);
-            } else {
-                query = query 
-                    .AsNoTracking()
-                    .Where(d => d.EmpresaId == empresaId &&  d.Id == departamentoId);
-            }
+            } 
 
             _dashDepartamento.CountDepartamentos = query.Count<Departamento>();
-            
+
+            if (empresaId == 0) {
+                query = query
+                    .AsNoTracking()
+                    .Where(d => d.Ativo);
+            } else {
+                query = query
+                    .AsNoTracking()
+                    .Where(d => d.Ativo && d.EmpresaId == empresaId);
+            } 
+
+            _dashDepartamento.CountDepartamentosAtivos = query.Count<Departamento>();            
             return _dashDepartamento;
         }
 

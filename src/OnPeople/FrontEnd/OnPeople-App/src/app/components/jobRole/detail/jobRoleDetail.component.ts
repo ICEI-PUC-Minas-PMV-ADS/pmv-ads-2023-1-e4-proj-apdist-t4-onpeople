@@ -140,7 +140,6 @@ export class JobRoleDetailComponent implements OnInit {
       .subscribe(
         (companies: PaginatedResult<Empresa[]>) => {
           this.companies = companies.result.filter(c => c.departamentos.length > 0);
-          console.log("Companies", this.companies)
           this.company = this.companies[0];
           this.selectCompanyId = this.company.id;
           this.selectDepartmentId = this.company.departamentos[0].id;

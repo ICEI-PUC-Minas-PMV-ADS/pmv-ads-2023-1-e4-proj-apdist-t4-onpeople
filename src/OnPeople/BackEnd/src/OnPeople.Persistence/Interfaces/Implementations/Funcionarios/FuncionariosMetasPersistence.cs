@@ -20,7 +20,6 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Funcionarios
 
         public async Task<IEnumerable<FuncionarioMeta>> GetAllFuncionariosByMetaIdAsync(int metaId)
         {
-            // Console.WriteLine("-------------------------" + master);
             IQueryable<FuncionarioMeta> query = _context.FuncionariosMetas
                 .Include(fm => fm.Funcionario)
                 .Include(fm => fm.Meta)
@@ -32,7 +31,6 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Funcionarios
 
         public async Task<IEnumerable<FuncionarioMeta>> GetAllMetasByFuncionarioIdAsync(int funcionarioId)
         {
-            // Console.WriteLine("-------------------------" + master);
             IQueryable<FuncionarioMeta> query = _context.FuncionariosMetas
                 .Include(fm => fm.Funcionario)
                 .Include(fm => fm.Meta)
@@ -44,7 +42,6 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Funcionarios
         
         public async Task<FuncionarioMeta> GetFuncionarioMetaByIdAsync(int funcionarioMetaId)
         {
-            // Console.WriteLine("-------------------------" + master);
             IQueryable<FuncionarioMeta> query = _context.FuncionariosMetas
                 .Include(fm => fm.Funcionario)
                 .Include(fm => fm.Meta)
@@ -54,22 +51,27 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Funcionarios
             return await query.FirstOrDefaultAsync();
         }
 
-        public DashboardFuncionariosMetas GetDashboard(int funcionarioId, int metaId)
+        public async Task<FuncionarioMeta> GetFuncionarioMetaByIdsAsync(int funcionarioId, int metaId)
+        {
+            IQueryable<FuncionarioMeta> query = _context.FuncionariosMetas
+                .Include(fm => fm.Funcionario)
+                .Include(fm => fm.Meta)
+                .AsNoTracking()
+                .Where(fm => fm.FuncionarioId == funcionarioId && fm.MetaId == metaId);
+            
+            return await query.FirstOrDefaultAsync();
+        }
+        
+
+        public DashboardFuncionariosMetas GetDashboard(int funcionarioId)
         {
             IQueryable<FuncionarioMeta> queryMetasAssociadas = _context.FuncionariosMetas
                 .AsNoTracking();
               
                 
-            if (funcionarioId == 0 && metaId == 0) {
-            } else if (funcionarioId == 0) {
+            if (funcionarioId != 0 ) {
                 queryMetasAssociadas = queryMetasAssociadas
-                    .Where(fm => fm.MetaId == metaId);
-            } else if (metaId == 0) {
-                queryMetasAssociadas = queryMetasAssociadas 
                     .Where(fm => fm.FuncionarioId == funcionarioId);
-            } else {
-                queryMetasAssociadas = queryMetasAssociadas 
-                    .Where(fm => fm.FuncionarioId == funcionarioId &&  fm.MetaId == metaId) ;
             }
 
             _dashFuncionarioMeta.CountMetasAssociadas = queryMetasAssociadas.Count<FuncionarioMeta>();
@@ -78,19 +80,16 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Funcionarios
                 .AsNoTracking();
                 
                 
-            if (funcionarioId == 0 && metaId == 0) {
+            if (funcionarioId == 0) {
                 querymetasCumpridas = querymetasCumpridas
                     .Where(fm => fm.MetaCumprida);
-            } else if (funcionarioId == 0) {
-                querymetasCumpridas = querymetasCumpridas
-                    .Where(fm => fm.MetaCumprida && fm.MetaId == metaId);
-            } else if (metaId == 0) {
-                querymetasCumpridas = querymetasCumpridas 
-                    .Where(fm => fm.MetaCumprida && fm.FuncionarioId == funcionarioId);
             } else {
-                querymetasCumpridas = querymetasCumpridas 
-                    .Where(fm => fm.MetaCumprida && fm.FuncionarioId == funcionarioId &&  fm.MetaId == metaId) ;
+                querymetasCumpridas = querymetasCumpridas
+                    .Where(fm => fm.MetaCumprida && fm.FuncionarioId == funcionarioId);
             }
+
+            _dashFuncionarioMeta.CountMetasCumpridas = querymetasCumpridas.Count<FuncionarioMeta>();
+            
             return _dashFuncionarioMeta;
         }
     }

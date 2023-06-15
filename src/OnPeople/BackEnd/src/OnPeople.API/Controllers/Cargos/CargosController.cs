@@ -229,17 +229,15 @@ public class CargosController : ControllerBase
         /// <summary>
     /// Realiza a consulta estatística de departamento
     /// </summary>
-    /// <param name="empresaId">Identificador da empresa (pode zero para buscar todas)</param>
     /// <param name="departamentoId">Identificador de departamento</param>
-    /// <param name="cargoId">Identificador de cargo</param>
     /// <response code="200">Dashboard de empresas consultado</response>
     /// <response code="400">Parâmetros incorretos</response>
     /// <response code="500">Erro interno</response>
     
-    [HttpGet("{empresaId}/{departamentoId}/{cargoId}/Dashboard")]
-    public DashboardCargos GetDashboard(int empresaId, int departamentoId, int cargoId)
+    [HttpGet("{departamentoId}/Dashboard")]
+    public DashboardCargos GetDashboard(int departamentoId)
     {     
-        var dashboardCargo = _cargosServices.GetDashboard(empresaId, departamentoId, cargoId);
+        var dashboardCargo = _cargosServices.GetDashboard(departamentoId);
 
         return dashboardCargo;
     }

@@ -143,7 +143,6 @@ public class EnderecosController : ControllerBase
             if (!claimUser.Master)
                 return Unauthorized();
 
-            Console.WriteLine("---------------------------------- funcionario Id" + enderecoDto.FuncionarioId);
             var createdEndereco = await _enderecosServices.CreateEndereco(enderecoDto);
 
             if (createdEndereco != null) return Ok(createdEndereco);
@@ -169,7 +168,6 @@ public class EnderecosController : ControllerBase
     {
         try
         {
-            Console.WriteLine("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- " + enderecoId);
             var claimUser = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());
 
             if (claimUser == null) 
@@ -245,8 +243,6 @@ public class EnderecosController : ControllerBase
                 return Unauthorized();
                     
             var url = $"//viacep.com.br/ws/{cep}/json";
-
-            Console.WriteLine(url);
 
             _httpClient.BaseAddress = new Uri(url);
 

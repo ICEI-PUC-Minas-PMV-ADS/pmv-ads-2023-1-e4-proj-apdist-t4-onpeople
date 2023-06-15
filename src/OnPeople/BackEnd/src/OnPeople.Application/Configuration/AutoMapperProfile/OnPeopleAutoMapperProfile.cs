@@ -36,6 +36,8 @@ namespace OnPeople.Application.Configuration.AutoMapperProfile
             CreateMap<DadoPessoal, DadoPessoalDto>().ReverseMap();
 
             CreateMap<Meta, MetaDto>().ReverseMap();
+
+            CreateMap<FuncionarioMeta, FuncionarioMetaDto>().ReverseMap();
         }
     }
 }

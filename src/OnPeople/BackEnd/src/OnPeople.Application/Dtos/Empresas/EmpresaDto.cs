@@ -3,11 +3,10 @@ using OnPeople.Application.Dtos.Cargos;
 using OnPeople.Application.Dtos.Departamentos;
 using OnPeople.Application.Dtos.Funcionarios;
 using OnPeople.Application.Dtos.Users;
-using OnPeople.Integration.Models.Links;
 
 namespace OnPeople.Application.Dtos.Empresas
 {
-    public class EmpresaDto : LinksHATEOS
+    public class EmpresaDto
     {
         public int Id { get; set; }  
 

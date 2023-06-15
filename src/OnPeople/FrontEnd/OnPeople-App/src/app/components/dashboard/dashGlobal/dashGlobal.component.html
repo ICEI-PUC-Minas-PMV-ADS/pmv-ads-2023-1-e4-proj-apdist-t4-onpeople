@@ -1,0 +1,643 @@
+<div class="container m-0 p-0 pt-2">
+  <div class="card shadow rounded p-0 m-0 ">
+    <div class="card-body shadow p-0 m-0">
+      <div class="row p-0 m-0">
+        <div class="col p-0 m-0">
+
+          <div class="d-flex flex-column p-2 m-0">
+
+            <mat-form-field class="bg-white " appearance="outline">
+              <mat-label class="text-info">Empresas</mat-label>
+              <mat-select [(ngModel)]="selectCompanyId" (selectionChange)="changeSelectCompany()"
+                placeholder="Selecione uma Empresa">
+                <mat-option [value]="0">Todas</mat-option>
+                <mat-option *ngFor="let company of companies" [value]="company.id">{{company.razaoSocial}} </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <div class="card border-left-1 shadow h-100 py-2 ">
+              <div class="card-body">
+                <div class="row align-items-center">
+                  <div class="col mr-2 ">
+                    <div class="text-xs text-uppercase mb-1 text-color-1">
+                      Total de Empresas
+                    </div>
+                    <div class="h5 mb-0 text-color-1">
+                      {{totCompany}}
+                    </div>
+                  </div>
+                  <div class="col-auto text-white p-2">
+                    <mat-icon class="iconDash  bg-color-1 rounded-circle shadow p-0 me-3">apartment</mat-icon>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card border-left-2 shadow h-100 py-2 mt-5">
+              <div class="card-body">
+                <div class="row align-items-center">
+                  <div class="col mr-2 ">
+                    <div class="text-xs text-uppercase mb-1 text-color-2">
+                      Empresas Ativas
+                    </div>
+                    <div class="col mr-2 d-flex">
+                      <div class="h5 mb-0 text-color-2">
+                        {{totActiveCompany}}
+                      </div>
+                      <div class="h7 mb-0 text-color-1 ms-2">
+                        {{totPercActiveCompany}}%
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-auto text-color-2 p-2">
+                    <mat-icon class="iconDash p-0 me-3">apartment</mat-icon>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card border-left-3 shadow h-100 py-2 mt-5">
+              <div class="card-body">
+                <div class="row align-items-center">
+                  <div class="col mr-2 ">
+                    <div class="text-xs text-uppercase mb-1 text-color-3">
+                      Filiais
+                    </div>
+                    <div class="col mr-2 d-flex">
+                      <div class="h5 mb-0 text-color-3">
+                        {{totSubsidiary}}
+                      </div>
+                      <div class="h7 mb-0 text-color-1 ms-2">
+                        {{totPercSubsidiary}}%
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-auto text-white p-2">
+                    <mat-icon class="iconDash bg-color-3 rounded-circle shadow p-0 me-3">location_city</mat-icon>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card border-left-4 shadow h-100 py-2 mt-5">
+              <div class="card-body">
+                <div class="row align-items-center">
+                  <div class="col mr-2 ">
+                    <div class="text-xs text-uppercase mb-1 text-color-4">
+                      Filiais Ativas
+                    </div>
+                    <div class="col mr-2 d-flex">
+                      <div class="h5 mb-0 text-color-4">
+                        {{totActiveSubsidiary}}
+                      </div>
+                      <div class="h7 mb-0 text-color-1 ms-2">
+                        {{totPercActiveSubsidiary1}}%
+                      </div>
+                      <div class="h7 mb-0 text-color-3 ms-2">
+                        {{totPercActiveSubsidiary2}}%
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-auto text-color-4 p-2">
+                    <mat-icon class="iconDash p-0 me-3">location_city</mat-icon>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col p-0 m-0">
+          <div class="d-flex flex-column p-2 m-0">
+
+            <mat-form-field class="bg-white " appearance="outline">
+              <mat-label class="text-info">Departamentos</mat-label>
+              <mat-select [(ngModel)]="selectDepartmentId" (selectionChange)="changeSelectDepartment()"
+                placeholder="Selecione um departamento">
+                <mat-option [value]="0">Todos</mat-option>
+                <mat-option *ngFor="let department of departments" [value]="department.id">{{department.nomeDepartamento}} </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <div class="card border-left-5 shadow h-100 py-2 ">
+              <div class="card-body">
+                <div class="row align-items-center">
+                  <div class="col mr-2 ">
+                    <div class="text-xs text-uppercase mb-1 text-color-5">
+                      Departamentos
+                    </div>
+                    <div class="h5 mb-0 text-color-5">
+                      {{totDepartment}}
+                    </div>
+                  </div>
+                  <div class="col-auto text-white p-2">
+                    <mat-icon class="iconDash  bg-color-5 rounded-circle shadow p-0 me-3">lan</mat-icon>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card border-left-6 shadow h-100 py-2 mt-5">
+              <div class="card-body">
+                <div class="row align-items-center">
+                  <div class="col mr-2 ">
+                    <div class="text-xs text-uppercase mb-1 text-color-6">
+                      Departamentos Ativos
+                    </div>
+                    <div class="col mr-2 d-flex">
+                      <div class="h5 mb-0 text-color-6">
+                        {{totActiveDepartment}}
+                      </div>
+                      <div class="h7 mb-0 text-success ms-2">
+                        {{totPercActiveDepartment}}%
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-auto p-2 text-color-6">
+                    <mat-icon class="iconDash p-0 me-3">lan</mat-icon>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="col p-0 m-0">
+          <div class="d-flex flex-column p-2 m-0">
+
+            <mat-form-field class="bg-white " appearance="outline">
+              <mat-label class="text-info">Cargos</mat-label>
+              <mat-select [(ngModel)]="selectJobRoleId" (selectionChange)="changeSelectJobRole()"
+                placeholder="Selecione um cargo">
+                <mat-option [value]="0">Todos</mat-option>
+                <mat-option *ngFor="let jobRole of jobRoles" [value]="jobRole.id">{{jobRole.nomeCargo}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <div class="card border-left-7 shadow h-100 py-2 ">
+              <div class="card-body">
+                <div class="row align-items-center">
+                  <div class="col mr-2 ">
+                    <div class="text-xs text-uppercase mb-1 text-color-7">
+                      Cargos
+                    </div>
+                    <div class="h5 mb-0 text-color-7">
+                      {{totJobRole}}
+                    </div>
+                  </div>
+                  <div class="col-auto text-white p-2">
+                    <mat-icon class="iconDash  bg-color-7 rounded-circle shadow p-0 me-3">work</mat-icon>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card border-left-8 shadow h-100 py-2 mt-5">
+              <div class="card-body">
+                <div class="row align-items-center">
+                  <div class="col mr-2 ">
+                    <div class="text-xs text-uppercase mb-1 text-color-8">
+                      Cargos Ativos
+                    </div>
+                    <div class="col mr-2 d-flex">
+                      <div class="h5 mb-0 text-color-8">
+                        {{totActiveJobRole}}
+                      </div>
+                      <div class="h7 mb-0 text-success ms-2">
+                        {{totPercActiveJobRole}}%
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-auto p-2 text-color-8">
+                    <mat-icon class="iconDash p-0 me-3">work</mat-icon>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="container m-0 p-0 mt-5">
+  <div class="card shadow rounded p-0 m-0 ">
+    <div class="card-body shadow p-0 m-0">
+      <div class="row p-0 m-0">
+        <div class="col p-0 m-0">
+
+          <div class="d-flex flex-column p-2 m-0">
+            <mat-form-field class="bg-white " appearance="outline">
+              <mat-label class="text-info">Funcionarios</mat-label>
+              <mat-select [(ngModel)]="selectEmployeeId" (selectionChange)="changeSelectEmployee()"
+                placeholder="Selecione uma Empresa">
+                <mat-option [value]="0">Todos</mat-option>
+                <mat-option *ngFor="let employee of employees" [value]="employee.id">{{employee.nomeCompleto}} </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <div class="card border-left-9 shadow h-100 py-2 ">
+              <div class="card-body">
+                <div class="row align-items-center">
+                  <div class="col mr-2 ">
+                    <div class="text-xs text-uppercase mb-1 text-color-9">
+                      Total de Funcionários
+                    </div>
+                    <div class="h5 mb-0 text-color-9">
+                      {{totEmployee}}
+                    </div>
+                  </div>
+                  <div class="col-auto text-white p-2">
+                    <mat-icon class="iconDash  bg-color-9 rounded-circle shadow p-0 me-3">people</mat-icon>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col p-0 m-0">
+          <div class="d-flex flex-column p-2 m-0">
+
+            <mat-form-field class="bg-white " appearance="outline">
+              <mat-label class="text-info">Metas por Empresa</mat-label>
+              <mat-select [(ngModel)]="selectGoalId" (selectionChange)="changeSelectGoal()"
+                placeholder="Selecione uma Meta">
+                <mat-option [value]="0">Todos</mat-option>
+                <mat-option *ngFor="let goal of goals"
+                  [value]="goal.id">{{goal.nomeMeta}} </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <div class="card border-left-10 shadow h-100 py-2 ">
+              <div class="card-body">
+                <div class="row align-items-center">
+                  <div class="col mr-2 ">
+                    <div class="text-xs text-uppercase mb-1 text-color-10">
+                      Metas Cadastradas
+                    </div>
+                    <div class="h5 mb-0 text-color-10">
+                      {{totGoal}}
+                    </div>
+                  </div>
+                  <div class="col-auto text-color-10 p-2">
+                    <mat-icon class="iconDash p-0 me-3">ads_click</mat-icon>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card border-left-11 shadow h-100 py-2 mt-5">
+              <div class="card-body">
+                <div class="row align-items-center">
+                  <div class="col mr-2 ">
+                    <div class="text-xs text-uppercase mb-1 text-color-11">
+                      Metas Aprovadas
+                    </div>
+                    <div class="col mr-2 d-flex">
+                      <div class="h5 mb-0 text-color-11">
+                        {{totApprovedGoal}}
+                      </div>
+                      <div class="h7 mb-0 text-color-10 ms-2">
+                        {{totPercApprovedGoal}}%
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-auto p-2 text-color-11">
+                    <mat-icon class="iconDash p-0 me-3">track_changes</mat-icon>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card border-left-12 shadow h-100 py-2 mt-5">
+              <div class="card-body">
+                <div class="row align-items-center">
+                  <div class="col mr-2 ">
+                    <div class="text-xs text-uppercase mb-1 text-color-12">
+                      Metas Cumpridas
+                    </div>
+                    <div class="col mr-2 d-flex">
+                      <div class="h5 mb-0 text-color-12">
+                        {{totMetGoal}}
+                      </div>
+                      <div class="h7 mb-0 ms-2" [ngClass]="(totPercMetGoal > 75) ? 'text-success' : 'text-danger'">
+                        {{totPercMetGoal}}%
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-auto p-2 text-color-12">
+                    <mat-icon class="iconDash p-0 me-3">done_all</mat-icon>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="col p-0 m-0">
+          <div class="d-flex flex-column p-2 m-0">
+
+            <mat-form-field class="bg-white " appearance="outline">
+              <mat-label class="text-info">Metas por Funcionário</mat-label>
+              <mat-select [(ngModel)]="selectAssociatedGoalId" (selectionChange)="changeSelectEmployeeGoal()"
+                placeholder="Selecione uma meta">
+                <mat-option [value]="0">Todas</mat-option>
+                <mat-option *ngFor="let employeeGoal of employeeGoals" [value]="employeeGoal.metaId">{{employeeGoal.meta.nomeMeta}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <div class="card border-left-13 shadow h-100 py-2 ">
+              <div class="card-body">
+                <div class="row align-items-center">
+                  <div class="col mr-2 ">
+                    <div class="text-xs text-uppercase mb-1 text-color-13">
+                      Metas Associadas
+                    </div>
+                    <div class="h5 mb-0 text-color-13">
+                      {{totAssociateGoal}}
+                    </div>
+                  </div>
+                  <div class="col-auto text-color-13 p-2">
+                    <mat-icon class="iconDash  p-0 me-3">adjust</mat-icon>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card border-left-14 shadow h-100 py-2 mt-5">
+              <div class="card-body">
+                <div class="row align-items-center">
+                  <div class="col mr-2 ">
+                    <div class="text-xs text-uppercase mb-1 text-color-14">
+                      Metas Cumpridas
+                    </div>
+                    <div class="col mr-2 d-flex">
+                      <div class="h5 mb-0 text-color-14">
+                        {{totMetAssociateGoal}}
+                      </div>
+                      <div class="h7 mb-0 text-color-13 ms-2">
+                        {{totPercMetAssociateGoal}}%
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-auto p-2 text-color-14">
+                    <mat-icon class="iconDash p-0 me-3">done_outline</mat-icon>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          cold3
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!--
+
+
+
+  !-- Content Row --
+  <div class="row">
+    !-- Pie Chart --
+    <div class="col-xl-4 col-lg-6">
+      <div class="card shadow mb-4">
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+          <h6 class="m-0 font-weight-bold text-uppercase text-info">Funiconários Por Departamento</h6>
+      </div>
+      <div class="card d-flex ">
+        <div class="y-3 align-items-center ">
+          <div class="dropdown no-arrow">
+            <div style="display: block">
+              <canvas baseChart
+                [data]="doughnutChartData"
+                [type]="doughnutChartType"
+                [labels]="doughnutChartLabels"
+                [options]="doughnutChartOptions">
+              </canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  !-- Content Row --
+  <div class="col-xl-4 col-lg-6">
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-uppercase text-info">Top 5 - Metas cumpridas  </h6>
+      </div>
+      <div class="card-body">
+        <div class="ng-container" *ngFor="let metaTop5 of metasCumpridasTop5;">
+          <h6 class=" font-weight-bold mt-4">
+            {{metaTop5.nome}}
+
+            <span class="h5 text-success float-right font-weight-bold"> ({{metaTop5.qtde}} de {{metaTop5.qtdeTotal}} )</span>
+          </h6>
+          <div class="progress" style="height: 35px">
+            <div class="h5 progress-bar font-weight-bold"  role="progressbar" [ngStyle]="{'height': '35px', 'background-color': metaTop5.styleColor , 'width': metaTop5.stylePercent}"
+            aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">{{metaTop5.percent}}%
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+ !-- Content Row --
+  <div class="col-xl-4 col-lg-6">
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-uppercase text-info">Top 5 - Metas Não cumpridas</h6>
+      </div>
+      <div class="card-body">
+        <div class="ng-container" *ngFor="let metaTop5 of metasNaoCumpridasTop5;">
+          <h6 class=" font-weight-bold mt-4">
+            {{metaTop5.nome}}
+            <span class="h7 text-success float-right font-weight-bold"> ({{metaTop5.qtde}} de {{metaTop5.qtdeTotal}})</span>
+          </h6>
+          <div class="progress " style="height: 35px">
+            <div class="h6 progress-bar" role="progressbar" [ngStyle]="{'height': '35px','background-color': metaTop5.styleColor , 'width': metaTop5.stylePercent}"
+            aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">{{metaTop5.percent}}%
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  !-- Content Row --
+  <div class="col-xl-6 col-lg-6">
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-uppercase text-info">Metas Cumpridas Por Departamento</h6>
+      </div>
+      <div class="card-body">
+        <div class="ng-container" *ngFor="let metaDepto of metasCumpridasDepto; ">
+          <h6 class=" font-weight-bold mt-4">
+            {{metaDepto.nome}}
+            <span class="h7 text-success float-right font-weight-bold"> ({{metaDepto.qtde}} de {{metaDepto.qtdeTotal}})</span>
+          </h6>
+          <div class="progress " style="height: 35px">
+            <div class="h6 progress-bar" role="progressbar" [ngStyle]="{'height': '35px','background-color': metaDepto.styleColor , 'width': metaDepto.stylePercent}"
+            aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">{{metaDepto.percent}}%
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    !-- Content Row --
+  <div class="col-xl-6 col-lg-6">
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-uppercase text-info">Metas Não Cumpridas Por Departamento</h6>
+      </div>
+      <div class="card-body">
+        <div class="ng-container" *ngFor="let metaDepto of metasNaoCumpridasDepto; ">
+          <h6 class=" font-weight-bold mt-4">
+            {{metaDepto.nome}}
+            <span class="h7 text-success float-right font-weight-bold"> ({{metaDepto.qtde}} de {{metaDepto.qtdeTotal}})</span>
+          </h6>
+          <div class="progress " style="height: 35px">
+            <div class="h6 progress-bar" role="progressbar" [ngStyle]="{'height': '35px','background-color': metaDepto.styleColor , 'width': metaDepto.stylePercent}"
+            aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">{{metaDepto.percent}}%
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  !-- Content Row --
+  <div class="col-xl-6 col-lg-6">
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-uppercase text-info">Metas Cumpridas Por Departamento (Total) </h6>
+      </div>
+      <div class="card-body">
+        <div class="ng-container" *ngFor="let metaDepto of metasCumpridasDeptoA; ">
+          <h6 class=" font-weight-bold mt-4">
+            {{metaDepto.nome}}
+            <span class="h7 text-success float-right font-weight-bold"> ({{metaDepto.qtde}} de {{metaDepto.qtdeTotal}})</span>
+          </h6>
+          <div class="progress " style="height: 35px">
+            <div class="h6 progress-bar" role="progressbar" [ngStyle]="{'height': '35px','background-color': metaDepto.styleColor , 'width': metaDepto.stylePercent}"
+            aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">{{metaDepto.percent}}%
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    !-- Content Row --
+  <div class="col-xl-6 col-lg-6">
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-uppercase text-info">Metas Não Cumpridas Por Departamento (TOTAL) </h6>
+      </div>
+      <div class="card-body">
+        <div class="ng-container" *ngFor="let metaDepto of metasNaoCumpridasDeptoA; ">
+          <h6 class=" font-weight-bold mt-4">
+            {{metaDepto.nome}}
+            <span class="h7 text-success float-right font-weight-bold"> ({{metaDepto.qtde}} de {{metaDepto.qtdeTotal}})</span>
+          </h6>
+          <div class="progress " style="height: 35px">
+            <div class="h6 progress-bar" role="progressbar" [ngStyle]="{'height': '35px','background-color': metaDepto.styleColor , 'width': metaDepto.stylePercent}"
+            aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">{{metaDepto.percent}}%
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+!--
+  <div class="col-12">
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-uppercase text-info">Metas Por Depatamentos</h6>
+      </div>
+      <div class="card-body">
+        <h4 class="small font-weight-bold">
+          {{funcionarios[0].departamentos.nomeDepartamento}}
+          <span class="float-right">20%</span>
+        </h4>
+        <div class="progress mb-4">
+          <div class="progress-bar bg-danger" role="progressbar" style="width: 20%"
+           aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+          </div>
+        </div>
+        <h4 class="small font-weight-bold">Sales Tracking
+          <span class="float-right">40%</span>
+        </h4>
+        <div class="progress mb-4">
+          <div class="progress-bar bg-warning" role="progressbar" style="width: 40%"
+            aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">
+          </div>
+        </div>
+        <h4 class="small font-weight-bold">Customer Database
+          <span class="float-right">60%</span>
+        </h4>
+        <div class="progress mb-4">
+         <div class="progress-bar" role="progressbar" style="width: 60%"
+           aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
+         </div>
+        </div>
+        <h4 class="small font-weight-bold">Payout Det ails
+         <span class="float-right">80%</span>
+        </h4>
+        <div class="progress mb-4">
+          <div class="progress-bar bg-info" role="progressbar" style="width: 80%"
+            aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
+         </div>
+        </div>
+        <h4 class="small font-weight-bold">Account Setup
+          <span class="float-right">Complete!</span>
+        </h4>
+        <div class="progress">
+          <div class="progress-bar bg-success" role="progressbar" style="width: 100%"
+              aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<div style="display: block;">
+  <canvas baseChart width="500" height="200"
+    [datasets]="lineChartData"
+    [labels]="lineChartLabels"
+    [options]="lineChartOptions"
+    [legend]="lineChartLegend"
+    [chartType]="lineChartType"
+    [plugins]="lineChartPlugins">
+  </canvas>
+</div>
+-->

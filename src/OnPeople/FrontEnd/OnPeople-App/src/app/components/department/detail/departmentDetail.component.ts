@@ -134,7 +134,7 @@ export class DepartmentDetailComponent implements OnInit {
     this.spinnerService.show();
 
     this.employeeService
-      .getEmployeesBossesBydepartmentId(this.departmentParm)
+      .getEmployeesBossesByDepartmentId(this.departmentParm)
       .subscribe(
         (employees: Funcionario[]) => {
           this.employees = employees.filter(

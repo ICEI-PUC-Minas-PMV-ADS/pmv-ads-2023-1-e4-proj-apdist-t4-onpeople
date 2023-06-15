@@ -18,7 +18,7 @@ import { NgbCollapseModule, NgbPaginationModule, NgbTooltipModule } from '@ng-bo
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { NgxViacepModule } from "@brunoc/ngx-viacep";
 import { TitlebarModule } from '../titlebar';
-import { AddressComponent, DepartmentComponent, EmployeeComponent, EmployeeDetailComponent, EmployeeListComponent, PersonalDocumentsComponent,  } from 'src/app/components';
+import { AddressComponent, EmployeeComponent, EmployeeDetailComponent, EmployeeListComponent, GoalAssociateComponent, MyGoalsComponent, PersonalDocumentsComponent,  } from 'src/app/components';
 import { AddressService, CompanyService, DepartmentService, EmployeeService, JobRoleService, PersonalDocumentsService, UserService } from 'src/app/services';
 
 @NgModule({
@@ -47,6 +47,8 @@ import { AddressService, CompanyService, DepartmentService, EmployeeService, Job
     EmployeeComponent,
     EmployeeDetailComponent,
     EmployeeListComponent,
+    GoalAssociateComponent,
+    MyGoalsComponent,
     PersonalDocumentsComponent,
   ],
   exports: [
@@ -54,6 +56,7 @@ import { AddressService, CompanyService, DepartmentService, EmployeeService, Job
     EmployeeComponent,
     EmployeeDetailComponent,
     EmployeeListComponent,
+    GoalAssociateComponent,
     PersonalDocumentsComponent
   ],
   providers: [
@@ -62,6 +65,7 @@ import { AddressService, CompanyService, DepartmentService, EmployeeService, Job
     DepartmentService,
     EmployeeService,
     JobRoleService,
+    MyGoalsComponent,
     PersonalDocumentsService,
     UserService
   ]

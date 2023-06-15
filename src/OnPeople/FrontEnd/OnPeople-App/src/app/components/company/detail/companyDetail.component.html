@@ -16,7 +16,7 @@
 
             <mat-form-field class="col-md-4 p-1" appearance="outline" >
               <mat-label [ngClass]="!editMode ? 'text-success' : 'text-dark'" >CNPJ</mat-label>
-              <input matInput readonly [ngClass]="!editMode ? 'text-success' : ''"  type="text" formControlName="cnpj" [ngClass]="fieldValidator(ctrF.cnpj)" (change)="getCompanyByCnpj()" (ngClass)="editMode ? 'readonly' : ''">
+              <input matInput  [ngClass]="!editMode ? 'text-success' : ''"  type="text" formControlName="cnpj" [ngClass]="fieldValidator(ctrF.cnpj)" (change)="getCompanyByCnpj()" (ng-Class)="editMode ? 'readonly' : ''">
               <mat-error class="invalid-feedback">{{messageReturned(ctrF.cnpj, "")}}</mat-error>
             </mat-form-field>
 
