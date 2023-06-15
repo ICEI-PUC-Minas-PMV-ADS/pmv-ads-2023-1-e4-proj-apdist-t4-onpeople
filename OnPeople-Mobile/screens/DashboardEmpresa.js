@@ -4,23 +4,18 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
 import Dropdown from '../components/Dropdown/Dropdown';
 import api from '../service/Api';
-import { storeToken } from '../service/AsyncStorage';
 
 Icon.loadFont();
 
 const DashboardEmpresa = () => {
   const [empresas, setEmpresas] = useState([]);
-  const [userToken, setUserToken] = useState('');
 
   useEffect(() => {
     const fetchEmpresas = async () => {
       try {
         const response = await api.get('/Empresas', {
-          headers: {
-            Authorization: `Bearer ${userToken}`,
-          },
+
         });
-        await storeToken(userToken);
         setEmpresas(response.data);
       } catch (error) {
         console.error('Erro ao obter a lista de empresas:', error);

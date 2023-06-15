@@ -1,10 +1,10 @@
 import api from './Api';
 
 class LoginService {
-    async login(email, password) {
+    async login(userName, password) {
         try {
             const response = await api.post('/Login', {
-                email,
+                userName,
                 password,
             });
 
