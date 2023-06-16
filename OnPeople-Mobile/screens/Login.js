@@ -14,8 +14,7 @@ import StyledTextInput from '../components/Inputs/StyledTextInput';
 import MsgBox from '../components/Texts/MsgBox';
 import RegularButton from '../components/Buttons/RegularButton';
 import StyledLogotipo from '../components/Logo/StyledLogotipo';
-import api from '../service/Api';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import LoginService from '../service/LoginService';
 
 
 const Login = ({ navigation }) => {
@@ -34,15 +33,23 @@ const Login = ({ navigation }) => {
     try {
       const { userName, password } = values;
 
-      const response = await api.post('Users/Login', {
-        userName,
-        password,
-      });
+      const response = await LoginService.login(userName, password);
 
+
+      if (response.status === 200) {
+        navigation.navigate('DashboardMetas');
+      }
+
+      if (response.status !== 200) {
+        throw new Error('Erro ao efetuar login');
+      }
+      console.log('Login bem-sucedido');
     } catch (error) {
+      console.error('Erro ao efetuar login:', error.message);
+    } finally {
+      setSubmitting(false);
     }
-  };
-
+  }
 
   const validationSchema = yup.object().shape({
     userName: yup.string().required('Usuário é obrigatório'),
