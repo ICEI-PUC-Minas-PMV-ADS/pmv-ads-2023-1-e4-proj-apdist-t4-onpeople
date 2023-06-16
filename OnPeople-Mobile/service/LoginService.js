@@ -1,23 +1,22 @@
 import api from './Api';
 
-class LoginService {
-    async login(userName, password) {
-        try {
-            const response = await api.post('/Login', {
-                userName,
-                password,
-            });
+const login = async (userName, password) => {
 
-            // Verifica se a resposta da API é bem-sucedida
-            if (response.status === 200) {
-                return response.data;
-            } else {
-                throw new Error('Erro ao efetuar login');
-            }
-        } catch (error) {
-            throw new Error('Erro ao efetuar login');
-        }
+    const loginData = {
+        userName,
+        password
+    };
+
+    try {
+        const response = await api.post(`/Users/Login`, loginData);
+        return response;
+    } catch (error) {
+        throw error;
     }
-}
+};
 
-export default LoginService;
+export default {
+    login
+};
+
+
