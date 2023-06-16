@@ -3,30 +3,40 @@ import { View, Text, StyleSheet, Image, TouchableOpacity, Switch } from 'react-n
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
 import Dropdown from '../components/Dropdown/Dropdown';
-import api from '../service/Api';
+import { getEmpresas } from '../service/EmpresasService';
+import { getNumeroEmpresasAtivas } from '../service/EmpresasService';
 
 Icon.loadFont();
 
 const DashboardEmpresa = () => {
+
   const [empresas, setEmpresas] = useState([]);
+  const [numeroEmpresasAtivas, setNumeroEmpresasAtivas] = useState(0);
 
-  useEffect(() => {
-    const fetchEmpresas = async () => {
-      try {
-        const response = await api.get('/Empresas', {
+  const useFetchData = (fetchFunction, setterFunction) => {
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const data = await fetchFunction();
+          setterFunction(data);
+        } catch (error) {
+          console.error('Erro ao obter os dados:', error);
+        }
+      };
 
-        });
-        setEmpresas(response.data);
-      } catch (error) {
-        console.error('Erro ao obter a lista de empresas:', error);
-      }
-    };
-    fetchEmpresas();
-  }, []);
+      fetchData();
+    }, []);
+  };
+
+  // Todas as empresas
+  useFetchData(getEmpresas, setEmpresas);
+
+  // Verifica empresas ativas
+  useFetchData(getNumeroEmpresasAtivas, setNumeroEmpresasAtivas);
 
   const navigation = useNavigation();
 
-  const userPhoto = require('../assets/user.jpg'); // Substitua pelo caminho da imagem do usuário
+  const userPhoto = require('../assets/user.jpg');
 
   const [isDarkMode, setIsDarkMode] = useState(false);
 
@@ -37,7 +47,6 @@ const DashboardEmpresa = () => {
     navigateToScreen(option);
   };
 
-  // Função para gerar uma cor aleatória em formato hexadecimal
   const randomColor = () => {
     const letters = '0123456789ABCDEF';
     let color = '#';
@@ -47,7 +56,6 @@ const DashboardEmpresa = () => {
     return color;
   };
 
-  // Função para gerar uma cor aleatória mais escura em formato hexadecimal
   const randomColorDark = () => {
     const letters = '0123456789ABCDEF';
     let color = '#';
@@ -57,23 +65,21 @@ const DashboardEmpresa = () => {
     return color;
   };
 
-  // Gerar cores aleatórias para os blocos
   const block1Color = isDarkMode ? randomColor() : randomColorDark();
   const block2Color = isDarkMode ? randomColor() : randomColorDark();
   const block3Color = isDarkMode ? randomColor() : randomColorDark();
   const block4Color = isDarkMode ? randomColor() : randomColorDark();
 
-  // Função para alternar entre light mode e dark mode
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
   };
 
   const handleLogout = () => {
-    navigation.navigate('Login'); // Navegar de volta para a tela de Login
+    navigation.navigate('Login');
   };
 
   const handleProfilePress = () => {
-    navigation.navigate('UserProfile'); // Navegar para a tela UserProfile.js
+    navigation.navigate('UserProfile');
   };
 
   const navigateToScreen = (option) => {
@@ -116,8 +122,8 @@ const DashboardEmpresa = () => {
         <View style={styles.blockContent}>
           <Icon name="building" size={30} color={block1Color} style={styles.icon} />
           <View style={styles.blockText}>
-            <Text style={[styles.heading, { color: block1Color }]}>Total de empresas</Text>
-            <Text style={[styles.subheading, { color: block1Color }]}>Primeiro bloco</Text>
+            <Text style={[styles.heading, { color: block1Color }]}>Total de empresas: {empresas.length}</Text>
+            <Text style={[styles.subheading, { color: block1Color }]}></Text>
           </View>
         </View>
       </View>
@@ -125,7 +131,7 @@ const DashboardEmpresa = () => {
         <View style={styles.blockContent}>
           <Icon name="check-square-o" size={30} color={block2Color} style={styles.icon} />
           <View style={styles.blockText}>
-            <Text style={[styles.heading, { color: block2Color }]}>Empresas ativas</Text>
+            <Text style={[styles.heading, { color: block2Color }]}>Empresas ativas:  {numeroEmpresasAtivas}</Text>
             <Text style={[styles.subheading, { color: block2Color }]}>Segundo bloco</Text>
           </View>
         </View>
