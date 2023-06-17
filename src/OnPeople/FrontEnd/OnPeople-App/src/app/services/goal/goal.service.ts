@@ -6,7 +6,7 @@ import { Observable, map, take } from 'rxjs';
 
 import { Meta } from 'src/app/models';
 
-import { DashboardMeta } from 'src/app/shared/class/dashboard';
+import { DashboardGoal} from 'src/app/shared/class/dashboard';
 
 import { PaginatedResult } from 'src/app/shared/class/paginator';
 
@@ -54,8 +54,12 @@ constructor(private http: HttpClient) { }
   }
 
   public getGoalByTipo(tipo: string): Observable<Meta[]> {
-    console.log("URL: " + `${this.baseURL}${tipo}/cargos`)
     return this.http.get<Meta[]>(`${this.baseURL}${tipo}/tipo`)
+    .pipe(take(3));
+  }
+
+  public getGoalByCompanyId(companyId: number): Observable<Meta[]> {
+    return this.http.get<Meta[]>(`${this.baseURL}${companyId}/empresa`)
     .pipe(take(3));
   }
 
@@ -74,8 +78,8 @@ constructor(private http: HttpClient) { }
     .pipe(take(3));
   }
 
-  public CountGoal(empresaId: number): Observable<DashboardMeta> {
-    return this.http.get<DashboardMeta>(`${this.baseURL}${empresaId}/Dashboard`)
+  public countGoal(empresaId: number): Observable<DashboardGoal> {
+    return this.http.get<DashboardGoal>(`${this.baseURL}${empresaId}/Dashboard`)
     .pipe(take(3));
   }
 

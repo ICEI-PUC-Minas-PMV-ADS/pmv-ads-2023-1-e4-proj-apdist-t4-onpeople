@@ -1,0 +1,66 @@
+//
+// Header
+//
+
+.header {
+  position: relative;
+}
+
+//
+// Card stats
+//
+
+.card-stats {
+  .card-body {
+    padding: 1rem 1.5rem;
+  }
+
+  .card-status-bullet {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(50%, -50%);
+  }
+}
+
+//
+// Icon shape
+//
+
+
+.icon-shape {
+  padding: 12px;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+
+
+  i,
+  svg {
+    font-size: 1.25rem;
+  }
+
+  &.icon-lg {
+
+    i,
+    svg {
+      font-size: 1.625rem;
+    }
+  }
+
+  &.icon-sm {
+
+    i,
+    svg {
+      font-size: .875rem;
+    }
+  }
+
+  svg {
+    width: 30px;
+    height: 30px;
+  }
+
+}

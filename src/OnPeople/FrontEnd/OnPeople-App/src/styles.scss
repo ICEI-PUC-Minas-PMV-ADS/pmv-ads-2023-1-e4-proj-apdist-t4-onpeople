@@ -46,7 +46,7 @@ $OnPeople-App-theme: mat.define-light-theme((color: (primary: $OnPeople-App-prim
 }
 
 .iconDash {
-  transform: scale(1.8);
+  transform: scale(3);
 }
 
 .imageLogo {
@@ -72,14 +72,16 @@ $OnPeople-App-theme: mat.define-light-theme((color: (primary: $OnPeople-App-prim
   cursor: pointer;
 }
 
-@for $i from 0 through 5 {
+@for $i from 0 through 20 {
   $colors: rgb(random(255), random(255), random(255));
 
   .text-color-#{$i} {
     color: $colors
   }
 
-  ;
+  .bg-color-#{$i} {
+    background-color: $colors
+  }
 
   .border-left-#{$i} {
     border-left: 0.8rem solid $colors

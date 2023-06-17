@@ -54,7 +54,6 @@ constructor(private http: HttpClient) { }
   }
 
   public getJobRoleByDepartmentId(departmentId: number): Observable<Cargo[]> {
-    console.log("URL: " + `${this.baseURL}${departmentId}/cargos`)
     return this.http.get<Cargo[]>(`${this.baseURL}${departmentId}/cargos`)
     .pipe(take(3));
   }
@@ -74,8 +73,8 @@ constructor(private http: HttpClient) { }
     .pipe(take(3));
   }
 
-  public CountJobRole(empresaId: number, departamentoId: number, cargoId: number ): Observable<DashboardJobRole> {
-    return this.http.get<DashboardJobRole>(`${this.baseURL}${empresaId}/${departamentoId}/${cargoId}/Dashboard`)
+  public CountJobRole(departmentId: number): Observable<DashboardJobRole> {
+    return this.http.get<DashboardJobRole>(`${this.baseURL}${departmentId}/Dashboard`)
     .pipe(take(3));
   }
 

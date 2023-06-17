@@ -1,8 +1,6 @@
-using OnPeople.Integration.Models.Links;
-
 namespace OnPeople.Integration.Models.Dashboard
 {
-    public class DashboardFuncionariosMetas: LinksHATEOS
+    public class DashboardFuncionariosMetas
     {
         public int CountMetasAssociadas { get; set; }
         public int CountMetasCumpridas { get; set; }

@@ -48,7 +48,6 @@ export class DepartmentService {
   };
 
   public getDepartmentsByCompanyId(companyId: number): Observable<Departamento[]> {
-    console.log("URL: " + `${this.baseURL}${companyId}/departamentos`)
     return this.http.get<Departamento[]>(`${this.baseURL}${companyId}/departamentos`)
     .pipe(take(3));
   }
@@ -73,8 +72,8 @@ export class DepartmentService {
     .pipe(take(3));
   }
 
-  public CountDepartment(companyId: number, departmentId: number): Observable<DashboardDepartment> {
-    return this.http.get<DashboardDepartment>(`${this.baseURL}${companyId}/${departmentId}/Dashboard`)
+  public CountDepartment(companyId: number): Observable<DashboardDepartment> {
+    return this.http.get<DashboardDepartment>(`${this.baseURL}${companyId}/Dashboard`)
     .pipe(take(3));
   }
 

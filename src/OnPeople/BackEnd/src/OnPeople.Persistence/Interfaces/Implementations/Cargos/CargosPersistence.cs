@@ -65,39 +65,54 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Cargos
                 .Include(c => c.Empresa)
                 .Include(c => c.Departamento)
                 .Include(c => c.Funcionarios);
-            query = query
-                .AsNoTracking()
-                .Where(c => c.DepartamentoId == departamentoId)
-                .OrderBy(c => c.Id);
+
+            if (departamentoId == 0 )
+            {
+                query = query
+                    .AsNoTracking()
+                    .OrderBy(c => c.Id);
+            } else {
+                query = query
+                    .AsNoTracking()
+                    .Where(c => c.DepartamentoId == departamentoId)
+                    .OrderBy(c => c.Id);
+
+            }
 
             return await query.ToListAsync();
         }
 
-        public DashboardCargos GetDashboard(int empresaId, int departamentoId, int cargoId)
+        public DashboardCargos GetDashboard(int departamentoId)
         {
             IQueryable<Cargo> query = _context.Cargos
                 .Include(c => c.Empresa)
                 .Include(c => c.Departamento)
                 .Include(c => c.Funcionarios);
             
-            if (empresaId == 0) {
+            if (departamentoId == 0) {
                 query = query
                     .AsNoTracking();
-            } else if (departamentoId == 0) {
+            } else
+            {
                 query = query
                     .AsNoTracking()
-                    .Where(c => c.EmpresaId == empresaId);
-            } else if (cargoId == 0) {
-                query = query 
-                    .AsNoTracking()
-                    .Where(c => c.EmpresaId == empresaId &&  c.DepartamentoId == departamentoId);
-             } else {
-                query = query 
-                    .AsNoTracking()
-                    .Where(c => c.EmpresaId == empresaId &&  c.DepartamentoId == departamentoId && c.Id == cargoId);
+                    .Where(c => c.DepartamentoId == departamentoId);
             }
 
             _dashCargo.CountCargos = query.Count<Cargo>();
+
+
+            if (departamentoId == 0) {
+                query = query
+                    .AsNoTracking();
+            } else
+            {
+                query = query
+                    .AsNoTracking()
+                    .Where(c => c.Ativo && c.DepartamentoId == departamentoId);
+            }
+
+            _dashCargo.CountCargosAtivos = query.Count<Cargo>();
 
             return _dashCargo;
         }

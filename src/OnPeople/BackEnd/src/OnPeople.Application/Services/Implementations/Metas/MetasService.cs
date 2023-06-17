@@ -11,17 +11,14 @@ namespace OnPeople.Application.Services.Implementations.Metas
 {
     public class MetasService : IMetasService
     {
-        private readonly ISharedPersistence _sharedPersistence;
         private readonly IMetaPersistence _metasPersistence;
         private readonly IMapper _mapper;
 
         public MetasService(
-            ISharedPersistence sharedPersistence,
             IMetaPersistence metasPersistence, 
             IMapper mapper)
         {
             _metasPersistence = metasPersistence;
-            _sharedPersistence = sharedPersistence;
             _mapper = mapper;
         }
 
@@ -148,6 +145,23 @@ namespace OnPeople.Application.Services.Implementations.Metas
             }
         }
 
+        public async Task<IEnumerable<MetaDto>> GetAllMetasByEmpresaIdAsync(int empresaId)
+        {
+            try
+            {
+                var metas = await _metasPersistence.GetAllMetasByEmpresaIdAsync(empresaId);
+                if (metas == null) return null;
+
+                var resultado = _mapper.Map<MetaDto[]>(metas);
+
+                return resultado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        
         public DashboardMetas GetDashboard(int empresaId) 
         {       
             try

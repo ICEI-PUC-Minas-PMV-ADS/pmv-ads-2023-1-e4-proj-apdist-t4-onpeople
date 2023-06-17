@@ -30,7 +30,6 @@ namespace OnPeople.API.Controllers.Uploads
         {
             try
             {
-                Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                 var user = await _usersServices.GetUserByIdAsync(User.GetUserIdClaim());
 
                 var empresa = await _empresasServices.GetEmpresaByIdAsync(empresaId);
@@ -62,7 +61,6 @@ namespace OnPeople.API.Controllers.Uploads
                 if (user == null) return NoContent();
 
                 var file = Request.Form.Files[0];
-                Console.Write(file);
 
                 if (file.Length > 0) {
                     _uploads.DeleteImageUpload(user.Id, user.Master, user.Foto, _destinoFoto);

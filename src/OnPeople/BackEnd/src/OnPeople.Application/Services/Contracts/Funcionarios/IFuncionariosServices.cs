@@ -14,6 +14,7 @@ namespace OnPeople.Application.Services.Contracts.Funcionarios
         Task<Funcionario> UpdateFuncionario(int id, UpdateFuncionarioDto model);
         Task<bool> DeleteFuncionario(int id);
         Task<IEnumerable<ReadFuncionarioDto>> GetFuncionariosChefesByDepartamentoId(int departamentoId);
-        DashboardFuncionarios GetDashboard(int empresaId, int departamentoId, int cargoId, int funcionarioId);
+        Task<IEnumerable<ReadFuncionarioDto>> GetFuncionariosByCargoId(int cargoId);
+        DashboardFuncionarios GetDashboard(int departamentoId);
     }
 }

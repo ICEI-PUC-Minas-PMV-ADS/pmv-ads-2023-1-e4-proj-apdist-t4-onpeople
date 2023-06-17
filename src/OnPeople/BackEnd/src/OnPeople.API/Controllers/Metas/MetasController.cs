@@ -1,5 +1,3 @@
-
-
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OnPeople.API.Extensions.Pages;
@@ -145,6 +143,30 @@ namespace OnPeople.API.Controllers.Metas
         }
 
         /// <summary>
+        /// Obtém os dados de todos as metas cadastradas para uma determinada empresa
+        /// </summary>
+        /// <param name="empresaId">Identificador do tipo de meta</param>
+        /// <response code="200">Dados da metas cadastradas para a empresa</response>
+        /// <response code="400">Parâmetros incorretos</response>
+        /// <response code="500">Erro interno</response>
+        [HttpGet("{empresaId}/empresa")]
+        public async Task<IActionResult> GetMetaByEmpresaId(int empresaId)
+        {
+            try
+            {
+                var metas = await _metasService.GetAllMetasByEmpresaIdAsync(empresaId);
+                if (metas == null) return NoContent();
+
+                return Ok(metas);
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError,
+                    $"Erro ao tentar recuperar metas. Erro: {ex.Message}");
+            }
+        }
+
+        /// <summary>
         /// Realiza a alteração de uma meta
         /// </summary>
         /// <param name="metaId">Identificador da meta</param>
@@ -162,7 +184,6 @@ namespace OnPeople.API.Controllers.Metas
                 if (claimUser == null)
                     return Unauthorized();
 
-                Console.WriteLine("Aqui");
                 if (metaDto.Id != metaId)
                     return Unauthorized();
 
@@ -224,9 +245,9 @@ namespace OnPeople.API.Controllers.Metas
         [HttpGet("{empresaId}/Dashboard")]
         public DashboardMetas GetDashboard(int empresaId)
         {
-            var dashboardCargo = _metasService.GetDashboard(empresaId);
+            var dashboardMetas = _metasService.GetDashboard(empresaId);
 
-            return dashboardCargo;
+            return dashboardMetas;
         }
     }
 }

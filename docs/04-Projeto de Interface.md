@@ -65,7 +65,7 @@ Visão geral da interação do usuário pelas telas do sistema e protótipo inte
 
 ### Perfil do usuário
 
-<img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e4-proj-apdist-t4-onpeople/blob/main/docs/img/mobile-user-profile.jpg" width="350" height="600">
+<img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e4-proj-apdist-t4-onpeople/blob/main/docs/img/userprofile.jpg" width="350" height="600">
 
 
 

@@ -30,7 +30,6 @@ namespace OnPeople.Application.Services.Implementations.Funcionarios
             {
                 var endereco = _mapper.Map<Endereco>(enderecoDto);
 
-                Console.WriteLine("------------------------------------------" + endereco.Id);
                 _sharedPersistence.Create<Endereco>(endereco);
 
                 if (await _sharedPersistence.SaveChangesAsync())

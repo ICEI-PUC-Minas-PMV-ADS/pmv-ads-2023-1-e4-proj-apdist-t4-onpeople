@@ -48,18 +48,23 @@ etiquetas:
 
 ### Divisão de Papéis:
 
-- Scrum Master: Pedro Alves de Oliveira </br>
-- Product Owner: Pedro Alves de Oliveira
+- Scrum Master: Alex de Souza Galdino </br>
+- Product Owner: Pedro Luiz Braga Andrade Leite
 
-#### Equipe de Desenvolvimento: 
+#### Equipe de Desenvolvimento Backend e Testes unitários: 
  - Alex de Souza Galdino
  - Ciro Hideki Artiga Watanabe
- - Isabella Carolina de Almeida Siqueira Damião 
  - Pedro Luiz Braga Andrade Leite
  - Rafaela Cristina Souza de Oliveira
- - Vitória Gabriella Maffei Corrêa Rocha.
 
+#### Equipe de Desenvolvimento Frontend: 
+ - Alex de Souza Galdino
+ - Isabella Carolina de Almeida Siqueira Damião 
+ - Vitória Gabriella Maffei Corrêa Rocha
 
+#### Equipe de Desenvolvimento Mobile:
+ - Isabella Carolina de Almeida Siqueira Damião 
+ - Vitória Gabriella Maffei Corrêa Rocha
 
 ### Processo
 

@@ -1,0 +1,192 @@
+<form class="mt-1" [formGroup]="formGoals">
+  <div class="card rounded shadow-sm p-0">
+    <div class="card-body p-0 m-0">
+      <div class="row m-0 p-0">
+        <div Class="col-md-12">
+          <div class="h4 border-bottom ">Dados das Metas: </div>
+
+          <div class="form-row d-md-flex">
+            <mat-form-field class="col-9 p-1" appearance="outline">
+              <mat-label class="text-info">Metas</mat-label>
+              <mat-select [(ngModel)]="selectGoalId" (selectionChange)="changeSelectGoal()" formControlName="selectGoalId"
+                placeholder="Selecione uma meta">
+                <mat-option *ngFor="let goal of goals" [value]="goal.id">{{goal.nomeMeta}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-3 p-1" appearance="outline">
+              <mat-label>Tipo Meta</mat-label>
+              <input matInput formControlName="tipoMeta" readonly>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row d-md-flex">
+            <mat-form-field class="col-md-12 p-1" appearance="outline">
+              <mat-label >Descrição da Meta</mat-label>
+              <textarea matInput type="text" formControlName="descricao" readonly ></textarea>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row d-md-flex">
+            <mat-form-field class="col-md-2 p-1" appearance="outline">
+              <mat-label >Meta Cumprida? </mat-label>
+              <mat-select formControlName="metaCumprida" >
+                <mat-option disabled [value]="false">Não</mat-option>
+                <mat-option disabled [value]="true">Sim</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-2 p-1" appearance="outline">
+              <mat-label>Meta Aprovada? </mat-label>
+              <mat-select formControlName="metaAprovada">
+                <mat-option disabled [value]="false">Não</mat-option>
+                <mat-option disabled [value]="true">Sim</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-3 p-1" appearance="outline">
+              <mat-label>Intervalo Planejado</mat-label>
+              <mat-date-range-input [rangePicker]="planejamento">
+                <input matStartDate formControlName="inicioPlanejado" readonly>
+                <input matEndDate formControlName="fimPlanejado" readonly>
+              </mat-date-range-input>
+              <mat-datepicker-toggle disabled matIconSuffix class="text-info" [for]="planejamento"></mat-datepicker-toggle>
+              <mat-date-range-picker #planejamento></mat-date-range-picker>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-1 p-1" appearance="outline">
+              <mat-label>Dias</mat-label>
+              <input matInput formControlName="diasPlanejado" readonly>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-3 p-1" appearance="outline">
+              <mat-label>Intervalo Efetivo</mat-label>
+              <mat-date-range-input [rangePicker]="oficial">
+                <input matStartDate formControlName="inicioOficial" readonly>
+                <input matEndDate formControlName="fimOficial" readonly>
+              </mat-date-range-input>
+              <mat-datepicker-toggle disabled matIconSuffix class="text-info" [for]="oficial"></mat-datepicker-toggle>
+              <mat-date-range-picker #oficial></mat-date-range-picker>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-1 p-1" appearance="outline">
+              <mat-label>Dias</mat-label>
+              <input matInput formControlName="diasPlanejado" readonly>
+            </mat-form-field>
+          </div>
+
+          <div class="h4 border-bottom ">Dados para associação: </div>
+
+          <div class="form-row d-md-flex">
+            <mat-form-field class="col-md-2 p-1" appearance="outline">
+              <mat-label >Meta Associada </mat-label>
+              <mat-select formControlName="goalAssociated">
+                <mat-option [value]="false">Não</mat-option>
+                <mat-option [value]="true">Sim</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-2 p-1" appearance="outline">
+              <mat-label class="text-info">Meta Cumprida? </mat-label>
+              <mat-select formControlName="metaCumprida" [ngClass]="fieldValidator(ctrF.metaCumprida)">
+                <mat-option [value]="false">Não</mat-option>
+                <mat-option [value]="true">Sim</mat-option>
+              </mat-select>
+              <mat-error class="invalid-feedback">{{messageReturned(ctrF.metaCumprida, "")}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-3 p-1" appearance="outline">
+              <mat-label class="text-info">Intervalo Efetivo</mat-label>
+              <mat-date-range-input [rangePicker]="efetivo">
+                <input matStartDate formControlName="inicioEfetivo">
+                <input matEndDate formControlName="fimEfetivo"
+                  (dateChange)="calculateIntervalEffective(ctrF.inicioEfetivo.value, ctrF.fimEfetivo.value)">
+              </mat-date-range-input>
+              <mat-datepicker-toggle matIconSuffix class="text-info" [for]="efetivo"></mat-datepicker-toggle>
+              <mat-date-range-picker #efetivo></mat-date-range-picker>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-1 p-1" appearance="outline">
+              <mat-label>Dias</mat-label>
+              <input matInput type="text" formControlName="diasEfetivo" [ngClass]="fieldValidator(ctrF.diasEfetivo)" readonly>
+              <mat-error class="invalid-feedback">
+                {{messageReturned(ctrF.diasEfetivo, "")}}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-3 p-1" appearance="outline">
+              <mat-label class="text-info">Intervalo Acordado</mat-label>
+              <mat-date-range-input [rangePicker]="Concerted">
+                <input matStartDate formControlName="inicioAcordado">
+                <input matEndDate formControlName="fimAcordado"
+                  (dateChange)="calculateIntervalConcerted(ctrF.inicioAcordado.value, ctrF.fimAcordado.value)">
+              </mat-date-range-input>
+              <mat-datepicker-toggle matIconSuffix class="text-info" [for]="Concerted"></mat-datepicker-toggle>
+              <mat-date-range-picker #Concerted></mat-date-range-picker>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-1 p-1" appearance="outline">
+              <mat-label>Dias</mat-label>
+              <input matInput type="text" formControlName="diasAcordado" [ngClass]="fieldValidator(ctrF.diasAcordado)" readonly>
+              <mat-error class="invalid-feedback">
+                {{messageReturned(ctrF.diasAcordado, "")}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div class="card-footer bg-info  ">
+          <div class="d-flex ">
+            <button class="btn btn-primary ms-auto mx-1 px-4" [disabled]="!formGoals.valid" (click)="saveChanges()">
+              {{ctrF.goalAssociated ? 'Salvar' : 'Associar'}}
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</form>
+
+<!--
+  <p>Form value: {{formGoals.value | json}}</p>
+  <p>Form valid: {{formGoals.status | json}}</p>
+-->
+
+
+<div class="card rounded shadow-sm p-2 mt-1 bg-white">
+  <div class="h4 border-bottom ">Metas Associadas: </div>
+
+  <div class="d-flex">
+
+    <table class="table table-striped table-hover m-1">
+      <thead >
+        <tr>
+          <th>#Meta</th>
+          <th>Tipo</th>
+          <th>Nome Meta</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="employeeGoals && employeeGoals.length">
+        <tr *ngFor="let employeeGoal of employeeGoals">
+          <td>{{employeeGoal.metaId}}</td>
+          <td>{{employeeGoal.meta.tipoMeta}}</td>
+          <td>{{employeeGoal.meta.nomeMeta}}</td>
+          <td>
+      </tr>
+    </tbody>
+    <tfoot *ngIf="!employeeGoals.length">
+        <td colspan="8" class="text-center">
+          <h4>Nenhuma meta associada ao funcionário!</h4>
+        </td>
+    </tfoot>
+  </table>
+
+</div>
+
+<ngx-spinner type="ball-scale-multiple" bdColor="rgba(51,51,51,0.8)" size="medium" color="blue">
+  <p style="font-size:20px; color: white;">Carregando...</p>
+</ngx-spinner>
+

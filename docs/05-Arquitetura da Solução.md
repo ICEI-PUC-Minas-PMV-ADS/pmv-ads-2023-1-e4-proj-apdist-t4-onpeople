@@ -31,7 +31,7 @@ O diagrama de classes ilustra graficamente como será a estrutura do software, e
 
 ## Modelo ER
 
-O Modelo ER representa, através de um diagrama, como as entidades (coisas, objetos) se relacionam entre si na aplicação interativa.]
+O Modelo ER representa, através de um diagrama, como as entidades (coisas, objetos) se relacionam entre si na aplicação interativa.
 
 </br>
 <p align="center">
@@ -47,6 +47,7 @@ Os scripts de criação das tabelas do banco foram criados com o uso do EntityFr
 
 * **Tecnologias front-end:** HTML, CSS, JavaScript, Angular e Bootstrap
 * **Tecnologias back-end:** C# e SQL
+* **Tecnologias Mobile:** React Native
 * **Sistema Gerenciador de Banco de Dados:** MySQL
 * **Editor de código:** Visual Studio Code
 

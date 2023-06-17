@@ -1,4 +1,5 @@
 import { Empresa } from "../company";
+import { FuncionarioMeta } from "../employee";
 
 export interface Meta {
 
@@ -8,12 +9,13 @@ export interface Meta {
   descricao: string;
   metaCumprida: boolean;
   metaAprovada: boolean;
-  inicioPlaIninejado: Date;
-  fimPlanejado: Date;
+  inicioPlaIninejado: string;
+  fimPlanejado: string;
   diasPlanejado: number;
-  inicioOficial: Date;
-  fimOficial: Date;
+  inicioOficial: string;
+  fimOficial: string;
+  diasOficial:number
   empresaId: number;
   empresa: Empresa;
-  //ublic IEnumerable<FuncionarioMeta> FuncionariosMetas { get; set; }
+  funcionariosMetas: FuncionarioMeta[];
 }

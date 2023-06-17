@@ -14,7 +14,8 @@ namespace OnPeople.Application.Services.Contracts.Metas
         Task<bool> DeleteMeta(int metaId);
 
         Task<PageList<MetaDto>> GetAllMetasAsync(PageParameters pageParameters, int empresaId);
-       Task<IEnumerable<MetaDto>> GetAllMetasByTipoAsync(string tipoMeta);
+        Task<IEnumerable<MetaDto>> GetAllMetasByTipoAsync(string tipoMeta);
+        Task<IEnumerable<MetaDto>> GetAllMetasByEmpresaIdAsync(int empresaId);
         Task<MetaDto> GetMetaByIdAsync(int metaId);
         DashboardMetas GetDashboard(int empresaId);
     }

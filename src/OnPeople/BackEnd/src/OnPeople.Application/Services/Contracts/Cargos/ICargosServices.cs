@@ -14,6 +14,6 @@ namespace OnPeople.Application.Services.Contracts.Cargos
         Task<CargoDto> CreateCargos(CargoDto cargoDto);
         Task<CargoDto> UpdateCargo (int cargoId, CargoDto cargoDto);
         Task<bool> DeleteCargo(int cargoId);
-        DashboardCargos GetDashboard(int empresaId, int departamentoId, int cargoId);
+        DashboardCargos GetDashboard(int departamentoId);
     }
 }
