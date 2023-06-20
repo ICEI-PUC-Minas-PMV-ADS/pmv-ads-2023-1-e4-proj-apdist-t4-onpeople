@@ -7,7 +7,7 @@ import { Departamento } from "../department";
 export interface Cargo {
   id: number;
   nomeCargo: string;
-  ativo: Boolean;
+  ativo: boolean;
   dataCriacao: string;
   dataEncerramento: string;
   departamentoId: number;

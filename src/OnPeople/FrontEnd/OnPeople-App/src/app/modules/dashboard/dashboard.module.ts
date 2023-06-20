@@ -8,9 +8,11 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { NgModule, } from '@angular/core';
 import { FormsModule,  } from '@angular/forms';
 
+import { NgChartsModule } from 'ng2-charts';
+
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { TitlebarModule } from '../titlebar';
-import { DashGlobalComponent, DashboardComponent } from 'src/app/components';
+import { DashCompanyComponent, DashGlobalComponent, DashboardComponent } from 'src/app/components';
 
 
 
@@ -20,6 +22,7 @@ imports: [
   BrowserAnimationsModule,
   BrowserModule,
   FormsModule,
+  NgChartsModule,
   MatCardModule,
   MatIconModule,
   MatInputModule,
@@ -30,10 +33,12 @@ imports: [
 declarations: [
   DashboardComponent,
   DashGlobalComponent,
+  DashCompanyComponent,
 ],
 exports: [
   DashboardComponent,
   DashGlobalComponent,
+  DashCompanyComponent,
 ],
   providers: [
 ],

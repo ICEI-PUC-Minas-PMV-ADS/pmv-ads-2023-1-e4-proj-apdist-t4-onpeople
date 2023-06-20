@@ -9,7 +9,7 @@ export interface FuncionarioMeta {
   meta: Meta;
   funcionarioId: number;
   funcionario: Funcionario;
-  metaCumprida: Boolean;
+  metaCumprida: boolean;
   inicioEfetivo: string;
   fimEfetivo: string;
   diasEfetivo: number;

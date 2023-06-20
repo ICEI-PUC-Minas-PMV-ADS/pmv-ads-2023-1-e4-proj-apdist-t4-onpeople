@@ -10,7 +10,7 @@ export interface Departamento {
   supervisorId: number;
   dataCriacao: string;
   dataEncerramento: string;
-  ativo: Boolean;
+  ativo: boolean;
   empresaId: number;
   empresa: Empresa;
   cargos: Cargo[];

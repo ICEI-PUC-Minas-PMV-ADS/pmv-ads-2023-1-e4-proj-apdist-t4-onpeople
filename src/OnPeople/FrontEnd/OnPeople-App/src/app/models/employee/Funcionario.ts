@@ -12,7 +12,7 @@ export interface Funcionario {
   nomeCompleto: string;
   dataAdmissao: string;
   dataDemissao: string;
-  ativo: Boolean;
+  ativo: boolean;
   userId: number;
   user: Users;
   departamentoId: number;
