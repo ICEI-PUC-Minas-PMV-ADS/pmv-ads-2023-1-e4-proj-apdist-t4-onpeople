@@ -34,8 +34,12 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Funcionarios
             IQueryable<FuncionarioMeta> query = _context.FuncionariosMetas
                 .Include(fm => fm.Funcionario)
                 .Include(fm => fm.Meta)
-                .AsNoTracking()
-                .Where(fm => fm.FuncionarioId == funcionarioId);
+                .AsNoTracking();
+
+            if (funcionarioId != 0) {
+                query = query
+                    .Where(fm => fm.FuncionarioId == funcionarioId);
+            }
             
             return await query.ToArrayAsync();
         }

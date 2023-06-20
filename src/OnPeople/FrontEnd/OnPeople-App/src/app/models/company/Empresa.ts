@@ -10,10 +10,10 @@ export interface Empresa {
   razaoSocial: string;
   nomeFantasia: string;
   siglaEmpresa: string;
-  ativa: Boolean;
+  ativa: boolean;
   dataCadastro: string;
   dataDesativacao: string;
-  filial: Boolean;
+  filial: boolean;
   padraoEmail: string;
   presidenteId: number;
   naturezaJuridica: string;

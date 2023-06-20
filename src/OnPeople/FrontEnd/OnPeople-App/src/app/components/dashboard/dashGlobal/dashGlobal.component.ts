@@ -9,14 +9,28 @@ import { RandomColors } from 'src/app/shared/functions';
 
 import { Cargo, Departamento, Empresa, Funcionario, FuncionarioMeta, Meta } from 'src/app/models';
 
-import { CompanyService, DepartmentService, EmployeeGoalAssociateService, EmployeeService, GoalService, JobRoleService } from 'src/app/services';
+import {
+  CompanyService,
+  DepartmentService,
+  EmployeeGoalAssociateService,
+  EmployeeService,
+  GoalService,
+  JobRoleService
+} from 'src/app/services';
 
 import { PaginatedResult } from 'src/app/shared/class/paginator';
 
-import { DashboardCompany, DashboardDepartment, DashboardEmployee, DashboardGoal, DashboardJobRole} from 'src/app/shared/class/dashboard';
+import {
+  DashboardCompany,
+  DashboardDepartment,
+  DashboardEmployee,
+  DashboardEmployeeGoal,
+  DashboardGoal,
+  DashboardJobRole
+} from 'src/app/shared/class/dashboard';
 
 import { environment } from 'src/assets/environments';
-import { DashboardEmployeeGoal } from 'src/app/shared/class/dashboard/DashboardEmployeeGoal';
+
 
 @Component({
   selector: 'app-dashGlobal',
@@ -318,11 +332,11 @@ export class DashGlobalComponent implements OnInit {
       .subscribe(
         (employeeGoals: FuncionarioMeta[]) => {
           this.employeeGoals = employeeGoals
-
+          console.log(employeeGoals)
           if (this.employeeGoals.length == 0) {
-            this.selectAssociatedGoalId = 0
-            this.dashboardEmployeeGoal.countMetasAssociadas = 0;
-            this.dashboardEmployeeGoal.countMetasCumpridas = 0;
+            this.selectAssociatedGoalId = 0;
+            //this.dashboardEmployeeGoal.countMetasAssociadas = 0;
+            //this.dashboardEmployeeGoal.countMetasCumpridas = 0;
 
           } else {
 

@@ -40,7 +40,7 @@
           <div class="form-row d-md-flex p-0 mt-2">
             <mat-form-field class="col-12 p-1" appearance="outline">
               <mat-label class="text-info">Conta</mat-label>
-              <mat-icon matPrefix  class="iconDash text-info">person</mat-icon>
+              <mat-icon matPrefix  class="h3 text-info">person</mat-icon>
               <input matInput type="text" formControlName="userName" [ngClass]="fieldValidator(ctrF.userName)" (change)="getUserName()">
               <mat-error class="invalid-feedback">
                 {{validatorReturn(ctrF.userName, "")}}
@@ -51,7 +51,7 @@
           <div class="form-row d-md-flex p-0">
             <mat-form-field class="col-md-12 p-1" appearance="outline">
               <mat-label class="text-info">Nome Completo</mat-label>
-              <mat-icon matPrefix class="iconDash text-info">remember_me</mat-icon>
+              <mat-icon matPrefix class="h3 text-info">remember_me</mat-icon>
               <input matInput type="text" formControlName="nomeCompleto" [ngClass]="fieldValidator(ctrF.nomeCompleto)">
               <mat-error class="invalid-feedback">
                 {{validatorReturn(ctrF.nomeCompleto, "")}}
@@ -62,7 +62,7 @@
           <div class="form-row d-md-flex p-1" >
             <mat-form-field class="col-md-6 pe-1" appearance="outline">
               <mat-label class="text-info">Senha</mat-label>
-              <mat-icon matPrefix class="iconDash text-info">key</mat-icon>
+              <mat-icon matPrefix class="h3 text-info">key</mat-icon>
               <input matInput type="password" class="form-control" formControlName="password"
                 [ngClass]="fieldValidator(ctrF.password)">
               <mat-error class="invalid-feedback">
@@ -72,7 +72,7 @@
 
             <mat-form-field class="form-group col-md-6 ps-1" appearance="outline">
               <mat-label class="text-info">Confirmar Senha</mat-label>
-              <mat-icon matPrefix class="iconDash text-info">done_all</mat-icon>
+              <mat-icon matPrefix class="h3 text-info">done_all</mat-icon>
               <input matInput type="password" formControlName="confirmPassword" [ngClass]="fieldValidator(ctrF.confirmPassword)">
               <mat-error class="invalid-feedback">
                 {{validatorReturn(ctrF.confirmPassword, "Confirmar Senha")}}
