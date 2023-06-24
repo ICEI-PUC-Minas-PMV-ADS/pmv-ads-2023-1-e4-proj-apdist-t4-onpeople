@@ -1,17 +1,31 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, Switch } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
-import DashboardEmpresa from './DashboardEmpresa';
+import { getUserProfile } from '../service/UserService';
 
 Icon.loadFont();
 
-const UserProfile = () => {
+const UserProfile = ({ userId }) => {
+  const [user, setUser] = useState(null);
+  const [isDarkMode, setIsDarkMode] = useState(false);
   const navigation = useNavigation();
 
-  const userPhoto = require('../assets/user.jpg');
+  const userPhoto = require('../assets/usr-placeholder.png');
 
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        const userProfile = await getUserProfile(userId);
+        setUser(userProfile);
+      } catch (error) {
+        console.error('Erro ao obter o perfil do usuário:', error);
+      }
+    };
+
+    fetchUserProfile();
+  }, [userId]);
+
 
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
@@ -35,24 +49,24 @@ const UserProfile = () => {
         <View style={styles.userPhotoContainer}>
           <Image source={userPhoto} style={styles.userPhoto} />
         </View>
-        <Text style={[styles.userName, isDarkMode && styles.darkModeText]}>Arnel Pineda</Text>
+        <Text style={[styles.userName, isDarkMode && styles.darkModeText]}>{user?.nomeCompleto}</Text>
       </View>
 
       <View style={styles.field}>
         <Text style={styles.label}>Cargo:</Text>
-        <Text style={[styles.value, isDarkMode && styles.darkModeText]}>Desenvolvedor de Software</Text>
+        <Text style={[styles.value, isDarkMode && styles.darkModeText]}>{user?.nomeCargo}</Text>
       </View>
       <View style={styles.field}>
         <Text style={styles.label}>Departamento:</Text>
-        <Text style={[styles.value, isDarkMode && styles.darkModeText]}>TI</Text>
+        <Text style={[styles.value, isDarkMode && styles.darkModeText]}>{user?.nomeDepartamento}</Text>
       </View>
       <View style={styles.field}>
         <Text style={styles.label}>Empresa:</Text>
-        <Text style={[styles.value, isDarkMode && styles.darkModeText]}>OnPeople</Text>
+        <Text style={[styles.value, isDarkMode && styles.darkModeText]}>{user?.razaoSocial}</Text>
       </View>
       <View style={styles.field}>
         <Text style={styles.label}>Data de admissão:</Text>
-        <Text style={[styles.value, isDarkMode && styles.darkModeText]}>01/01/2023</Text>
+        <Text style={[styles.value, isDarkMode && styles.darkModeText]}>{user?.dataAdmissao}</Text>
       </View>
 
       <View style={styles.buttonContainer}>

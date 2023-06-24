@@ -2,7 +2,7 @@ import api from './Api';
 
 const getEmpresas = async () => {
     try {
-        const response = await api.get('/Empresas');
+        const response = await api.get('/Empresas?PageNumber=1&PageSize=50');
         return response.data;
     } catch (error) {
         throw error;
@@ -11,7 +11,7 @@ const getEmpresas = async () => {
 
 const getNumeroEmpresasAtivas = async () => {
     try {
-        const empresas = await getEmpresas(); // Reutiliza a função getEmpresas para obter os dados
+        const empresas = await getEmpresas();
         const empresasAtivas = empresas.filter((empresa) => empresa.ativa);
 
         return empresasAtivas.length;
@@ -21,4 +21,19 @@ const getNumeroEmpresasAtivas = async () => {
     }
 };
 
-export { getEmpresas, getNumeroEmpresasAtivas };
+const getFiliais = async () => {
+    try {
+        const response = await api.get('/Empresas/0/Dashboard');
+        if (!response.ok) {
+            throw new Error('Erro ao obter as filiais');
+        }
+        const data = await response.json();
+        const { countFiliais } = data;
+        return countFiliais;
+    } catch (error) {
+        throw error;
+    }
+};
+
+
+export { getEmpresas, getNumeroEmpresasAtivas, getFiliais };

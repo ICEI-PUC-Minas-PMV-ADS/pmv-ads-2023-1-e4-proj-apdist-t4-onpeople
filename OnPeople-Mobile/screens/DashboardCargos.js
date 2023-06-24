@@ -7,9 +7,9 @@ import Dropdown from '../components/Dropdown/Dropdown';
 Icon.loadFont();
 
 const DashboardCargos = () => {
-    const navigation = useNavigation();
+  const navigation = useNavigation();
 
-  const userPhoto = require('../assets/user.jpg'); // Substitua pelo caminho da imagem do usuário
+  const userPhoto = require('../assets/usr-placeholder.png'); // Substitua pelo caminho da imagem do usuário
 
   const [isDarkMode, setIsDarkMode] = useState(false);
 
@@ -51,7 +51,7 @@ const DashboardCargos = () => {
     setIsDarkMode(!isDarkMode);
   };
 
-    const handleLogout = () => {
+  const handleLogout = () => {
     navigation.navigate('Login'); // Navegar de volta para a tela de Login
   };
 
@@ -59,7 +59,7 @@ const DashboardCargos = () => {
     navigation.navigate('UserProfile'); // Navegar para a tela UserProfile.js
   };
 
-   const navigateToScreen = (option) => {
+  const navigateToScreen = (option) => {
     switch (option) {
       case 'Empresas':
         navigation.navigate('DashboardEmpresa');
@@ -89,7 +89,7 @@ const DashboardCargos = () => {
         </View>
       </TouchableOpacity>
 
-       <Dropdown
+      <Dropdown
         options={['Empresas', 'Metas', 'Departamentos']}
         selectedOption={selectedOption}
         onSelect={handleOptionSelect}

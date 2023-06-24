@@ -3,15 +3,17 @@ import { View, Text, StyleSheet, Image, TouchableOpacity, Switch } from 'react-n
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
 import Dropdown from '../components/Dropdown/Dropdown';
-import { getEmpresas } from '../service/EmpresasService';
-import { getNumeroEmpresasAtivas } from '../service/EmpresasService';
+import { getEmpresas, getNumeroEmpresasAtivas, getFiliais } from '../service/EmpresasService';
+
 
 Icon.loadFont();
 
 const DashboardEmpresa = () => {
-
   const [empresas, setEmpresas] = useState([]);
   const [numeroEmpresasAtivas, setNumeroEmpresasAtivas] = useState(0);
+  const [filiais, setFiliais] = useState([]);
+  const [filiaisAtivas, setFiliaisAtivas] = useState([]);
+  const [countFiliais, setCountFiliais] = useState(0);
 
   const useFetchData = (fetchFunction, setterFunction) => {
     useEffect(() => {
@@ -28,15 +30,26 @@ const DashboardEmpresa = () => {
     }, []);
   };
 
+  // Filiais ativas
+  useEffect(() => {
+    const filiaisAtivas = filiais.filter((filial) => filial.ativa);
+    console.info(filiais)
+    setFiliaisAtivas(filiaisAtivas);
+  }, [filiais]);
+
+
   // Todas as empresas
   useFetchData(getEmpresas, setEmpresas);
 
   // Verifica empresas ativas
   useFetchData(getNumeroEmpresasAtivas, setNumeroEmpresasAtivas);
 
+  // Todas as filiais
+  useFetchData(getFiliais, setFiliais);
+
   const navigation = useNavigation();
 
-  const userPhoto = require('../assets/user.jpg');
+  const userPhoto = require('../assets/usr-placeholder.png');
 
   const [isDarkMode, setIsDarkMode] = useState(false);
 
@@ -132,7 +145,7 @@ const DashboardEmpresa = () => {
           <Icon name="check-square-o" size={30} color={block2Color} style={styles.icon} />
           <View style={styles.blockText}>
             <Text style={[styles.heading, { color: block2Color }]}>Empresas ativas:  {numeroEmpresasAtivas}</Text>
-            <Text style={[styles.subheading, { color: block2Color }]}>Segundo bloco</Text>
+            <Text style={[styles.subheading, { color: block2Color }]}></Text>
           </View>
         </View>
       </View>
@@ -140,8 +153,8 @@ const DashboardEmpresa = () => {
         <View style={styles.blockContent}>
           <Icon name="star" size={30} color={block3Color} style={styles.icon} />
           <View style={styles.blockText}>
-            <Text style={[styles.heading, { color: block3Color }]}>Total de metas</Text>
-            <Text style={[styles.subheading, { color: block3Color }]}>Terceiro bloco</Text>
+            <Text style={[styles.heading, { color: block3Color }]}>Total Filiais: {countFiliais} </Text>
+            <Text style={[styles.subheading, { color: block3Color }]}></Text>
           </View>
         </View>
       </View>
@@ -149,8 +162,8 @@ const DashboardEmpresa = () => {
         <View style={styles.blockContent}>
           <Icon name="clock-o" size={30} color={block4Color} style={styles.icon} />
           <View style={styles.blockText}>
-            <Text style={[styles.heading, { color: block4Color }]}>Metas pendentes</Text>
-            <Text style={[styles.subheading, { color: block4Color }]}>Quarto bloco</Text>
+            <Text style={[styles.heading, { color: block4Color }]}>Filias Ativas: </Text>
+            <Text style={[styles.subheading, { color: block4Color }]}></Text>
           </View>
         </View>
       </View>

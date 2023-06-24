@@ -26,7 +26,7 @@ const DashboardMetas = () => {
 
   const navigation = useNavigation();
 
-  const userPhoto = require('../assets/user.jpg'); // Substitua pelo caminho da imagem do usuário
+  const userPhoto = require('../assets/usr-placeholder.png'); // Substitua pelo caminho da imagem do usuário
 
   const [isDarkMode, setIsDarkMode] = useState(false);
 
