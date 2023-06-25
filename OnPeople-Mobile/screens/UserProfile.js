@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, Switch } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { getUserProfile } from '../service/UserService';
 
 Icon.loadFont();
 
-const UserProfile = ({ userId }) => {
+const UserProfile = () => {
+
+  const route = useRoute();
+  const { userId } = route.params; // Obtenha o userId dos parâmetros da rota
+
   const [user, setUser] = useState(null);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const navigation = useNavigation();
@@ -14,10 +18,12 @@ const UserProfile = ({ userId }) => {
   const userPhoto = require('../assets/usr-placeholder.png');
 
   useEffect(() => {
+
     const fetchUserProfile = async () => {
       try {
         const userProfile = await getUserProfile(userId);
         setUser(userProfile);
+
       } catch (error) {
         console.error('Erro ao obter o perfil do usuário:', error);
       }
@@ -32,11 +38,11 @@ const UserProfile = ({ userId }) => {
   };
 
   const handleLogout = () => {
-    navigation.navigate('Login');
+    navigation.navigate('Login', { userId });
   };
 
   const handleGoBack = () => {
-    navigation.navigate('DashboardEmpresa');
+    navigation.navigate('DashboardEmpresa', { userId });
   };
 
   return (
