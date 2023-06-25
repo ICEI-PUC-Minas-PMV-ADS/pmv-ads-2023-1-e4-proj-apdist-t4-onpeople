@@ -1,14 +1,13 @@
-
 import api from './Api';
 
 const getUserProfile = async (userId) => {
     try {
-        const response = await api.get(`Funcionarios?PageNumber=1&PageSize=1&userId=${userId}`);
+        const response = await api.get(`Funcionarios/${userId}`);
         const { data } = response;
-        console.info(response);
 
-        if (data.length > 0) {
-            const { nomeCompleto, cargo: { nomeCargo }, departamento: { nomeDepartamento }, empresa: { razaoSocial }, dataAdmissao } = data[0];
+        if (response.status == 200) {
+            const { nomeCompleto, cargo: { nomeCargo }, departamento: { nomeDepartamento }, empresa: { razaoSocial },
+                dataAdmissao } = data;
 
             return {
                 nomeCompleto,
@@ -22,6 +21,7 @@ const getUserProfile = async (userId) => {
         }
     } catch (error) {
         throw error;
+
     }
 };
 
