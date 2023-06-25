@@ -2,10 +2,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
-
-import { NgxViacepService } from "@brunoc/ngx-viacep";
 
 import { Endereco } from 'src/app/models';
 
@@ -21,11 +18,11 @@ import { FormValidator } from 'src/app/shared/class/validators';
 export class AddressComponent implements OnInit {
   public formAddress: FormGroup;
 
+  public spinnerShow: boolean = false;
+
   public id = 0;
 
   public employeeParm: any = "";
-
-  public cep: any = "";
 
   public editMode: Boolean = false;
 
@@ -40,9 +37,7 @@ export class AddressComponent implements OnInit {
     private activevateRouter: ActivatedRoute,
     private addressService: AddressService,
     private formBuilder: FormBuilder,
-    private spinnerService: NgxSpinnerService,
     private toastrService: ToastrService,
-    private viacep: NgxViacepService,
   ) { }
 
   ngOnInit() {
@@ -75,7 +70,7 @@ export class AddressComponent implements OnInit {
   }
 
   public getAddresses(): void {
-    this.spinnerService.show();
+    this.spinnerShow = true;;
 
     this.addressService
       .getAllAddressesByEmployeeId(parseInt(this.employeeParm))
@@ -90,31 +85,31 @@ export class AddressComponent implements OnInit {
           this.toastrService.error(error.error, `Erro! Status ${error.status}`)
         }
       )
-      .add(() => this.spinnerService.hide());
+      .add(() => this.spinnerShow = false);
   }
 
   public getCEP(): any {
-    this.spinnerService.show();
+    this.spinnerShow = true;;
 
-    this.viacep
-      .buscarPorCep(this.cep)
-      .subscribe((address: any) => {
-        this.address = { ...address }
+    this.addressService
+      .getCEP(this.ctrF.cep.value)
+     .subscribe((address: any) => {
+        this.address = address
         this.formAddress.patchValue(this.address)
         this.address.cidade = address.localidade
-        this.formAddress.controls['cidade'].setValue(this.address.cidade);
+        this.ctrF.cidade.setValue(this.address.cidade);
         },
         (error: any) => {
           this.toastrService.error(error, `Erro!`)
           console.error()
         }
       )
-      .add(() => this.spinnerService.hide());
+      .add(() => this.spinnerShow = false);
 
   }
 
   public saveChange(): void {
-    this.spinnerService.show();
+    this.spinnerShow = true;;
 
     this.address = { ...this.formAddress.value }
     this.address.funcionarioId = this.employeeParm;
@@ -130,6 +125,6 @@ export class AddressComponent implements OnInit {
           this.toastrService.error(error.error, `Erro! Status ${error.status} `)
         }
       )
-      .add(() => this.spinnerService.hide())
+      .add(() => this.spinnerShow = false)
   }
 }

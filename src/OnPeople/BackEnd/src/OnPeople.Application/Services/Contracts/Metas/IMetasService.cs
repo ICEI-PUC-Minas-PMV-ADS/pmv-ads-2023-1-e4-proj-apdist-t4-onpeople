@@ -17,6 +17,5 @@ namespace OnPeople.Application.Services.Contracts.Metas
         Task<IEnumerable<MetaDto>> GetAllMetasByTipoAsync(string tipoMeta);
         Task<IEnumerable<MetaDto>> GetAllMetasByEmpresaIdAsync(int empresaId);
         Task<MetaDto> GetMetaByIdAsync(int metaId);
-        DashboardMetas GetDashboard(int empresaId);
     }
 }

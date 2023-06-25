@@ -1,4 +1,5 @@
 
+using OnPeople.Domain.Models.Empresas;
 using OnPeople.Domain.Models.Metas;
 
 namespace OnPeople.Domain.Models.Funcionarios
@@ -17,5 +18,7 @@ namespace OnPeople.Domain.Models.Funcionarios
         public string InicioAcordado { get; set; }
         public string FimAcordado { get; set; }
         public int DiasAcordado { get; set; }
+        public int EmpresaId { get; set; }
+        public Empresa Empresa { get; set; }
     }
 }

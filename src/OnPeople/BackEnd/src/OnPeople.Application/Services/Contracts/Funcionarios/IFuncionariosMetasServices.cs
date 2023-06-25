@@ -13,6 +13,5 @@ namespace OnPeople.Application.Services.Contracts.Funcionarios
         Task<FuncionarioMetaDto> GetFuncionarioMetaByIdAsync(int funcionarioMetaId);
         Task<FuncionarioMetaDto> GetFuncionarioMetaByIdsAsync(int funcionarioId, int metaId);
         Task<bool> VerifyFuncionarioMetaExistsAsync(int funcionarioId, int metaId);
-        DashboardFuncionariosMetas GetDashboard(int funcionarioId);  
     }
 }

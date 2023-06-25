@@ -6,22 +6,21 @@ using OnPeople.Integration.Models.Dashboard;
 using OnPeople.Integration.Models.Pages.Config;
 using OnPeople.Integration.Models.Pages.Page;
 using OnPeople.Persistence.Interfaces.Contracts.Departamentos;
-using OnPeople.Persistence.Interfaces.Contracts.Shared;
 
 namespace OnPeople.Application.Services.Implementations.Departamentos
 {
     public class DepartamentosServices : IDepartamentosServices
     {
-        private readonly ISharedPersistence _sharedPersistence;
+
         private readonly IDepartamentosPersistence _departamentosPersistence;
+        private readonly DashboardDepartamento _dashDepartamento = new();
+        private readonly PageParameters _pageParameters = new();
         private readonly IMapper _mapper;
 
         public DepartamentosServices(
-           ISharedPersistence sharedPersistence,
            IDepartamentosPersistence departamentosPersistence, IMapper mapper)
         {
             _departamentosPersistence = departamentosPersistence;
-            _sharedPersistence = sharedPersistence;
             _mapper = mapper;
 
         }
@@ -94,9 +93,9 @@ namespace OnPeople.Application.Services.Implementations.Departamentos
             {
                 var departamento = _mapper.Map<Departamento>(departamentoDto);
 
-                _sharedPersistence.Create<Departamento>(departamento);
+                _departamentosPersistence.Create<Departamento>(departamento);
 
-                if (await _sharedPersistence.SaveChangesAsync())
+                if (await _departamentosPersistence.SaveChangesAsync())
                 {
                     var departamentoCriado = await _departamentosPersistence.GetDepartamentoByIdAsync(departamento.Id);
                     return _mapper.Map<DepartamentoDto>(departamentoCriado);
@@ -148,7 +147,7 @@ namespace OnPeople.Application.Services.Implementations.Departamentos
 
                 _departamentosPersistence.Delete<Departamento>(departamento);
 
-                return await _sharedPersistence.SaveChangesAsync();
+                return await _departamentosPersistence.SaveChangesAsync();
             }
 
             catch (Exception e)
@@ -157,14 +156,56 @@ namespace OnPeople.Application.Services.Implementations.Departamentos
             }
         }
 
-        public DashboardDepartamento GetDashboard(int empresaId)
+        public async Task<DashboardDepartamento> GetDashboardDepartamento(int empresaId, Boolean master)
         {
             try
             {
-                return _departamentosPersistence.GetDashboard(empresaId);
+                _pageParameters.PageSize = 1000;
+                _pageParameters.PageNumber = 1;
+
+                var departamentos = await _departamentosPersistence.GetAllDepartamentosAsync(_pageParameters, empresaId, master);
+                
+                if (departamentos == null) return null;
+                    
+                _dashDepartamento.CountDepartamentos = departamentos.Count();
+                _dashDepartamento.CountDepartamentosAtivos  = departamentos.Count(e => e.Ativo);
+                _dashDepartamento.ListaNomeDepartamentos = departamentos.Select(e => e.NomeDepartamento);
+                _dashDepartamento.ListaQtdeCargos = departamentos.Select(e => e.Cargos.Count());
+
+                _dashDepartamento.PercentualDepartamentosAtivos =  100.00 * ((double)_dashDepartamento.CountDepartamentosAtivos)  / ((double)_dashDepartamento.CountDepartamentos);
+                
+                return _dashDepartamento;
             }
             catch (Exception e)
+            { 
+                throw new Exception(e.Message);
+            }
+        }
+
+        public async Task<List<ListaMetas>> GetDashboardDepartamentoMetas(int empresaId, bool master)
+        {
+            try
             {
+                _pageParameters.PageSize = 1000;
+                _pageParameters.PageNumber = 1;
+                var departamentos = await _departamentosPersistence.GetAllDepartamentosAsync(_pageParameters, empresaId, master);
+
+                if (departamentos == null)
+                    return new List<ListaMetas>();
+
+                var dashDepartamentoMetas = departamentos.Select(departamento => new ListaMetas {
+                    NomeEmpresa = departamento.NomeDepartamento,
+                    QtdeMetas = departamento.Funcionarios.SelectMany(fm => fm.FuncionariosMetas).Count(),
+                    QtdeMetasCumpridas = departamento.Funcionarios.SelectMany(fm => fm.FuncionariosMetas).Count(fm => fm.MetaCumprida),
+                    QtdeMetasNaoCumpridas = departamento.Funcionarios.SelectMany(fm => fm.FuncionariosMetas).Count(fm => !fm.MetaCumprida),
+                    PercentualMetasCumpridas = departamento.Funcionarios.SelectMany(fm => fm.FuncionariosMetas).Count(fm => fm.MetaCumprida) == 0 ? 0 : 100.00 * ((double)departamento.Funcionarios.SelectMany(fm => fm.FuncionariosMetas).Count(fm => fm.MetaCumprida)) / ((double)departamento.Funcionarios.SelectMany(fm => fm.FuncionariosMetas).Count()),
+                    PercentualMetasNaoCumpridas = departamento.Funcionarios.SelectMany(fm => fm.FuncionariosMetas).Count(fm => !fm.MetaCumprida) == 0 ? 0 : 100.00 * ((double)departamento.Funcionarios.SelectMany(fm => fm.FuncionariosMetas).Count(fm => !fm.MetaCumprida)) / ((double)departamento.Funcionarios.SelectMany(fm => fm.FuncionariosMetas).Count())
+                }).ToList();
+
+                return dashDepartamentoMetas;
+            }
+            catch (Exception e)
+            { 
                 throw new Exception(e.Message);
             }
         }

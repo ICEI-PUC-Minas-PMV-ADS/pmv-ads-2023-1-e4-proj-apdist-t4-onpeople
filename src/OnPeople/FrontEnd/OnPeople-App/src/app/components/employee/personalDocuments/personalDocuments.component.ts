@@ -1,13 +1,14 @@
+import { ActivatedRoute } from '@angular/router';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { NgxSpinnerService } from 'ngx-spinner';
+
 import { ToastrService } from 'ngx-toastr';
+
 import { DadoPessoal } from 'src/app/models';
+
 import { PersonalDocumentsService } from 'src/app/services';
+
 import { FormValidator } from 'src/app/shared/class/validators';
-
-
 @Component({
   selector: 'app-personalDocuments',
   templateUrl: './personalDocuments.component.html',
@@ -15,6 +16,8 @@ import { FormValidator } from 'src/app/shared/class/validators';
 })
 export class PersonalDocumentsComponent implements OnInit {
   public formPersonalDocuments: FormGroup;
+
+  public spinnerShow: boolean = false;
 
   public id = 0;
 
@@ -35,7 +38,6 @@ export class PersonalDocumentsComponent implements OnInit {
     private activevateRouter: ActivatedRoute,
     private personalDocumentService: PersonalDocumentsService,
     private formBuilder: FormBuilder,
-    private spinnerService: NgxSpinnerService,
     private toastrService: ToastrService,
   ) { }
 
@@ -70,7 +72,7 @@ export class PersonalDocumentsComponent implements OnInit {
   }
 
   public getPersonalDocument(): void {
-    this.spinnerService.show();
+    this.spinnerShow = true;;
 
     this.personalDocumentService
       .getAllPersonalDocumentsByEmployeeId(parseInt(this.employeeParm))
@@ -85,11 +87,11 @@ export class PersonalDocumentsComponent implements OnInit {
           this.toastrService.error(error.error, `Erro! Status ${error.status}`)
         }
       )
-      .add(() => this.spinnerService.hide());
+      .add(() => this.spinnerShow = false);
   }
 
   public saveChange(): void {
-    this.spinnerService.show();
+    this.spinnerShow = true;;
 
     this.personalDocument = { ...this.formPersonalDocuments.value }
     this.personalDocument.funcionarioId = this.employeeParm;
@@ -105,6 +107,6 @@ export class PersonalDocumentsComponent implements OnInit {
           this.toastrService.error(error.error, `Erro! Status ${error.status} `)
         }
       )
-      .add(() => this.spinnerService.hide())
+      .add(() => this.spinnerShow = false)
   }
 }

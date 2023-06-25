@@ -1,14 +1,16 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+
 import { Subject, debounceTime } from 'rxjs';
+0
 import { Cargo } from 'src/app/models/jobRole/Cargo';
+
 import { JobRoleService } from 'src/app/services/jobRole';
 
 import { PaginatedResult, Pagination } from 'src/app/shared/class/paginator';
-
 
 @Component({
   selector: 'app-jobRoleList',
@@ -17,6 +19,8 @@ import { PaginatedResult, Pagination } from 'src/app/shared/class/paginator';
 })
 export class JobRoleListComponent implements OnInit {
   public modalRef?: BsModalRef;
+
+  public spinnerShow: boolean = false;
 
   public jobRoles: Cargo[] = [];
   public jobRolesFilter: Cargo[] = []
@@ -30,7 +34,7 @@ export class JobRoleListComponent implements OnInit {
 
   public jobRoleFilter(event: any): void {
     if (this.changeTerm.observers.length === 0) {
-      this.spinnerService.show();
+      this.spinnerShow = true;
       this.changeTerm
         .pipe(debounceTime(1500))
         .subscribe(
@@ -47,7 +51,7 @@ export class JobRoleListComponent implements OnInit {
                   console.error(error);
                 }
               )
-              .add(() => this.spinnerService.hide());
+              .add(() => this.spinnerShow = false);
           }
         )
     }
@@ -60,15 +64,15 @@ export class JobRoleListComponent implements OnInit {
     private jobRoleService: JobRoleService,
     private modalService: BsModalService,
     public toastrService: ToastrService,
-    private spinnerService: NgxSpinnerService) { }
+    ) { }
 
   ngOnInit() {
-    this.spinnerService.show();
+    this.spinnerShow = true;
     this.getJobRoles();
   }
 
   public getJobRoles(): void {
-    this.spinnerService.show;
+    this.spinnerShow = true;;
 
     this.jobRoleService
       .getJobRoles(this.pagination.currentPage, this.pagination.itemsPage)
@@ -82,7 +86,7 @@ export class JobRoleListComponent implements OnInit {
           console.error(error);
         }
       )
-      .add(() => this.spinnerService.hide())
+      .add(() => this.spinnerShow = false)
   }
 
  public openModal(event: any, template: TemplateRef<any>, jobRoleId: number, jobRoleName:string): void {
@@ -93,7 +97,7 @@ export class JobRoleListComponent implements OnInit {
   }
 
   public confirmDeletion(): void {
-    this.spinnerService.show();
+    this.spinnerShow = true;
 
     this.modalRef?.hide();
     this.jobRoleService
@@ -113,7 +117,7 @@ export class JobRoleListComponent implements OnInit {
             console.error(error);
           }
         )
-      .add(() => this.spinnerService.hide());
+      .add(() => this.spinnerShow = false);
   }
   public backOff(): void {
     this.modalRef?.hide();

@@ -7,3 +7,4 @@ export * from './goal';
 export * from './navbar';
 export * from './titlebar';
 export * from './usersAccount';
+export * from './spinner';

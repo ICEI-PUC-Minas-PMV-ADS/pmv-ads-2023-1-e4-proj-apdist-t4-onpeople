@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { Funcionario, FuncionarioMeta, Meta } from 'src/app/models';
 import { EmployeeGoalAssociateService, EmployeeService, GoalService } from 'src/app/services';
@@ -18,7 +17,8 @@ import { environment } from 'src/assets/environments';
 export class GoalAssociateComponent implements OnInit {
   public formGoals: FormGroup;
 
-  public selectGoalId = 0;
+  public spinnerShow: boolean = false;
+
   public employeeGoalId = 0;
 
   public employee = {} as Funcionario;
@@ -42,7 +42,6 @@ export class GoalAssociateComponent implements OnInit {
     private formBuilder: FormBuilder,
     private goalService: GoalService,
     private router: Router,
-    private spinnerService: NgxSpinnerService,
     private toastrService: ToastrService,
   ) { }
 
@@ -88,10 +87,10 @@ export class GoalAssociateComponent implements OnInit {
   }
 
   public changeSelectGoal(): void {
-    this.spinnerService.show()
+    this.spinnerShow = true;
 
     this.goalService
-      .getGoalById(this.selectGoalId)
+      .getGoalById(this.ctrF.selectGoalId.value)
       .subscribe(
         (goal: Meta) => {
           this.goal = goal
@@ -103,7 +102,7 @@ export class GoalAssociateComponent implements OnInit {
           console.error(error)
         }
       )
-      .add(() => this.spinnerService.hide());
+      .add(() => this.spinnerShow = false);
   }
 
   public calculateIntervalEffective(inicioEFetivo: string, fimEfetivo: string): void {
@@ -124,7 +123,7 @@ export class GoalAssociateComponent implements OnInit {
 
 
   public getEmployee(): void {
-    this.spinnerService.show();
+    this.spinnerShow = true;
 
     this.employeeService
       .getEmployeeById(this.goalParm)
@@ -139,31 +138,33 @@ export class GoalAssociateComponent implements OnInit {
           this.toastrService.error(error.error, `Erro! Status ${error.status}`)
         }
       )
-      .add(() => this.spinnerService.hide());
+      .add(() => this.spinnerShow = false);
   }
 
   public getGoals(): void {
-    this.spinnerService.show();
+    this.spinnerShow = true;
 
     this.goalService
       .getGoals(environment.initialPageDefault, environment.totalPagesDefault)
       .subscribe(
         (goals: PaginatedResult<Meta[]>) => {
           this.goals = goals.result.filter(c => c.empresaId == this.employee.empresaId && c.metaAprovada);
-          this.goal = this.goals[0];
-          this.selectGoalId = this.goal.id;
-          this.formGoals.patchValue(this.goal);
-          this.verifyGoalEmployeeExists()
+          if (this.goals.length > 0) {
+            this.goal = this.goals[0];
+            this.ctrF.selectGoalId.setValue(this.goal.id);
+            this.formGoals.patchValue(this.goal);
+            this.verifyGoalEmployeeExists()
+          }
        },
         (error: any) => {
           this.toastrService.error(error.error, `Erro! Status ${error.status}`)
         }
       )
-      .add(() => this.spinnerService.hide());
+      .add(() => this.spinnerShow = false);
   }
 
   public verifyGoalEmployeeExists(): void {
-    this.spinnerService.show();
+    this.spinnerShow = true;
 
     this.employeeGoalAssociateService
       .verifyGoalEmployeeExists(this.employee.id, this.goal.id)
@@ -188,14 +189,14 @@ export class GoalAssociateComponent implements OnInit {
           this.toastrService.error(error.error, `Erro! Status ${error.status}`)
         }
       )
-      .add(() => this.spinnerService.hide());
+      .add(() => this.spinnerShow = false);
   }
 
   public getGoalEmployee(): void {
-    this.spinnerService.show();
+    this.spinnerShow = true;
 
     this.employeeGoalAssociateService
-      .getEmployeeGoalByIds(this.employee.id, this.selectGoalId)
+      .getEmployeeGoalByIds(this.employee.id, this.ctrF.selectGoalId.value)
       .subscribe(
         (goalEmployee: FuncionarioMeta) => {
           this.employeeGoal = goalEmployee;
@@ -206,26 +207,28 @@ export class GoalAssociateComponent implements OnInit {
           this.toastrService.error(error.error, `Erro! Status ${error.status}`)
         }
       )
-      .add(() => this.spinnerService.hide());
+      .add(() => this.spinnerShow = false);
     }
 
   public getGoalsEmployee(): void {
-    this.spinnerService.show();
+    this.spinnerShow = true;
 
     this.employeeGoalAssociateService
       .getGoalsByEmployeeId(this.employee.id)
       .subscribe(
         (goalsEmployee: FuncionarioMeta[]) => {
           this.employeeGoals = goalsEmployee;
-          this.employeeGoal = this.employeeGoals[0]
-          this.formGoals.patchValue(this.employeeGoal);
-          this.employeeGoalId = this.employeeGoal.id;
+          if (this.employeeGoals.length > 0) {
+            this.employeeGoal = this.employeeGoals[0]
+            this.formGoals.patchValue(this.employeeGoal);
+            this.employeeGoalId = this.employeeGoal.id;
+          }
         },
         (error: any) => {
           this.toastrService.error(error.error, `Erro! Status ${error.status}`)
         }
       )
-      .add(() => this.spinnerService.hide());
+      .add(() => this.spinnerShow = false);
     }
 
   public saveChanges(): void {
@@ -237,12 +240,13 @@ export class GoalAssociateComponent implements OnInit {
   }
 
   public associateGoal(): void {
-    this.spinnerService.show();
+    this.spinnerShow = true;
 
     this.employeeGoal = { ... this.formGoals.value };
     this.employeeGoal.funcionarioId = this.employee.id;
-    this.employeeGoal.metaId = this.selectGoalId;
-
+    this.employeeGoal.metaId = this.ctrF.selectGoalId.value;
+    this.employeeGoal.empresaId = this.employee.empresaId;
+    console.log("create", this.employeeGoal)
     this.employeeGoalAssociateService
       .associateGoal(this.employeeGoal)
       .subscribe(
@@ -257,15 +261,15 @@ export class GoalAssociateComponent implements OnInit {
           console.error(error);
         }
       )
-      .add(() => this.spinnerService.hide());
+      .add(() => this.spinnerShow = false);
   }
 
   public saveGoal(): void {
-    this.spinnerService.show();
+    this.spinnerShow = true;
 
     this.employeeGoal = { id: this.employeeGoalId, ...this.formGoals.value };
     this.employeeGoal.funcionarioId = this.employee.id;
-    this.employeeGoal.metaId = this.selectGoalId;
+    this.employeeGoal.metaId = this.ctrF.selectGoalId.value;
 
     this.employeeGoalAssociateService
       .saveGoal(this.employeeGoal.id, this.employeeGoal)

@@ -12,6 +12,8 @@ namespace OnPeople.Application.Services.Implementations.Empresas
     public class EmpresasServices : IEmpresasServices
     {
         private readonly IEmpresasPersistence _empresasPersistence;
+        private readonly DashboardEmpresa _dashEmpresa = new();
+        private readonly PageParameters _pageParameters = new();
         private readonly IMapper _mapper;
         public EmpresasServices(
             IEmpresasPersistence empresasPersistence,
@@ -224,17 +226,7 @@ namespace OnPeople.Application.Services.Implementations.Empresas
             }
         }
 
-        public DashboardEmpresa GetDashboard(int empresaId, Boolean master)
-        {
-            try
-            {
-                return _empresasPersistence.GetDashboard(empresaId, master);
-            }
-            catch (Exception e)
-            { 
-                throw new Exception(e.Message);
-            }
-        }
+  
 
         public async Task<EmpresaDto> GetEmpresaByCnpjAsync(string cnpj, Boolean master)
         {
@@ -254,5 +246,63 @@ namespace OnPeople.Application.Services.Implementations.Empresas
             }
         }
         
+        public async Task<DashboardEmpresa> GetDashboardEmpresa(int empresaId, Boolean master)
+        {
+            try
+            {
+                _pageParameters.PageSize = 1000;
+                _pageParameters.PageNumber = 1;
+
+                var empresas = await _empresasPersistence.GetAllEmpresasAsync(_pageParameters, empresaId, master);
+                
+                if (empresas == null) return null;
+                    
+                _dashEmpresa.CountEmpresas = empresas.Count();
+                _dashEmpresa.CountFiliais  = empresas.Count(e => e.Filial);
+                _dashEmpresa.CountEmpresasAtivas = empresas.Count(e => e.Ativa);
+                _dashEmpresa.CountFiliaisAtivas = empresas.Count(e => e.Filial && e.Ativa);
+                _dashEmpresa.ListaNomeEmpresa = empresas.Select(e => e.RazaoSocial);
+                _dashEmpresa.ListaQtdeDepartamentos = empresas.Select(e => e.Departamentos.Count());
+
+                _dashEmpresa.PercentualEmpresasAtivas =  100.00 * ((double)_dashEmpresa.CountEmpresasAtivas)  / ((double)_dashEmpresa.CountEmpresas);
+                _dashEmpresa.PercentualFiliais =  100.00 * ((double)_dashEmpresa.CountFiliais)  / ((double)_dashEmpresa.CountEmpresas);
+                _dashEmpresa.PercentualFiliaisAtivas = 100.00 * ((double)_dashEmpresa.CountFiliaisAtivas)  / ((double)_dashEmpresa.CountEmpresas);
+                _dashEmpresa.PercentualFiliaisAtivas2 = 100.00 * ((double)_dashEmpresa.CountFiliaisAtivas)  / ((double)_dashEmpresa.CountFiliais);
+                
+                return _dashEmpresa;
+            }
+            catch (Exception e)
+            { 
+                throw new Exception(e.Message);
+            }
+        }
+
+        public async Task<List<ListaMetas>> GetDashboardEmpresaMetas(int empresaId, bool master)
+        {
+            try
+            {
+                _pageParameters.PageSize = 1000;
+                _pageParameters.PageNumber = 1;
+                var empresas = await _empresasPersistence.GetAllEmpresasAsync(_pageParameters, empresaId, master);
+
+                if (empresas == null)
+                    return new List<ListaMetas>();
+
+                var dashEmpresasMetas = empresas.Select(empresa => new ListaMetas {
+                    NomeEmpresa = empresa.RazaoSocial,
+                    QtdeMetas = empresa.Funcionarios.SelectMany(fm => fm.FuncionariosMetas).Count(),
+                    QtdeMetasCumpridas = empresa.Funcionarios.SelectMany(fm => fm.FuncionariosMetas).Count(fm => fm.MetaCumprida),
+                    QtdeMetasNaoCumpridas = empresa.Funcionarios.SelectMany(fm => fm.FuncionariosMetas).Count(fm => !fm.MetaCumprida),
+                    PercentualMetasCumpridas = empresa.Funcionarios.SelectMany(fm => fm.FuncionariosMetas).Count(fm => fm.MetaCumprida) == 0 ? 0 : 100.00 * ((double)empresa.Funcionarios.SelectMany(fm => fm.FuncionariosMetas).Count(fm => fm.MetaCumprida)) / ((double)empresa.Funcionarios.SelectMany(fm => fm.FuncionariosMetas).Count()),
+                    PercentualMetasNaoCumpridas = empresa.Funcionarios.SelectMany(fm => fm.FuncionariosMetas).Count(fm => !fm.MetaCumprida) == 0 ? 0 : 100.00 * ((double)empresa.Funcionarios.SelectMany(fm => fm.FuncionariosMetas).Count(fm => !fm.MetaCumprida)) / ((double)empresa.Funcionarios.SelectMany(fm => fm.FuncionariosMetas).Count())
+                }).ToList();
+
+                return dashEmpresasMetas;
+            }
+            catch (Exception e)
+            { 
+                throw new Exception(e.Message);
+            }
+        }
     }
 }

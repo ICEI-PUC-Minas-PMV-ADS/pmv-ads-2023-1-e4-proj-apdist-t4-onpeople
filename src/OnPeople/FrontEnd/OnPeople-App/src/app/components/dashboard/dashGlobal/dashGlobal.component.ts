@@ -1,7 +1,5 @@
 import { Component, OnInit, } from '@angular/core';
 
-import { NgSelectConfig } from '@ng-select/ng-select';
-
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 
@@ -91,7 +89,6 @@ export class DashGlobalComponent implements OnInit {
 
   constructor(
     private companyService: CompanyService,
-    private config: NgSelectConfig,
     private departmentService: DepartmentService,
     private employeeService: EmployeeService,
     private employeeGoalAssociateService: EmployeeGoalAssociateService,
@@ -99,11 +96,7 @@ export class DashGlobalComponent implements OnInit {
     private jobRoleService: JobRoleService,
     private spinnerService: NgxSpinnerService,
     private toastrService: ToastrService,
-  ) {
-    this.config.notFoundText = 'Custom not found';
-    this.config.appendTo = 'body';
-    this.config.bindValue = 'value';
-  }
+  ) { }
 
   ngOnInit() {
     this.getCompanies();
@@ -144,19 +137,20 @@ export class DashGlobalComponent implements OnInit {
     this.spinnerService.show()
 
     this.companyService
-      .CountCompany(this.selectCompanyId)
+      .getDashCompany(this.selectCompanyId)
       .subscribe(
         (returnDash: DashboardCompany) => {
           this.dashboardCompany = returnDash;
+          console.log("dashCompany ", this.dashboardCompany)
           if (this.dashboardCompany !== null) {
             this.totCompany = this.dashboardCompany.countEmpresas;
             this.totActiveCompany = this.dashboardCompany.countEmpresasAtivas;
-            this.totPercActiveCompany = +(this.totActiveCompany / this.totCompany * 100).toFixed(2)
+            this.totPercActiveCompany = +(this.dashboardCompany.percentualEmpresasAtivas).toFixed(2)
             this.totSubsidiary = this.dashboardCompany.countFiliais;
-            this.totPercSubsidiary = +(this.totSubsidiary / this.totCompany * 100).toFixed(2)
+            this.totPercSubsidiary = +(this.dashboardCompany.percentualFiliais).toFixed(2)
             this.totActiveSubsidiary = this.dashboardCompany.countFiliaisAtivas;
-            this.totPercActiveSubsidiary1 = +(this.totActiveSubsidiary / this.totCompany * 100).toFixed(2)
-            this.totPercActiveSubsidiary2 = +(this.totActiveSubsidiary / this.totSubsidiary * 100).toFixed(2)
+            this.totPercActiveSubsidiary1 = +(this.dashboardCompany.percentualFiliaisAtivas).toFixed(2)
+            this.totPercActiveSubsidiary2 = +(this.dashboardCompany.percentualFiliaisAtivas2).toFixed(2)
 
             this.getDepartments(this.selectCompanyId);
             this.getGoals(this.selectCompanyId);
@@ -193,7 +187,7 @@ export class DashGlobalComponent implements OnInit {
     this.spinnerService.show()
 
     this.departmentService
-      .CountDepartment(this.selectCompanyId)
+      .getDashDepartment (this.selectCompanyId)
       .subscribe(
         (returnDash: DashboardDepartment) => {
           this.dashboardDepartment = returnDash;
@@ -257,7 +251,6 @@ export class DashGlobalComponent implements OnInit {
 
           if (this.employees.length == 0) {
             this.selectEmployeeId = 0
-            this.dashboardEmployee.countFuncionarios = 0;
 
           } else {
 
@@ -294,9 +287,7 @@ export class DashGlobalComponent implements OnInit {
 
           if (this.goals.length == 0) {
             this.selectGoalId = 0
-            this.dashboardGoal.countMetas = 0;
-            this.dashboardGoal.countMetasAprovadas = 0;
-            this.dashboardGoal.countMetasCumpridas = 0;
+
 
           } else {
 

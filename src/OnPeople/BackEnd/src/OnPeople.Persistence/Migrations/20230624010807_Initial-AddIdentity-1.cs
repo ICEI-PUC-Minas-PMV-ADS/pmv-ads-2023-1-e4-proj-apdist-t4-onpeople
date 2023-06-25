@@ -4,17 +4,17 @@
 
 namespace OnPeople.Persistence.Migrations
 {
-    public partial class InitialAddIdentity2 : Migration
+    public partial class InitialAddIdentity1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Funcionarios_AspNetUsers_UserId",
-                table: "Funcionarios");
+                name: "FK_FuncionariosMetas_Empresas_EmpresaId",
+                table: "FuncionariosMetas");
 
             migrationBuilder.AlterColumn<int>(
-                name: "UserId",
-                table: "Funcionarios",
+                name: "EmpresaId",
+                table: "FuncionariosMetas",
                 type: "int",
                 nullable: false,
                 defaultValue: 0,
@@ -23,10 +23,10 @@ namespace OnPeople.Persistence.Migrations
                 oldNullable: true);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Funcionarios_AspNetUsers_UserId",
-                table: "Funcionarios",
-                column: "UserId",
-                principalTable: "AspNetUsers",
+                name: "FK_FuncionariosMetas_Empresas_EmpresaId",
+                table: "FuncionariosMetas",
+                column: "EmpresaId",
+                principalTable: "Empresas",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
         }
@@ -34,22 +34,22 @@ namespace OnPeople.Persistence.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Funcionarios_AspNetUsers_UserId",
-                table: "Funcionarios");
+                name: "FK_FuncionariosMetas_Empresas_EmpresaId",
+                table: "FuncionariosMetas");
 
             migrationBuilder.AlterColumn<int>(
-                name: "UserId",
-                table: "Funcionarios",
+                name: "EmpresaId",
+                table: "FuncionariosMetas",
                 type: "int",
                 nullable: true,
                 oldClrType: typeof(int),
                 oldType: "int");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Funcionarios_AspNetUsers_UserId",
-                table: "Funcionarios",
-                column: "UserId",
-                principalTable: "AspNetUsers",
+                name: "FK_FuncionariosMetas_Empresas_EmpresaId",
+                table: "FuncionariosMetas",
+                column: "EmpresaId",
+                principalTable: "Empresas",
                 principalColumn: "Id");
         }
     }

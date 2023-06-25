@@ -1,39 +1,40 @@
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
-import { NgbCollapseModule, NgbPaginationModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgxSpinnerModule } from 'ngx-spinner';
+
+
+import { BsModalService } from 'ngx-bootstrap/modal';
 
 import { AppRoutingModule } from 'src/app/app-routing.module';
-import { TitlebarModule } from '../titlebar';
+
 import { DepartmentComponent, DepartmentDetailComponent,  DepartmentListComponent} from 'src/app/components';
+
 import { DepartmentService } from 'src/app/services';
 
-
-
-
+import { SpinnerModule } from '../spinner';
+import { TitlebarModule } from '../titlebar';
+import { NgbCollapseModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
     AppRoutingModule,
-    BrowserAnimationsModule,
     BrowserModule,
-    FormsModule,
     MatIconModule,
     MatInputModule,
     MatSelectModule,
     MatToolbarModule,
+    MatTooltipModule,
     NgbCollapseModule,
     NgbPaginationModule,
-    NgbTooltipModule,
-    NgxSpinnerModule,
     ReactiveFormsModule,
+    SpinnerModule,
     TitlebarModule,
   ],
   declarations: [
@@ -47,7 +48,8 @@ import { DepartmentService } from 'src/app/services';
     DepartmentListComponent
   ],
   providers: [
-    DepartmentService
+    BsModalService,
+    DepartmentService,
   ],
 })
 export class DepartmentModule { }

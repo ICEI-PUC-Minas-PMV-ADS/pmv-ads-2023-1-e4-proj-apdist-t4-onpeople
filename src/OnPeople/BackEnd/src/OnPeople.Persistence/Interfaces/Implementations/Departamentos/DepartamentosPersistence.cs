@@ -12,7 +12,6 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Departamentos
     public class DepartamentosPersistence : SharedPersistence, IDepartamentosPersistence
     {
         private readonly OnPeopleContext _context;
-        private readonly DashboardDepartamento _dashDepartamento = new();
 
         public DepartamentosPersistence(OnPeopleContext context) : base(context)
         {
@@ -23,7 +22,9 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Departamentos
         {
             IQueryable<Departamento> query = _context.Departamentos
             .Include(d => d.Empresa)
-            .Include(d => d.Cargos);
+            .Include(d => d.Cargos)
+            .Include(d => d.Funcionarios)
+                .ThenInclude(d => d.FuncionariosMetas);
 
             if (empresaId == 0 && Master) {
                 query = query
@@ -77,37 +78,6 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Departamentos
                 .Where(d => d.Id == departamentoId);
 
             return await query.FirstOrDefaultAsync();
-        }
-
-        public DashboardDepartamento GetDashboard(int empresaId)
-        {       
-            IQueryable<Departamento> query = _context.Departamentos
-                .Include(d => d.Cargos)
-                .Include(d => d.Empresa);
-
-            if (empresaId == 0) {
-                query = query
-                    .AsNoTracking();
-            } else {
-                query = query
-                    .AsNoTracking()
-                    .Where(d => d.EmpresaId == empresaId);
-            } 
-
-            _dashDepartamento.CountDepartamentos = query.Count<Departamento>();
-
-            if (empresaId == 0) {
-                query = query
-                    .AsNoTracking()
-                    .Where(d => d.Ativo);
-            } else {
-                query = query
-                    .AsNoTracking()
-                    .Where(d => d.Ativo && d.EmpresaId == empresaId);
-            } 
-
-            _dashDepartamento.CountDepartamentosAtivos = query.Count<Departamento>();            
-            return _dashDepartamento;
         }
 
     }

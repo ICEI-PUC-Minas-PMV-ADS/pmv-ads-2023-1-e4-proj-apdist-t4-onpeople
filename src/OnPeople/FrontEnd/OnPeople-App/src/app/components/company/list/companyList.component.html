@@ -11,7 +11,7 @@
         </div>
       </div>
       <button mat-icon-button class="d-flex btn btn-outline-info px-2 mx-2 mt-0 text-white" routerLink="/empresas/detail">
-        <mat-icon class="matIcon" ngbTooltip="Nova Empresa">addd</mat-icon>
+        <mat-icon class="matIcon" matTooltip="Nova Empresa" matTooltipPosition="above">addd</mat-icon>
       </button>
     </mat-toolbar>
 
@@ -28,9 +28,7 @@
         <th >Nome Empresa<mat-icon class="pt-1">filter_alt</mat-icon></th>
         <th class="d-none d-md-table-cell" >Nome Fantasia<mat-icon class="pt-1">filter_alt</mat-icon>
         <th >Sigla<mat-icon class="pt-1">filter_alt</mat-icon></th>
-        <th class="d-none d-md-table-cell" >Data Ativação</th>
-        <th class="d-none d-md-table-cell" >Padrão de e-mail</th>
-        <th >Opções</th>
+          <th >Opções</th>
       </tr>
     </thead>
     <tbody *ngIf="companies && companies.length">
@@ -42,11 +40,9 @@
         <td>{{company.razaoSocial}}</td>
         <td class="d-none d-md-table-cell">{{company.nomeFantasia}}</td>
         <td>{{company.siglaEmpresa}}</td>
-        <td class="d-none d-md-table-cell" >{{company.dataCadastro  }} </td>
-        <td class="d-none d-md-table-cell" >{{company.padraoEmail}}</td>
         <td>
           <div class="btn-group mx-1">
-            <a  class="text-danger" ngbTooltip="Excluir" (click)="openModal($event, template, company.id, company.razaoSocial)">
+            <a  class="text-danger" (click)="openModal($event, template, company.id, company.razaoSocial)" matTooltip="Excluir" matTooltipPosition="above">
               <mat-icon>delete</mat-icon>
             </a>
           </div>
@@ -70,29 +66,27 @@
         [ellipses]="false"
         (pageChange)="pageChanged($event)"
       ></ngb-pagination>
-    </div>
+   </div>
   </div>
 </div>
 
 <!--  {{ empresas | json }} -->
 
 <ng-template #template>
-    <div class="modal-body text-center">
-      <div class="card">
-        <div class="card-header bg-primary text-white">
-          <p>Exclusão de dados de empresa, confirma?</p>
-        </div>
+  <div class="modal-body text-center">
+    <div class="card">
+      <div class="card-header bg-primary text-white">
+        <p>Exclusão de dados de empresa, confirma?</p>
       </div>
-      <div class="card-body">
-        <p>#{{companyId}} - {{companyName}}?</p>
-      </div>
-      <div class="card-foorter ms-auto">
-      </div>
-      <button type="button" class="btn btn-danger" (click)="backOff()" >Não</button>
-      <button type="button" class="btn btn-info" (click)="confirmDeletion()" >Sim</button>
     </div>
+    <div class="card-body">
+      <p>#{{companyId}} - {{companyName}}?</p>
+    </div>
+    <div class="card-foorter ms-auto">
+    </div>
+    <button type="button" class="btn btn-danger" (click)="backOff()" >Não</button>
+    <button type="button" class="btn btn-info" (click)="confirmDeletion()" >Sim</button>
+  </div>
 </ng-template>
 
-<ngx-spinner type="ball-scale-multiple" bdColor="rgba(51,51,51,0.8)" size="medium" color="blue">
-  <p style="font-size:20px; color: white;">Carregando...</p>
-</ngx-spinner>
+<app-spinner *ngIf="spinnerShow"></app-spinner>

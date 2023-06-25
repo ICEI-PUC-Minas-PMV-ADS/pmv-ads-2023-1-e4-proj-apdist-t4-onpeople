@@ -10,6 +10,7 @@ import { DashboardDepartment } from 'src/app/shared/class/dashboard';
 import { PaginatedResult } from 'src/app/shared/class/paginator';
 
 import { Departamento } from 'src/app/models';
+import { ListaMetas } from 'src/app/shared/class/dashboard/ListaMetas';
 
 @Injectable()
 export class DepartmentService {
@@ -72,8 +73,13 @@ export class DepartmentService {
     .pipe(take(3));
   }
 
-  public CountDepartment(companyId: number): Observable<DashboardDepartment> {
-    return this.http.get<DashboardDepartment>(`${this.baseURL}${companyId}/Dashboard`)
+  public getDashDepartment(companyId: number): Observable<DashboardDepartment> {
+    return this.http.get<DashboardDepartment>(`${this.baseURL}${companyId}/DashboardDepartamentos`)
+    .pipe(take(3));
+  }
+
+  public getDashDepartmentGoals(companyId: number): Observable<ListaMetas[]> {
+    return this.http.get<ListaMetas[]>(`${this.baseURL}${companyId}/DashboardDepartamentoMetas`)
     .pipe(take(3));
   }
 

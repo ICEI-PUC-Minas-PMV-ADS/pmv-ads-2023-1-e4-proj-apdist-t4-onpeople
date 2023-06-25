@@ -15,8 +15,9 @@
             <mat-form-field class="col-md-6 p-1" appearance="outline">
               <mat-label class="text-info">Empresa</mat-label>
               <mat-select
-                [(ngModel)]="selectCompanyId" (selectionChange)="changeSelectCompany()"
-                placeholder="Selecione uma Empresa" formControlName="selectCompanyId"
+                (selectionChange)="changeSelectCompany()"
+                placeholder="Selecione uma Empresa"
+                formControlName="selectCompanyId"
                 [ngClass]="fieldValidator(ctrF.selectCompanyId)">
                 <mat-option *ngFor="let company of companies" [value]="company.id">{{company.razaoSocial}} </mat-option>
               </mat-select>

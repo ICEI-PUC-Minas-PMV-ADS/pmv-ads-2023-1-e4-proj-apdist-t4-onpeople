@@ -13,6 +13,5 @@ namespace OnPeople.Persistence.Interfaces.Contracts.Funcionarios
         Task<Funcionario> GetFuncionarioByIdAsync(int funcionarioId);
         Task<IEnumerable<Funcionario>> GetFuncionariosChefesByDepartamentoId(int departamentoId);
         Task<IEnumerable<Funcionario>> GetAllFuncionariosByCargoIdAsync(int cargoId);    
-        DashboardFuncionarios GetDashboard(int cargoId);
     }
 }

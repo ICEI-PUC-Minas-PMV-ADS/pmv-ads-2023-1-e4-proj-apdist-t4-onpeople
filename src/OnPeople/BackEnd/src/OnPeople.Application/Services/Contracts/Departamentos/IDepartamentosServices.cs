@@ -14,6 +14,7 @@ namespace OnPeople.Application.Services.Contracts.Departamentos
         Task<DepartamentoDto> CreateDepartamentos(DepartamentoDto departamentoDto);
         Task<DepartamentoDto> UpdateDepartamento(int departamentoId, DepartamentoDto departamentoDto);
         Task<bool> DeleteDepartamento(int departamentoId);
-        DashboardDepartamento GetDashboard(int empresaId);
+        Task<DashboardDepartamento> GetDashboardDepartamento(int empresaId, Boolean master);
+        Task<List<ListaMetas>> GetDashboardDepartamentoMetas(int empresaId, bool master);
     }
 }

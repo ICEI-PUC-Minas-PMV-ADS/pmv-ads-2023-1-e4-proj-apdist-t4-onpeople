@@ -11,7 +11,7 @@
         </div>
       </div>
       <button mat-icon-button class="d-flex btn btn-outline-info px-2 mx-2 mt-0 text-white" routerLink="/departamentos/detail">
-        <mat-icon class="matIcon" ngbTooltip="Novo Departamento">addd</mat-icon>
+        <mat-icon class="matIcon" matTooltip="Novo Departamento" matTooltipPosition="above">addd</mat-icon>
       </button>
     </mat-toolbar>
 
@@ -46,7 +46,7 @@
         <td class="d-none d-md-table-cell" >{{department.ativo }} </td>
         <td>
           <div class="btn-group mx-1">
-            <a class="text-danger" ngbTooltip="Excluir" (click)="openModal($event, template, department.id, department.nomeDepartamento)">
+            <a class="text-danger" matTooltip="Excluir" matTooltipPosition="above" (click)="openModal($event, template, department.id, department.nomeDepartamento)">
               <mat-icon>delete</mat-icon>
             </a>
           </div>
@@ -97,7 +97,5 @@
   </ng-template>
 
 
-<ngx-spinner type="ball-scale-multiple" bdColor="rgba(51,51,51,0.8)" size="medium" color="blue">
-  <p style="font-size:20px; color: white;">Carregando...</p>
-</ngx-spinner>
+  <app-spinner *ngIf="spinnerShow"></app-spinner>
 

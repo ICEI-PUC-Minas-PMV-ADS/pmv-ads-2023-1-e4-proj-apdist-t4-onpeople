@@ -12,6 +12,5 @@ namespace OnPeople.Persistence.Interfaces.Contracts.Metas
         Task<Meta> GetMetaByIdAsync(int id);
         Task<IEnumerable<Meta>> GetAllMetasByTipoAsync(string tipoMeta);
         Task<IEnumerable<Meta>> GetAllMetasByEmpresaIdAsync(int empresaId);
-        DashboardMetas GetDashboard(int empresaId);
     }
 }

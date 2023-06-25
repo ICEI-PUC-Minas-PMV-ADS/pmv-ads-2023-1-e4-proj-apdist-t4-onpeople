@@ -242,7 +242,7 @@ public class EnderecosController : ControllerBase
             if (claimUser == null) 
                 return Unauthorized();
                     
-            var url = $"//viacep.com.br/ws/{cep}/json";
+            var url = $"https://viacep.com.br/ws/{cep}/json";
 
             _httpClient.BaseAddress = new Uri(url);
 
@@ -264,3 +264,4 @@ public class EnderecosController : ControllerBase
         }
     }
 }
+ 

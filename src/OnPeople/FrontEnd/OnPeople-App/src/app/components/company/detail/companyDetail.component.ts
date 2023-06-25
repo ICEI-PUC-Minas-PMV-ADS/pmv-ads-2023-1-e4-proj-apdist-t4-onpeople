@@ -2,7 +2,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
-import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 
 import { Empresa } from 'src/app/models';
@@ -20,6 +19,8 @@ import { environment } from 'src/assets/environments';
 })
 export class CompanyDetailComponent implements OnInit {
   public formDetail: FormGroup;
+
+  public spinnerShow: boolean = false;
 
   public CNPJOk: Boolean = false;
   public CNPJExists: Boolean = false;
@@ -43,7 +44,6 @@ export class CompanyDetailComponent implements OnInit {
     private companyService: CompanyService,
     private formBuilder: FormBuilder,
     private router: Router,
-    private spinnerService: NgxSpinnerService,
     private toastrService: ToastrService,
     private uploadService: UploadService,
     ) {  }
@@ -107,7 +107,7 @@ export class CompanyDetailComponent implements OnInit {
   }
 
   public getCompany(): void {
-    this.spinnerService.show();
+    this.spinnerShow = true;
 
     if (this.editMode) {
       this.companyService
@@ -126,12 +126,12 @@ export class CompanyDetailComponent implements OnInit {
             console.error(error);
           }
         )
-        .add(() => this.spinnerService.hide());
+        .add(() => this.spinnerShow = false);
     }
   }
 
   public saveChange(): void {
-    this.spinnerService.show();
+    this.spinnerShow = true;
 
     if(this.formDetail.valid)
       if (!this.editMode){
@@ -159,7 +159,7 @@ export class CompanyDetailComponent implements OnInit {
           console.error(error);
         }
       )
-      .add(() => this.spinnerService.hide())
+      .add(() => this.spinnerShow = false)
   }
 
   public updateCompany(): void {
@@ -180,7 +180,7 @@ export class CompanyDetailComponent implements OnInit {
           }
         }
       )
-      .add(() => this.spinnerService.hide())
+      .add(() => this.spinnerShow = false)
   }
 
   public toggleImage(ev: any): void {
@@ -196,7 +196,7 @@ export class CompanyDetailComponent implements OnInit {
   }
 
   public uploadImage(): void {
-    this.spinnerService.show();
+    this.spinnerShow = true;
 
     this.uploadService
       .saveLogoCompany(+this.companyParam, this.file)
@@ -210,11 +210,11 @@ export class CompanyDetailComponent implements OnInit {
           console.error(error);
         }
       )
-      .add(() => this.spinnerService.hide());
+      .add(() => this.spinnerShow);
   }
 
   public getCompanyByCnpj(): void {
-    this.spinnerService.show();
+    this.spinnerShow = true;
 
     if (!this.editMode)
       this.companyService
@@ -234,7 +234,7 @@ export class CompanyDetailComponent implements OnInit {
           console.error(error);
         }
       )
-      .add(() => this.spinnerService.hide());
+      .add(() => this.spinnerShow = false);
 
     this.companyService
       .getCompanyByCnpjExternal(this.ctrF.cnpj.value)
@@ -260,6 +260,6 @@ export class CompanyDetailComponent implements OnInit {
           console.error(error);
         }
       )
-      .add(() => this.spinnerService.hide());
+      .add(() => this.spinnerShow = false);
   }
 }

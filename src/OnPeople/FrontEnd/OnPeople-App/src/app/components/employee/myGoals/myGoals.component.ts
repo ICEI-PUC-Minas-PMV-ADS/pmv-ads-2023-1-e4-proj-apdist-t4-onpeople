@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastrService } from 'ngx-toastr';
-import { Funcionario, FuncionarioMeta, Users } from 'src/app/models';
-import { EmployeeGoalAssociateService, EmployeeService, UserService } from 'src/app/services';
+import { Component, OnInit } from '@angular/core';
 
+import { ToastrService } from 'ngx-toastr';
+
+import { Funcionario, FuncionarioMeta, Users } from 'src/app/models';
+
+import { EmployeeGoalAssociateService, EmployeeService, UserService } from 'src/app/services';
 
 @Component({
   selector: 'app-myGoals',
@@ -12,6 +13,8 @@ import { EmployeeGoalAssociateService, EmployeeService, UserService } from 'src/
   styleUrls: ['./myGoals.component.scss']
 })
 export class MyGoalsComponent implements OnInit {
+  public spinnerShow: boolean = false;
+
   public goalParm: any = "";
 
   public employee = {} as Funcionario;
@@ -27,7 +30,6 @@ export class MyGoalsComponent implements OnInit {
     private activevateRouter: ActivatedRoute,
     private employeeGoalAssociateService: EmployeeGoalAssociateService,
     private employeeService: EmployeeService,
-    private spinnerService: NgxSpinnerService,
     private toastrService: ToastrService,
     private userService: UserService
   ) { }
@@ -39,7 +41,7 @@ export class MyGoalsComponent implements OnInit {
   }
 
   public getEmployee(): void {
-    this.spinnerService.show();
+    this.spinnerShow = true;
 
     this.employeeService
       .getEmployeeById(this.goalParm)
@@ -53,10 +55,10 @@ export class MyGoalsComponent implements OnInit {
           this.toastrService.error(error.error, `Erro! Status ${error.status}`)
         }
       )
-      .add(() => this.spinnerService.hide());
+      .add(() => this.spinnerShow = false);
   }
   public getGoalsEmployee(): void {
-    this.spinnerService.show();
+    this.spinnerShow = true;
 
     this.employeeGoalAssociateService
       .getGoalsByEmployeeId(this.employee.id)
@@ -68,11 +70,11 @@ export class MyGoalsComponent implements OnInit {
           this.toastrService.error(error.error, `Erro! Status ${error.status}`)
         }
       )
-      .add(() => this.spinnerService.hide());
+      .add(() => this.spinnerShow = false);
   }
 
   public getUser(): void {
-    this.spinnerService.show();
+    this.spinnerShow = true;
 
     this.userService
       .getUserById(this.employee.userId)
@@ -84,6 +86,6 @@ export class MyGoalsComponent implements OnInit {
           this.toastrService.error(error.error, `Erro! Status ${error.status}`)
         }
       )
-      .add(() => this.spinnerService.hide());
+      .add(() => this.spinnerShow = false);
   }
 }

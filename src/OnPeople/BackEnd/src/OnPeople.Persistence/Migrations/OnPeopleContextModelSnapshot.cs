@@ -479,6 +479,9 @@ namespace OnPeople.Persistence.Migrations
                     b.Property<int>("DiasEfetivo")
                         .HasColumnType("int");
 
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
+
                     b.Property<string>("FimAcordado")
                         .HasColumnType("longtext");
 
@@ -498,6 +501,8 @@ namespace OnPeople.Persistence.Migrations
                         .HasColumnType("tinyint(1)");
 
                     b.HasKey("FuncionarioId", "MetaId");
+
+                    b.HasIndex("EmpresaId");
 
                     b.HasIndex("MetaId");
 
@@ -842,6 +847,12 @@ namespace OnPeople.Persistence.Migrations
 
             modelBuilder.Entity("OnPeople.Domain.Models.Funcionarios.FuncionarioMeta", b =>
                 {
+                    b.HasOne("OnPeople.Domain.Models.Empresas.Empresa", "Empresa")
+                        .WithMany()
+                        .HasForeignKey("EmpresaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("OnPeople.Domain.Models.Funcionarios.Funcionario", "Funcionario")
                         .WithMany("FuncionariosMetas")
                         .HasForeignKey("FuncionarioId")
@@ -853,6 +864,8 @@ namespace OnPeople.Persistence.Migrations
                         .HasForeignKey("MetaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Empresa");
 
                     b.Navigation("Funcionario");
 

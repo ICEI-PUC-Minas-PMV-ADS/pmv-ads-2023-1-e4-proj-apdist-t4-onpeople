@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 
+
 import {
   CompanyModule,
   DashboardModule,
@@ -13,7 +14,8 @@ import {
   JobRoleModule,
   GoalModule,
   NavbarModule,
-  UsersAccountModule
+  UsersAccountModule,
+  SpinnerModule
 } from "./modules";
 
 @NgModule({
@@ -27,9 +29,10 @@ import {
     DashboardModule,
     DepartmentModule,
     EmployeeModule,
-    JobRoleModule,
     GoalModule,
+    JobRoleModule,
     NavbarModule,
+    SpinnerModule,
     UsersAccountModule,
   ],
 

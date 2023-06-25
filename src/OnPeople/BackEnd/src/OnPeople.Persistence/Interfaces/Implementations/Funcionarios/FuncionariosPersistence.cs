@@ -12,8 +12,6 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Funcionarios
     public class FuncionariosPersistence : SharedPersistence, IFuncionariosPersistence
     {
         private readonly OnPeopleContext _context;
-        private readonly DashboardFuncionarios _dashFuncionario = new();
-
         public FuncionariosPersistence(OnPeopleContext context) : base(context)
         {
             _context = context;
@@ -88,25 +86,5 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Funcionarios
             return await query.ToArrayAsync();
         }
 
-        public DashboardFuncionarios GetDashboard(int cargoId)
-        {
-            IQueryable<Funcionario> query = _context.Funcionarios
-                .Include(c => c.Empresa)
-                .Include(c => c.Departamento)
-                .Include(c => c.Cargo);
-
-            if (cargoId == 0) {
-                query = query
-                    .AsNoTracking();
-            } else {
-                query = query 
-                    .AsNoTracking()
-                    .Where(c => c.CargoId == cargoId);
-            } 
-
-            _dashFuncionario.CountFuncionarios = query.Count<Funcionario>();
-
-            return _dashFuncionario;
-        }
     }
 }

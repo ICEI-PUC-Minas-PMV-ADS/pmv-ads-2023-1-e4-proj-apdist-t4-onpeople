@@ -234,20 +234,5 @@ namespace OnPeople.API.Controllers.Metas
             }
         }
 
-        /// <summary>
-        /// Realiza a consulta estatística de meta
-        /// </summary>
-        /// <param name="empresaId">Identificador da empresa (pode zero para buscar todas)</param>
-        /// <response code="200">Dashboard de empresas consultado</response>
-        /// <response code="400">Parâmetros incorretos</response>
-        /// <response code="500">Erro interno</response>
-
-        [HttpGet("{empresaId}/Dashboard")]
-        public DashboardMetas GetDashboard(int empresaId)
-        {
-            var dashboardMetas = _metasService.GetDashboard(empresaId);
-
-            return dashboardMetas;
-        }
     }
 }

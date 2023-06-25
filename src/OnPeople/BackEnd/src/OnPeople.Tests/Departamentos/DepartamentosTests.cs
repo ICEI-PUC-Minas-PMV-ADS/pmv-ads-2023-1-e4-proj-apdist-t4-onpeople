@@ -48,7 +48,7 @@ public class DepartamentosServicesTests
         var pageParameter = departamentosFixture.ObterPageParametersMock();
 
         departamentosPersistenceMock
-            .Setup(d => d.GetAllDepartamentosAsync(pageParameter, 1))
+            .Setup(d => d.GetAllDepartamentosAsync(pageParameter, 1, true))
             .ReturnsAsync(departamentosFixture.ObterDepartamentosMock());
 
 
@@ -84,13 +84,13 @@ public class DepartamentosServicesTests
 
         //Act
 
-        var departamentosConsultados = await _departamentosServices.GetAllDepartamentosAsync(pageParameter, 1);
+        var departamentosConsultados = await _departamentosServices.GetAllDepartamentosAsync(pageParameter, 1, true);
 
         //Assert
 
         Assert.True(departamentosConsultados.Count.Equals(2));
         Assert.IsType<PageList<DepartamentoDto>>(departamentosConsultados);
-        departamentosPersistenceMock.Verify(p => p.GetAllDepartamentosAsync(pageParameter, 1), Times.Once);
+        departamentosPersistenceMock.Verify(p => p.GetAllDepartamentosAsync(pageParameter, 1, true), Times.Once);
     }
 
     [Fact]
@@ -102,7 +102,7 @@ public class DepartamentosServicesTests
         var pageParameter = departamentosFixture.ObterPageParametersMock();
 
         departamentosPersistenceMock
-            .Setup(d => d.GetAllDepartamentosAsync(pageParameter, 1))
+            .Setup(d => d.GetAllDepartamentosAsync(pageParameter, 1, true))
             .ReturnsAsync(departamentosFixture.ObterListaVaziaDeDepartamentosMock());
 
 
@@ -113,12 +113,12 @@ public class DepartamentosServicesTests
 
         //Act
 
-        var departamentosConsultados = await _departamentosServices.GetAllDepartamentosAsync(pageParameter, 1);
+        var departamentosConsultados = await _departamentosServices.GetAllDepartamentosAsync(pageParameter, 1, true);
 
         //Assert
 
         Assert.False(departamentosConsultados.Count > 0);
-        departamentosPersistenceMock.Verify(p => p.GetAllDepartamentosAsync(pageParameter, 1), Times.Once);
+        departamentosPersistenceMock.Verify(p => p.GetAllDepartamentosAsync(pageParameter, 1, true), Times.Once);
     }
 
     [Fact]
@@ -391,18 +391,18 @@ public class DepartamentosServicesTests
         //Arrange
 
         departamentosPersistenceMock
-            .Setup(d => d.GetDashboard(1,7))
+            .Setup(d => d.GetDashboard(1))
             .Returns(departamentosFixture.ObterDashboardMock(1,7));
 
         //Act
 
-        var dashboardConsultado = _departamentosServices.GetDashboard(1,7);
+        var dashboardConsultado = _departamentosServices.GetDashboard(1);
 
         //Assert
 
         Assert.Equal(77, dashboardConsultado.CountDepartamentos);
         Assert.IsType<DashboardDepartamento>(dashboardConsultado);
-        departamentosPersistenceMock.Verify(p => p.GetDashboard(1,7), Times.Once);
+        departamentosPersistenceMock.Verify(p => p.GetDashboard(1), Times.Once);
     }
 
     [Fact]
@@ -412,17 +412,17 @@ public class DepartamentosServicesTests
         //Arrange
 
         departamentosPersistenceMock
-            .Setup(d => d.GetDashboard(1, 8))
+            .Setup(d => d.GetDashboard(1))
             .Returns(departamentosFixture.ObterDashboardMock(1, 8));
 
         //Act
 
-        var dashboardConsultado = _departamentosServices.GetDashboard(1, 8);
+        var dashboardConsultado = _departamentosServices.GetDashboard(1);
 
         //Assert
 
         Assert.Null(dashboardConsultado);
-        departamentosPersistenceMock.Verify(p => p.GetDashboard(1, 8), Times.Once);
+        departamentosPersistenceMock.Verify(p => p.GetDashboard(1), Times.Once);
     }
 
 }

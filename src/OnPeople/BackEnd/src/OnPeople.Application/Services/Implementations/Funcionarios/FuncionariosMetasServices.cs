@@ -11,15 +11,12 @@ namespace OnPeople.Application.Services.Implementations.Funcionarios
     public class FuncionariosMetasServices : IFuncionariosMetasServices
     {
         private readonly IFuncionariosMetasPersistence _funcionariosMetasPersistence;
-        private readonly ISharedPersistence _sharedPersistence;
         private readonly IMapper _mapper;
         public FuncionariosMetasServices(
             IFuncionariosMetasPersistence funcionariosMetasPersistence,
-            ISharedPersistence sharedPersistence,
             IMapper mapper)
         {
             _funcionariosMetasPersistence = funcionariosMetasPersistence;
-            _sharedPersistence = sharedPersistence;
             _mapper = mapper;
         }
         public async Task<FuncionarioMetaDto> CreateFuncionarioMeta(FuncionarioMetaDto funcionarioMetaDto)
@@ -28,9 +25,9 @@ namespace OnPeople.Application.Services.Implementations.Funcionarios
             {
                 var funcionarioMeta = _mapper.Map<FuncionarioMeta>(funcionarioMetaDto);
 
-                _sharedPersistence.Create<FuncionarioMeta>(funcionarioMeta);
+                _funcionariosMetasPersistence.Create<FuncionarioMeta>(funcionarioMeta);
 
-                if (await _sharedPersistence.SaveChangesAsync())
+                if (await _funcionariosMetasPersistence.SaveChangesAsync())
                 {
                     var funcionarioMetaRetorno = await _funcionariosMetasPersistence.GetFuncionarioMetaByIdAsync(funcionarioMeta.Id);
 
@@ -179,16 +176,5 @@ namespace OnPeople.Application.Services.Implementations.Funcionarios
             }
         }
 
-        public DashboardFuncionariosMetas GetDashboard(int funcionarioId)
-        {
-            try
-            {
-                return _funcionariosMetasPersistence.GetDashboard(funcionarioId);
-            }
-            catch (Exception e)
-            { 
-                throw new Exception(e.Message);
-            }
-        }
     }
 }

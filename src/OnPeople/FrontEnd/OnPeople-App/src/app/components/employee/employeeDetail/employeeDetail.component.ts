@@ -2,7 +2,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 
 import { PaginatedResult } from 'src/app/shared/class/paginator';
@@ -25,12 +24,7 @@ import { DateAdapter } from '@angular/material/core';
 export class EmployeeDetailComponent implements OnInit {
   public formDetail: FormGroup;
 
-  public selectCompanyId = 0;
-  public selectDepartmentId = 0;
-  public selectJobRoleId = 0;
-  public selectUserNameId = 0;
-
-  public selectVisao = "default";
+  public spinnerShow: boolean = false;
 
   public employeeParm: any = "";
 
@@ -70,7 +64,6 @@ export class EmployeeDetailComponent implements OnInit {
     private jobRoleService: JobRoleService,
     private personalDocumentService: PersonalDocumentsService,
     private router: Router,
-    private spinnerService: NgxSpinnerService,
     private toastrService: ToastrService,
     private userService: UserService,
     private dateAdapter: DateAdapter<Date>
@@ -92,34 +85,24 @@ export class EmployeeDetailComponent implements OnInit {
 
   public formValidator(): void {
     this.formDetail = this.formBuilder.group({
+      selectCompanyId: [0, Validators.required],
+      selectDepartmentId: [0, Validators.required],
+      selectJobRoleId: [0, Validators.required],
       selectUserNameId: [0, Validators.required],
+      cnpj: [''],
+      sigla: [''],
       userName: [''],
       nomeCompleto: [''],
       email: [''],
       phoneNumber: ["", [Validators.required,]],
-      selectVisao: ["", [Validators.required]],
+      selectVisao: ["default", [Validators.required]],
       visao: ["", [Validators.required]],
       dataAdmissao: ["", [Validators.required]],
       dataDemissao: [""],
- //     cpf: ["", [Validators.required]],
- //     tituloEleitor: ["", [Validators.required]],
- //     padraoEmail: [""],
- //     impedimentoEleitora: [0, Validators.required],
- //     identidade: ['', Validators.required],
- //     dataExpedicao: ['', Validators.required],
- //     ufEmissao: ['', Validators.required],
- //     estadoCivil: ['Solteiro', Validators.required],
- //     caerteiraTrabalho: ['', Validators.required],
- //     pisPasep: ['', Validators.required],
- //     cep: ['', Validators.required],
- //     tipoEndereco: ['', Validators.required],
- //     logradouro: ['', Validators.required],
-//      dataCriacao: [new Date().toString()],
-//      dataEncerramento: []
     });
   }
 
-    public fieldValidator(campoForm: FormControl): any {
+  public fieldValidator(campoForm: FormControl): any {
     return FormValidator.checkFieldsWhithError(campoForm);
   }
 
@@ -132,19 +115,26 @@ export class EmployeeDetailComponent implements OnInit {
   }
 
   public changeSelectCompany(): void {
-    this.spinnerService.show()
+    this.spinnerShow = true;
 
     this.companyService
-      .getCompanyById(this.selectCompanyId)
+      .getCompanyById(this.ctrF.selectCompanyId.value)
       .subscribe(
         (company: Empresa) => {
-          this.company = { ...company }
-          this.formDetail.patchValue(this.company)
+          this.company = company;
+          this.department = this.company.departamentos[0]
+          this.departments = this.company.departamentos
+          this.jobRole = this.company.cargos[0];
+          this.jobRoles = this.company.cargos
+          this.ctrF.selectDepartmentId.setValue(this.department.id);
+          this.ctrF.selectJobRoleId.setValue(this.jobRole.id);
+          this.formDetail.patchValue(this.company);
+          this.formDetail.patchValue(this.department);
+          this.formDetail.patchValue(this.jobRole);
           this.user.email = this.user.userName + this.company.padraoEmail;
           this.logoURL = (this.company.logotipo !== 'Image_not_available.png')
-          ? `${environment.resourcesLogosURL}${this.company.logotipo}`
+            ? `${environment.resourcesLogosURL}${this.company.logotipo}`
             : `../../../../assets/img/${this.company.logotipo}`;
-          this.getDepartmentsByCompanyId();
         },
         (error: any) => {
           this.logoURL = "../../../../assets/img/Image_not_available.png";
@@ -152,68 +142,82 @@ export class EmployeeDetailComponent implements OnInit {
           console.error(error)
         }
       )
-      .add(() => this.spinnerService.hide());
+      .add(() => this.spinnerShow = false);
   }
 
   public changeSelectDepartment(): void {
-    this.spinnerService.show()
+    this.spinnerShow = true;
 
     this.departmentService
-      .getDepartmentById(this.selectDepartmentId)
+      .getDepartmentById(this.ctrF.selectDepartmentId.value)
       .subscribe(
         (department: Departamento) => {
-          this.department = department;
-          this.formDetail.patchValue(this.department)
-          this.getJobRolesByDepartmentId();
+          this.department = department
+          this.jobRole = this.department.cargos[0];
+          this.jobRoles = this.department.cargos
+          this.ctrF.selectJobRoleId.setValue(this.jobRole.id);
+          this.formDetail.patchValue(this.department);
+          this.formDetail.patchValue(this.jobRole);
+          this.changeSelectJobRole();
         },
         (error: any) => {
           this.toastrService.error(error.error, `Erro! Status ${error.status}`)
           console.error(error)
         }
       )
-      .add(() => this.spinnerService.hide());
+      .add(() => this.spinnerShow = false);
   }
 
   public changeSelectJobRole(): void {
-    this.spinnerService.show()
+    this.spinnerShow = true;
 
     this.jobRoleService
-      .getJobRoleById(this.selectJobRoleId)
+      .getJobRoleById(this.ctrF.selectJobRoleId.value)
       .subscribe(
         (jobRole: Cargo) => {
           this.jobRole = jobRole;
-          this.formDetail.patchValue(this.jobRole)
-          this.changeSelectUserName();
+          this.formDetail.patchValue(this.jobRole);
+          console.log(this.jobRole.nomeCargo)
+          if (this.jobRole.nomeCargo.toLowerCase().includes("diretor") && (this.jobRole.nomeCargo.toLowerCase().includes("rh") || this.jobRole.nomeCargo.toLowerCase().includes("recursos humanos"))) {
+            this.user.visao = 'Master';
+            this.ctrF.selectVisao.setValue('Master');
+          } else if (this.jobRole.nomeCargo.toLowerCase().includes('rh')) {
+            this.user.visao = 'Gold';
+            this.ctrF.selectVisao.setValue('Gold');
+          } else {
+            this.user.visao = 'Bronze';
+            this.ctrF.selectVisao.setValue('Bronze');
+          }
         },
         (error: any) => {
           this.toastrService.error(error.error, `Erro! Status ${error.status}`)
           console.error(error)
         }
       )
-      .add(() => this.spinnerService.hide());
+      .add(() => this.spinnerShow = false);
   }
 
   public changeSelectUserName(): void {
-    this.spinnerService.show()
+    this.spinnerShow = true;
 
     this.userService
-      .getUserById(this.selectUserNameId)
+      .getUserById(this.ctrF.selectUserNameId.value)
       .subscribe(
         (user: Users) => {
           this.user = user;
           this.users[0] = user;
           this.user.email = this.user.userName + this.company.padraoEmail
-          this.selectVisao = this.user.visao
-
-          if (this.jobRole.nomeCargo == "Diretor RH") {
+          this.ctrF.selectVisao.setValue(this.user.visao);
+          console.log(this.jobRole.nomeCargo)
+          if (this.jobRole.nomeCargo.toLowerCase().includes("diretor") && (this.jobRole.nomeCargo.toLowerCase().includes("rh") || this.jobRole.nomeCargo.toLowerCase().includes("recursos humanos"))) {
             this.user.visao = 'Master';
-            this.selectVisao = 'Master'
+            this.ctrF.selectVisao.setValue('Master');
           } else if (this.jobRole.nomeCargo.toLowerCase().includes('rh')) {
             this.user.visao = 'Gold';
-            this.selectVisao = 'Gold'
+            this.ctrF.selectVisao.setValue('Gold');
           } else {
             this.user.visao = 'Bronze';
-            this.selectVisao = 'Bronze';
+            this.ctrF.selectVisao.setValue('Bronze');
           }
 
           this.formDetail.patchValue(this.user)
@@ -223,93 +227,101 @@ export class EmployeeDetailComponent implements OnInit {
           console.error(error)
         }
       )
-      .add(() => this.spinnerService.hide());
+      .add(() => this.spinnerShow = false);
   }
 
   public getCompanies(): void {
-    this.spinnerService.show();
+    this.spinnerShow = true;;
 
     this.companyService
       .getCompanies(environment.initialPageDefault, environment.totalPagesDefault)
       .subscribe(
         (companies: PaginatedResult<Empresa[]>) => {
           this.companies = companies.result.filter(c => c.cargos.length > 0);
+          console.log("companies", this.companies)
           this.company = this.companies[0]
-          this.selectCompanyId = this.company.id;
+          this.department = this.companies[0].departamentos[0]
+          this.departments = this.companies[0].departamentos
+          this.jobRole = this.companies[0].cargos[0];
+          this.jobRoles = this.companies[0].cargos
+          this.ctrF.selectCompanyId.setValue(this.company.id);
+          this.ctrF.selectDepartmentId.setValue(this.department.id);
+          this.ctrF.selectJobRoleId.setValue(this.jobRole.id);
           this.formDetail.patchValue(this.company);
+          this.formDetail.patchValue(this.department);
+          this.formDetail.patchValue(this.jobRole);
           this.logoURL = (this.company.logotipo !== 'Image_not_available.png')
           ? `${environment.resourcesLogosURL}${this.company.logotipo}`
             : `../../../../assets/img/${this.company.logotipo}`;
-
-          this.getDepartmentsByCompanyId();
+          this.getUsers();
         },
         (error: any) => {
           this.toastrService.error(error.error, `Erro! Status ${error.status}`)
         }
       )
-      .add(() => this.spinnerService.hide());
+      .add(() => this.spinnerShow = false);
   }
 
   public getDepartmentsByCompanyId(): void {
-    this.spinnerService.show();
+    this.spinnerShow = true;;
 
     this.departmentService
-      .getDepartmentsByCompanyId(this.selectCompanyId)
+      .getDepartmentsByCompanyId(this.ctrF.selectCompanyId.value)
       .subscribe(
         (departments: Departamento[]) => {
           this.departments = departments.filter(c => c.cargos.length > 0)
           this.department = this.departments[0]
-          this.selectDepartmentId = this.department.id;
-          this.formDetail.patchValue(this.department);
+          this.ctrF.selectDepartmentId.setValue(this.department.id);
+          this.formDetail.patchValue(this.department)
           this.getJobRolesByDepartmentId();
         },
        (error: any) => {
           this.toastrService.error(error.error, `Erro! Status ${error.status}`)
         }
       )
-      .add(() => this.spinnerService.hide());
+      .add(() => this.spinnerShow = false);
   }
 
-  public getJobRolesByDepartmentId(): void {
-    this.spinnerService.show();
+    public getJobRolesByDepartmentId(): void {
+    this.spinnerShow = true;;
 
     this.jobRoleService
-      .getJobRoleByDepartmentId(this.selectDepartmentId)
+      .getJobRoleByDepartmentId(this.ctrF.selectDepartmentId.value)
       .subscribe(
         (jobRoles: Cargo[]) => {
           this.jobRoles = jobRoles;
           this.jobRole = this.jobRoles[0]
-          this.formDetail.patchValue(this.jobRole);
-          this.selectJobRoleId = this.jobRole.id;
+          this.ctrF.selectJobRoleId.setValue(this.jobRole.id);
+          this.formDetail.patchValue(this.jobRole)
           this.getUsers();
         },
        (error: any) => {
           this.toastrService.error(error.error, `Erro! Status ${error.status}`)
         }
       )
-      .add(() => this.spinnerService.hide());
+      .add(() => this.spinnerShow = false);
     }
 
   public getUsers(): void {
-    this.spinnerService.show();
+    this.spinnerShow = true;;
 
     this.userService
       .getAccountsToAssociate()
       .subscribe(
         (users: Users[]) => {
           this.users = users;
-          this.user = { ...users[0] }
-          this.selectUserNameId = this.user.id
-
-          if (this.jobRole.nomeCargo == "Diretor RH") {
+          this.user = users[0]
+          this.ctrF.selectUserNameId.setValue(this.user.id)
+ 
+          if (this.jobRole.nomeCargo.toLowerCase().includes("diretor") && (this.jobRole.nomeCargo.toLowerCase().includes("rh") || this.jobRole.nomeCargo.toLowerCase().includes("recursos humanos"))) {
             this.user.visao = 'Master';
-            this.selectVisao = 'Master'
+            this.ctrF.selectVisao.setValue('Master')
           } else if (this.jobRole.nomeCargo.toLowerCase().includes('rh')) {
             this.user.visao = 'Gold';
-            this.selectVisao = 'Gold'
+            this.ctrF.selectVisao.setValue('Gold')
           } else {
             this.user.visao = 'Bronze';
-            this.selectVisao = 'Bronze';
+            this.ctrF.selectVisao.setValue('Bronze');
           }
 
           this.user.email = this.user.userName.toLowerCase() + this.company.padraoEmail
@@ -320,11 +332,11 @@ export class EmployeeDetailComponent implements OnInit {
           this.toastrService.error(error.error, `Erro! Status ${error.status}`)
         }
       )
-      .add(() => this.spinnerService.hide());
+      .add(() => this.spinnerShow = false);
   }
 
   public getEmployee(): void {
-    this.spinnerService.show();
+    this.spinnerShow = true;;
 
     this.employeeService
       .getEmployeeById(this.employeeParm)
@@ -335,20 +347,20 @@ export class EmployeeDetailComponent implements OnInit {
 
           this.company = this.employee.empresa;
           this.companies[0] = this.employee.empresa;
-          this.selectCompanyId = this.employee.empresaId;
+          this.ctrF.selectCompanyId.setValue(this.employee.empresaId);
           this.formDetail.patchValue(this.company);
 
-          this.selectDepartmentId = this.employee.departamentoId
+          this.ctrF.selectDepartmentId.setValue(this.employee.departamentoId);
           this.department = this.employee.departamento
           this.departments[0] = this.employee.departamento
           this.formDetail.patchValue(this.department)
 
-          this.selectJobRoleId = this.employee.cargoId;
+          this.ctrF.selectJobRoleId.setValue(this.employee.cargoId);
           this.jobRole = this.employee.cargo;
           this.jobRoles[0] = this.employee.cargo;
           this.formDetail.patchValue(this.jobRole)
 
-          this.selectUserNameId = this.employee.userId;
+          this.ctrF.selectUserNameId.setValue(this.employee.userId);
           this.changeSelectUserName();
 
 
@@ -361,7 +373,7 @@ export class EmployeeDetailComponent implements OnInit {
           this.toastrService.error(error.error, `Erro! status ${error.status}`)
         }
       )
-      .add(() => this.spinnerService.hide());
+      .add(() => this.spinnerShow = false);
     }
 
   public saveChange(): void {
@@ -375,13 +387,13 @@ export class EmployeeDetailComponent implements OnInit {
   }
 
   public createEmployee(): void {
-    this.spinnerService.show();
+    this.spinnerShow = true;;
 
     this.employee = { ...this.formDetail.value };
-    this.employee.userId = this.selectUserNameId;
-    this.employee.departamentoId = this.selectDepartmentId;
-    this.employee.cargoId = this.selectJobRoleId;
-    this.employee.empresaId = this.selectCompanyId;
+    this.employee.userId = this.ctrF.selectUserNameId.value;
+    this.employee.departamentoId = this.ctrF.selectDepartmentId.value;
+    this.employee.cargoId = this.ctrF.selectJobRoleId.value;
+    this.employee.empresaId = this.ctrF.selectCompanyId.value;
     this.employee.ativo = true;
 
     this.employeeService
@@ -402,17 +414,17 @@ export class EmployeeDetailComponent implements OnInit {
         console.error(error);
       }
     )
-    .add(() => this.spinnerService.hide())
+    .add(() => this.spinnerShow = false)
   }
 
   public updateAccount(): void {
-    this.spinnerService.show();
+    this.spinnerShow = true;;
 
-    if (this.selectVisao == "Gerencial") {
+    if (this.ctrF.selectVisao.value  == "Gerencial") {
       this.user.master = true;
       this.user.gold = false;
       this.user.bronze = false;
-    } else if (this.selectVisao == "Operacional") {
+    } else if (this.ctrF.selectVisao.value  == "Operacional") {
       this.user.master = false;
       this.user.gold = true;
       this.user.bronze = false;
@@ -423,10 +435,10 @@ export class EmployeeDetailComponent implements OnInit {
     }
 
 //    this.user.visao = this.selectVisao;
-    this.user.codEmpresa = this.selectCompanyId;
+    this.user.codEmpresa = this.ctrF.selectCompanyId.value;
     this.user.codFuncionario = this.employee.id;
-    this.user.codCargo = this.selectJobRoleId;
-    this.user.codDepartamento = this.selectDepartmentId;
+    this.user.codCargo = this.ctrF.selectJobRoleId.value;
+    this.user.codDepartamento = this.ctrF.selectDepartmentId.value;
     this.user.nomeEmpresa = this.company.razaoSocial;
     this.user.phoneNumber = this.ctrF.phoneNumber.value;
 
@@ -441,11 +453,11 @@ export class EmployeeDetailComponent implements OnInit {
           console.error(error);
         }
       )
-      .add(() => this.spinnerService.hide())
+      .add(() => this.spinnerShow = false)
   }
 
   public updateEmployee(): void {
-    this.spinnerService.show();
+    this.spinnerShow = true;;
 
     this.employee.id = this.employee.id;
     this.employee.dataAdmissao = this.ctrF.dataAdmissao.value;
@@ -468,11 +480,11 @@ export class EmployeeDetailComponent implements OnInit {
           }
         }
       )
-      .add(() => this.spinnerService.hide());
+      .add(() => this.spinnerShow = false);
   }
 
   public createAddress(): void {
-    this.spinnerService.show();
+    this.spinnerShow = true;;
 
     this.address.funcionarioId = this.employee.id
 
@@ -487,11 +499,11 @@ export class EmployeeDetailComponent implements OnInit {
           this.toastrService.error(error.error, `Erro! Status ${error.status} `)
         }
       )
-      .add(() => this.spinnerService.hide())
+      .add(() => this.spinnerShow = false)
   }
 
   public createPersonalDocuments(): void {
-    this.spinnerService.show();
+    this.spinnerShow = true;;
     this.personalDocument.funcionarioId = this.employee.id
 
      this.personalDocumentService
@@ -504,7 +516,7 @@ export class EmployeeDetailComponent implements OnInit {
           this.toastrService.error(error.error, `Erro! Status ${error.status} `)
         }
       )
-      .add(() => this.spinnerService.hide())
+      .add(() => this.spinnerShow = false)
 
   }
 

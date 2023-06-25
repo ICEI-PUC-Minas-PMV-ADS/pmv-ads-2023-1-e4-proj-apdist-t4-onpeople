@@ -1,5 +1,6 @@
 using OnPeople.Domain.Models.Cargos;
 using OnPeople.Domain.Models.Empresas;
+using OnPeople.Domain.Models.Funcionarios;
 using System.ComponentModel.DataAnnotations;
 
 namespace OnPeople.Application.Dtos.Departamentos
@@ -22,6 +23,7 @@ namespace OnPeople.Application.Dtos.Departamentos
         public int EmpresaId { get; set; }
         public Empresa Empresa { get; set; }
         public IEnumerable<Cargo> Cargos { get; set; }
+        public IEnumerable<Funcionario> Funcionarios { get; set; }
         
     }
 }

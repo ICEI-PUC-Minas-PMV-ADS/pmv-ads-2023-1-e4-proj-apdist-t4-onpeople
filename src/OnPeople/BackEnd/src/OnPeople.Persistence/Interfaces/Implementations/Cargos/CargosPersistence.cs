@@ -25,6 +25,7 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Cargos
                 .Include(c => c.Empresa)
                 .Include(c => c.Departamento)
                 .Include(c => c.Funcionarios)
+                    .ThenInclude(e => e.FuncionariosMetas)
                 .AsNoTracking()
                 .OrderBy(c => c.Id);
 
@@ -82,39 +83,5 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Cargos
             return await query.ToListAsync();
         }
 
-        public DashboardCargos GetDashboard(int departamentoId)
-        {
-            IQueryable<Cargo> query = _context.Cargos
-                .Include(c => c.Empresa)
-                .Include(c => c.Departamento)
-                .Include(c => c.Funcionarios);
-            
-            if (departamentoId == 0) {
-                query = query
-                    .AsNoTracking();
-            } else
-            {
-                query = query
-                    .AsNoTracking()
-                    .Where(c => c.DepartamentoId == departamentoId);
-            }
-
-            _dashCargo.CountCargos = query.Count<Cargo>();
-
-
-            if (departamentoId == 0) {
-                query = query
-                    .AsNoTracking();
-            } else
-            {
-                query = query
-                    .AsNoTracking()
-                    .Where(c => c.Ativo && c.DepartamentoId == departamentoId);
-            }
-
-            _dashCargo.CountCargosAtivos = query.Count<Cargo>();
-
-            return _dashCargo;
-        }
     }
 }

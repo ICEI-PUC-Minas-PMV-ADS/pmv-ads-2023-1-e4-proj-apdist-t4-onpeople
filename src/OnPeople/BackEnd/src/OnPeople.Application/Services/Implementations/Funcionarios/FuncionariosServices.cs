@@ -13,15 +13,14 @@ namespace OnPeople.Application.Services.Implementations.Funcionarios
     public class FuncionariosServices : IFuncionariosServices
     {
         private readonly IFuncionariosPersistence _funcionariosPersistence;
-        private readonly ISharedPersistence _sharedPersistence;
+        private readonly DashboardFuncionarios _dashFuncionario = new();
+        private readonly PageParameters _pageParameters = new();
         private readonly IMapper _mapper;
         public FuncionariosServices(
             IFuncionariosPersistence funcionariosPersistence,
-            ISharedPersistence sharedPersistence,
             IMapper mapper)
         {
             _funcionariosPersistence = funcionariosPersistence;
-            _sharedPersistence = sharedPersistence;
             _mapper = mapper;
         }
         public async Task<ReadFuncionarioDto> CreateFuncionario(CreateFuncionarioDto funcionarioDto)
@@ -30,9 +29,9 @@ namespace OnPeople.Application.Services.Implementations.Funcionarios
             {
                 var funcionario = _mapper.Map<Funcionario>(funcionarioDto);
 
-                _sharedPersistence.Create<Funcionario>(funcionario);
+                _funcionariosPersistence.Create<Funcionario>(funcionario);
 
-                if (await _sharedPersistence.SaveChangesAsync())
+                if (await _funcionariosPersistence.SaveChangesAsync())
                 {
                     var funcionarioRetorno = await _funcionariosPersistence.GetFuncionarioByIdAsync(funcionario.Id);
 
@@ -170,17 +169,56 @@ namespace OnPeople.Application.Services.Implementations.Funcionarios
                 throw new Exception(e.Message);
             }
         }
-        public DashboardFuncionarios GetDashboard(int departamentoId) 
+       public async Task<DashboardFuncionarios> GetDashboardFuncionario(int empresaId, int departamentoId, int cargoId)
         {
             try
             {
-                return _funcionariosPersistence.GetDashboard(departamentoId);
+                _pageParameters.PageSize = 1000;
+                _pageParameters.PageNumber = 1;
+
+                var funcionarios = await _funcionariosPersistence.GetAllFuncionariosAsync(_pageParameters, empresaId, departamentoId, cargoId);
+                
+                if (funcionarios == null) return null;
+                    
+                _dashFuncionario.CountFuncionarios = funcionarios.Count();
+                _dashFuncionario.ListaNomeFuncionario = funcionarios.Select(e => e.NomeCompleto);
+                _dashFuncionario.ListaQtdeMetas = funcionarios.Select(e => e.FuncionariosMetas.Count());
+                
+                return _dashFuncionario;
             }
             catch (Exception e)
-            {
-
+            { 
                 throw new Exception(e.Message);
             }
-        }        
+        }
+
+        public async Task<List<ListaMetas>> GetDashboardFuncionarioMetas(int empresaId, int departamentoId, int cargoId)
+        {
+            try
+            {
+                _pageParameters.PageSize = 1000;
+                _pageParameters.PageNumber = 1;
+
+                 var funcionarios = await _funcionariosPersistence.GetAllFuncionariosAsync(_pageParameters, empresaId, departamentoId, cargoId);
+
+                if (funcionarios == null)
+                    return new List<ListaMetas>();
+
+                var dashFuncionarioMetas = funcionarios.Select(funcionario => new ListaMetas {
+                    NomeEmpresa = funcionario.NomeCompleto,
+                    QtdeMetas = funcionario.FuncionariosMetas.Count(),
+                    QtdeMetasCumpridas = funcionario.FuncionariosMetas.Count(fm => fm.MetaCumprida),
+                    QtdeMetasNaoCumpridas = funcionario.FuncionariosMetas.Count(fm => !fm.MetaCumprida),
+                    PercentualMetasCumpridas = funcionario.FuncionariosMetas.Count(fm => fm.MetaCumprida) == 0 ? 0 : 100.00 * ((double)funcionario.FuncionariosMetas.Count(fm => fm.MetaCumprida)) / ((double)funcionario.FuncionariosMetas.Count()),
+                    PercentualMetasNaoCumpridas = funcionario.FuncionariosMetas.Count(fm => !fm.MetaCumprida) == 0 ? 0 : 100.00 * ((double)funcionario.FuncionariosMetas.Count(fm => !fm.MetaCumprida)) / ((double)funcionario.FuncionariosMetas.Count())
+                }).ToList();
+
+                return dashFuncionarioMetas;
+            }
+            catch (Exception e)
+            { 
+                throw new Exception(e.Message);
+            }
+        }      
     }
 }

@@ -11,6 +11,5 @@ namespace OnPeople.Persistence.Interfaces.Contracts.Cargos
         Task<PageList<Cargo>> GetAllCargosAsync(PageParameters pageParameters, int empresaId, int departamentoIc);
         Task<Cargo> GetCargoByIdAsync(int cargoId);
         Task<IEnumerable<Cargo>> GetCargosByDepartamentoIdAsync(int departamentoId);
-        DashboardCargos GetDashboard(int departamentoId);
     }
 }

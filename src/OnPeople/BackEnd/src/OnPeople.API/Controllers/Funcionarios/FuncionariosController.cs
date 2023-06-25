@@ -259,12 +259,28 @@ public class FuncionariosController : ControllerBase
     /// <response code="400">Parâmetros incorretos</response>
     /// <response code="500">Erro interno</response>
     
-    [HttpGet("{cargoId}/Dashboard")]
-    public DashboardFuncionarios GetDashboard(int cargoId)
+    [HttpGet("{cargoId}/DashboardFuncionarios")]
+    public Task<DashboardFuncionarios> GetDashboardFuncionarios(int cargoId)
     {     
-        var dashboardFuncionarios = _funcionariosServices.GetDashboard(cargoId);
+        var dashboardFuncionarios = _funcionariosServices.GetDashboardFuncionario(0, 0, cargoId);
 
         return dashboardFuncionarios;
-    }    
+    }   
+
+    /// <summary>
+    /// Realiza a consulta estatística de metas por funcionários
+    /// </summary>
+    /// <param name="cargoId">Identificador de cargo</param>
+    /// <response code="200">Dashboard de funcionarios consultado</response>
+    /// <response code="400">Parâmetros incorretos</response>
+    /// <response code="500">Erro interno</response>
+    
+    [HttpGet("{cargoId}/DashboardFuncionarioMetas")]
+    public Task<List<ListaMetas>> GetDashboardFuncionarioMetas(int cargoId)
+    {     
+        var listaMetas = _funcionariosServices.GetDashboardFuncionarioMetas(0, 0, cargoId);
+
+        return listaMetas;
+    }     
 }
 

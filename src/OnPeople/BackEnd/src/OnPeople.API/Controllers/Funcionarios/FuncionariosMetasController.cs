@@ -221,22 +221,6 @@ public class FuncionariosMetasController : ControllerBase
             return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao excluir funcionário. Erro: {e.Message}");
         }
         
-    }   
-
-    /// <summary>
-    /// Realiza a consulta estatística de funcionários/metas
-    /// </summary>
-    /// <param name="funcionarioId">Identificador de funcionario</param>
-    /// <response code="200">Dashboard de funcionarios consultado</response>
-    /// <response code="400">Parâmetros incorretos</response>
-    /// <response code="500">Erro interno</response>
-    
-    [HttpGet("{funcionarioId}/dashboard")]
-    public DashboardFuncionariosMetas GetDashboard(int funcionarioId)
-    {     
-        var dashboardFuncionariosMetas = _funcionariosMetasServices.GetDashboard(funcionarioId);
-
-        return dashboardFuncionariosMetas;
-    }    
+    }     
 }
 

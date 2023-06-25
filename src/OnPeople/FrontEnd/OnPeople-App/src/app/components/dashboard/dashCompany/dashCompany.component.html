@@ -3,17 +3,6 @@
     <div class="card-body shadow p-0 m-0">
       <div class="row p-0 m-0">
         <div class="col p-0 m-0">
-<!--
-          <div class="d-flex flex-column col-4 p-2 m-0">
-            <mat-form-field class="bg-white " appearance="outline">
-              <mat-label class="text-info">Empresas</mat-label>
-              <mat-select [(ngModel)]="selectCompanyId" (selectionChange)="changeSelectCompany()"
-                placeholder="Selecione uma Empresa">
-                <mat-option *ngFor="let company of companies" [value]="company.id">{{company.razaoSocial}} </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-        -->
 
           <div class="col">
             <div class="card shadow mb-4">
@@ -24,15 +13,13 @@
                 <div class="y-3 align-items-center ">
                   <div class="dropdown no-arrow">
                     <div style="display: block">
-                      <canvas baseChart
-                        class="chart"
-                        [data]="barChartData"
-                        [options]="barChartOptions"
-                        [plugins]="barChartPlugins"
-                        [type]="barChartType"
-                        (chartHover)="chartHovered($event)"
-                        (chartClick)="chartClicked($event)">
-                      </canvas>
+                      <google-chart #chart
+                        [type]="typeColumnChart"
+                        [data]="chartData"
+                        columnNames="{columnNamesChart}"
+                        [options]="options"
+>
+                    </google-chart>
                     </div>
                   </div>
                 </div>
@@ -260,3 +247,5 @@
     </canvas>
   </div>
 </div> -->
+
+<app-spinner *ngIf="spinnerShow"></app-spinner>

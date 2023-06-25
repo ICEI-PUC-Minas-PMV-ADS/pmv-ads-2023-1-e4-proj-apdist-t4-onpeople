@@ -1,12 +1,16 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { NgxSpinnerService } from 'ngx-spinner';
+
 import { ToastrService } from 'ngx-toastr';
+
 import { Subject, debounceTime } from 'rxjs';
+
 import { PaginatedResult, Pagination } from 'src/app/shared/class/paginator';
-import { Funcionario } from 'src/app/models';
-import { Users } from 'src/app/models/user';
+
+import { Funcionario, Users } from 'src/app/models';
+
 import { EmployeeService, UserService } from 'src/app/services';
 
 
@@ -19,9 +23,13 @@ import { EmployeeService, UserService } from 'src/app/services';
 export class EmployeeListComponent implements OnInit {
   public modalRef?: BsModalRef;
 
-  public employees: Funcionario[] = [];
+  public spinnerShow: boolean = false;
 
-  public user: Users[] = [];
+  public addShow: boolean = true
+
+  public user: Users;
+
+  public employees: Funcionario[] = [];
 
   public employeeId: number = 0;
   public employeeName: string = "";
@@ -32,7 +40,7 @@ export class EmployeeListComponent implements OnInit {
 
   public employeeFilter(event: any): void {
     if (this.changeTerm.observers.length === 0) {
-      this.spinnerService.show();
+      this.spinnerShow = true;
       this.changeTerm
         .pipe(debounceTime(1500))
         .subscribe(
@@ -49,7 +57,7 @@ export class EmployeeListComponent implements OnInit {
                   console.error(error);
                 }
               )
-              .add(() => this.spinnerService.hide());
+              .add(() => this.spinnerShow = false);
           }
         )
     }
@@ -58,20 +66,20 @@ export class EmployeeListComponent implements OnInit {
     }
 
   constructor(
+    private userService: UserService,
     private employeeService: EmployeeService,
-    private userServices: UserService,
     private modalService: BsModalService,
     private router: Router,
-    private spinnerService: NgxSpinnerService,
     public toastrService: ToastrService,
   ) { }
 
   ngOnInit() {
-  this.getEmployees();
+    this.getUserLogged();
+    this.getEmployees();
   }
 
   public getEmployees(): void {
-    this.spinnerService.show;
+    this.spinnerShow = true;;
 
     this.employeeService
       .getEmployees(this.pagination.currentPage, this.pagination.itemsPage)
@@ -85,9 +93,26 @@ export class EmployeeListComponent implements OnInit {
           console.error(error);
         }
       )
-      .add(() => this.spinnerService.hide())
+      .add(() => this.spinnerShow = false)
   }
 
+  public getUserLogged(): void {
+    this.spinnerShow = true;;
+
+    this.userService
+      .getUserByUserName()
+      .subscribe(
+        (users: Users) => {
+          this.user = users
+          this.addShow = (this.user.visao == 'Master' || this.user.visao == 'Gold')
+        },
+        (error: any) => {
+          this.toastrService.error(error.error, `Erro! Status ${error.status}`);
+          console.error(error);
+        }
+      )
+      .add(() => this.spinnerShow = false)
+  }
 
   public openModal(event: any, template: TemplateRef<any>, employeeId: number, employeeName:string): void {
     event.stopPropagation();
@@ -97,7 +122,7 @@ export class EmployeeListComponent implements OnInit {
   }
 
   public confirmDeletion(): void {
-    this.spinnerService.show();
+    this.spinnerShow = true;
 
     this.modalRef?.hide();
     this.employeeService
@@ -117,7 +142,7 @@ export class EmployeeListComponent implements OnInit {
             console.error(error);
           }
         )
-      .add(() => this.spinnerService.hide());
+      .add(() => this.spinnerShow = false);
     }
 
   public backOff(): void {

@@ -52,5 +52,9 @@ export class AddressService {
     return this.http.delete(`${this.baseURL}${addressId}?addressId=${addressId}`)
     .pipe(take(3));
   }
+
+  public getCEP(cep: string): Observable<any> {
+    return this.http.get(`${this.baseURL}${cep}/json`)
+  }
 }
 

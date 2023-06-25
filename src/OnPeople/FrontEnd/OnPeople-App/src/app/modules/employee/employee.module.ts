@@ -1,45 +1,47 @@
-import { AppRoutingModule } from 'src/app/app-routing.module';
-
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { NgModule } from '@angular/core';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
+import { AppRoutingModule } from 'src/app/app-routing.module';
+
 import { NgbCollapseModule, NgbPaginationModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
-
-
-import { NgxSpinnerModule } from 'ngx-spinner';
-import { NgxViacepModule } from "@brunoc/ngx-viacep";
-import { TitlebarModule } from '../titlebar';
 import { AddressComponent, EmployeeComponent, EmployeeDetailComponent, EmployeeListComponent, GoalAssociateComponent, MyGoalsComponent, PersonalDocumentsComponent,  } from 'src/app/components';
+
 import { AddressService, CompanyService, DepartmentService, EmployeeService, JobRoleService, PersonalDocumentsService, UserService } from 'src/app/services';
+
+import { SpinnerModule } from '../spinner';
+import { TitlebarModule } from '../titlebar';
 
 @NgModule({
   imports: [
     AppRoutingModule,
-    BrowserAnimationsModule,
     BrowserModule,
-    FormsModule,
     MatDatepickerModule,
     MatIconModule,
     MatInputModule,
+    MatFormFieldModule,
     MatNativeDateModule,
+    MatProgressSpinnerModule,
     MatSelectModule,
     MatTabsModule,
     MatToolbarModule,
+    MatTooltipModule,
     NgbCollapseModule,
     NgbPaginationModule,
-    NgbTooltipModule,
-    NgxSpinnerModule,
-    NgxViacepModule,
     ReactiveFormsModule,
+    SpinnerModule,
     TitlebarModule,
   ],
   declarations: [

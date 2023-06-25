@@ -8,7 +8,7 @@
           <div class="form-row d-md-flex">
             <mat-form-field class="col-9 p-1" appearance="outline">
               <mat-label class="text-info">Metas</mat-label>
-              <mat-select [(ngModel)]="selectGoalId" (selectionChange)="changeSelectGoal()" formControlName="selectGoalId"
+              <mat-select (selectionChange)="changeSelectGoal()" formControlName="selectGoalId"
                 placeholder="Selecione uma meta">
                 <mat-option *ngFor="let goal of goals" [value]="goal.id">{{goal.nomeMeta}}</mat-option>
               </mat-select>
@@ -81,8 +81,8 @@
             <mat-form-field class="col-md-2 p-1" appearance="outline">
               <mat-label >Meta Associada </mat-label>
               <mat-select formControlName="goalAssociated">
-                <mat-option [value]="false">Não</mat-option>
-                <mat-option [value]="true">Sim</mat-option>
+                <mat-option disabled [value]="false">Não</mat-option>
+                <mat-option disabled [value]="true">Sim</mat-option>
               </mat-select>
             </mat-form-field>
 
@@ -186,7 +186,5 @@
 
 </div>
 
-<ngx-spinner type="ball-scale-multiple" bdColor="rgba(51,51,51,0.8)" size="medium" color="blue">
-  <p style="font-size:20px; color: white;">Carregando...</p>
-</ngx-spinner>
+<app-spinner *ngIf="spinnerShow"></app-spinner>
 

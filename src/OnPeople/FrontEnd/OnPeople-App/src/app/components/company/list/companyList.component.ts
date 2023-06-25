@@ -2,7 +2,6 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { NgxSpinnerService } from "ngx-spinner";
 import { ToastrService } from 'ngx-toastr';
 
 import { debounceTime, Subject } from 'rxjs';
@@ -23,6 +22,8 @@ import { environment } from 'src/assets/environments';
 export class CompanyListComponent implements OnInit {
   public modalRef?: BsModalRef;
 
+  public spinnerShow: boolean = false;
+
   public toggleImage : boolean = true;
   public logoURL: string = "../../../../assets/img/Image_not_available.png";
 
@@ -38,7 +39,7 @@ export class CompanyListComponent implements OnInit {
 
   public companyFilter(event: any): void {
     if (this.changeTerm.observers.length === 0) {
-      this.spinnerService.show();
+      this.spinnerShow = true;
       this.changeTerm
         .pipe(debounceTime(1500))
         .subscribe(
@@ -55,7 +56,7 @@ export class CompanyListComponent implements OnInit {
                   console.error(error);
                 }
               )
-              .add(() => this.spinnerService.hide());
+              .add(() => this.spinnerShow = false);
           }
         )
     }
@@ -71,16 +72,15 @@ export class CompanyListComponent implements OnInit {
     private router: Router,
     private companyService: CompanyService,
     private modalService: BsModalService,
-    public toastrService: ToastrService,
-    private spinnerService: NgxSpinnerService) { }
+    public toastrService: ToastrService
+    ) { }
 
   ngOnInit() {
-    this.spinnerService.show();
     this.getCompanies();
   }
 
   public getCompanies(): void {
-    this.spinnerService.show;
+    this.spinnerShow = true;
 
     this.companyService
       .getCompanies(this.pagination.currentPage, this.pagination.itemsPage)
@@ -94,7 +94,7 @@ export class CompanyListComponent implements OnInit {
           console.error(error);
         }
       )
-      .add(() => this.spinnerService.hide())
+      .add(() => this.spinnerShow = false)
   }
 
  public  openModal(event: any, template: TemplateRef<any>, companyId: number, companyName:string): void {
@@ -105,7 +105,7 @@ export class CompanyListComponent implements OnInit {
   }
 
   public confirmDeletion(): void {
-    this.spinnerService.show();
+    this.spinnerShow = true;
 
     this.modalRef?.hide();
     this.companyService
@@ -125,7 +125,7 @@ export class CompanyListComponent implements OnInit {
             console.error(error);
           }
         )
-      .add(() => this.spinnerService.hide());
+      .add(() => this.spinnerShow = false);
   }
   public backOff(): void {
     this.modalRef?.hide();

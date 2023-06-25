@@ -52,8 +52,8 @@ export class TitlebarComponent implements OnInit {
                 if (this.userActive.visao == "Master")
                   this.vision = "Gerencial";
                 else
-                  if (this.userActive.visao == "Golde")
-                    this.vision = "Adminstrativa";
+                  if (this.userActive.visao == "Gold")
+                    this.vision = "Administrativa";
                   else
                     this.vision = 'Operacional';
               }

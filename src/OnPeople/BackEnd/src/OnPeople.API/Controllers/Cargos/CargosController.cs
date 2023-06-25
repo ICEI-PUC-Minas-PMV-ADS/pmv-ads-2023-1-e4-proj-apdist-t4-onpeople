@@ -226,19 +226,35 @@ public class CargosController : ControllerBase
         }
     }
 
-        /// <summary>
-    /// Realiza a consulta estatística de departamento
+    /// <summary>
+    /// Realiza a consulta estatística de cargos
     /// </summary>
     /// <param name="departamentoId">Identificador de departamento</param>
     /// <response code="200">Dashboard de empresas consultado</response>
     /// <response code="400">Parâmetros incorretos</response>
     /// <response code="500">Erro interno</response>
     
-    [HttpGet("{departamentoId}/Dashboard")]
-    public DashboardCargos GetDashboard(int departamentoId)
+    [HttpGet("{departamentoId}/DashboardCargos")]
+    public Task<DashboardCargos> GetDashboardCargos(int departamentoId)
     {     
-        var dashboardCargo = _cargosServices.GetDashboard(departamentoId);
+        var dashboardCargo = _cargosServices.GetDashboardCArgos(0, departamentoId);
 
         return dashboardCargo;
+    }
+
+    /// <summary>
+    /// Realiza a consulta estatística de metas por cargos
+    /// </summary>
+    /// <param name="departamentoId">Identificador de departamento</param>
+    /// <response code="200">Dashboard de empresas consultado</response>
+    /// <response code="400">Parâmetros incorretos</response>
+    /// <response code="500">Erro interno</response>
+    
+    [HttpGet("{departamentoId}/DashboardCargoMetas")]
+    public Task<List<ListaMetas>> GetDashboardCargosMetas(int departamentoId)
+    {     
+        var listaMetas = _cargosServices.GetDashboardCargoMetas(0, departamentoId);
+
+        return listaMetas;
     }
 }

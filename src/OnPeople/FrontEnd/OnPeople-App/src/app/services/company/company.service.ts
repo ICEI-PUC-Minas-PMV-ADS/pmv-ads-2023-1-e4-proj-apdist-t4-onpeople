@@ -9,6 +9,7 @@ import { Empresa } from 'src/app/models';
 
 import { DashboardCompany } from 'src/app/shared/class/dashboard';
 import { PaginatedResult } from 'src/app/shared/class/paginator';
+import { ListaMetas } from 'src/app/shared/class/dashboard/ListaMetas';
 
 @Injectable()
 export class CompanyService {
@@ -70,11 +71,6 @@ export class CompanyService {
     .pipe(take(3));
   }
 
-  public CountCompany(id: number): Observable<DashboardCompany> {
-    return this.http.get<DashboardCompany>(`${this.baseURL}${id}/Dashboard`)
-    .pipe(take(3));
-  }
-
   public getCompanyByCnpjExternal(cnpj: string): Observable<Empresa> {
     return this.http.get<Empresa>(`${this.baseURL}${cnpj}/external`)
     .pipe(take(3));
@@ -84,4 +80,15 @@ export class CompanyService {
     return this.http.get<Empresa>(`${this.baseURL}${cnpj}/internal`)
     .pipe(take(3));
   }
+
+  public getDashCompany(companyId: number): Observable<DashboardCompany> {
+    return this.http.get<DashboardCompany>(`${this.baseURL}${companyId}/DashboardEmpresas`)
+    .pipe(take(3));
+  }
+
+  public getDashGoals(companyId?: number): Observable<ListaMetas[]> {
+    return this.http.get<ListaMetas[]>(`${this.baseURL}${companyId}/DashboardEmpresaMetas`)
+    .pipe(take(3));
+  }
+
 }

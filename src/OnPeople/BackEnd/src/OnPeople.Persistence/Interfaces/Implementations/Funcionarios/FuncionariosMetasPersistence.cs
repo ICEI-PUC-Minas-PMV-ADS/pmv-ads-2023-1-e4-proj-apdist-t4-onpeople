@@ -11,6 +11,7 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Funcionarios
     {
         private readonly OnPeopleContext _context;
         private readonly DashboardFuncionariosMetas _dashFuncionarioMeta = new();
+        private readonly ListaMetas _dashEmpresaMeta = new();
 
         public FuncionariosMetasPersistence(OnPeopleContext context) : base(context)
         {
@@ -65,36 +66,6 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Funcionarios
             
             return await query.FirstOrDefaultAsync();
         }
-        
-
-        public DashboardFuncionariosMetas GetDashboard(int funcionarioId)
-        {
-            IQueryable<FuncionarioMeta> queryMetasAssociadas = _context.FuncionariosMetas
-                .AsNoTracking();
-              
-                
-            if (funcionarioId != 0 ) {
-                queryMetasAssociadas = queryMetasAssociadas
-                    .Where(fm => fm.FuncionarioId == funcionarioId);
-            }
-
-            _dashFuncionarioMeta.CountMetasAssociadas = queryMetasAssociadas.Count<FuncionarioMeta>();
             
-            IQueryable<FuncionarioMeta> querymetasCumpridas = _context.FuncionariosMetas
-                .AsNoTracking();
-                
-                
-            if (funcionarioId == 0) {
-                querymetasCumpridas = querymetasCumpridas
-                    .Where(fm => fm.MetaCumprida);
-            } else {
-                querymetasCumpridas = querymetasCumpridas
-                    .Where(fm => fm.MetaCumprida && fm.FuncionarioId == funcionarioId);
-            }
-
-            _dashFuncionarioMeta.CountMetasCumpridas = querymetasCumpridas.Count<FuncionarioMeta>();
-            
-            return _dashFuncionarioMeta;
-        }
     }
 }

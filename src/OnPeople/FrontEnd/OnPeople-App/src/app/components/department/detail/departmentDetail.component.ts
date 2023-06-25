@@ -2,7 +2,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 
@@ -24,7 +23,7 @@ import { PaginatedResult } from 'src/app/shared/class/paginator';
 export class DepartmentDetailComponent implements OnInit {
   public formDetail: FormGroup;
 
-  public selectCompanyId = 0;
+  public spinnerShow: boolean = false;
 
   public departmentParm: any = "";
 
@@ -53,7 +52,6 @@ export class DepartmentDetailComponent implements OnInit {
     private formBuilder: FormBuilder,
     private localService: BsLocaleService,
     private router: Router,
-    private spinnerService: NgxSpinnerService,
     private toastrService: ToastrService,
   ) {
     this.localService.use('pt-br')
@@ -103,7 +101,7 @@ export class DepartmentDetailComponent implements OnInit {
   }
 
   public getDepartment(): void {
-    this.spinnerService.show();
+    this.spinnerShow = true;
 
     this.departmentService
       .getDepartmentById(this.departmentParm)
@@ -113,8 +111,8 @@ export class DepartmentDetailComponent implements OnInit {
           this.formDetail.patchValue(this.department)
 
           this.company = { ...department.empresa };
-          this.companies[0] = { ...department.empresa };
-          this.selectCompanyId = this.company.id;
+          this.companies[0] = this.company;
+          this.ctrF.selectCompanyId.setValue(this.company.id);
           this.formDetail.patchValue(this.company)
 
           this.logoURL = (this.company.logotipo !== 'Image_not_available.png')
@@ -127,11 +125,11 @@ export class DepartmentDetailComponent implements OnInit {
           this.toastrService.error(error.error, `Erro! status ${error.status}`)
         }
       )
-      .add(() => this.spinnerService.hide());
+      .add(() => this.spinnerShow = false);
   }
 
   public getEmployee(): void {
-    this.spinnerService.show();
+    this.spinnerShow = true;
 
     this.employeeService
       .getEmployeesBossesByDepartmentId(this.departmentParm)
@@ -142,7 +140,7 @@ export class DepartmentDetailComponent implements OnInit {
 
             if (this.employees.length > 0) {
               this.employee = this.employees[0]
-              this.formDetail.controls["directorName"].setValue(this.employee.nomeCompleto);
+              this.ctrF.directorName.setValue(this.employee.nomeCompleto);
             }
 
             this.employees = employees.filter(
@@ -150,7 +148,7 @@ export class DepartmentDetailComponent implements OnInit {
 
             if (this.employees.length > 0) {
               this.employee = this.employees[0]
-              this.formDetail.controls["managerName"].setValue(this.employee.nomeCompleto);
+              this.ctrF.managerName.setValue(this.employee.nomeCompleto);
             }
 
             this.employees = employees.filter(
@@ -159,18 +157,18 @@ export class DepartmentDetailComponent implements OnInit {
 
             if (this.employees.length > 0) {
               this.employee = this.employees[0]
-              this.formDetail.controls["supervisorName"].setValue(this.employee.nomeCompleto);
+              this.ctrF.supervisorName.setValue(this.employee.nomeCompleto);
           }
         },
         (error: any) => {
           this.toastrService.error(error.error, `Erro! Status ${error.status}`)
         }
       )
-      .add(() => this.spinnerService.hide());
+      .add(() => this.spinnerShow = false);
   }
 
   public getCompanies(): void {
-    this.spinnerService.show();
+    this.spinnerShow = true;
 
     this.companyService
       .getCompanies(environment.initialPageDefault, environment.totalPagesDefault)
@@ -178,9 +176,9 @@ export class DepartmentDetailComponent implements OnInit {
         (companies: PaginatedResult<Empresa[]>) => {
           this.companies = companies.result;
           this.company = this.companies[0];
-          this.selectCompanyId = this.companies[0].id;
           this.formDetail.patchValue(this.company)
-            this.logoURL = (this.company.logotipo !== 'Image_not_available.png')
+          this.ctrF.selectCompanyId.setValue(this.company.id);
+          this.logoURL = (this.company.logotipo !== 'Image_not_available.png')
           ? `${environment.resourcesLogosURL}${this.company.logotipo}`
             : `../../../../assets/img/${this.company.logotipo}`;
         },
@@ -188,11 +186,11 @@ export class DepartmentDetailComponent implements OnInit {
           this.toastrService.error(error.error, `Erro! Status ${error.status}`)
         }
       )
-      .add(() => this.spinnerService.hide());
+      .add(() => this.spinnerShow = false);
   }
 
   public saveChange(): void {
-    this.spinnerService.show();
+    this.spinnerShow = true;
 
     if(this.formDetail.valid)
       if (!this.editMode){
@@ -206,7 +204,7 @@ export class DepartmentDetailComponent implements OnInit {
   public createDepartment(): void {
 
     this.department = { ...this.formDetail.value };
-    this.department.empresaId = this.selectCompanyId;
+    this.department.empresaId = this.ctrF.selectCompanyId.value;
 
     this.departmentService
       .createDepartment(this.department)
@@ -221,12 +219,12 @@ export class DepartmentDetailComponent implements OnInit {
           console.error(error);
         }
       )
-      .add(() => this.spinnerService.hide())
+      .add(() => this.spinnerShow = false)
   }
 
   public updateDepartment(): void {
     this.department = { id: this.department.id, ...this.formDetail.value };
-    this.department.empresaId = this.selectCompanyId;
+    this.department.empresaId = this.ctrF.selectCompanyId.value
 
     this.departmentService
       .saveDepartment(this.department.id, this.department)
@@ -243,16 +241,16 @@ export class DepartmentDetailComponent implements OnInit {
           }
         }
       )
-      .add(() => this.spinnerService.hide())
+      .add(() => this.spinnerShow = false)
   }
 
   public changeSelectCompany(): void {
-    this.spinnerService.show()
+    this.spinnerShow = true
 
     var id: number = 0;
 
-    if (this.selectCompanyId != null)
-      id = this.selectCompanyId
+    if (this.ctrF.selectCompanyId.value != null)
+      id = this.ctrF.selectCompanyId.value
 
     this.companyService
       .getCompanyById(id)
@@ -270,6 +268,6 @@ export class DepartmentDetailComponent implements OnInit {
           console.error(error)
         }
       )
-      .add(() => this.spinnerService.hide());
+      .add(() => this.spinnerShow = false);
   }
 }

@@ -18,16 +18,16 @@
           <li class="nav-item" routerLinkActive="active" *ngIf="(user.visao == 'Master') ? true : false">
             <a class="nav-link" routerLink="empresas">Empresas</a>
           </li>
-          <li class="nav-item" routerLinkActive="active">
+          <li class="nav-item" routerLinkActive="active" *ngIf="(user.visao == 'Master' || user.visao == 'Gold') ? true : false">
             <a class="nav-link" routerLink="departamentos">Departamentos</a>
           </li>
-          <li class="nav-item" routerLinkActive="active">
+          <li class="nav-item" routerLinkActive="active" *ngIf="(user.visao == 'Master' || user.visao == 'Gold') ? true : false">
             <a class="nav-link" routerLink="cargos">Cargos</a>
           </li>
           <li class="nav-item" routerLinkActive="active">
             <a class="nav-link" routerLink="funcionarios">Funcionários</a>
           </li>
-          <li class="nav-item" routerLinkActive="active">
+          <li class="nav-item" routerLinkActive="active" *ngIf="(user.visao == 'Master' || user.visao == 'Gold') ? true : false">
             <a class="nav-link" routerLink="metas">Metas</a>
           </li>
         </ul>

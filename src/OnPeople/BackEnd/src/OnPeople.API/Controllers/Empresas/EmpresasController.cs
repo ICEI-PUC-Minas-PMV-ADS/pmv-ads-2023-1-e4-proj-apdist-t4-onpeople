@@ -314,21 +314,6 @@ public class EmpresasController : ControllerBase
         
     }   
 
-    /// <summary>
-    /// Realiza a consulta estatística de empresa
-    /// </summary>
-    /// <param name="empresaId">Identificador da empresa (pode zero para buscar todas)</param>
-    /// <response code="200">Dashboard de empresas consultado</response>
-    /// <response code="400">Parâmetros incorretos</response>
-    /// <response code="500">Erro interno</response>
-    
-    [HttpGet("{empresaId}/Dashboard")]
-    public DashboardEmpresa GetDashboard(int empresaId)
-    {     
-        var dashboardEmpresa = _empresasServices.GetDashboard(empresaId, User.GetMasterClaim());
-
-        return dashboardEmpresa;
-    }
 
     /// <summary>
     /// Realiza a consulta da empresa na Receita Federal
@@ -434,5 +419,37 @@ public class EmpresasController : ControllerBase
         {
             return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao recuperar empresa por CNPJ. Erro: {e.Message}");
         }
+    }
+
+    /// <summary>
+    /// Realiza a consulta estatística de empresa
+    /// /// </summary>
+    /// <param name="empresaId">Identificador da empresa (pode zero para buscar todas)</param>
+    /// <response code="200">Dashboard de empresas consultado</response>
+    /// <response code="400">Parâmetros incorretos</response>
+    /// <response code="500">Erro interno</response>
+    
+    [HttpGet("{empresaId}/DashboardEmpresas")]
+    public Task<DashboardEmpresa> GetDashboardEmpresa(int empresaId)
+    {     
+        var dashboardEmpresa = _empresasServices.GetDashboardEmpresa(empresaId, User.GetMasterClaim());
+
+        return dashboardEmpresa;
+    }
+
+    /// <summary>
+    /// Realiza a consulta estatística de metas por empresa
+    /// /// </summary>
+    /// <param name="empresaId">Identificador da empresa (pode zero para buscar todas)</param>
+    /// <response code="200">Dashboard de empresas consultado</response>
+    /// <response code="400">Parâmetros incorretos</response>
+    /// <response code="500">Erro interno</response>
+    
+    [HttpGet("{empresaId}/DashboardEmpresaMetas")]
+    public Task<List<ListaMetas>> GetDashboardEmpresaMeta(int empresaId)
+    {     
+        var listaMetas = _empresasServices.GetDashboardEmpresaMetas(empresaId, User.GetMasterClaim());
+
+        return listaMetas;
     }
 }

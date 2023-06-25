@@ -18,7 +18,7 @@
 
             <mat-form-field class="col-md-2 p-1" appearance="outline">
               <mat-label class="text-info">CEP</mat-label>
-              <input matInput [(ngModel)]="cep" formControlName="cep" [ngClass]="fieldValidator(ctrF.cep)"
+              <input matInput formControlName="cep" [ngClass]="fieldValidator(ctrF.cep)"
                 (change)="getCEP()">
               <mat-error class="invalid-feedback">{{messageReturned(ctrF.cep, "")}}</mat-error>
             </mat-form-field>
@@ -95,3 +95,5 @@
   <p>Form Value: {{formAddress.value | json}}</p>
   <p>Form Status: {{formAddress.status | json}}</p>
 -->
+
+<app-spinner *ngIf="spinnerShow"></app-spinner>

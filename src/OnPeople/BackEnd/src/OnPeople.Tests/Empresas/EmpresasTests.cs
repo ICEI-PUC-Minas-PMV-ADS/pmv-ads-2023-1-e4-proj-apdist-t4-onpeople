@@ -1,14 +1,15 @@
-﻿using Xunit;
+﻿
 using OnPeople.Application.Services.Contracts.Empresas;
 using OnPeople.Application.Services.Implementations.Empresas;
+using OnPeople.Persistence.Interfaces.Contracts.Empresas;
+using OnPeople.Application.Dtos.Empresas;
+using OnPeople.Tests.Departamentos;
 using Moq;
 using AutoMapper;
-using OnPeople.Persistence.Interfaces.Contracts.Empresas;
-using OnPeople.Domain.Models.Empresas;
+using Xunit;
 using OnPeople.Integration.Models.Pages.Page;
-using OnPeople.Application.Dtos.Empresas;
+using OnPeople.Domain.Models.Empresas;
 using OnPeople.Integration.Models.Dashboard;
-using OnPeople.Tests.Departamentos;
 
 namespace OnPeople.Tests.Empresas;
 
@@ -401,7 +402,7 @@ public class EmpresasServicesTests
     }
 
     [Fact]
-    [Trait(nameof(IEmpresasServices.GetDashboard), "Sucesso")]
+    [Trait(nameof(IEmpresasServices.GetDashboardEmpresa), "Sucesso")]
     public void GetDashboard_DeveRetornarOsDadosDoDashboard_QuandoExistirDadosCadastrados()
     {
         //Arrange
@@ -412,7 +413,7 @@ public class EmpresasServicesTests
 
         //Act
 
-        var dashboardConsultado = _empresasServices.GetDashboard(1, true);
+        var dashboardConsultado = _empresasServices.GetDashboardEmpresa(1, true);
 
         //Assert
 
@@ -422,7 +423,7 @@ public class EmpresasServicesTests
     }
 
     [Fact]
-    [Trait(nameof(IEmpresasServices.GetDashboard), "Insucesso")]
+    [Trait(nameof(IEmpresasServices.GetDashboardEmpresa), "Insucesso")]
     public void GetDashboard_NaoDeveRetornarOsDadosDoDashboard_QuandoNaoExistirDadosCadastrados()
     {
         //Arrange
@@ -433,7 +434,7 @@ public class EmpresasServicesTests
 
         //Act
 
-        var dashboardConsultado = _empresasServices.GetDashboard(1, false);
+        var dashboardConsultado = _empresasServices.GetDashboardEmpresa(1, false);
 
         //Assert
 

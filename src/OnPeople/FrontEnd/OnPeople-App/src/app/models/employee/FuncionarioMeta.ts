@@ -1,4 +1,5 @@
 import { Funcionario } from ".";
+import { Empresa } from "../company";
 import { Meta } from "../goal";
 
 
@@ -16,4 +17,6 @@ export interface FuncionarioMeta {
   inicioAcordado: string;
   fimAcordado: string;
   diasAcordado: number;
+  empresaId: number;
+  empresa: Empresa;
 }

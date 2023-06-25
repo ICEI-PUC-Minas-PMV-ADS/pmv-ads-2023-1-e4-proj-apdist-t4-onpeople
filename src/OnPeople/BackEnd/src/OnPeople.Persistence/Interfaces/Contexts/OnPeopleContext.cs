@@ -150,6 +150,8 @@ namespace OnPeople.Persistence.Interfaces.Contexts
                         .WithMany(m => m.FuncionariosMetas)
                         .HasForeignKey(mf => mf.FuncionarioId)
                         .IsRequired();
+
+                    funcionarioMeta.HasIndex(m => m.EmpresaId);
                 } 
             );
 

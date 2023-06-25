@@ -10,7 +10,11 @@ export class QuantitativeDash {
     this.qtde = qtde;
     this.nome = nome;
     this.qtdeTotal = qtdeTotal;
-    this.percent = +((qtde / qtdeTotal * 100).toFixed(2));
+    if (qtdeTotal == 0) {
+      this.percent = 0;
+    } else {
+      this.percent = +((qtde / qtdeTotal * 100).toFixed(2));
+    }
     this.styleColor = style;
     this.stylePercent = this.percent + '%';
    }

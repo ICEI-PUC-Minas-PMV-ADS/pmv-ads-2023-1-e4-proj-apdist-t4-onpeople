@@ -14,7 +14,7 @@
           <div class="form-row d-md-flex">
             <mat-form-field class="col-md-6 p-1" appearance="outline">
               <mat-label class="text-info">Empresa</mat-label>
-              <mat-select [(ngModel)]="selectCompanyId" (selectionChange)="changeSelectCompany()"
+              <mat-select (selectionChange)="changeSelectCompany()"
                 placeholder="Selecione uma Empresa" formControlName="selectCompanyId"
                 [ngClass]="fieldValidator(ctrF.selectCompanyId)">
                 <mat-option *ngFor="let company of companies" [value]="company.id">{{company.razaoSocial}} </mat-option>
@@ -39,7 +39,7 @@
           <div class="form-row d-md-flex">
             <mat-form-field class="col-md-6 p-1" appearance="outline">
               <mat-label class="text-info">Departmaneto</mat-label>
-              <mat-select [(ngModel)]="selectDepartmentId" (selectionChange)="changeSelectDepartment()"
+              <mat-select (selectionChange)="changeSelectDepartment()"
                 placeholder="Selecione uma Departamento" formControlName="selectDepartmentId"
                 [ngClass]="fieldValidator(ctrF.selectDepartmentId)">
                 <mat-option *ngFor="let department of departments" [value]="department.id">{{department.nomeDepartamento}} </mat-option>
@@ -114,10 +114,4 @@
   <p>Form Status: {{formDetail.status | json}}</p>
 -->
 
-<ngx-spinner type="ball-scale-multiple"
-bdColor="rgba(51,51,51,0.8)"
-size="medium"
-color="blue"
->
-<p style="font-size:20px; color: white;">Carregando...</p>
-</ngx-spinner>
+<app-spinner *ngIf="spinnerShow"></app-spinner>

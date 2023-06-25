@@ -2,11 +2,14 @@ import { Component, OnInit, TemplateRef } from "@angular/core";
 import { Router } from "@angular/router";
 
 import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
-import { NgxSpinnerService } from "ngx-spinner";
 import { ToastrService } from "ngx-toastr";
+
 import { Subject, debounceTime } from "rxjs";
+
 import { PaginatedResult, Pagination } from "src/app/shared/class/paginator";
+
 import { Departamento } from "src/app/models";
+
 import { DepartmentService } from "src/app/services";
 
 import { environment } from "src/assets/environments";
@@ -19,6 +22,8 @@ import { environment } from "src/assets/environments";
 })
 export class DepartmentListComponent implements OnInit {
   public modalRef?: BsModalRef;
+
+  public spinnerShow: boolean = false;
 
   public toggleImage : boolean = true;
   public logoURL: string = "../../../../assets/img/Image_not_available.png";
@@ -35,7 +40,7 @@ export class DepartmentListComponent implements OnInit {
 
   public departmentFilter(event: any): void {
     if (this.changeTerm.observers.length === 0) {
-      this.spinnerService.show();
+      this.spinnerShow = true;
       this.changeTerm
         .pipe(debounceTime(1500))
         .subscribe(
@@ -52,7 +57,7 @@ export class DepartmentListComponent implements OnInit {
                   console.error(error);
                 }
               )
-              .add(() => this.spinnerService.hide());
+              .add(() => this.spinnerShow = false);
           }
         )
     }
@@ -68,14 +73,13 @@ export class DepartmentListComponent implements OnInit {
     private departmentService: DepartmentService,
     private modalService: BsModalService,
     public toastrService: ToastrService,
-    private spinnerService: NgxSpinnerService) { }
+    ) { }
 
   ngOnInit() {
-    this.spinnerService.show();
     this.getDepartments();
   }
   public getDepartments(): void {
-    this.spinnerService.show;
+    this.spinnerShow = true;
 
     this.departmentService
       .getDepartments(this.pagination.currentPage, this.pagination.itemsPage)
@@ -89,7 +93,7 @@ export class DepartmentListComponent implements OnInit {
           console.error(error);
         }
       )
-      .add(() => this.spinnerService.hide())
+      .add(() => this.spinnerShow = false)
   }
 
  public openModal(event: any, template: TemplateRef<any>, departmentId: number, departmentName:string): void {
@@ -100,7 +104,7 @@ export class DepartmentListComponent implements OnInit {
   }
 
   public confirmDeletion(): void {
-    this.spinnerService.show();
+    this.spinnerShow = true;
 
     this.modalRef?.hide();
     this.departmentService
@@ -120,7 +124,7 @@ export class DepartmentListComponent implements OnInit {
             console.error(error);
           }
         )
-      .add(() => this.spinnerService.hide());
+      .add(() => this.spinnerShow = false);
   }
   public backOff(): void {
     this.modalRef?.hide();

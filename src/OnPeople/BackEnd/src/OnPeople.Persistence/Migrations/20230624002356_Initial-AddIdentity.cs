@@ -247,13 +247,14 @@ namespace OnPeople.Persistence.Migrations
                     MetaAprovada = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     InicioPlanejado = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    FumPlanejado = table.Column<string>(type: "longtext", nullable: true)
+                    FimPlanejado = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     DiasPlanejado = table.Column<int>(type: "int", nullable: false),
                     InicioOficial = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     FimOficial = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    DiasOficial = table.Column<int>(type: "int", nullable: false),
                     EmpresaId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -405,12 +406,14 @@ namespace OnPeople.Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    NomeCompleto = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     DataAdmissao = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     DataDemissao = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Ativo = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: true),
+                    UserId = table.Column<int>(type: "int", nullable: false),
                     DepartamentoId = table.Column<int>(type: "int", nullable: false),
                     CargoId = table.Column<int>(type: "int", nullable: false),
                     EmpresaId = table.Column<int>(type: "int", nullable: false),
@@ -423,7 +426,8 @@ namespace OnPeople.Persistence.Migrations
                         name: "FK_Funcionarios_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Funcionarios_Cargos_CargoId",
                         column: x => x.CargoId,
@@ -547,11 +551,17 @@ namespace OnPeople.Persistence.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     FimAcordado = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    DiasAcordado = table.Column<int>(type: "int", nullable: false)
+                    DiasAcordado = table.Column<int>(type: "int", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_FuncionariosMetas", x => new { x.FuncionarioId, x.MetaId });
+                    table.ForeignKey(
+                        name: "FK_FuncionariosMetas_Empresas_EmpresaId",
+                        column: x => x.EmpresaId,
+                        principalTable: "Empresas",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_FuncionariosMetas_Funcionarios_FuncionarioId",
                         column: x => x.FuncionarioId,
@@ -703,6 +713,11 @@ namespace OnPeople.Persistence.Migrations
                 name: "IX_Funcionarios_UserId",
                 table: "Funcionarios",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FuncionariosMetas_EmpresaId",
+                table: "FuncionariosMetas",
+                column: "EmpresaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_FuncionariosMetas_MetaId",

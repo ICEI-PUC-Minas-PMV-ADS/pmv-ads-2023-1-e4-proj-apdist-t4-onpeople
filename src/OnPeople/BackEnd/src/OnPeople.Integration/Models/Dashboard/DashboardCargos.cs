@@ -4,5 +4,8 @@ namespace OnPeople.Integration.Models.Dashboard
     {
         public int CountCargos { get; set; }
         public int CountCargosAtivos { get; set; }
+        public double PercentualCargosAtivos { get; set; }
+        public IEnumerable<string> ListaNomeCargo{ get; set; }
+        public IEnumerable<int> ListaQtdeFuncionarios { get; set; }
     }
 }

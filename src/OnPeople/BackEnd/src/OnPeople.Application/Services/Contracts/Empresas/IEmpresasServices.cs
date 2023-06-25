@@ -16,7 +16,8 @@ namespace OnPeople.Application.Services.Contracts.Empresas
         Task<PageList<EmpresaDto>> GetAllEmpresasFiliaisAsync(PageParameters pageParameters, int empresaId, Boolean Master);
         Task<EmpresaDto> GetEmpresaMatrizAsync();
         Task<AtualizarEmpresaAtivaDto> SetEmpresa(int empresaId, AtualizarEmpresaAtivaDto atualizarEmpresaAtivaDto);
-        DashboardEmpresa GetDashboard(int empresaId, Boolean master);  
         Task<EmpresaDto> GetEmpresaByCnpjAsync(string cnpj, Boolean master);      
+        Task<DashboardEmpresa> GetDashboardEmpresa(int empresaId, Boolean master);  
+        Task<List<ListaMetas>> GetDashboardEmpresaMetas(int empresaId, bool master);
     }
 }

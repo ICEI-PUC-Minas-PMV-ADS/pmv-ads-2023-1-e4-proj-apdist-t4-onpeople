@@ -251,11 +251,27 @@ public class DepartamentosController : ControllerBase
     /// <response code="400">Parâmetros incorretos</response>
     /// <response code="500">Erro interno</response>
     
-    [HttpGet("{empresaId}/Dashboard")]
-    public DashboardDepartamento GetDashboard(int empresaId)
+    [HttpGet("{empresaId}/DashboardDepartamentos")]
+    public Task<DashboardDepartamento> GetDashboardDepartamento(int empresaId)
     {     
-        var dashboardDepartamento = _departamentosServices.GetDashboard(empresaId);
+        var dashboardDepartamento = _departamentosServices.GetDashboardDepartamento(empresaId, User.GetMasterClaim());
 
         return dashboardDepartamento;
+    }
+
+    /// <summary>
+    /// Realiza a consulta estatística de metas por departamento
+    /// </summary>
+    /// <param name="empresaId">Identificador da empresa (pode zero para buscar todas)</param>
+    /// <response code="200">Dashboard de empresas consultado</response>
+    /// <response code="400">Parâmetros incorretos</response>
+    /// <response code="500">Erro interno</response>
+    
+    [HttpGet("{empresaId}/DashboardDepartamentoMetas")]
+    public Task<List<ListaMetas>> GetDashboardDepartamentoMetas(int empresaId)
+    {     
+        var listaMetas = _departamentosServices.GetDashboardDepartamentoMetas(empresaId, User.GetMasterClaim());
+
+        return listaMetas;
     }
 }

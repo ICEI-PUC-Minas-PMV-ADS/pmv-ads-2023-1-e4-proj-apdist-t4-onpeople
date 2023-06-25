@@ -76,7 +76,7 @@ export class RegisterComponent implements OnInit {
       this.newUser.visao = (this.newUser.userName == 'Admin') ? "Master" : "Default";
       this.newUser.master = (this.newUser.userName == 'Admin') ? true : false;
       this.newUser.gold = false;
-      this.newUser.bronze = false;
+      this.newUser.bronze = (this.newUser.userName == 'Admin') ? false : true;
       this.newUser.ativa = true;
       this.newUser.codEmpresa = 0;
       this.newUser.codCargo = 0;

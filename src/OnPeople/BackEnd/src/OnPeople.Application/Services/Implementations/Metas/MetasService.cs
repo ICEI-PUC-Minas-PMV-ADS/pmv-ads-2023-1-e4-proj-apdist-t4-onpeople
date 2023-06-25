@@ -162,17 +162,5 @@ namespace OnPeople.Application.Services.Implementations.Metas
             }
         }
         
-        public DashboardMetas GetDashboard(int empresaId) 
-        {       
-            try
-            {
-                return _metasPersistence.GetDashboard(empresaId);
-            }
-            catch (Exception e)
-            {
-
-                throw new Exception(e.Message);
-            }
-        }
     }
 }

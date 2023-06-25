@@ -6,22 +6,20 @@ using OnPeople.Integration.Models.Dashboard;
 using OnPeople.Integration.Models.Pages.Config;
 using OnPeople.Integration.Models.Pages.Page;
 using OnPeople.Persistence.Interfaces.Contracts.Cargos;
-using OnPeople.Persistence.Interfaces.Contracts.Shared;
 
 namespace OnPeople.Application.Services.Implementations.Cargos
 {
     public class CargosServices : ICargosServices
     {
-        private readonly ISharedPersistence _sharedPersistence;
+        private readonly DashboardCargos _dashCargo = new();
+        private readonly PageParameters _pageParameters = new();
         private readonly ICargosPersistence _cargosPersistence;
         private readonly IMapper _mapper;
 
         public CargosServices(
-           ISharedPersistence sharedPersistence,
            ICargosPersistence cargosPersistence, IMapper mapper)
         {
             _cargosPersistence = cargosPersistence;
-            _sharedPersistence = sharedPersistence;
             _mapper = mapper;
 
         }
@@ -93,9 +91,9 @@ namespace OnPeople.Application.Services.Implementations.Cargos
             {
                 var cargo = _mapper.Map<Cargo>(cargoDto);
 
-                _sharedPersistence.Create<Cargo>(cargo);
+                _cargosPersistence.Create<Cargo>(cargo);
 
-                if (await _sharedPersistence.SaveChangesAsync())
+                if (await _cargosPersistence.SaveChangesAsync())
                 {
                     var cargoCriado = await _cargosPersistence.GetCargoByIdAsync(cargo.Id);
                     return _mapper.Map<CargoDto>(cargoCriado);
@@ -147,7 +145,7 @@ namespace OnPeople.Application.Services.Implementations.Cargos
 
                 _cargosPersistence.Delete<Cargo>(cargo);
 
-                return await _sharedPersistence.SaveChangesAsync();
+                return await _cargosPersistence.SaveChangesAsync();
             }
 
             catch (Exception e)
@@ -156,15 +154,57 @@ namespace OnPeople.Application.Services.Implementations.Cargos
             }
         }
 
-        public DashboardCargos GetDashboard(int departamentoId) 
+        public async Task<DashboardCargos> GetDashboardCArgos(int empresaId, int departamentoId)
         {
             try
             {
-                return _cargosPersistence.GetDashboard(departamentoId);
+                _pageParameters.PageSize = 1000;
+                _pageParameters.PageNumber = 1;
+
+                var cargos = await _cargosPersistence.GetAllCargosAsync(_pageParameters, empresaId, departamentoId);
+                
+                if (cargos == null) return null;
+                    
+                _dashCargo.CountCargos = cargos.Count();
+                _dashCargo.CountCargosAtivos  = cargos.Count(c => c.Ativo);
+                _dashCargo.ListaNomeCargo = cargos.Select(e => e.NomeCargo);
+                _dashCargo.ListaQtdeFuncionarios = cargos.Select(e => e.Funcionarios.Count());
+
+                _dashCargo.PercentualCargosAtivos =  100.00 * ((double)_dashCargo.CountCargosAtivos)  / ((double)_dashCargo.CountCargos);
+                
+                return _dashCargo;
             }
             catch (Exception e)
-            {
+            { 
+                throw new Exception(e.Message);
+            }
+        }
 
+        public async Task<List<ListaMetas>> GetDashboardCargoMetas(int empresaId, int departamentoId)
+        {
+            try
+            {
+                _pageParameters.PageSize = 1000;
+                _pageParameters.PageNumber = 1;
+
+                var cargos = await _cargosPersistence.GetAllCargosAsync(_pageParameters, empresaId, departamentoId);
+
+                if (cargos == null)
+                    return new List<ListaMetas>();
+
+                var dashCargosMetas = cargos.Select(cargo => new ListaMetas {
+                    NomeEmpresa = cargo.NomeCargo,
+                    QtdeMetas = cargo.Funcionarios.SelectMany(fm => fm.FuncionariosMetas).Count(),
+                    QtdeMetasCumpridas = cargo.Funcionarios.SelectMany(fm => fm.FuncionariosMetas).Count(fm => fm.MetaCumprida),
+                    QtdeMetasNaoCumpridas = cargo.Funcionarios.SelectMany(fm => fm.FuncionariosMetas).Count(fm => !fm.MetaCumprida),
+                    PercentualMetasCumpridas = cargo.Funcionarios.SelectMany(fm => fm.FuncionariosMetas).Count(fm => fm.MetaCumprida) == 0 ? 0 : 100.00 * ((double)cargo.Funcionarios.SelectMany(fm => fm.FuncionariosMetas).Count(fm => fm.MetaCumprida)) / ((double)cargo.Funcionarios.SelectMany(fm => fm.FuncionariosMetas).Count()),
+                    PercentualMetasNaoCumpridas = cargo.Funcionarios.SelectMany(fm => fm.FuncionariosMetas).Count(fm => !fm.MetaCumprida) == 0 ? 0 : 100.00 * ((double)cargo.Funcionarios.SelectMany(fm => fm.FuncionariosMetas).Count(fm => !fm.MetaCumprida)) / ((double)cargo.Funcionarios.SelectMany(fm => fm.FuncionariosMetas).Count())
+                }).ToList();
+
+                return dashCargosMetas;
+            }
+            catch (Exception e)
+            { 
                 throw new Exception(e.Message);
             }
         }

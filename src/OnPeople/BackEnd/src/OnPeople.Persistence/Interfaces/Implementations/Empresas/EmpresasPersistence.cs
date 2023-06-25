@@ -12,7 +12,7 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Empresas
     public class EmpresasPersistence : SharedPersistence, IEmpresasPersistence
     {
         private readonly OnPeopleContext _context;
-        private readonly DashboardEmpresa _dashEmpresa = new();
+
         public EmpresasPersistence(OnPeopleContext context) : base(context)
         {
             _context = context;
@@ -24,7 +24,8 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Empresas
                 .Include(e => e.Users)
                 .Include(e => e.Departamentos)
                 .Include(e => e.Cargos)
-                .Include(e => e.Funcionarios);
+                .Include(e => e.Funcionarios)
+                    .ThenInclude(e => e.FuncionariosMetas);
 
             query = query
                 .AsNoTracking()
@@ -94,7 +95,9 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Empresas
         {
             IQueryable<Empresa> query = _context.Empresas
                 .Include(e => e.Users)
-                .Include(e => e.Departamentos);
+                .Include(e => e.Departamentos)
+                .Include(e => e.Cargos)
+                .Include(e => e.Funcionarios);
 
             query = query
                 .AsNoTracking()
@@ -129,62 +132,6 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Empresas
                 .Where(e => e.Cnpj == cnpj && Master);
 
             return await query.FirstOrDefaultAsync();
-        }
-        public DashboardEmpresa GetDashboard(int empresaId, Boolean master)
-        {
-            IQueryable<Empresa> query1 = _context.Empresas;
-
-            if (empresaId == 0 && master)
-                query1 = query1
-                    .AsNoTracking();
-            else
-                query1 = query1
-                    .AsNoTracking()
-                    .Where(e => e.Id == empresaId);
-
-            _dashEmpresa.CountEmpresas = query1.Count<Empresa>();   
-
-            IQueryable<Empresa> query2 = _context.Empresas;
-
-            if (empresaId == 0 && master)
-                query2 = query2
-                    .AsNoTracking()
-                    .Where(e => e.Filial);
-            else
-                query2 = query2
-                    .AsNoTracking()
-                    .Where(e => e.Filial && e.Id == empresaId );
-
-            _dashEmpresa.CountFiliais = query2.Count<Empresa>();
-
-
-            IQueryable<Empresa> query3 = _context.Empresas;
-
-            if (empresaId == 0 && master)
-                query3 = query3
-                    .AsNoTracking()
-                    .Where(e => e.Ativa);
-            else
-                query3 = query3
-                    .AsNoTracking()
-                    .Where(e => e.Ativa && e.Id == empresaId );
-
-            _dashEmpresa.CountEmpresasAtivas = query3.Count<Empresa>();
-
-            IQueryable<Empresa> query4 = _context.Empresas;
-
-            if (empresaId == 0 && master)
-                query4 = query4
-                    .AsNoTracking()
-                    .Where(e => e.Filial && e.Ativa);
-            else
-                query4 = query4
-                    .AsNoTracking()
-                    .Where(e => e.Filial && e.Ativa && e.Id == empresaId );
-                    
-           _dashEmpresa.CountFiliaisAtivas = query4.Count<Empresa>();   
-
-            return _dashEmpresa;
         }
 
     }

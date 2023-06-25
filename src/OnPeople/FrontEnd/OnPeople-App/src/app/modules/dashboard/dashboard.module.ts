@@ -8,11 +8,12 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { NgModule, } from '@angular/core';
 import { FormsModule,  } from '@angular/forms';
 
-import { NgChartsModule } from 'ng2-charts';
-
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { TitlebarModule } from '../titlebar';
 import { DashCompanyComponent, DashGlobalComponent, DashboardComponent } from 'src/app/components';
+import { SpinnerModule } from '../spinner';
+import { GoogleChartsModule } from 'angular-google-charts';
+import { DashDepartmentComponent } from 'src/app/components/dashboard/dashDepartment';
 
 
 
@@ -22,23 +23,26 @@ imports: [
   BrowserAnimationsModule,
   BrowserModule,
   FormsModule,
-  NgChartsModule,
+  GoogleChartsModule,
   MatCardModule,
   MatIconModule,
   MatInputModule,
   MatSelectModule,
   MatTabsModule,
+  SpinnerModule,
   TitlebarModule,
 ],
 declarations: [
   DashboardComponent,
-  DashGlobalComponent,
   DashCompanyComponent,
+  DashDepartmentComponent,
+  DashGlobalComponent,
 ],
 exports: [
   DashboardComponent,
-  DashGlobalComponent,
   DashCompanyComponent,
+  DashDepartmentComponent,
+  DashGlobalComponent,
 ],
   providers: [
 ],

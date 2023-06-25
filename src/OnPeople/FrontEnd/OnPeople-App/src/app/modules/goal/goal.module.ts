@@ -8,7 +8,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { NgModule } from '@angular/core';
 import { NgbCollapseModule, NgbPaginationModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { FilterPipeModule } from 'ngx-filter-pipe';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { AppRoutingModule } from 'src/app/app-routing.module';
@@ -21,13 +20,13 @@ import { GoalService } from 'src/app/services';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { FilterPipeModule } from 'ngx-filter-pipe';
 
 @NgModule({
   imports: [
     AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
-    FilterPipeModule,
     FormsModule,
     MatDatepickerModule,
     MatIconModule,
@@ -38,7 +37,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatToolbarModule,
     NgbCollapseModule,
     NgbPaginationModule,
-    NgbTooltipModule,
     NgxSpinnerModule,
     ReactiveFormsModule,
     TitlebarModule,
