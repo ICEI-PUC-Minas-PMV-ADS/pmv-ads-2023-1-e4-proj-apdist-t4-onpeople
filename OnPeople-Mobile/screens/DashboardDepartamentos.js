@@ -10,11 +10,11 @@ Icon.loadFont();
 const DashboardDepartamentos = () => {
 
   const route = useRoute();
-  const { userId } = route.params; // Obtenha o userId dos parâmetros da rota
+  const { userId } = route.params;
 
   const [user, setUser] = useState(null);
   const navigation = useNavigation();
-  const userPhoto = require('../assets/usr-placeholder.png'); // Substitua pelo caminho da imagem do usuário
+  const userPhoto = require('../assets/usr-placeholder.png');
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [selectedOption, setSelectedOption] = useState('');
   const [departamentos, setDepartamentos] = useState('');

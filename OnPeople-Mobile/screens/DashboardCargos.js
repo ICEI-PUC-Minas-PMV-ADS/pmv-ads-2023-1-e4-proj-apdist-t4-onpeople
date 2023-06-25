@@ -10,7 +10,7 @@ Icon.loadFont();
 
 const DashboardCargos = () => {
   const route = useRoute();
-  const { userId } = route.params; // Obtenha o userId dos parâmetros da rota
+  const { userId } = route.params;
 
   const [cargos, setCargos] = useState([]);
   const [user, setUser] = useState(null);
@@ -38,7 +38,7 @@ const DashboardCargos = () => {
 
 
   const navigation = useNavigation();
-  const userPhoto = require('../assets/usr-placeholder.png'); // Substitua pelo caminho da imagem do usuário
+  const userPhoto = require('../assets/usr-placeholder.png');
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [selectedOption, setSelectedOption] = useState('');
 
@@ -47,7 +47,7 @@ const DashboardCargos = () => {
     navigateToScreen(option);
   };
 
-  // Função para gerar uma cor aleatória em formato hexadecimal
+
   const randomColor = () => {
     const letters = '0123456789ABCDEF';
     let color = '#';
@@ -57,7 +57,7 @@ const DashboardCargos = () => {
     return color;
   };
 
-  // Função para gerar uma cor aleatória mais escura em formato hexadecimal
+
   const randomColorDark = () => {
     const letters = '0123456789ABCDEF';
     let color = '#';
@@ -67,23 +67,21 @@ const DashboardCargos = () => {
     return color;
   };
 
-  // Gerar cores aleatórias para os blocos
   const block1Color = isDarkMode ? randomColor() : randomColorDark();
   const block2Color = isDarkMode ? randomColor() : randomColorDark();
   const block3Color = isDarkMode ? randomColor() : randomColorDark();
   const block4Color = isDarkMode ? randomColor() : randomColorDark();
 
-  // Função para alternar entre light mode e dark mode
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
   };
 
   const handleLogout = () => {
-    navigation.navigate('Login', { userId }); // Navegar de volta para a tela de Login
+    navigation.navigate('Login', { userId });
   };
 
   const handleProfilePress = () => {
-    navigation.navigate('UserProfile', { userId }); // Navegar para a tela UserProfile.js
+    navigation.navigate('UserProfile', { userId });
   };
 
   const navigateToScreen = (option) => {

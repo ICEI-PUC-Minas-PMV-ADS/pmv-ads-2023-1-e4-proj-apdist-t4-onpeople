@@ -9,8 +9,7 @@ Icon.loadFont();
 const UserProfile = () => {
 
   const route = useRoute();
-  const { userId } = route.params; // Obtenha o userId dos parâmetros da rota
-
+  const { userId } = route.params;
   const [user, setUser] = useState(null);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const navigation = useNavigation();

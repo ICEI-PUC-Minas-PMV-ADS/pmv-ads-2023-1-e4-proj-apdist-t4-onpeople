@@ -13,7 +13,7 @@ Icon.loadFont();
 const DashboardEmpresa = () => {
 
   const route = useRoute();
-  const { userId } = route.params; // Obtenha o userId dos parâmetros da rota
+  const { userId } = route.params;
 
   const [empresas, setEmpresas] = useState([]);
   const [user, setUser] = useState(null);
