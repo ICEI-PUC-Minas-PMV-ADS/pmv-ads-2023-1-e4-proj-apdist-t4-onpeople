@@ -2,23 +2,30 @@ import api from './Api';
 
 const getEmpresas = async () => {
     try {
-        const response = await api.get('/Empresas');
-        return response.data;
+        const response = await api.get(`/Empresas/${0}/Dashboard`);
+        const { data } = response;
+
+        if (response.status == 200) {
+            const { countEmpresas,
+                countEmpresasAtivas,
+                countFiliais,
+                countFiliaisAtivas } = data;
+
+            return {
+                countEmpresas,
+                countEmpresasAtivas,
+                countFiliais,
+                countFiliaisAtivas
+            };
+        }
+
+        if (response.status !== 200) {
+            throw new Error('Erro ao obter as filiais');
+        }
     } catch (error) {
         throw error;
     }
 };
 
-const getNumeroEmpresasAtivas = async () => {
-    try {
-        const empresas = await getEmpresas(); // Reutiliza a função getEmpresas para obter os dados
-        const empresasAtivas = empresas.filter((empresa) => empresa.ativa);
 
-        return empresasAtivas.length;
-    } catch (error) {
-        console.error('Erro ao obter o número de empresas ativas:', error);
-        throw error;
-    }
-};
-
-export { getEmpresas, getNumeroEmpresasAtivas };
+export { getEmpresas };

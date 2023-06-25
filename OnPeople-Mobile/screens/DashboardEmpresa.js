@@ -1,45 +1,45 @@
-import React, { useState, useEffect, Alert } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, Switch } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import Dropdown from '../components/Dropdown/Dropdown';
 import { getEmpresas } from '../service/EmpresasService';
-import { getNumeroEmpresasAtivas } from '../service/EmpresasService';
+import { getUserProfile } from '../service/UserService';
+
+
 
 Icon.loadFont();
 
 const DashboardEmpresa = () => {
 
+  const route = useRoute();
+  const { userId } = route.params;
+
   const [empresas, setEmpresas] = useState([]);
-  const [numeroEmpresasAtivas, setNumeroEmpresasAtivas] = useState(0);
+  const [user, setUser] = useState(null);
 
-  const useFetchData = (fetchFunction, setterFunction) => {
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const data = await fetchFunction();
-          setterFunction(data);
-        } catch (error) {
-          console.error('Erro ao obter os dados:', error);
-        }
-      };
+  useEffect(() => {
+    const fetchEmpresas = async () => {
+      try {
 
-      fetchData();
-    }, []);
-  };
+        const userProfile = await getUserProfile(userId);
+        setUser(userProfile);
 
-  // Todas as empresas
-  useFetchData(getEmpresas, setEmpresas);
+        const empresaId = await getUserProfile(userId)?.empresaId;
 
-  // Verifica empresas ativas
-  useFetchData(getNumeroEmpresasAtivas, setNumeroEmpresasAtivas);
+        const DashboardEmpresas = await getEmpresas(empresaId);
+        setEmpresas(DashboardEmpresas);
+      } catch (error) {
+        console.error('Erro ao obter as empresas:', error);
+      }
+    };
+
+    fetchEmpresas();
+  }, [userId]);
 
   const navigation = useNavigation();
-
-  const userPhoto = require('../assets/user.jpg');
-
+  const userPhoto = require('../assets/usr-placeholder.png');
   const [isDarkMode, setIsDarkMode] = useState(false);
-
   const [selectedOption, setSelectedOption] = useState('');
 
   const handleOptionSelect = (option) => {
@@ -75,26 +75,26 @@ const DashboardEmpresa = () => {
   };
 
   const handleLogout = () => {
-    navigation.navigate('Login');
+    navigation.navigate('Login', { userId });
   };
 
   const handleProfilePress = () => {
-    navigation.navigate('UserProfile');
+    navigation.navigate('UserProfile', { userId });
   };
 
   const navigateToScreen = (option) => {
     switch (option) {
       case 'Empresas':
-        navigation.navigate('DashboardEmpresa');
+        navigation.navigate('DashboardEmpresa', { userId });
         break;
       case 'Metas':
-        navigation.navigate('DashboardMetas');
+        navigation.navigate('DashboardMetas', { userId });
         break;
       case 'Departamentos':
-        navigation.navigate('DashboardDepartamentos');
+        navigation.navigate('DashboardDepartamentos', { userId });
         break;
       case 'Cargos':
-        navigation.navigate('DashboardCargos');
+        navigation.navigate('DashboardCargos', { userId });
         break;
       default:
         break;
@@ -108,7 +108,7 @@ const DashboardEmpresa = () => {
           <Image source={userPhoto} style={styles.userPhoto} />
         </View>
         <View>
-          <Text style={[styles.userName, isDarkMode && styles.darkModeText]}>Arnel Pineda</Text>
+          <Text style={[styles.userName, isDarkMode && styles.darkModeText]}>{user?.nomeCompleto}</Text>
         </View>
       </TouchableOpacity>
 
@@ -122,7 +122,7 @@ const DashboardEmpresa = () => {
         <View style={styles.blockContent}>
           <Icon name="building" size={30} color={block1Color} style={styles.icon} />
           <View style={styles.blockText}>
-            <Text style={[styles.heading, { color: block1Color }]}>Total de empresas: {empresas.length}</Text>
+            <Text style={[styles.heading, { color: block1Color }]}>Total de empresas: {empresas?.countEmpresas}</Text>
             <Text style={[styles.subheading, { color: block1Color }]}></Text>
           </View>
         </View>
@@ -131,8 +131,8 @@ const DashboardEmpresa = () => {
         <View style={styles.blockContent}>
           <Icon name="check-square-o" size={30} color={block2Color} style={styles.icon} />
           <View style={styles.blockText}>
-            <Text style={[styles.heading, { color: block2Color }]}>Empresas ativas:  {numeroEmpresasAtivas}</Text>
-            <Text style={[styles.subheading, { color: block2Color }]}>Segundo bloco</Text>
+            <Text style={[styles.heading, { color: block2Color }]}>Empresas ativas:  {empresas?.countEmpresasAtivas}</Text>
+            <Text style={[styles.subheading, { color: block2Color }]}></Text>
           </View>
         </View>
       </View>
@@ -140,17 +140,18 @@ const DashboardEmpresa = () => {
         <View style={styles.blockContent}>
           <Icon name="star" size={30} color={block3Color} style={styles.icon} />
           <View style={styles.blockText}>
-            <Text style={[styles.heading, { color: block3Color }]}>Total de metas</Text>
-            <Text style={[styles.subheading, { color: block3Color }]}>Terceiro bloco</Text>
+            <Text style={[styles.heading, { color: block3Color }]}>Total Filiais: {empresas?.countFiliais} </Text>
+            <Text style={[styles.subheading, { color: block3Color }]}></Text>
           </View>
         </View>
+
       </View>
       <View style={[styles.block, { borderLeftColor: block4Color, shadowColor: block4Color }]}>
         <View style={styles.blockContent}>
           <Icon name="clock-o" size={30} color={block4Color} style={styles.icon} />
           <View style={styles.blockText}>
-            <Text style={[styles.heading, { color: block4Color }]}>Metas pendentes</Text>
-            <Text style={[styles.subheading, { color: block4Color }]}>Quarto bloco</Text>
+            <Text style={[styles.heading, { color: block4Color }]}>Filias Ativas:{empresas?.countFiliaisAtivas}</Text>
+            <Text style={[styles.subheading, { color: block4Color }]}></Text>
           </View>
         </View>
       </View>
