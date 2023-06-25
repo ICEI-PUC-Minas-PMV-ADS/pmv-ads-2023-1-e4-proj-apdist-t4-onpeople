@@ -17,13 +17,14 @@ import StyledLogotipo from '../components/Logo/StyledLogotipo';
 import LoginService from '../service/LoginService';
 
 
-const Login = ({ navigation }) => {
+const Login = ({ navigation, onLogin }) => {
   const [message, setMessage] = useState('');
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
-
+  let [userId, setUserId] = useState(0);
 
   const [isSuccessMessage, setIsSuccessMessage] = useState(false);
+
 
   const moveTo = (screen, payload) => {
     navigation.navigate(screen, { ...payload });
@@ -35,16 +36,22 @@ const Login = ({ navigation }) => {
 
       const response = await LoginService.login(userName, password);
 
+      userId = response?.data?.id;
+      setUserId(userId);
+
+      console.log(`O userid no Login é ${userId}`);
 
       if (response.status === 200) {
-        navigation.navigate('DashboardMetas');
+        navigation.navigate('DashboardMetas', { userId });
       }
 
+    }
+    catch (error) {
+
       if (response.status !== 200) {
-        throw new Error('Erro ao efetuar login');
+        throw new Error('Login não efetuado, contacte o administrador dos sistema!');
       }
-      console.log('Login bem-sucedido');
-    } catch (error) {
+
       console.error('Erro ao efetuar login:', error.message);
     } finally {
       setSubmitting(false);
