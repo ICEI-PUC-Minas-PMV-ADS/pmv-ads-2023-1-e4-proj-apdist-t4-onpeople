@@ -1,15 +1,27 @@
-import api from "./Api"
+import api from "./Api";
 
-class DepartamentosService {
-    async getDepartamentos() {
-        try {
-            const response = await api.get('/Departamentos');
-            const data = await response.json();
+const getDepartamentos = async (userId) => {
+    try {
+        const response = await api.get(`/Departamentos/${0}/Dashboard`);
+        const { data } = response;
 
-            return data.departamentos;
-        } catch (error) {
-            throw new Error('Erro ao obter os departamentos: ' + error.message);
+        if (response.status == 200) {
+            const { countDepartamentos,
+                countDepartamentosAtivos } = data;
+
+            return {
+                countDepartamentos,
+                countDepartamentosAtivos
+            };
         }
+
+        if (response.status !== 200) {
+            throw new Error('Erro ao obter as filiais');
+        }
+    } catch (error) {
+        throw error;
     }
-}
-export default DepartamentosService;
+};
+
+
+export { getDepartamentos };
