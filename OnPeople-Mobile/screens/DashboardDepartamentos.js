@@ -1,19 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, Switch } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import Dropdown from '../components/Dropdown/Dropdown';
-import api from '../service/Api';
-
+import { getDepartamentos } from '../service/DepartamentosService'
+import { getUserProfile } from '../service/UserService';
 
 Icon.loadFont();
 const DashboardDepartamentos = () => {
+
+  const route = useRoute();
+  const { userId } = route.params; // Obtenha o userId dos parâmetros da rota
+
+  const [user, setUser] = useState(null);
   const navigation = useNavigation();
   const userPhoto = require('../assets/usr-placeholder.png'); // Substitua pelo caminho da imagem do usuário
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [selectedOption, setSelectedOption] = useState('');
-  const [departamentos, setDepartamentos] = useState([]);
-  const [soma, setSoma] = useState('');
+  const [departamentos, setDepartamentos] = useState('');
 
   const handleOptionSelect = (option) => {
     setSelectedOption(option);
@@ -21,33 +25,24 @@ const DashboardDepartamentos = () => {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchDepartamentos = async () => {
       try {
-        const response = await api.get('/departamentos');
 
-        const departamentos = response.data;
+        const userProfile = await getUserProfile(userId);
+        setUser(userProfile);
 
-        let somaTotal = 0;
+        const departamentosId = await getUserProfile(userId)?.departamentosId;
 
-        departamentos.forEach((departamento) => {
-          const valor = parseFloat(departamento.valor); // Converter para número usando parseFloat
-          if (!isNaN(valor)) {
-            somaTotal += valor;
-          }
-        });
-
-        setSoma(somaTotal);
+        const DashboardDepartamentos = await getDepartamentos(departamentosId)
+        setDepartamentos(DashboardDepartamentos);
       } catch (error) {
-        console.log(error);
+        console.log('Erro ao obter os departamentos', error);
       }
     };
 
-    fetchData();
-  }, []);
+    fetchDepartamentos();
+  }, [userId]);
 
-
-
-  // Função para gerar uma cor aleatória em formato hexadecimal
   const randomColor = () => {
     const letters = '0123456789ABCDEF';
     let color = '#';
@@ -57,7 +52,6 @@ const DashboardDepartamentos = () => {
     return color;
   };
 
-  // Função para gerar uma cor aleatória mais escura em formato hexadecimal
   const randomColorDark = () => {
     const letters = '0123456789ABCDEF';
     let color = '#';
@@ -67,38 +61,36 @@ const DashboardDepartamentos = () => {
     return color;
   };
 
-  // Gerar cores aleatórias para os blocos
   const block1Color = isDarkMode ? randomColor() : randomColorDark();
   const block2Color = isDarkMode ? randomColor() : randomColorDark();
   const block3Color = isDarkMode ? randomColor() : randomColorDark();
   const block4Color = isDarkMode ? randomColor() : randomColorDark();
 
-  // Função para alternar entre light mode e dark mode
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
   };
 
   const handleLogout = () => {
-    navigation.navigate('Login'); // Navegar de volta para a tela de Login
+    navigation.navigate('Login', { userId });
   };
 
   const handleProfilePress = () => {
-    navigation.navigate('UserProfile'); // Navegar para a tela UserProfile.js
+    navigation.navigate('UserProfile', { userId });
   };
 
   const navigateToScreen = (option) => {
     switch (option) {
       case 'Empresas':
-        navigation.navigate('DashboardEmpresa');
+        navigation.navigate('DashboardEmpresa', { userId });
         break;
       case 'Metas':
-        navigation.navigate('DashboardMetas');
+        navigation.navigate('DashboardMetas', { userId });
         break;
       case 'Departamentos':
-        navigation.navigate('DashboardDepartamentos');
+        navigation.navigate('DashboardDepartamentos', { userId });
         break;
       case 'Cargos':
-        navigation.navigate('DashboardCargos');
+        navigation.navigate('DashboardCargos', { userId });
         break;
       default:
         break;
@@ -112,7 +104,7 @@ const DashboardDepartamentos = () => {
           <Image source={userPhoto} style={styles.userPhoto} />
         </View>
         <View>
-          <Text style={[styles.userName, isDarkMode && styles.darkModeText]}>Arnel Pineda</Text>
+          <Text style={[styles.userName, isDarkMode && styles.darkModeText]}>{user?.nomeCompleto}</Text>
         </View>
       </TouchableOpacity>
 
@@ -126,39 +118,20 @@ const DashboardDepartamentos = () => {
         <View style={styles.blockContent}>
           <Icon name="building" size={30} color={block1Color} style={styles.icon} />
           <View style={styles.blockText}>
-            <Text style={[styles.heading, { color: block1Color }]}>Total de departamentos:{soma} </Text>
+            <Text style={[styles.heading, { color: block1Color }]}>Total de departamentos:{departamentos?.countDepartamentos} </Text>
             <Text style={[styles.subheading, { color: block1Color }]}></Text>
           </View>
-        </View>
+        </View>,
       </View>
       <View style={[styles.block, { borderLeftColor: block2Color, shadowColor: block2Color }]}>
         <View style={styles.blockContent}>
           <Icon name="check-square-o" size={30} color={block2Color} style={styles.icon} />
           <View style={styles.blockText}>
-            <Text style={[styles.heading, { color: block2Color }]}>Departamentos ativos</Text>
-            <Text style={[styles.subheading, { color: block2Color }]}>Segundo bloco</Text>
+            <Text style={[styles.heading, { color: block2Color }]}>Departamentos ativos: {departamentos?.countDepartamentosAtivos} </Text>
+            <Text style={[styles.subheading, { color: block2Color }]}></Text>
           </View>
         </View>
       </View>
-      <View style={[styles.block, { borderLeftColor: block3Color, shadowColor: block3Color }]}>
-        <View style={styles.blockContent}>
-          <Icon name="star" size={30} color={block3Color} style={styles.icon} />
-          <View style={styles.blockText}>
-            <Text style={[styles.heading, { color: block3Color }]}>Total de metas</Text>
-            <Text style={[styles.subheading, { color: block3Color }]}>Terceiro bloco</Text>
-          </View>
-        </View>
-      </View>
-      <View style={[styles.block, { borderLeftColor: block4Color, shadowColor: block4Color }]}>
-        <View style={styles.blockContent}>
-          <Icon name="clock-o" size={30} color={block4Color} style={styles.icon} />
-          <View style={styles.blockText}>
-            <Text style={[styles.heading, { color: block4Color }]}>Metas pendentes</Text>
-            <Text style={[styles.subheading, { color: block4Color }]}>Quarto bloco</Text>
-          </View>
-        </View>
-      </View>
-
       <View style={styles.buttonContainer}>
         <View style={styles.switchContainer}>
           <Icon name={isDarkMode ? 'moon-o' : 'sun-o'} size={25} color={isDarkMode ? '#FFFFFF' : '#5A5A5A'} style={{ marginRight: 5 }} />
