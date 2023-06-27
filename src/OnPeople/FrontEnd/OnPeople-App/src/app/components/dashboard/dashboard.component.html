@@ -9,6 +9,10 @@
     <div class="h3">Global Dashboard</div>
   </div>
   <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" >
+    <mat-tab label="Empresa" >
+      <app-dashCompany> </app-dashCompany>
+      <router-outlet></router-outlet>
+    </mat-tab>
     <mat-tab label="Global">
       <app-dashGlobal> </app-dashGlobal>
       <router-outlet></router-outlet>
