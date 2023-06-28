@@ -1,21 +1,20 @@
-import { Component, OnInit, ViewChild  } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ChartType } from 'angular-google-charts';
 import { ToastrService } from 'ngx-toastr';
-import { CompanyService } from 'src/app/services';
-import { DashboardCompany, QuantitativeDash } from 'src/app/shared/class/dashboard';
-
+import { JobRoleService } from 'src/app/services';
+import { DashboardJobRole, QuantitativeDash } from 'src/app/shared/class/dashboard';
 import { ListaMetas } from 'src/app/shared/class/dashboard/ListaMetas';
 import { environment } from 'src/assets/environments';
 
 @Component({
-  selector: 'app-dashCompany',
-  templateUrl: './dashCompany.component.html',
-  styleUrls: ['./dashCompany.component.scss']
+  selector: 'app-dashJobRole',
+  templateUrl: './dashJobRole.component.html',
+  styleUrls: ['./dashJobRole.component.scss']
 })
-export class DashCompanyComponent implements OnInit {
+export class DashJobRoleComponent implements OnInit {
   public spinnerShow: boolean = false;
 
-  public dashCompany: DashboardCompany;
+  public dashJobRole: DashboardJobRole;
 
   public dashGoals: ListaMetas[] = []
 
@@ -24,38 +23,32 @@ export class DashCompanyComponent implements OnInit {
 
   public colors: string[] = [];
 
-  public barChartOptions = {
-    responsive: true,
-    scaleShowVerticalLines: false
-  }
-
   public titleColumnChart = "Quantidade de departamentos por empresa";
   public typeColumnChart = "PieChart" as ChartType;
   public columnNamesChart = ['Empresa', "Departamentos", { role: "annotation" }]
-  public options = {pieHole:0.4};
+  public options = {     pieHole:0.4};
   public width = environment.charWidth;
   public height = environment.chartHeight;
 
   public chartData: any[] = [];
-
   constructor(
-    private companyService: CompanyService,
+    private jobRoleService: JobRoleService,
     private toastrService: ToastrService,
   ) { }
 
   ngOnInit() {
-    this.loadDashboardCompany();
+    this.loadDashboardJobRole();
   }
 
-  public loadDashboardCompany(): void {
+  public loadDashboardJobRole(): void {
     this.spinnerShow = true;
 
-    this.companyService
-      .getDashCompany(0)
+    this.jobRoleService
+      .getDashJobRole(0, 0, 0)
       .subscribe(
-        (dashCompany: DashboardCompany) => {
-          this.dashCompany = dashCompany
-          this.montarChart();
+        (dashJobRole: DashboardJobRole) => {
+          this.dashJobRole = dashJobRole
+            this.montarChart();
           this.loadDashMetas();
         },
         (error: any) => {
@@ -67,8 +60,8 @@ export class DashCompanyComponent implements OnInit {
   }
 
   public montarChart(): void {
-    this.dashCompany.listaNomeEmpresa.forEach((item , i) => {
-      this.chartData.push([item, this.dashCompany.listaQtdeDepartamentos[i]])
+    this.dashJobRole.listaNomeCargo.forEach((item , i) => {
+      this.chartData.push([item, this.dashJobRole.listaQtdeFuncionarios[i]])
     })
 
   }
@@ -76,12 +69,12 @@ export class DashCompanyComponent implements OnInit {
   public loadDashMetas(): void {
     this.spinnerShow = true;
 
-    this.companyService
-      .getDashGoals(0)
+    this. jobRoleService
+      .getDashJobRoleGoals(0, 0, 0)
       .subscribe(
         (dashGoals: ListaMetas[]) => {
           this.dashGoals = dashGoals
-          this.goalsByCompany();
+          this.goalsByJobRole();
         },
         (error: any) => {
           this.toastrService.error(error.error, `Erro! Status ${error.status}`);
@@ -91,7 +84,7 @@ export class DashCompanyComponent implements OnInit {
       .add(() => this.spinnerShow = false)
   }
 
-  public goalsByCompany(): void {
+  public goalsByJobRole(): void {
     var listGoalsPerform: QuantitativeDash[] = [];
     var listGoalsNotPerform: QuantitativeDash[] = [];
     var sortListGoalsPerform: QuantitativeDash[] = [];
@@ -145,6 +138,5 @@ export class DashCompanyComponent implements OnInit {
       this.colors[i] = this.generateColor();
     }
   }
+
 }
-
-

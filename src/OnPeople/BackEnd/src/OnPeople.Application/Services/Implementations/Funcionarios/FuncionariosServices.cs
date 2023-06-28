@@ -14,6 +14,7 @@ namespace OnPeople.Application.Services.Implementations.Funcionarios
     {
         private readonly IFuncionariosPersistence _funcionariosPersistence;
         private readonly DashboardFuncionarios _dashFuncionario = new();
+        private readonly DashboardFuncionariosMetas _dashMetas = new();
         private readonly PageParameters _pageParameters = new();
         private readonly IMapper _mapper;
         public FuncionariosServices(
@@ -46,11 +47,11 @@ namespace OnPeople.Application.Services.Implementations.Funcionarios
             }
         }
 
-        public async Task<PageList<ReadFuncionarioDto>> GetAllFuncionarios(PageParameters pageParameters, int empresaId, int departamentoId, int cargoId)
+        public async Task<PageList<ReadFuncionarioDto>> GetAllFuncionarios(PageParameters pageParameters, int empresaId, int departamentoId, int cargoId, int funcionarioId)
         {
             try
             {
-                var funcionarios = await _funcionariosPersistence.GetAllFuncionariosAsync(pageParameters, empresaId, departamentoId, cargoId);
+                var funcionarios = await _funcionariosPersistence.GetAllFuncionariosAsync(pageParameters, empresaId, departamentoId, cargoId, funcionarioId);
 
                 if (funcionarios == null) return null;
 
@@ -169,14 +170,14 @@ namespace OnPeople.Application.Services.Implementations.Funcionarios
                 throw new Exception(e.Message);
             }
         }
-       public async Task<DashboardFuncionarios> GetDashboardFuncionario(int empresaId, int departamentoId, int cargoId)
+       public async Task<DashboardFuncionarios> GetDashboardFuncionario(int empresaId, int departamentoId, int cargoId, int funcionarioId)
         {
             try
             {
                 _pageParameters.PageSize = 1000;
                 _pageParameters.PageNumber = 1;
 
-                var funcionarios = await _funcionariosPersistence.GetAllFuncionariosAsync(_pageParameters, empresaId, departamentoId, cargoId);
+                var funcionarios = await _funcionariosPersistence.GetAllFuncionariosAsync(_pageParameters, empresaId, departamentoId, cargoId, funcionarioId);
                 
                 if (funcionarios == null) return null;
                     
@@ -192,14 +193,14 @@ namespace OnPeople.Application.Services.Implementations.Funcionarios
             }
         }
 
-        public async Task<List<ListaMetas>> GetDashboardFuncionarioMetas(int empresaId, int departamentoId, int cargoId)
+        public async Task<List<ListaMetas>> GetDashboardFuncionarioMetas(int empresaId, int departamentoId, int cargoId, int funcionarioId)
         {
             try
             {
                 _pageParameters.PageSize = 1000;
                 _pageParameters.PageNumber = 1;
 
-                 var funcionarios = await _funcionariosPersistence.GetAllFuncionariosAsync(_pageParameters, empresaId, departamentoId, cargoId);
+                 var funcionarios = await _funcionariosPersistence.GetAllFuncionariosAsync(_pageParameters, empresaId, departamentoId, cargoId, funcionarioId);
 
                 if (funcionarios == null)
                     return new List<ListaMetas>();
@@ -219,6 +220,29 @@ namespace OnPeople.Application.Services.Implementations.Funcionarios
             { 
                 throw new Exception(e.Message);
             }
-        }      
+        }     
+
+        public async Task<DashboardFuncionariosMetas> GetDashboardMetas(int empresaId, int departamentoId, int cargoId, int funcionarioId)
+        {
+            try
+            {
+                _pageParameters.PageSize = 1000;
+                _pageParameters.PageNumber = 1;
+
+                var funcionarios = await _funcionariosPersistence.GetAllFuncionariosAsync(_pageParameters, empresaId, departamentoId, cargoId, funcionarioId);
+                
+                if (funcionarios == null) return null;
+                    
+                _dashMetas.CountMetasAssociadas = funcionarios.Sum(f => f.FuncionariosMetas.Count());
+                _dashMetas.CountMetasCumpridas = funcionarios.Sum(f => f.FuncionariosMetas.Count(f => f.MetaCumprida));
+                
+                _dashMetas.PercentualMetasCumpridas =  100.00 * ((double)_dashMetas.CountMetasCumpridas)  / ((double)_dashMetas.CountMetasAssociadas);
+                return _dashMetas;
+            }
+            catch (Exception e)
+            { 
+                throw new Exception(e.Message);
+            }
+        } 
     }
 }

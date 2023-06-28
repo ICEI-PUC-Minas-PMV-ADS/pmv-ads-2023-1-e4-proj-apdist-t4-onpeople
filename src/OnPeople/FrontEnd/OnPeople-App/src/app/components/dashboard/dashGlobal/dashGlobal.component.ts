@@ -36,6 +36,8 @@ import { environment } from 'src/assets/environments';
   styleUrls: ['./dashGlobal.component.scss']
 })
 export class DashGlobalComponent implements OnInit {
+  public spinnerShow: boolean = false;
+
   public color: any = "";
 
   public totCompany = 0;
@@ -94,7 +96,6 @@ export class DashGlobalComponent implements OnInit {
     private employeeGoalAssociateService: EmployeeGoalAssociateService,
     private goalService: GoalService,
     private jobRoleService: JobRoleService,
-    private spinnerService: NgxSpinnerService,
     private toastrService: ToastrService,
   ) { }
 
@@ -103,7 +104,7 @@ export class DashGlobalComponent implements OnInit {
   }
 
   public getCompanies(): void {
-    this.spinnerService.show();
+    this.spinnerShow = true;;
 
     this.companyService
       .getCompanies(environment.initialPageDefault, environment.totalPagesDefault)
@@ -130,11 +131,11 @@ export class DashGlobalComponent implements OnInit {
           console.error(error);
         }
         )
-        .add(() => this.spinnerService.hide())
+        .add(() => this.spinnerShow = false)
   }
 
   public changeSelectCompany(): void {
-    this.spinnerService.show()
+    this.spinnerShow = true;
 
     this.companyService
       .getDashCompany(this.selectCompanyId)
@@ -153,14 +154,16 @@ export class DashGlobalComponent implements OnInit {
             this.totPercActiveSubsidiary2 = +(this.dashboardCompany.percentualFiliaisAtivas2).toFixed(2)
 
             this.getDepartments(this.selectCompanyId);
-            this.getGoals(this.selectCompanyId);
+//            this.getGoals(this.selectCompanyId);
           }
         }
       )
-      .add(() => this.spinnerService.hide())
+      .add(() => this.spinnerShow = false)
   }
 
   public getDepartments(companyId: number): void {
+    this.spinnerShow = true;
+
     this.departmentService
       .getDepartmentsByCompanyId(companyId)
       .subscribe(
@@ -180,30 +183,33 @@ export class DashGlobalComponent implements OnInit {
 
       }
     )
-    .add(() => this.spinnerService.hide())
+    .add(() => this.spinnerShow = false)
   }
 
   public changeSelectDepartment(): void {
-    this.spinnerService.show()
+    this.spinnerShow = true;
 
     this.departmentService
-      .getDashDepartment (this.selectCompanyId)
+      .getDashDepartment (this.selectCompanyId, this.selectDepartmentId)
       .subscribe(
         (returnDash: DashboardDepartment) => {
           this.dashboardDepartment = returnDash;
+          console.log("dashDepartment ", this.dashboardDepartment)
           if (this.dashboardDepartment !== null) {
             this.totDepartment = this.dashboardDepartment.countDepartamentos;
             this.totActiveDepartment = this.dashboardDepartment.countDepartamentosAtivos;
-            this.totPercActiveDepartment = +(this.totActiveDepartment / this.totDepartment * 100).toFixed(2)
+            this.totPercActiveDepartment = +(this.dashboardDepartment.percentualDepartamentosAtivos).toFixed(2)
 
             this.getJobRoles(this.selectDepartmentId);
           }
         }
       )
-      .add(() => this.spinnerService.hide())
+      .add(() => this.spinnerShow = false)
   }
 
   public getJobRoles(departmentId: number): void {
+    this.spinnerShow = true;
+
     this.jobRoleService
       .getJobRoleByDepartmentId(departmentId)
       .subscribe(
@@ -218,28 +224,31 @@ export class DashGlobalComponent implements OnInit {
 
             this.selectJobRoleId = this.jobRoles[0].id;
           }
-            this.changeSelectJobRole()
+          this.changeSelectJobRole()
       }
     )
-    .add(() => this.spinnerService.hide())
+    .add(() => this.spinnerShow = false)
   }
 
   public changeSelectJobRole(): void {
+    this.spinnerShow = true;
+
     this.jobRoleService
-      .CountJobRole(this.selectDepartmentId)
+      .getDashJobRole(this.selectCompanyId, this.selectDepartmentId, this.selectJobRoleId)
       .subscribe(
         (returnDash: DashboardJobRole) => {
           this.dashboardJobRole = returnDash;
+          console.log("dashJobRole", this.dashboardJobRole)
           if (this.dashboardJobRole !== null) {
             this.totJobRole = this.dashboardJobRole.countCargos;
             this.totActiveJobRole = this.dashboardJobRole.countCargosAtivos;
-            this.totPercActiveJobRole = +(this.totActiveJobRole / this.totJobRole * 100).toFixed(2)
+            this.totPercActiveJobRole = this.dashboardJobRole.percentualCargosAtvios;
 
             this.getEmployees(this.selectJobRoleId);
           }
         }
       )
-      .add(() => this.spinnerService.hide())
+      .add(() => this.spinnerShow = false)
   }
 
   public getEmployees(jobRoleId: number): void {
@@ -259,15 +268,16 @@ export class DashGlobalComponent implements OnInit {
             this.changeSelectEmployee()
       }
     )
-    .add(() => this.spinnerService.hide())
+    .add(() => this.spinnerShow = false)
   }
 
   public changeSelectEmployee(): void {
     this.employeeService
-      .countEmployee(this.selectJobRoleId)
+      .getDashEmployee(this.selectCompanyId, this.selectDepartmentId, this.selectJobRoleId, this.selectEmployeeId)
       .subscribe(
         (returnDash: DashboardEmployee) => {
           this.dashboardEmployee = returnDash;
+          console.log("dashboardEmployee", this.dashboardEmployee)
           if (this.dashboardEmployee !== null) {
             this.totEmployee = this.dashboardEmployee.countFuncionarios;
 
@@ -275,9 +285,9 @@ export class DashGlobalComponent implements OnInit {
           }
         }
       )
-      .add(() => this.spinnerService.hide())
+      .add(() => this.spinnerShow = false)
   }
-
+/*
   public getGoals(companyId: number): void {
     this.goalService
       .getGoalByCompanyId(companyId)
@@ -296,27 +306,25 @@ export class DashGlobalComponent implements OnInit {
             this.changeSelectGoal()
       }
     )
-    .add(() => this.spinnerService.hide())
+    .add(() => this.spinnerShow = false)
   }
 
   public changeSelectGoal(): void {
-    this.goalService
-      .countGoal(this.selectCompanyId)
+    this.employeeService
+      .getDashGoal(this.selectCompanyId, this.selectDepartmentId, this.selectJobRoleId, this.selectEmployeeId)
       .subscribe(
         (returnDash: DashboardGoal) => {
           this.dashboardGoal = returnDash;
           if (this.dashboardGoal !== null) {
-            this.totGoal = this.dashboardGoal.countMetas;
-            this.totMetGoal = this.dashboardGoal.countMetasCumpridas;
-            this.totApprovedGoal = this.dashboardGoal.countMetasAprovadas;
-            this.totPercMetGoal = +(this.totMetGoal / this.totGoal * 100).toFixed(2)
-            this.totPercApprovedGoal = +(this.totApprovedGoal / this.totGoal * 100).toFixed(2)
+            this.totAssociateGoal = this.dashboardGoal.countMetas;
+            this.totMetAssociateGoal = this.dashboardGoal.countMetasCumpridas;
+            this.totPercMetAssociateGoal = +(this.dashboardGoal.PercentualMetasCumpridas).toFixed(2)
           }
         }
       )
-      .add(() => this.spinnerService.hide())
+      .add(() => this.spinnerShow = false)
   }
-
+*/
     public getEmployeesGoals(employeeId: number): void {
     this.employeeGoalAssociateService
       .getGoalsByEmployeeId(employeeId)
@@ -326,8 +334,8 @@ export class DashGlobalComponent implements OnInit {
           console.log(employeeGoals)
           if (this.employeeGoals.length == 0) {
             this.selectAssociatedGoalId = 0;
-            //this.dashboardEmployeeGoal.countMetasAssociadas = 0;
-            //this.dashboardEmployeeGoal.countMetasCumpridas = 0;
+            this.dashboardEmployeeGoal.countMetasAssociadas = 0;
+            this.dashboardEmployeeGoal.countMetasCumpridas = 0;
 
           } else {
 
@@ -336,23 +344,24 @@ export class DashGlobalComponent implements OnInit {
             this.changeSelectEmployeeGoal()
       }
     )
-    .add(() => this.spinnerService.hide())
+    .add(() => this.spinnerShow = false)
   }
 
   public changeSelectEmployeeGoal(): void {
-    this.employeeGoalAssociateService
-      .countEmployeeGoal(this.selectEmployeeId)
+    this.employeeService
+      .getDashGoal(this.selectCompanyId, this.selectDepartmentId, this.selectJobRoleId, this.selectEmployeeId)
       .subscribe(
         (returnDash: DashboardEmployeeGoal) => {
           this.dashboardEmployeeGoal = returnDash;
+          console.log("dashboardEmployeeGoal", this.dashboardEmployeeGoal)
           if (this.dashboardEmployeeGoal !== null) {
             this.totAssociateGoal = this.dashboardEmployeeGoal.countMetasAssociadas;
             this.totMetAssociateGoal = this.dashboardEmployeeGoal.countMetasCumpridas;
-            this.totPercMetAssociateGoal = +(this.totMetAssociateGoal / this.totAssociateGoal * 100).toFixed(2);
+            this.totPercMetAssociateGoal = +(this.dashboardEmployeeGoal.percentualMetasCumpridas).toFixed(2);
           }
         }
       )
-      .add(() => this.spinnerService.hide())
+      .add(() => this.spinnerShow = false)
   }
   public newColor(): any {
     return 'color: ' + RandomColors.colorsGenerate();

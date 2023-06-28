@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+
 using OnPeople.API.Extensions.Pages;
 using OnPeople.API.Extensions.Users;
 using OnPeople.Application.Dtos.Departamentos;
@@ -86,7 +87,7 @@ public class DepartamentosController : ControllerBase
             if (userLogged == null)
                 return Unauthorized();
 
-            var departamentos = await _departamentosServices.GetAllDepartamentosAsync(pageParameters, userLogged.CodEmpresa, userLogged.Master);
+            var departamentos = await _departamentosServices.GetAllDepartamentosAsync(pageParameters, userLogged.CodEmpresa, userLogged.CodDepartamento, userLogged.Master);
 
             if (departamentos == null) return NotFound("A empresa informada não possui departamentos cadastrados.");
 
@@ -247,14 +248,15 @@ public class DepartamentosController : ControllerBase
     /// Realiza a consulta estatística de departamento
     /// </summary>
     /// <param name="empresaId">Identificador da empresa (pode zero para buscar todas)</param>
+    /// <param name="departamentoId">Identificador do departamento (pode zero para buscar todas)</param>
     /// <response code="200">Dashboard de empresas consultado</response>
     /// <response code="400">Parâmetros incorretos</response>
     /// <response code="500">Erro interno</response>
     
-    [HttpGet("{empresaId}/DashboardDepartamentos")]
-    public Task<DashboardDepartamento> GetDashboardDepartamento(int empresaId)
+    [HttpGet("{empresaId}/{departamentoId}/DashboardDepartamentos")]
+    public Task<DashboardDepartamento> GetDashboardDepartamento(int empresaId, int departamentoId)
     {     
-        var dashboardDepartamento = _departamentosServices.GetDashboardDepartamento(empresaId, User.GetMasterClaim());
+        var dashboardDepartamento = _departamentosServices.GetDashboardDepartamento(empresaId, departamentoId, User.GetMasterClaim());
 
         return dashboardDepartamento;
     }
@@ -263,14 +265,15 @@ public class DepartamentosController : ControllerBase
     /// Realiza a consulta estatística de metas por departamento
     /// </summary>
     /// <param name="empresaId">Identificador da empresa (pode zero para buscar todas)</param>
+    /// <param name="departamentoId">Identificador da departamento (pode zero para buscar todas)</param>
     /// <response code="200">Dashboard de empresas consultado</response>
     /// <response code="400">Parâmetros incorretos</response>
     /// <response code="500">Erro interno</response>
     
-    [HttpGet("{empresaId}/DashboardDepartamentoMetas")]
-    public Task<List<ListaMetas>> GetDashboardDepartamentoMetas(int empresaId)
+    [HttpGet("{empresaId}/{departamentoId}/DashboardDepartamentoMetas")]
+    public Task<List<ListaMetas>> GetDashboardDepartamentoMetas(int empresaId, int departamentoId)
     {     
-        var listaMetas = _departamentosServices.GetDashboardDepartamentoMetas(empresaId, User.GetMasterClaim());
+        var listaMetas = _departamentosServices.GetDashboardDepartamentoMetas(empresaId, departamentoId, User.GetMasterClaim());
 
         return listaMetas;
     }

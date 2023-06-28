@@ -50,7 +50,7 @@ public class CargosController : ControllerBase
             if (userLogged == null)
                 return Unauthorized();
                             
-            var cargos = await _cargosServices.GetAllCargosAsync(pageParameters, userLogged.CodEmpresa, userLogged.CodDepartamento);
+            var cargos = await _cargosServices.GetAllCargosAsync(pageParameters, userLogged.CodEmpresa, userLogged.CodDepartamento, userLogged.CodCargo);
 
             if (cargos == null) return NotFound("Nenhum cargo foi encontrado.");
 
@@ -229,15 +229,17 @@ public class CargosController : ControllerBase
     /// <summary>
     /// Realiza a consulta estatística de cargos
     /// </summary>
+    /// <param name="empresaId">Identificador de empresa</param>
     /// <param name="departamentoId">Identificador de departamento</param>
+    /// <param name="cargoId">Identificador de cargo</param>
     /// <response code="200">Dashboard de empresas consultado</response>
     /// <response code="400">Parâmetros incorretos</response>
     /// <response code="500">Erro interno</response>
     
-    [HttpGet("{departamentoId}/DashboardCargos")]
-    public Task<DashboardCargos> GetDashboardCargos(int departamentoId)
+    [HttpGet("{empresaId}/{departamentoId}/{cargoId}/DashboardCargos")]
+    public Task<DashboardCargos> GetDashboardCargos(int empresaId, int departamentoId, int cargoId)
     {     
-        var dashboardCargo = _cargosServices.GetDashboardCArgos(0, departamentoId);
+        var dashboardCargo = _cargosServices.GetDashboardCArgos(empresaId, departamentoId, cargoId);
 
         return dashboardCargo;
     }
@@ -245,15 +247,17 @@ public class CargosController : ControllerBase
     /// <summary>
     /// Realiza a consulta estatística de metas por cargos
     /// </summary>
+    /// <param name="empresaId">Identificador de empresa</param>
     /// <param name="departamentoId">Identificador de departamento</param>
+    /// <param name="cargoId">Identificador de cargo</param>
     /// <response code="200">Dashboard de empresas consultado</response>
     /// <response code="400">Parâmetros incorretos</response>
     /// <response code="500">Erro interno</response>
     
-    [HttpGet("{departamentoId}/DashboardCargoMetas")]
-    public Task<List<ListaMetas>> GetDashboardCargosMetas(int departamentoId)
+    [HttpGet("{empresaId}/{departamentoId}/{cargoId}/DashboardCargoMetas")]
+    public Task<List<ListaMetas>> GetDashboardCargosMetas(int empresaId, int departamentoId, int cargoId)
     {     
-        var listaMetas = _cargosServices.GetDashboardCargoMetas(0, departamentoId);
+        var listaMetas = _cargosServices.GetDashboardCargoMetas(empresaId, departamentoId, cargoId);
 
         return listaMetas;
     }

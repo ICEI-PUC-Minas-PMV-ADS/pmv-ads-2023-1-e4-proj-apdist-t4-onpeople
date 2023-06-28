@@ -18,29 +18,30 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Departamentos
             _context = context;
 
         }
-        public async Task<PageList<Departamento>> GetAllDepartamentosAsync(PageParameters pageParameters, int empresaId, bool Master)
+        public async Task<PageList<Departamento>> GetAllDepartamentosAsync(PageParameters pageParameters, int empresaId, int departamentoId, bool Master)
         {
             IQueryable<Departamento> query = _context.Departamentos
             .Include(d => d.Empresa)
             .Include(d => d.Cargos)
             .Include(d => d.Funcionarios)
-                .ThenInclude(d => d.FuncionariosMetas);
+                .ThenInclude(d => d.FuncionariosMetas)
+            .AsNoTracking()
+            .OrderBy(d => d.Id);
 
-            if (empresaId == 0 && Master) {
+            if (empresaId != 0 && departamentoId != 0) {
                 query = query
-                    .AsNoTracking()
-                    .OrderBy(d => d.Id)
-                    .Where(d => d.NomeDepartamento.ToLower().Contains(pageParameters.Term.ToLower()) ||
-                           d.Sigla.ToLower().Contains(pageParameters.Term.ToLower())
-                );
+                    .Where(d => d.Id == departamentoId && d.EmpresaId == empresaId && (
+                        d.NomeDepartamento.ToLower().Contains(pageParameters.Term.ToLower()) ||
+                        d.Sigla.ToLower().Contains(pageParameters.Term.ToLower())));
+            } else if(departamentoId != 0) {
+                query = query
+                    .Where(d => d.Id == departamentoId && (
+                        d.NomeDepartamento.ToLower().Contains(pageParameters.Term.ToLower()) ||
+                        d.Sigla.ToLower().Contains(pageParameters.Term.ToLower())));
             } else {
                 query = query
-                    .AsNoTracking()
-                    .OrderBy(d => d.Id)
-                    .Where(d => d.EmpresaId == empresaId && (
-                        d.NomeDepartamento.ToLower().Contains(pageParameters.Term.ToLower()) ||
-                        d.Sigla.ToLower().Contains(pageParameters.Term.ToLower())
-                    ));
+                    .Where(d => d.NomeDepartamento.ToLower().Contains(pageParameters.Term.ToLower()) ||
+                           d.Sigla.ToLower().Contains(pageParameters.Term.ToLower()));
             }
 
             return await PageList<Departamento>.CreatePageAsync(query, pageParameters.PageNumber, pageParameters.PageSize);
@@ -71,8 +72,10 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Departamentos
         {
             IQueryable<Departamento> query = _context.Departamentos
             .Include(d => d.Empresa)
-            .Include(d => d.Cargos);
-
+            .Include(d => d.Cargos)
+            .Include(d => d.Funcionarios)
+                .ThenInclude(d => d.FuncionariosMetas);
+        
             query = query
                 .AsNoTracking()
                 .Where(d => d.Id == departamentoId);

@@ -5,4 +5,6 @@ export const environment = {
   initialPageDefault: 1,
   totalPagesDefault: 50,
   allCompanies: 0,
+  charWidth: 950,
+  chartHeight: 500,
 }

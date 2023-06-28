@@ -49,7 +49,7 @@ public class FuncionariosController : ControllerBase
             if (userLogged == null)
                 return Unauthorized();
 
-            var funcionarios = await _funcionariosServices.GetAllFuncionarios(pageParameters, userLogged.CodEmpresa, userLogged.CodDepartamento, userLogged.CodCargo);
+            var funcionarios = await _funcionariosServices.GetAllFuncionarios(pageParameters, userLogged.CodEmpresa, userLogged.CodDepartamento, userLogged.CodCargo, userLogged.CodFuncionario);
 
             if (funcionarios == null) return NotFound("Nenhum funcionário foi encontrado.");
             
@@ -254,33 +254,55 @@ public class FuncionariosController : ControllerBase
     /// <summary>
     /// Realiza a consulta estatística de funcionários
     /// </summary>
+    /// <param name="empresaId">Identificador de empresa</param>
+    /// <param name="departamentoId">Identificador de departamento</param>
     /// <param name="cargoId">Identificador de cargo</param>
+    /// <param name="funcionarioId">Identificador de funcionario</param>
     /// <response code="200">Dashboard de funcionarios consultado</response>
     /// <response code="400">Parâmetros incorretos</response>
     /// <response code="500">Erro interno</response>
     
-    [HttpGet("{cargoId}/DashboardFuncionarios")]
-    public Task<DashboardFuncionarios> GetDashboardFuncionarios(int cargoId)
+    [HttpGet("{empresaId}/{departamentoId}/{cargoId}/{funcionarioId}/DashboardFuncionarios")]
+    public Task<DashboardFuncionarios> GetDashboardFuncionarios(int empresaId, int departamentoId, int cargoId, int funcionarioId)
     {     
-        var dashboardFuncionarios = _funcionariosServices.GetDashboardFuncionario(0, 0, cargoId);
-
+        var dashboardFuncionarios = _funcionariosServices.GetDashboardFuncionario(empresaId, departamentoId, cargoId, funcionarioId);
         return dashboardFuncionarios;
     }   
 
     /// <summary>
     /// Realiza a consulta estatística de metas por funcionários
     /// </summary>
+    /// <param name="empresaId">Identificador de empresa</param>
+    /// <param name="departamentoId">Identificador de departamento</param>
     /// <param name="cargoId">Identificador de cargo</param>
+    /// <param name="funcionarioId">Identificador de funcionario</param>
     /// <response code="200">Dashboard de funcionarios consultado</response>
     /// <response code="400">Parâmetros incorretos</response>
     /// <response code="500">Erro interno</response>
     
-    [HttpGet("{cargoId}/DashboardFuncionarioMetas")]
-    public Task<List<ListaMetas>> GetDashboardFuncionarioMetas(int cargoId)
+    [HttpGet("{empresaId}/{departamentoId}/{cargoId}/{funcionarioId}/DashboardFuncionarioMetas")]
+    public Task<List<ListaMetas>> GetDashboardFuncionarioMetas(int empresaId, int departamentoId, int cargoId, int funcionarioId)
     {     
-        var listaMetas = _funcionariosServices.GetDashboardFuncionarioMetas(0, 0, cargoId);
+        var listaMetas = _funcionariosServices.GetDashboardFuncionarioMetas(empresaId, departamentoId, cargoId, funcionarioId);
 
         return listaMetas;
-    }     
+    }    
+    /// <summary>
+    /// Realiza a consulta estatística de metas
+    /// </summary>
+    /// <param name="empresaId">Identificador de empresa</param>
+    /// <param name="departamentoId">Identificador de departamento</param>
+    /// <param name="cargoId">Identificador de cargo</param>
+    /// <param name="funcionarioId">Identificador de funcionario</param>
+    /// <response code="200">Dashboard de funcionarios consultado</response>
+    /// <response code="400">Parâmetros incorretos</response>
+    /// <response code="500">Erro interno</response>
+    
+    [HttpGet("{empresaId}/{departamentoId}/{cargoId}/{funcionarioId}/DashboardMetas")]
+    public Task<DashboardFuncionariosMetas> GetDashboardMetas(int empresaId, int departamentoId, int cargoId, int funcionarioId)
+    {     
+        var dashboardMetas = _funcionariosServices.GetDashboardMetas(empresaId, departamentoId, cargoId, funcionarioId);
+        return dashboardMetas;
+    }  
 }
 

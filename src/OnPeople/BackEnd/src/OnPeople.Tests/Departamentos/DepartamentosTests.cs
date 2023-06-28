@@ -48,7 +48,7 @@ public class DepartamentosServicesTests
         var pageParameter = departamentosFixture.ObterPageParametersMock();
 
         departamentosPersistenceMock
-            .Setup(d => d.GetAllDepartamentosAsync(pageParameter, 1, true))
+            .Setup(d => d.GetAllDepartamentosAsync(pageParameter, 1, 0, true))
             .ReturnsAsync(departamentosFixture.ObterDepartamentosMock());
 
 
@@ -84,13 +84,13 @@ public class DepartamentosServicesTests
 
         //Act
 
-        var departamentosConsultados = await _departamentosServices.GetAllDepartamentosAsync(pageParameter, 1, true);
+        var departamentosConsultados = await _departamentosServices.GetAllDepartamentosAsync(pageParameter, 1, 0, true);
 
         //Assert
 
         Assert.True(departamentosConsultados.Count.Equals(2));
         Assert.IsType<PageList<DepartamentoDto>>(departamentosConsultados);
-        departamentosPersistenceMock.Verify(p => p.GetAllDepartamentosAsync(pageParameter, 1, true), Times.Once);
+        departamentosPersistenceMock.Verify(p => p.GetAllDepartamentosAsync(pageParameter, 1, 0, true), Times.Once);
     }
 
     [Fact]
@@ -102,7 +102,7 @@ public class DepartamentosServicesTests
         var pageParameter = departamentosFixture.ObterPageParametersMock();
 
         departamentosPersistenceMock
-            .Setup(d => d.GetAllDepartamentosAsync(pageParameter, 1, true))
+            .Setup(d => d.GetAllDepartamentosAsync(pageParameter, 1, 0, true))
             .ReturnsAsync(departamentosFixture.ObterListaVaziaDeDepartamentosMock());
 
 
@@ -113,12 +113,12 @@ public class DepartamentosServicesTests
 
         //Act
 
-        var departamentosConsultados = await _departamentosServices.GetAllDepartamentosAsync(pageParameter, 1, true);
+        var departamentosConsultados = await _departamentosServices.GetAllDepartamentosAsync(pageParameter, 1, 0, true);
 
         //Assert
 
         Assert.False(departamentosConsultados.Count > 0);
-        departamentosPersistenceMock.Verify(p => p.GetAllDepartamentosAsync(pageParameter, 1, true), Times.Once);
+        departamentosPersistenceMock.Verify(p => p.GetAllDepartamentosAsync(pageParameter, 1, 0, true), Times.Once);
     }
 
     [Fact]
@@ -385,7 +385,7 @@ public class DepartamentosServicesTests
     }
 
     [Fact]
-    [Trait(nameof(IDepartamentosServices.GetDashboard), "Sucesso")]
+    [Trait(nameof(IDepartamentosServices.GetDashboardDepartamento), "Sucesso")]
     public void GetDashboard_DeveRetornarOsDadosDoDashboard_QuandoExistirDadosCadastrados()
     {
         //Arrange

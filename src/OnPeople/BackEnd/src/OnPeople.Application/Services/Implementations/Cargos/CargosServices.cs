@@ -17,18 +17,18 @@ namespace OnPeople.Application.Services.Implementations.Cargos
         private readonly IMapper _mapper;
 
         public CargosServices(
-           ICargosPersistence cargosPersistence, IMapper mapper)
+Persistence.Interfaces.Contracts.Shared.ISharedPersistence @object, ICargosPersistence cargosPersistence, IMapper mapper)
         {
             _cargosPersistence = cargosPersistence;
             _mapper = mapper;
 
         }
 
-        public async Task<PageList<CargoDto>> GetAllCargosAsync(PageParameters pageParameters, int empresaId, int departamentoId)
+        public async Task<PageList<CargoDto>> GetAllCargosAsync(PageParameters pageParameters, int empresaId, int departamentoId, int cargoId)
         {
             try
             {
-                var cargos = await _cargosPersistence.GetAllCargosAsync(pageParameters, empresaId, departamentoId);
+                var cargos = await _cargosPersistence.GetAllCargosAsync(pageParameters, empresaId, departamentoId, cargoId);
 
                 if (cargos == null) return null;
 
@@ -154,14 +154,14 @@ namespace OnPeople.Application.Services.Implementations.Cargos
             }
         }
 
-        public async Task<DashboardCargos> GetDashboardCArgos(int empresaId, int departamentoId)
+        public async Task<DashboardCargos> GetDashboardCArgos(int empresaId, int departamentoId, int cargoId)
         {
             try
             {
                 _pageParameters.PageSize = 1000;
                 _pageParameters.PageNumber = 1;
 
-                var cargos = await _cargosPersistence.GetAllCargosAsync(_pageParameters, empresaId, departamentoId);
+                var cargos = await _cargosPersistence.GetAllCargosAsync(_pageParameters, empresaId, departamentoId, cargoId);
                 
                 if (cargos == null) return null;
                     
@@ -180,14 +180,14 @@ namespace OnPeople.Application.Services.Implementations.Cargos
             }
         }
 
-        public async Task<List<ListaMetas>> GetDashboardCargoMetas(int empresaId, int departamentoId)
+        public async Task<List<ListaMetas>> GetDashboardCargoMetas(int empresaId, int departamentoId, int cargoId)
         {
             try
             {
                 _pageParameters.PageSize = 1000;
                 _pageParameters.PageNumber = 1;
 
-                var cargos = await _cargosPersistence.GetAllCargosAsync(_pageParameters, empresaId, departamentoId);
+                var cargos = await _cargosPersistence.GetAllCargosAsync(_pageParameters, empresaId, departamentoId, cargoId);
 
                 if (cargos == null)
                     return new List<ListaMetas>();

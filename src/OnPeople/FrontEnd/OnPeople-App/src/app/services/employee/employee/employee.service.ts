@@ -4,7 +4,8 @@ import { Observable, map, take } from 'rxjs';
 
 
 import { Funcionario } from 'src/app/models';
-import { DashboardEmployee } from 'src/app/shared/class/dashboard';
+import { DashboardEmployee, DashboardEmployeeGoal } from 'src/app/shared/class/dashboard';
+import { ListaMetas } from 'src/app/shared/class/dashboard/ListaMetas';
 
 import { PaginatedResult } from 'src/app/shared/class/paginator';
 
@@ -82,8 +83,18 @@ export class EmployeeService {
       .pipe(take(3));
   }
 
-  public countEmployee(jobRoleId: number): Observable<DashboardEmployee> {
-    return this.http.get<DashboardEmployee>(`${this.baseURL}${jobRoleId}/Dashboard`)
+  public getDashEmployee(companyId: number, departmentId: number, jobRoleId: number, employeeId: number): Observable<DashboardEmployee> {
+    return this.http.get<DashboardEmployee>(`${this.baseURL}${companyId}/${departmentId}/${jobRoleId}/${employeeId}/DashboardFuncionarios`)
+    .pipe(take(3));
+  }
+
+  public getDashEmployeeGoals(companyId: number, departmentId: number, jobRoleId: number, employeeId: number): Observable<ListaMetas[]> {
+    return this.http.get<ListaMetas[]>(`${this.baseURL}${companyId}/${departmentId}/${jobRoleId}/${employeeId}/DashboardFuncionarioMetas`)
+    .pipe(take(3));
+  }
+
+  public getDashGoal(companyId: number, departmentId: number, jobRoleId: number, employeeId: number): Observable<DashboardEmployeeGoal> {
+    return this.http.get<DashboardEmployeeGoal>(`${this.baseURL}${companyId}/${departmentId}/${jobRoleId}/${employeeId}/DashboardMetas`)
     .pipe(take(3));
   }
 }

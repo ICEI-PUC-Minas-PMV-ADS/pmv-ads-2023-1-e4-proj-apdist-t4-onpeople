@@ -9,18 +9,26 @@
     <div class="h3">Global Dashboard</div>
   </div>
   <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" >
-    <mat-tab label="Departamento" >
-      <app-dashDepartment> </app-dashDepartment>
-      <router-outlet></router-outlet>
-    </mat-tab>
     <mat-tab label="Global">
       <app-dashGlobal> </app-dashGlobal>
       <router-outlet></router-outlet>
     </mat-tab>
     <mat-tab label="Empresa" >
-     <app-dashCompany> </app-dashCompany>
-     <router-outlet></router-outlet>
-   </mat-tab>
+      <app-dashCompany> </app-dashCompany>
+      <router-outlet></router-outlet>
+    </mat-tab>
+    <mat-tab label="Departamento" >
+      <app-dashDepartment> </app-dashDepartment>
+      <router-outlet></router-outlet>
+    </mat-tab>
+    <mat-tab label="Cargos" >
+      <app-dashJobRole> </app-dashJobRole>
+      <router-outlet></router-outlet>
+    </mat-tab>
+    <mat-tab label="Funcionários" >
+      <app-dashEmployee> </app-dashEmployee>
+      <router-outlet></router-outlet>
+    </mat-tab>
   </mat-tab-group>
 </div>
 <router-outlet></router-outlet>

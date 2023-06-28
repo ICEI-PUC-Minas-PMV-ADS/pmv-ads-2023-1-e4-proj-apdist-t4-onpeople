@@ -14,6 +14,8 @@ import { DashCompanyComponent, DashGlobalComponent, DashboardComponent } from 's
 import { SpinnerModule } from '../spinner';
 import { GoogleChartsModule } from 'angular-google-charts';
 import { DashDepartmentComponent } from 'src/app/components/dashboard/dashDepartment';
+import { DashJobRoleComponent } from 'src/app/components/dashboard/dashJobRole/dashJobRole.component';
+import { DashEmployeeComponent } from 'src/app/components/dashboard/dashEmployee/dashEmployee.component';
 
 
 
@@ -36,12 +38,16 @@ declarations: [
   DashboardComponent,
   DashCompanyComponent,
   DashDepartmentComponent,
+  DashEmployeeComponent,
+  DashJobRoleComponent,
   DashGlobalComponent,
 ],
 exports: [
   DashboardComponent,
   DashCompanyComponent,
   DashDepartmentComponent,
+  DashEmployeeComponent,
+  DashJobRoleComponent,
   DashGlobalComponent,
 ],
   providers: [

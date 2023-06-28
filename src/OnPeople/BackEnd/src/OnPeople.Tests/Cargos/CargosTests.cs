@@ -44,7 +44,7 @@ public class CargosServicesTests
         var pageParameter = cargosFixture.ObterPageParametersMock();     
 
         cargosPersistenceMock
-            .Setup(d => d.GetAllCargosAsync(pageParameter, 0, 0))
+            .Setup(d => d.GetAllCargosAsync(pageParameter, 0, 0, 0))
             .ReturnsAsync(cargosFixture.ObterCargosMock());
 
 
@@ -76,13 +76,13 @@ public class CargosServicesTests
 
         //Act
 
-        var cargosConsultados = await _cargosServices.GetAllCargosAsync(pageParameter, 0, 0);
+        var cargosConsultados = await _cargosServices.GetAllCargosAsync(pageParameter, 0, 0, 0);
 
         //Assert
 
         Assert.True(cargosConsultados.Count.Equals(2));
         Assert.IsType<PageList<CargoDto>>(cargosConsultados);
-        cargosPersistenceMock.Verify(p => p.GetAllCargosAsync(pageParameter, 0, 0), Times.Once);
+        cargosPersistenceMock.Verify(p => p.GetAllCargosAsync(pageParameter, 0, 0, 0), Times.Once);
     }
 
     [Fact]
@@ -93,7 +93,7 @@ public class CargosServicesTests
         var pageParameter = cargosFixture.ObterPageParametersMock();     
 
         cargosPersistenceMock
-            .Setup(d => d.GetAllCargosAsync(pageParameter, 0, 0))
+            .Setup(d => d.GetAllCargosAsync(pageParameter, 0, 0, 0))
             .ReturnsAsync(cargosFixture.ObterListaVaziaDeCargosMock());
 
 
@@ -104,12 +104,12 @@ public class CargosServicesTests
 
         //Act
 
-        var cargosConsultados = await _cargosServices.GetAllCargosAsync(pageParameter, 0, 0);
+        var cargosConsultados = await _cargosServices.GetAllCargosAsync(pageParameter, 0, 0, 0);
 
         //Assert
 
         Assert.False(cargosConsultados.Count > 0);
-        cargosPersistenceMock.Verify(p => p.GetAllCargosAsync(pageParameter, 0, 0), Times.Once);
+        cargosPersistenceMock.Verify(p => p.GetAllCargosAsync(pageParameter, 0, 0, 0), Times.Once);
     }
 
     [Fact]

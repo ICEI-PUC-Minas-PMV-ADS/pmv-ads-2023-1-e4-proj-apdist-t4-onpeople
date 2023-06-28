@@ -19,7 +19,7 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Cargos
             _context = context;
 
         }
-        public async Task<PageList<Cargo>> GetAllCargosAsync(PageParameters pageParameters, int empresaId, int departamentoId)
+        public async Task<PageList<Cargo>> GetAllCargosAsync(PageParameters pageParameters, int empresaId, int departamentoId, int cargoId)
         {
             IQueryable<Cargo> query = _context.Cargos
                 .Include(c => c.Empresa)
@@ -29,19 +29,25 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Cargos
                 .AsNoTracking()
                 .OrderBy(c => c.Id);
 
-            if (empresaId == 0) {
+            if (empresaId != 0 && departamentoId != 0 && cargoId != 0)
                 query = query
-                    .Where(c => c.NomeCargo.ToLower().Contains(pageParameters.Term.ToLower()));
-            } else if (departamentoId == 0) {
+                    .Where(c => c.EmpresaId == empresaId && c.DepartamentoId == departamentoId && c.Id == cargoId &&
+                        c.NomeCargo.ToLower().Contains(pageParameters.Term.ToLower()));
+            else if (cargoId != 0) 
+                query = query
+                    .Where(c => c.Id == cargoId &&
+                        c.NomeCargo.ToLower().Contains(pageParameters.Term.ToLower()));
+            else if (departamentoId != 0)
+                query = query
+                    .Where(c => c.DepartamentoId == departamentoId &&
+                        c.NomeCargo.ToLower().Contains(pageParameters.Term.ToLower()));
+            else if (empresaId != 0)
                 query = query
                     .Where(c => c.EmpresaId == empresaId &&
                         c.NomeCargo.ToLower().Contains(pageParameters.Term.ToLower()));
-            } else {
+            else
                 query = query
-                    .Where(c => c.EmpresaId == empresaId && c.DepartamentoId == departamentoId &&
-                        c.NomeCargo.ToLower().Contains(pageParameters.Term.ToLower()));
-            }
-            
+                    .Where(c => c.NomeCargo.ToLower().Contains(pageParameters.Term.ToLower()));
 
             return await PageList<Cargo>.CreatePageAsync(query, pageParameters.PageNumber, pageParameters.PageSize);
         }

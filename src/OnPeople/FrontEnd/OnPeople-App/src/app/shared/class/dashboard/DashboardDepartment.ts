@@ -1,9 +1,9 @@
 import { ListaMetas } from "./ListaMetas";
 
-export class DashboardDepartment {
+export interface DashboardDepartment {
   countDepartamentos: number;
   countDepartamentosAtivos: number;
-  percentualDepartamentosAtvios: number;
+  percentualDepartamentosAtivos: number;
   listaNomeDepartamento: string[];
   listaQtdeCargos: number[];
   listaMetas: ListaMetas[];

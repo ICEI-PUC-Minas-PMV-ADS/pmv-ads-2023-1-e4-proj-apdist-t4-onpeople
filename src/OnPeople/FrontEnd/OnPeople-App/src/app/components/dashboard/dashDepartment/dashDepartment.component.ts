@@ -5,6 +5,7 @@ import { DepartmentService } from 'src/app/services';
 import { DashboardDepartment, QuantitativeDash } from 'src/app/shared/class/dashboard';
 
 import { ListaMetas } from 'src/app/shared/class/dashboard/ListaMetas';
+import { environment } from 'src/assets/environments';
 
 @Component({
   selector: 'app-dashDepartment',
@@ -27,8 +28,9 @@ export class DashDepartmentComponent implements OnInit {
   public typeColumnChart = "PieChart" as ChartType;
   public columnNamesChart = ['Empresa', "Departamentos", { role: "annotation" }]
   public options = {     pieHole:0.4};
-  public width = 1250;
-  public height = 800;
+  public width = environment.charWidth;
+  public height = environment.chartHeight;
+
 
   public chartData: any[] = [];
 
@@ -45,11 +47,10 @@ export class DashDepartmentComponent implements OnInit {
     this.spinnerShow = true;
 
     this.departmentService
-      .getDashDepartment(0)
+      .getDashDepartment(0, 0)
       .subscribe(
         (dashDepartment: DashboardDepartment) => {
           this.dashDepartment = dashDepartment
-          console.log("== dashDepartment == ", this.dashDepartment)
           this.montarChart();
           this.loadDashMetas();
         },
@@ -62,21 +63,20 @@ export class DashDepartmentComponent implements OnInit {
   }
 
   public montarChart(): void {
-    this.dashDepartment.listaNomeDepartamento.forEach((item , i) =>
-      this.chartData.push([item, this.dashDepartment.listaQtdeCargos[i]]))
+    this.dashDepartment.listaNomeDepartamento.forEach((item , i) => {
+      this.chartData.push([item, this.dashDepartment.listaQtdeCargos[i]])
+    })
 
-    console.log("ListaEmpresas", this.chartData)
   }
 
   public loadDashMetas(): void {
     this.spinnerShow = true;
 
     this.departmentService
-      .getDashDepartmentGoals(0)
+      .getDashDepartmentGoals(0, 0)
       .subscribe(
         (dashGoals: ListaMetas[]) => {
           this.dashGoals = dashGoals
-          console.log("dashGoals", this.dashGoals)
           this.goalsByDepartment();
         },
         (error: any) => {
@@ -94,8 +94,6 @@ export class DashDepartmentComponent implements OnInit {
     var sortListGoalsNotPerform: QuantitativeDash[] = [];
 
     this.getColors();
-
-    console.log("Quantidade de Metas", this.colors)
 
     for (var i in this.dashGoals) {
       listGoalsPerform[i] = new QuantitativeDash(
@@ -124,7 +122,6 @@ export class DashDepartmentComponent implements OnInit {
     sortListGoalsNotPerform = listGoalsNotPerform.sort((a, b) => (a.qtde > b.qtde) ? -1 : 1);
 
     this.goalsNotPerform = sortListGoalsNotPerform.filter((em, index) => index < 5)
-      console.log("metasNaoCumpridasTop5", this.goalsNotPerform)
   }
 
   public generateColor() {

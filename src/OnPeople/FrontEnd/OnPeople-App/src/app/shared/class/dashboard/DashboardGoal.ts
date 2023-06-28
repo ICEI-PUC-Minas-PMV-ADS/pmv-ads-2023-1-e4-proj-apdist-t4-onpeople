@@ -1,5 +1,5 @@
-export class DashboardGoal {
+export interface DashboardGoal {
   countMetas: number;
-  countMetasAprovadas: number;
   countMetasCumpridas: number;
+  PercentualMetasCumpridas: number;
 }

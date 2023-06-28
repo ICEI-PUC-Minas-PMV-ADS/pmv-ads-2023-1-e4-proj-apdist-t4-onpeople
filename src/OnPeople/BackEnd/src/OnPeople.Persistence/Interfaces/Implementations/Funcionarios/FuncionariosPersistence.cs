@@ -17,7 +17,7 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Funcionarios
             _context = context;
         }
 
-        public async Task<PageList<Funcionario>> GetAllFuncionariosAsync(PageParameters pageParameters, int empresaId, int departamentoId, int cargoId)
+        public async Task<PageList<Funcionario>> GetAllFuncionariosAsync(PageParameters pageParameters, int empresaId, int departamentoId, int cargoId, int funcionarioId)
         {
             IQueryable<Funcionario> query = _context.Funcionarios
                 .Include(f => f.Empresa)
@@ -29,18 +29,30 @@ namespace OnPeople.Persistence.Interfaces.Implementations.Funcionarios
                 .Include(f => f.Users)
                 .AsNoTracking();
 
-            if (empresaId == 0) {
+            if (empresaId != 0 && departamentoId != 0 && cargoId != 0 && funcionarioId != 0)
                 query = query
-                    .Where(f => f.Users.NomeCompleto.ToLower().Contains(pageParameters.Term.ToLower()));
-            } else if (departamentoId == 0) {
+                    .Where(f => f.EmpresaId == empresaId && f.DepartamentoId == departamentoId && f.CargoId == cargoId && f.Id == funcionarioId &&
+                        f.Users.NomeCompleto.ToLower().Contains(pageParameters.Term.ToLower()));
+            else if (funcionarioId != 0)
+                query = query
+                    .Where(f => f.Id == funcionarioId &&
+                        f.Users.NomeCompleto.ToLower().Contains(pageParameters.Term.ToLower()));
+            else if(cargoId != 0)                
+                query = query
+                    .Where(f => f.CargoId == cargoId &&
+                        f.Users.NomeCompleto.ToLower().Contains(pageParameters.Term.ToLower()));
+            else if(departamentoId != 0)
+                query = query
+                    .Where(f => f.DepartamentoId == departamentoId &&
+                        f.Users.NomeCompleto.ToLower().Contains(pageParameters.Term.ToLower()));
+            else if(empresaId != 0)
                 query = query
                     .Where(f => f.EmpresaId == empresaId &&
-                       f.Users.NomeCompleto.ToLower().Contains(pageParameters.Term.ToLower()));
-            } else {
-                query = query
-                    .Where(f => f.EmpresaId == empresaId && f.DepartamentoId == departamentoId &&
                         f.Users.NomeCompleto.ToLower().Contains(pageParameters.Term.ToLower()));
-            }
+            else    
+                query = query
+                    .Where(f => f.Users.NomeCompleto.ToLower().Contains(pageParameters.Term.ToLower()));
+
             return await PageList<Funcionario>.CreatePageAsync(query, pageParameters.PageNumber, pageParameters.PageSize);
         }
 

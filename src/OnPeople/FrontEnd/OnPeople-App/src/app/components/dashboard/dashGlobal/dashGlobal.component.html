@@ -266,6 +266,72 @@
           <div class="d-flex flex-column p-2 m-0">
 
             <mat-form-field class="bg-white " appearance="outline">
+              <mat-label class="text-info">Metas Funcionário</mat-label>
+              <mat-select [(ngModel)]="selectAssociatedGoalId" (selectionChange)="changeSelectEmployeeGoal()"
+                placeholder="Selecione uma meta">
+                <mat-option [value]="0">Todas</mat-option>
+                <mat-option *ngFor="let employeeGoal of employeeGoals" [value]="employeeGoal.metaId">{{employeeGoal.meta.nomeMeta}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <div class="card border-left-13 shadow h-100 py-2 ">
+              <div class="card-body">
+                <div class="row align-items-center">
+                  <div class="col mr-2 ">
+                    <div class="text-xs text-uppercase mb-1 text-color-13">
+                      Metas Associadas
+                    </div>
+                    <div class="h5 mb-0 text-color-13">
+                      {{totAssociateGoal}}
+                    </div>
+                  </div>
+                  <div class="col-auto text-color-13 p-2">
+                    <mat-icon class="iconDash  p-0 me-3">adjust</mat-icon>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card border-left-14 shadow h-100 py-2 mt-5">
+              <div class="card-body">
+                <div class="row align-items-center">
+                  <div class="col mr-2 ">
+                    <div class="text-xs text-uppercase mb-1 text-color-14">
+                      Metas Cumpridas
+                    </div>
+                    <div class="col mr-2 d-flex">
+                      <div class="h5 mb-0 text-color-14">
+                        {{totMetAssociateGoal}}
+                      </div>
+                      <div class="h7 mb-0 text-color-13 ms-2">
+                        {{totPercMetAssociateGoal}}%
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-auto p-2 text-color-14">
+                    <mat-icon class="iconDash p-0 me-3">done_outline</mat-icon>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          cold3
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!--
+
+        <div class="col p-0 m-0">
+          <div class="d-flex flex-column p-2 m-0">
+
+            <mat-form-field class="bg-white " appearance="outline">
               <mat-label class="text-info">Metas Empresa</mat-label>
               <mat-select [(ngModel)]="selectGoalId" (selectionChange)="changeSelectGoal()"
                 placeholder="Selecione uma Meta">
@@ -341,73 +407,6 @@
 
           </div>
         </div>
-        <div class="col p-0 m-0">
-          <div class="d-flex flex-column p-2 m-0">
-
-            <mat-form-field class="bg-white " appearance="outline">
-              <mat-label class="text-info">Metas Funcionário</mat-label>
-              <mat-select [(ngModel)]="selectAssociatedGoalId" (selectionChange)="changeSelectEmployeeGoal()"
-                placeholder="Selecione uma meta">
-                <mat-option [value]="0">Todas</mat-option>
-                <mat-option *ngFor="let employeeGoal of employeeGoals" [value]="employeeGoal.metaId">{{employeeGoal.meta.nomeMeta}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-
-            <div class="card border-left-13 shadow h-100 py-2 ">
-              <div class="card-body">
-                <div class="row align-items-center">
-                  <div class="col mr-2 ">
-                    <div class="text-xs text-uppercase mb-1 text-color-13">
-                      Metas Associadas
-                    </div>
-                    <div class="h5 mb-0 text-color-13">
-                      {{totAssociateGoal}}
-                    </div>
-                  </div>
-                  <div class="col-auto text-color-13 p-2">
-                    <mat-icon class="iconDash  p-0 me-3">adjust</mat-icon>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="card border-left-14 shadow h-100 py-2 mt-5">
-              <div class="card-body">
-                <div class="row align-items-center">
-                  <div class="col mr-2 ">
-                    <div class="text-xs text-uppercase mb-1 text-color-14">
-                      Metas Cumpridas
-                    </div>
-                    <div class="col mr-2 d-flex">
-                      <div class="h5 mb-0 text-color-14">
-                        {{totMetAssociateGoal}}
-                      </div>
-                      <div class="h7 mb-0 text-color-13 ms-2">
-                        {{totPercMetAssociateGoal}}%
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-auto p-2 text-color-14">
-                    <mat-icon class="iconDash p-0 me-3">done_outline</mat-icon>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-          cold3
-        </div>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-
-<!--
-
-
 
   !-- Content Row --
   <div class="row">

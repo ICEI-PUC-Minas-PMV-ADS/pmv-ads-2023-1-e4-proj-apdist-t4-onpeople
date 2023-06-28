@@ -1,21 +1,20 @@
-import { Component, OnInit, ViewChild  } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ChartType } from 'angular-google-charts';
 import { ToastrService } from 'ngx-toastr';
-import { CompanyService } from 'src/app/services';
-import { DashboardCompany, QuantitativeDash } from 'src/app/shared/class/dashboard';
-
+import { EmployeeService } from 'src/app/services';
+import { DashboardEmployee, QuantitativeDash } from 'src/app/shared/class/dashboard';
 import { ListaMetas } from 'src/app/shared/class/dashboard/ListaMetas';
 import { environment } from 'src/assets/environments';
 
 @Component({
-  selector: 'app-dashCompany',
-  templateUrl: './dashCompany.component.html',
-  styleUrls: ['./dashCompany.component.scss']
+  selector: 'app-dashEmployee',
+  templateUrl: './dashEmployee.component.html',
+  styleUrls: ['./dashEmployee.component.scss']
 })
-export class DashCompanyComponent implements OnInit {
+export class DashEmployeeComponent implements OnInit {
   public spinnerShow: boolean = false;
 
-  public dashCompany: DashboardCompany;
+  public dashEmployee: DashboardEmployee;
 
   public dashGoals: ListaMetas[] = []
 
@@ -24,37 +23,33 @@ export class DashCompanyComponent implements OnInit {
 
   public colors: string[] = [];
 
-  public barChartOptions = {
-    responsive: true,
-    scaleShowVerticalLines: false
-  }
-
   public titleColumnChart = "Quantidade de departamentos por empresa";
   public typeColumnChart = "PieChart" as ChartType;
   public columnNamesChart = ['Empresa', "Departamentos", { role: "annotation" }]
-  public options = {pieHole:0.4};
+  public options = {     pieHole:0.4};
   public width = environment.charWidth;
   public height = environment.chartHeight;
+
 
   public chartData: any[] = [];
 
   constructor(
-    private companyService: CompanyService,
+    private employeeService: EmployeeService,
     private toastrService: ToastrService,
   ) { }
 
   ngOnInit() {
-    this.loadDashboardCompany();
+    this.loadDashboardEmployee();
   }
 
-  public loadDashboardCompany(): void {
+  public loadDashboardEmployee(): void {
     this.spinnerShow = true;
 
-    this.companyService
-      .getDashCompany(0)
+    this.employeeService
+      .getDashEmployee(0, 0, 0, 0)
       .subscribe(
-        (dashCompany: DashboardCompany) => {
-          this.dashCompany = dashCompany
+        (dashEmployee: DashboardEmployee) => {
+          this.dashEmployee = dashEmployee
           this.montarChart();
           this.loadDashMetas();
         },
@@ -67,8 +62,8 @@ export class DashCompanyComponent implements OnInit {
   }
 
   public montarChart(): void {
-    this.dashCompany.listaNomeEmpresa.forEach((item , i) => {
-      this.chartData.push([item, this.dashCompany.listaQtdeDepartamentos[i]])
+    this.dashEmployee.listaNomeFuncionario.forEach((item , i) => {
+      this.chartData.push([item, this.dashEmployee.listaQtdeMetas[i]])
     })
 
   }
@@ -76,12 +71,12 @@ export class DashCompanyComponent implements OnInit {
   public loadDashMetas(): void {
     this.spinnerShow = true;
 
-    this.companyService
-      .getDashGoals(0)
+    this.employeeService
+      .getDashEmployeeGoals(0, 0, 0, 0)
       .subscribe(
         (dashGoals: ListaMetas[]) => {
           this.dashGoals = dashGoals
-          this.goalsByCompany();
+          this.goalsByDepartment();
         },
         (error: any) => {
           this.toastrService.error(error.error, `Erro! Status ${error.status}`);
@@ -91,7 +86,7 @@ export class DashCompanyComponent implements OnInit {
       .add(() => this.spinnerShow = false)
   }
 
-  public goalsByCompany(): void {
+  public goalsByDepartment(): void {
     var listGoalsPerform: QuantitativeDash[] = [];
     var listGoalsNotPerform: QuantitativeDash[] = [];
     var sortListGoalsPerform: QuantitativeDash[] = [];
@@ -126,6 +121,7 @@ export class DashCompanyComponent implements OnInit {
     sortListGoalsNotPerform = listGoalsNotPerform.sort((a, b) => (a.qtde > b.qtde) ? -1 : 1);
 
     this.goalsNotPerform = sortListGoalsNotPerform.filter((em, index) => index < 5)
+
   }
 
   public generateColor() {
@@ -146,5 +142,3 @@ export class DashCompanyComponent implements OnInit {
     }
   }
 }
-
-

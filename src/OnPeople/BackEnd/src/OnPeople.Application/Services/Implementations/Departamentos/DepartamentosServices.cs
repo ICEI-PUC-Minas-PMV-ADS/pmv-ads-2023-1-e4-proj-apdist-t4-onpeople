@@ -18,18 +18,18 @@ namespace OnPeople.Application.Services.Implementations.Departamentos
         private readonly IMapper _mapper;
 
         public DepartamentosServices(
-           IDepartamentosPersistence departamentosPersistence, IMapper mapper)
+Persistence.Interfaces.Contracts.Shared.ISharedPersistence @object, IDepartamentosPersistence departamentosPersistence, IMapper mapper)
         {
             _departamentosPersistence = departamentosPersistence;
             _mapper = mapper;
 
         }
 
-        public async Task<PageList<DepartamentoDto>> GetAllDepartamentosAsync(PageParameters pageParameters, int empresaId, bool Master)
+        public async Task<PageList<DepartamentoDto>> GetAllDepartamentosAsync(PageParameters pageParameters, int empresa, int departamentoId, bool Master)
         {
             try
             {
-                var departamentos = await _departamentosPersistence.GetAllDepartamentosAsync(pageParameters, empresaId, Master);
+                var departamentos = await _departamentosPersistence.GetAllDepartamentosAsync(pageParameters, empresa, departamentoId, Master);
 
                 if (departamentos == null) return null;
 
@@ -156,20 +156,20 @@ namespace OnPeople.Application.Services.Implementations.Departamentos
             }
         }
 
-        public async Task<DashboardDepartamento> GetDashboardDepartamento(int empresaId, Boolean master)
+        public async Task<DashboardDepartamento> GetDashboardDepartamento(int empresaId, int departamentoId, Boolean master)
         {
             try
             {
                 _pageParameters.PageSize = 1000;
                 _pageParameters.PageNumber = 1;
 
-                var departamentos = await _departamentosPersistence.GetAllDepartamentosAsync(_pageParameters, empresaId, master);
+                var departamentos = await _departamentosPersistence.GetAllDepartamentosAsync(_pageParameters, empresaId, departamentoId, master);
                 
                 if (departamentos == null) return null;
                     
                 _dashDepartamento.CountDepartamentos = departamentos.Count();
                 _dashDepartamento.CountDepartamentosAtivos  = departamentos.Count(e => e.Ativo);
-                _dashDepartamento.ListaNomeDepartamentos = departamentos.Select(e => e.NomeDepartamento);
+                _dashDepartamento.ListaNomeDepartamento = departamentos.Select(e => e.NomeDepartamento);
                 _dashDepartamento.ListaQtdeCargos = departamentos.Select(e => e.Cargos.Count());
 
                 _dashDepartamento.PercentualDepartamentosAtivos =  100.00 * ((double)_dashDepartamento.CountDepartamentosAtivos)  / ((double)_dashDepartamento.CountDepartamentos);
@@ -182,13 +182,13 @@ namespace OnPeople.Application.Services.Implementations.Departamentos
             }
         }
 
-        public async Task<List<ListaMetas>> GetDashboardDepartamentoMetas(int empresaId, bool master)
+        public async Task<List<ListaMetas>> GetDashboardDepartamentoMetas(int empresaId, int departamentoId, bool master)
         {
             try
             {
                 _pageParameters.PageSize = 1000;
                 _pageParameters.PageNumber = 1;
-                var departamentos = await _departamentosPersistence.GetAllDepartamentosAsync(_pageParameters, empresaId, master);
+                var departamentos = await _departamentosPersistence.GetAllDepartamentosAsync(_pageParameters, empresaId, departamentoId, master);
 
                 if (departamentos == null)
                     return new List<ListaMetas>();

@@ -73,13 +73,13 @@ export class DepartmentService {
     .pipe(take(3));
   }
 
-  public getDashDepartment(companyId: number): Observable<DashboardDepartment> {
-    return this.http.get<DashboardDepartment>(`${this.baseURL}${companyId}/DashboardDepartamentos`)
+  public getDashDepartment(empresaId: number, departamentoId: number): Observable<DashboardDepartment> {
+    return this.http.get<DashboardDepartment>(`${this.baseURL}${empresaId}/${departamentoId}/DashboardDepartamentos`)
     .pipe(take(3));
   }
 
-  public getDashDepartmentGoals(companyId: number): Observable<ListaMetas[]> {
-    return this.http.get<ListaMetas[]>(`${this.baseURL}${companyId}/DashboardDepartamentoMetas`)
+  public getDashDepartmentGoals(empresaId: number, departamentoId: number): Observable<ListaMetas[]> {
+    return this.http.get<ListaMetas[]>(`${this.baseURL}${empresaId}/${departamentoId}/DashboardDepartamentoMetas`)
     .pipe(take(3));
   }
 

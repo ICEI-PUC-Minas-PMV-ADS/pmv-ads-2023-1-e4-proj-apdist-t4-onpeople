@@ -9,7 +9,7 @@ namespace OnPeople.Persistence.Interfaces.Contracts.Departamentos
     public interface IDepartamentosPersistence : ISharedPersistence
     {
         Task<Departamento> GetDepartamentoByIdAsync(int departamentoId);
-        Task<PageList<Departamento>> GetAllDepartamentosAsync(PageParameters pageParameters, int empresaId, bool Master);
+        Task<PageList<Departamento>> GetAllDepartamentosAsync(PageParameters pageParameters, int empresaId, int departamentoId, bool Master);
         Task<IEnumerable<Departamento>> GetAllDepartamentosByEmpresaIdAsync(int empresaId);
     }
 }

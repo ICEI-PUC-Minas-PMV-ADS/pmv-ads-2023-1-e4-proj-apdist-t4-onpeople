@@ -8,13 +8,13 @@ namespace OnPeople.Application.Services.Contracts.Departamentos
 {
     public interface IDepartamentosServices
     {
-        Task<PageList<DepartamentoDto>> GetAllDepartamentosAsync(PageParameters pageParameters, int empresaId, bool Master);
+        Task<PageList<DepartamentoDto>> GetAllDepartamentosAsync(PageParameters pageParameters, int empresaId, int departamentoId, bool Master);
         Task<IEnumerable<DepartamentoDto>> GetAllDepartamentosByEmpresaIdAsync(int empresaId);
         Task<DepartamentoDto> GetDepartamentoByIdAsync(int departamentoId);
         Task<DepartamentoDto> CreateDepartamentos(DepartamentoDto departamentoDto);
         Task<DepartamentoDto> UpdateDepartamento(int departamentoId, DepartamentoDto departamentoDto);
         Task<bool> DeleteDepartamento(int departamentoId);
-        Task<DashboardDepartamento> GetDashboardDepartamento(int empresaId, Boolean master);
-        Task<List<ListaMetas>> GetDashboardDepartamentoMetas(int empresaId, bool master);
+        Task<DashboardDepartamento> GetDashboardDepartamento(int empresaId, int departamentoId, Boolean master);
+        Task<List<ListaMetas>> GetDashboardDepartamentoMetas(int empresaId, int departamentoId, bool master);
     }
 }

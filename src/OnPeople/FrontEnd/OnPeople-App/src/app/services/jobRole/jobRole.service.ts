@@ -10,6 +10,8 @@ import { DashboardJobRole } from 'src/app/shared/class/dashboard';
 
 import { PaginatedResult } from 'src/app/shared/class/paginator';
 
+import { ListaMetas } from 'src/app/shared/class/dashboard/ListaMetas';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -73,9 +75,13 @@ constructor(private http: HttpClient) { }
     .pipe(take(3));
   }
 
-  public CountJobRole(departmentId: number): Observable<DashboardJobRole> {
-    return this.http.get<DashboardJobRole>(`${this.baseURL}${departmentId}/Dashboard`)
+  public getDashJobRole(empresaId: number, departmentId: number, cargoId: number): Observable<DashboardJobRole> {
+    return this.http.get<DashboardJobRole>(`${this.baseURL}${empresaId}/${departmentId}/${cargoId}/DashboardCargos`)
     .pipe(take(3));
   }
 
+  public getDashJobRoleGoals(empresaId: number, departmentId: number, cargoId: number): Observable<ListaMetas[]> {
+    return this.http.get<ListaMetas[]>(`${this.baseURL}${empresaId}/${departmentId}/${cargoId}/DashboardCargoMetas`)
+    .pipe(take(3));
+  }
 }
